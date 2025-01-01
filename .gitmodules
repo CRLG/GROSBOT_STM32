@@ -1,3 +1,6 @@
 [submodule "Soft_STM32/ext/libElectrobotH755"]
 	path = Soft_STM32/ext/libElectrobotH755
 	url = https://github.com/CRLG/libElectrobotH755
+[submodule "Soft_STM32/ext/CppRobLib"]
+	path = Soft_STM32/ext/CppRobLib
+	url = https://github.com/CRLG/CppRobLib
