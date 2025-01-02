@@ -1,0 +1,8 @@
+.
+./Includes
+../ext/libElectrobotH755/CM7/Core/Inc
+../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc
+../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
+../ext/libElectrobotH755/Drivers/CMSIS/Device/ST/STM32H7xx/Include
+../ext/libElectrobotH755/Drivers/CMSIS/Include
+
