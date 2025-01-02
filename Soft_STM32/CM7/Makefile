@@ -32,36 +32,60 @@ OPT = -Og
 BUILD_DIR = build
 
 ######################################
+# ext libs path
+######################################
+LIB_STM32 = ../ext/libElectrobotH755
+
+######################################
 # source
 ######################################
+# CPP sources
+CXX_SOURCES =  \
+Sources/main_app.cpp \
+Sources/CGlobale.cpp \
+Sources/CGlobale_ModeAutonome.cpp \
+Sources/CGlobale_ModePiloteLaBotBox.cpp \
+Sources/CGlobale_ModePiloteTerminal.cpp \
+Sources/RessourcesHardware.cpp \
+
 # C sources
 C_SOURCES =  \
-../../CM7/Core/Src/main.c \
-../../CM7/Core/Src/stm32h7xx_it.c \
-../../CM7/Core/Src/stm32h7xx_hal_msp.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c \
-../../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c \
-../../Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c  
+$(LIB_STM32)/CM7/Core/Src/main.c \
+$(LIB_STM32)/CM7/Core/Src/retarget.c \
+$(LIB_STM32)/CM7/Core/Src/syscalls.c \
+$(LIB_STM32)/CM7/Core/Src/sysmem.c \
+$(LIB_STM32)/CM7/Core/Src/stm32h7xx_it.c \
+$(LIB_STM32)/CM7/Core/Src/stm32h7xx_hal_msp.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c \
+$(LIB_STM32)/Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c  
 
 # ASM sources
 ASM_SOURCES =  \
-startup_stm32h755xx_CM7.s
+$(LIB_STM32)/CM7/Core/Startup/startup_stm32h755zitx.s
 
 
 #######################################
@@ -72,11 +96,13 @@ PREFIX = arm-none-eabi-
 # either it can be added to the PATH environment variable.
 ifdef GCC_PATH
 CC = $(GCC_PATH)/$(PREFIX)gcc
+CXX = $(GCC_PATH)/$(PREFIX)g++
 AS = $(GCC_PATH)/$(PREFIX)gcc -x assembler-with-cpp
 CP = $(GCC_PATH)/$(PREFIX)objcopy
 SZ = $(GCC_PATH)/$(PREFIX)size
 else
 CC = $(PREFIX)gcc
+CXX = $(PREFIX)g++
 AS = $(PREFIX)gcc -x assembler-with-cpp
 CP = $(PREFIX)objcopy
 SZ = $(PREFIX)size
@@ -115,11 +141,13 @@ AS_INCLUDES =
 
 # C includes
 C_INCLUDES =  \
--I../../CM7/Core/Inc \
--I../../Drivers/STM32H7xx_HAL_Driver/Inc \
--I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy \
--I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include \
--I../../Drivers/CMSIS/Include
+-IIncludes \
+-I$(LIB_STM32)/Includes \
+-I$(LIB_STM32)/CM7/Core/Inc \
+-I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc \
+-I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy \
+-I$(LIB_STM32)/Drivers/CMSIS/Device/ST/STM32H7xx/Include \
+-I$(LIB_STM32)/Drivers/CMSIS/Include
 
 
 # compile gcc flags
@@ -127,29 +155,35 @@ ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffuncti
 
 CFLAGS += $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
+CXXFLAGS += $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
+CXXFLAGS += -g -gdwarf-2
 endif
 
 
 # Generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
-
+CXXFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
 #######################################
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = stm32h755xx_flash_CM7.ld
+LDSCRIPT = $(LIB_STM32)/CM7/STM32H755ZITX_FLASH.ld
 
 # libraries
-LIBS = -lc -lm -lnosys 
+LIBS = -lc -lm -lnosys -lstdc++
 LIBDIR = 
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
+install: $(BUILD_DIR)/$(TARGET).bin
+	st-flash write $(BUILD_DIR)/$(TARGET).bin 0x8000000 && st-flash reset
 
 #######################################
 # build the application
@@ -157,12 +191,18 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 # list of objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
+# list of objects
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(CXX_SOURCES:.cpp=.o)))
+vpath %.cpp $(sort $(dir $(CXX_SOURCES)))
 # list of ASM program objects
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) 
 	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+
+$(BUILD_DIR)/%.o: %.cpp Makefile | $(BUILD_DIR) 
+	$(CXX) -c $(CXXFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.cpp=.lst)) $< -o $@
 
 $(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
