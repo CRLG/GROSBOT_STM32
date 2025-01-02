@@ -87,8 +87,9 @@ all:
 	cd	CM4 && $(MAKE)
 	cd	CM7 && $(MAKE)
 
-
-
+install:
+	cd	CM4 && $(MAKE) install
+	cd	CM7 && $(MAKE) install
 
 
 #######################################
