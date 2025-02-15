@@ -12,8 +12,7 @@ extern "C" {
 
 void setLedBuiltin(bool state);
 void toggleLedBuiltin();
-void CdeMoteur1(float cde_pourcent);
-void CdeMoteur2(float cde_pourcent);
+void CdeMoteur(unsigned char num_moteur, float cde_pourcent);
 void CdeServo(unsigned char num_servo, unsigned int pulse_usec);
 
 int getCodeur1();

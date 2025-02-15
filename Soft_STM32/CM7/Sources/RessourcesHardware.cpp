@@ -23,50 +23,98 @@ void toggleLedBuiltin()
 //              COMMANDES MOTEURS
 // ===================================================
 
-// --------------------------------------------------
-void CdeMoteur1(float cde_pourcent)
+/*!
+ * \brief Commande de liteyr
+ * \param num_moteur numéro du moteur entre 1 et 4
+ * \param cde_pourcent valeur signée du PWM
+ * PWM = PeriodTimer * (cde_pourcent / 100)
+ *      PeriodTimer = 9600 (htim<xxx>.Init.Period = 9600)
+ *      PWM = 9600/100 * cde_pourcent
+ *      PWM = 96 * cde_pourcent
+ *      (valable pour les 3 timers TIM15, 16, 17)
+ */
+void CdeMoteur(unsigned char num_moteur, float cde_pourcent)
 {
-/*
-   if (cde_pourcent == 0) {
-       HAL_GPIO_WritePin(Mot1_Sens1_GPIO_Port, Mot1_Sens1_Pin, GPIO_PIN_RESET);
-       HAL_GPIO_WritePin(Mot1_Sens2_GPIO_Port, Mot1_Sens2_Pin, GPIO_PIN_RESET);
-       __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 0);
-   }
-   else if (cde_pourcent > 0) {
-       HAL_GPIO_WritePin(Mot1_Sens1_GPIO_Port, Mot1_Sens1_Pin, GPIO_PIN_SET);
-       HAL_GPIO_WritePin(Mot1_Sens2_GPIO_Port, Mot1_Sens2_Pin, GPIO_PIN_RESET);
-       __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, htim4.Init.Period/100. * cde_pourcent);
-   }
-   else {
-       HAL_GPIO_WritePin(Mot1_Sens1_GPIO_Port, Mot1_Sens1_Pin, GPIO_PIN_RESET);
-       HAL_GPIO_WritePin(Mot1_Sens2_GPIO_Port, Mot1_Sens2_Pin, GPIO_PIN_SET);
-       __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, htim4.Init.Period/100. * (-cde_pourcent));
-   }
-*/
+    const float COEF_CDE_MOTEUR = 96;
+    switch(num_moteur)
+    {
+    // ___________________________________________
+    case 1:
+           if (cde_pourcent == 0) {
+               HAL_GPIO_WritePin(Mot1_Sens1_GPIO_Port, Mot1_Sens1_Pin, GPIO_PIN_RESET);
+               HAL_GPIO_WritePin(Mot1_Sens2_GPIO_Port, Mot1_Sens2_Pin, GPIO_PIN_RESET);
+               __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 0);
+           }
+           else if (cde_pourcent > 0) {
+               HAL_GPIO_WritePin(Mot1_Sens1_GPIO_Port, Mot1_Sens1_Pin, GPIO_PIN_SET);
+               HAL_GPIO_WritePin(Mot1_Sens2_GPIO_Port, Mot1_Sens2_Pin, GPIO_PIN_RESET);
+               __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, COEF_CDE_MOTEUR * cde_pourcent);
+           }
+           else {
+               HAL_GPIO_WritePin(Mot1_Sens1_GPIO_Port, Mot1_Sens1_Pin, GPIO_PIN_RESET);
+               HAL_GPIO_WritePin(Mot1_Sens2_GPIO_Port, Mot1_Sens2_Pin, GPIO_PIN_SET);
+               __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, COEF_CDE_MOTEUR * (-cde_pourcent));
+           }
+        break;
+    // ___________________________________________
+    case 2:
+           if (cde_pourcent == 0) {
+               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_RESET);
+               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_RESET);
+               __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, 0);
+           }
+           else if (cde_pourcent > 0) {
+               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_SET);
+               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_RESET);
+               __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, COEF_CDE_MOTEUR * cde_pourcent);
+           }
+           else {
+               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_RESET);
+               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_SET);
+               __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, COEF_CDE_MOTEUR * (-cde_pourcent));
+           }
+        break;
+    // ___________________________________________
+    case 3:
+        if (cde_pourcent == 0) {
+            HAL_GPIO_WritePin(Mot3_Sens1_GPIO_Port, Mot3_Sens1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(Mot3_Sens2_GPIO_Port, Mot3_Sens2_Pin, GPIO_PIN_RESET);
+            __HAL_TIM_SET_COMPARE(&htim16, TIM_CHANNEL_1, 0);
+        }
+        else if (cde_pourcent > 0) {
+            HAL_GPIO_WritePin(Mot3_Sens1_GPIO_Port, Mot3_Sens1_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(Mot3_Sens2_GPIO_Port, Mot3_Sens2_Pin, GPIO_PIN_RESET);
+            __HAL_TIM_SET_COMPARE(&htim16, TIM_CHANNEL_1, COEF_CDE_MOTEUR * cde_pourcent);
+        }
+        else {
+            HAL_GPIO_WritePin(Mot3_Sens1_GPIO_Port, Mot3_Sens1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(Mot3_Sens2_GPIO_Port, Mot3_Sens2_Pin, GPIO_PIN_SET);
+            __HAL_TIM_SET_COMPARE(&htim16, TIM_CHANNEL_1, COEF_CDE_MOTEUR * (-cde_pourcent));
+        }
+        break;
+    // ___________________________________________
+    case 4:
+        if (cde_pourcent == 0) {
+            HAL_GPIO_WritePin(Mot4_Sens1_GPIO_Port, Mot4_Sens1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(Mot4_Sens2_GPIO_Port, Mot4_Sens2_Pin, GPIO_PIN_RESET);
+            __HAL_TIM_SET_COMPARE(&htim17, TIM_CHANNEL_1, 0);
+        }
+        else if (cde_pourcent > 0) {
+            HAL_GPIO_WritePin(Mot4_Sens1_GPIO_Port, Mot4_Sens1_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(Mot4_Sens2_GPIO_Port, Mot4_Sens2_Pin, GPIO_PIN_RESET);
+            __HAL_TIM_SET_COMPARE(&htim17, TIM_CHANNEL_1, COEF_CDE_MOTEUR * cde_pourcent);
+        }
+        else {
+            HAL_GPIO_WritePin(Mot4_Sens1_GPIO_Port, Mot4_Sens1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(Mot4_Sens2_GPIO_Port, Mot4_Sens2_Pin, GPIO_PIN_SET);
+            __HAL_TIM_SET_COMPARE(&htim17, TIM_CHANNEL_1, COEF_CDE_MOTEUR * (-cde_pourcent));
+        }
+        break;
+    // ___________________________________________
+    default:
+        break;
+    }
 }
-
-// --------------------------------------------------
-void CdeMoteur2(float cde_pourcent)
-{
-/*
-   if (cde_pourcent == 0) {
-       HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_RESET);
-       HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_RESET);
-       __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, 0);
-   }
-   else if (cde_pourcent > 0) {
-       HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_SET);
-       HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_RESET);
-       __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, htim4.Init.Period/100. * cde_pourcent);
-   }
-   else {
-       HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_RESET);
-       HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_SET);
-       __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, htim4.Init.Period/100. * (-cde_pourcent));
-   }
-*/
-}
-
 
 
 // ===================================================
