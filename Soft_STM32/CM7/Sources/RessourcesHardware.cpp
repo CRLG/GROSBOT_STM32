@@ -119,18 +119,50 @@ int readAnalog(int channel)
 // ===================================================
 //              SERVO MOTEURS
 // ===================================================
-#define T_PWM_SERVO (20e-3)
-void CdeServo1(int ppm1500)
-{
-    //__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (float)(ppm1500/1e6) / ((float)T_PWM_SERVO/64000));
-}
 
-void CdeServo2(int ppm1500)
-{
-    //__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, (float)(ppm1500/1e6) / ((float)T_PWM_SERVO/64000));
-}
+// _______________________________________________
+//!
+//! \brief Commande d'un servo moteur
+//! \param num_servo numéro du servo moteur (entre 1 et 8)
+//! \param pulse_usec largeur d'impulsion souhaitée en [µsec]
+//! Pulse = ARR * (largeur d’impulsion voulue  en µsec / 20 000µsec)
+//! Pour les 4 servo du TIM2 (32 bits)
+//!     Pulse = (3 840 000/20 000) * largeur d’impulsion voulue  en µsec
+//!     Pulse = 192 * largeur d’impulsion voulue  en µsec
+//! Pour les 3 servo du TIM12, 13, 14 (16 bits)
+//!     Pulse = (64 000/20 000) * largeur d’impulsion voulue  en µsec
+//!     Pulse = 3.2 * largeur d’impulsion voulue  en µsec
 
-void CdeServo3(int ppm1500)
+//!
+void CdeServo(unsigned char num_servo, unsigned int pulse_usec)
 {
-    //__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, (float)(ppm1500/1e6) / ((float)T_PWM_SERVO/64000));
+    const float COEF_TIM32bits = 192; // 191.5;
+    const float COEF_TIM16bits = 3.2; // 3.193;
+
+    switch(num_servo)
+    {
+    case 1 :
+        __HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_2, COEF_TIM16bits*pulse_usec);
+        break;
+    case 2 :
+        __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, COEF_TIM32bits*pulse_usec);
+        break;
+    case 3 :
+        __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, COEF_TIM32bits*pulse_usec);
+        break;
+    case 4 :
+        __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, COEF_TIM32bits*pulse_usec);
+        break;
+    case 5 :
+        __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, COEF_TIM32bits*pulse_usec);
+        break;
+    case 6 :
+        __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, COEF_TIM16bits*pulse_usec);
+        break;
+    case 7 :
+        __HAL_TIM_SET_COMPARE(&htim14, TIM_CHANNEL_1, COEF_TIM16bits*pulse_usec);
+        break;
+    default :
+        break;
+    }
 }

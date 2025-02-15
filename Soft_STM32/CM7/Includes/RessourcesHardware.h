@@ -14,9 +14,7 @@ void setLedBuiltin(bool state);
 void toggleLedBuiltin();
 void CdeMoteur1(float cde_pourcent);
 void CdeMoteur2(float cde_pourcent);
-void CdeServo1(int ppm1500);
-void CdeServo2(int ppm1500);
-void CdeServo3(int ppm1500);
+void CdeServo(unsigned char num_servo, unsigned int pulse_usec);
 
 int getCodeur1();
 int getCodeur2();
