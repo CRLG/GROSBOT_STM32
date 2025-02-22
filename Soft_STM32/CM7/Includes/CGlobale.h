@@ -5,7 +5,7 @@
 #define _GLOBALE_H_
 
 #include "RessourcesHardware.h"
-//#include "console_interactive_menu.h"
+#include "console_interactive_menu.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -48,7 +48,7 @@ public :
     void ReceiveRS232_ModePiloteLabotbox(unsigned char data);
     void ReceiveRS232_ModePiloteTerminal(unsigned char data);
 
-    //CMenuApp m_menu_interactive;
+    CMenuApp m_menu_interactive;
 
 private : 
     //! Gestion du mode autonome

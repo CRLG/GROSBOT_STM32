@@ -4,10 +4,16 @@ Sources/CGlobale_ModeAutonome.cpp
 Sources/CGlobale_ModePiloteLaBotBox.cpp
 Sources/CGlobale_ModePiloteTerminal.cpp
 Sources/RessourcesHardware.cpp
+Sources/console_interactive_menu.cpp
 
 Includes/main_app.h
 Includes/CGlobale.h
 Includes/RessourcesHardware.h
+Includes/console_interactive_menu.h
+
+ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
+ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
+
 
 ../ext/libElectrobotH755/CM7/Core/Src/main.c
 ../ext/libElectrobotH755/CM7/Core/Src/retarget.c

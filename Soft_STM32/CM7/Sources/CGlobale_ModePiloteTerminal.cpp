@@ -27,6 +27,7 @@ void CGlobale::ModePiloteTerminal(void)
 void CGlobale::ReceiveRS232_ModePiloteTerminal(unsigned char data)
 {
     HAL_UART_Transmit(&huart3, &data, 1, 100); // renvoi le caractère comme écho
+    m_menu_interactive.receive_car(data);
 }
 
 

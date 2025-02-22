@@ -35,18 +35,21 @@ BUILD_DIR = build
 # ext libs path
 ######################################
 LIB_STM32 = ../ext/libElectrobotH755
+CPPLIB = ../ext/CppRobLib
 
 ######################################
 # source
 ######################################
 # CPP sources
 CXX_SOURCES =  \
+$(CPPLIB)/ConsoleInteractiveMenu/console_interaction.cpp \
 Sources/main_app.cpp \
 Sources/CGlobale.cpp \
 Sources/CGlobale_ModeAutonome.cpp \
 Sources/CGlobale_ModePiloteLaBotBox.cpp \
 Sources/CGlobale_ModePiloteTerminal.cpp \
 Sources/RessourcesHardware.cpp \
+Sources/console_interactive_menu.cpp
 
 # C sources
 C_SOURCES =  \
@@ -143,6 +146,7 @@ AS_INCLUDES =
 C_INCLUDES =  \
 -IIncludes \
 -I$(LIB_STM32)/Includes \
+-I$(CPPLIB)/ConsoleInteractiveMenu \
 -I$(LIB_STM32)/CM7/Core/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy \
