@@ -24,7 +24,7 @@ void toggleLedBuiltin()
 // ===================================================
 
 /*!
- * \brief Commande de liteyr
+ * \brief Commande de moteur
  * \param num_moteur numéro du moteur entre 1 et 4
  * \param cde_pourcent valeur signée du PWM
  * PWM = PeriodTimer * (cde_pourcent / 100)
@@ -139,29 +139,38 @@ int getCodeur2()
 // ===================================================
 
 // --------------------------------------------------
-int readAnalog(int channel)
+unsigned int readAnalog(int num_eana)
 {
-/*
     ADC_ChannelConfTypeDef sConfig = {0};
+    int adc_channel;
+    switch(num_eana)
+    {
+    case 1: adc_channel = ADC_CHANNEL_16;   break;  // Eana1 : PA0
+    case 2: adc_channel = ADC_CHANNEL_15;   break;  // Eana2 : PA3
+    case 3: adc_channel = ADC_CHANNEL_5;    break;  // Eana3 : PB1
+    case 4: adc_channel = ADC_CHANNEL_3;    break;  // Eana4 : PA6
+    case 5: adc_channel = ADC_CHANNEL_18;   break;  // Enan5 : PA4
+    case 6: adc_channel = ADC_CHANNEL_10;   break;  // Vbat :  PC0
+    default :  // entrée Eana inexistante
+        return 0;
+    }
 
-    sConfig.Channel = channel;
+    sConfig.Channel = adc_channel;
     sConfig.Rank = ADC_REGULAR_RANK_1;
-    sConfig.SamplingTime = ADC_SAMPLETIME_12CYCLES_5;
+    sConfig.SamplingTime = ADC_SAMPLETIME_16CYCLES_5;
     sConfig.SingleDiff = ADC_SINGLE_ENDED;
     //sConfig.OffsetNumber = ADC_OFFSET_NONE;
     //sConfig.Offset = 0;
     //sConfig.OffsetSignedSaturation = DISABLE;
-    if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+    if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
     {
         Error_Handler();
     }
-    HAL_ADC_Start(&hadc2);
-    HAL_ADC_PollForConversion(&hadc2, 1000);
-    uint32_t analog_value = HAL_ADC_GetValue(&hadc2);
-    HAL_ADC_Stop(&hadc2);
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 1000);
+    uint32_t analog_value = HAL_ADC_GetValue(&hadc1);
+    HAL_ADC_Stop(&hadc1);
     return analog_value;
-*/
-	return 0;
 }
 
 // ===================================================
@@ -189,25 +198,25 @@ void CdeServo(unsigned char num_servo, unsigned int pulse_usec)
 
     switch(num_servo)
     {
-    case 1 :
+    case 1 : // Servo1: PB15
         __HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_2, COEF_TIM16bits*pulse_usec);
         break;
-    case 2 :
+    case 2 : // Servo2: PB3
         __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, COEF_TIM32bits*pulse_usec);
         break;
-    case 3 :
+    case 3 : // Servo3: PA5
         __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, COEF_TIM32bits*pulse_usec);
         break;
-    case 4 :
+    case 4 : // Servo4: PB11
         __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, COEF_TIM32bits*pulse_usec);
         break;
-    case 5 :
+    case 5 : // Servo5: PB10
         __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, COEF_TIM32bits*pulse_usec);
         break;
-    case 6 :
+    case 6 : // Servo6: PF8
         __HAL_TIM_SET_COMPARE(&htim13, TIM_CHANNEL_1, COEF_TIM16bits*pulse_usec);
         break;
-    case 7 :
+    case 7 : // Servo7: PF9
         __HAL_TIM_SET_COMPARE(&htim14, TIM_CHANNEL_1, COEF_TIM16bits*pulse_usec);
         break;
     default :
