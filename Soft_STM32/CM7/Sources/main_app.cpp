@@ -12,8 +12,16 @@ CGlobale Application;
 uint8_t uart_irq_rxbuff[1];
 void irq_uart3()
 {
-    HAL_UART_Transmit(&huart3, uart_irq_rxbuff, 1, 100);
     HAL_UART_Receive_IT(&huart3, uart_irq_rxbuff, 1);
+    if (Application.ModeFonctionnement == MODE_AUTONOME) {
+        Application.ReceiveRS232_ModeAutonome(uart_irq_rxbuff[0]);
+    }
+    else if (Application.ModeFonctionnement == MODE_PILOTE_LABOTBOX) {
+        Application.ReceiveRS232_ModePiloteLabotbox(uart_irq_rxbuff[0]);
+    }
+    else if (Application.ModeFonctionnement == MODE_PILOTE_TERMINAL) {
+        Application.ReceiveRS232_ModePiloteTerminal(uart_irq_rxbuff[0]);
+    }
 }
 
 // =====================================================

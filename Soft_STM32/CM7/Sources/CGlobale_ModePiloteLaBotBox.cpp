@@ -20,6 +20,13 @@ void CGlobale::ModePiloteLaBotBox(void)
     }
 }
 
+// _____________________________________________________________
+void CGlobale::ReceiveRS232_ModePiloteLabotbox(unsigned char data)
+{
+    char rxData;
+    //rxData = _rs232_pc_rx.getc();
+}
+
 //___________________________________________________________________________
 /*!
    \brief Sequenceur de taches en mode Labotbox

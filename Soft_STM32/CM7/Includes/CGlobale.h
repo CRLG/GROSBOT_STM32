@@ -43,6 +43,11 @@ public :
     //! Point d'entree pour lancer l'application
     void Run(void);
 
+    //! Reception RS232 en IRQ
+    void ReceiveRS232_ModeAutonome(unsigned char data);
+    void ReceiveRS232_ModePiloteLabotbox(unsigned char data);
+    void ReceiveRS232_ModePiloteTerminal(unsigned char data);
+
     //CMenuApp m_menu_interactive;
 
 private : 
@@ -62,8 +67,6 @@ private :
 
     //! Gestion du mode piloté par terminal
     void ModePiloteTerminal(void);
-    //! Reception RS232 en IRQ
-    void ReceiveRS232_ModePiloteTerminal(void);
 
     //! Lecture eeprom
     void readEEPROM();
