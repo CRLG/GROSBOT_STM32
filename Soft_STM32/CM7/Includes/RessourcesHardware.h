@@ -15,9 +15,7 @@ void toggleLedBuiltin();
 void CdeMoteur(unsigned char num_moteur, float cde_pourcent);
 void CdeServo(unsigned char num_servo, unsigned int pulse_usec);
 unsigned int readAnalog(int num_eana);
-
-int getCodeur1();
-int getCodeur2();
+int getCodeur(int num);
 
 #ifdef __cplusplus
 }

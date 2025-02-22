@@ -121,17 +121,20 @@ void CdeMoteur(unsigned char num_moteur, float cde_pourcent)
 //                      CODEURS
 // ===================================================
 
-// --------------------------------------------------
-int getCodeur1()
+int getCodeur(int num)
 {
-    return 0; //__HAL_TIM_GET_COUNTER(&htim2);
+	switch(num)
+	{
+	case 1 : return __HAL_TIM_GET_COUNTER(&htim1); break;
+	case 2 : return __HAL_TIM_GET_COUNTER(&htim3); break;
+	case 3 : return __HAL_TIM_GET_COUNTER(&htim4); break;
+	case 4 : return __HAL_TIM_GET_COUNTER(&htim8); break;
+	default: break;
+	}
+	return 0;
 }
 
-// --------------------------------------------------
-int getCodeur2()
-{
-    return 0; //__HAL_TIM_GET_COUNTER(&htim3);
-}
+
 
 
 // ===================================================

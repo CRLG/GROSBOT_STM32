@@ -105,6 +105,9 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         for (int i=1; i<=6; i++) {
             printf("\t Eana%i = %d\n\r", i, readAnalog(i));
         }
+
+        printf("Codeur : %d / %d / %d / %d\n\r", (signed short)getCodeur(1), (signed short)getCodeur(2), (signed short)getCodeur(3), (signed short)getCodeur(4));
+
         CdeServo(1, 1000);
         CdeServo(2, 1100);
         CdeServo(3, 1200);
