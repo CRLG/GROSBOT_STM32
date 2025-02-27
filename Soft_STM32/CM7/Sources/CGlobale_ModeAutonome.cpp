@@ -68,6 +68,8 @@ void CGlobale::SequenceurModeAutonome(void)
     if (cpt20msec >= TEMPO_20msec) {
         cpt20msec = 0;
 
+        m_telemetres.Traitement();
+
         toggleLedBuiltin();
         //printf("Hello %ld\n\r", HAL_GetTick());
 

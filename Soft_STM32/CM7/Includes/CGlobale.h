@@ -7,6 +7,7 @@
 #include "RessourcesHardware.h"
 #include "CLeds.h"
 #include "CLed.h"
+#include "CTelemetres.h"
 #include "console_interactive_menu.h"
 
 typedef enum {
@@ -56,6 +57,8 @@ public :
     CLed m_led3;
     CLed m_led4;
     CLeds m_leds;
+    //! Gestion des télémètres
+    CTelemetres m_telemetres;
 
     CMenuApp m_menu_interactive;
 

@@ -78,7 +78,8 @@ Sources/CGlobale_ModePiloteLaBotBox.cpp \
 Sources/CGlobale_ModePiloteTerminal.cpp \
 Sources/RessourcesHardware.cpp \
 Sources/console_interactive_menu.cpp \
-Sources/CLed.cpp
+Sources/CLed.cpp \
+Sources/CTelemetres.cpp
 
 
 # C sources

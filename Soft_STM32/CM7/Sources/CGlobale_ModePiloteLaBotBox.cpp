@@ -62,6 +62,8 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
     if (cpt20msec >= TEMPO_20msec) {
         cpt20msec = 0;
         //m_asservissement.CalculsMouvementsRobots();
+        m_telemetres.Traitement();
+
     }
 
     // ______________________________

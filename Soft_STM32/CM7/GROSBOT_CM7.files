@@ -6,16 +6,22 @@ Sources/CGlobale_ModePiloteTerminal.cpp
 Sources/RessourcesHardware.cpp
 Sources/console_interactive_menu.cpp
 Sources/CLed.cpp
+Sources/CTelemetres.cpp
 
 Includes/main_app.h
 Includes/CGlobale.h
 Includes/RessourcesHardware.h
 Includes/console_interactive_menu.h
 Includes/CLed.h
+Includes/ConfigSpecifiqueCoupe.h
+Includes/CTelemetres.h
 ../ext/CppRobLib/common-rob/CLeds.cpp
 ../ext/CppRobLib/common-rob/CLeds.h
 ../ext/CppRobLib/common-rob/CLedBase.cpp
 ../ext/CppRobLib/common-rob/CLedBase.h
+../ext/CppRobLib/common-rob/CTelemetresBase.cpp
+../ext/CppRobLib/common-rob/CTelemetresBase.h
+../ext/CppRobLib/common-rob/CDetectionObstaclesBase.cpp
 
 ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
 ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
