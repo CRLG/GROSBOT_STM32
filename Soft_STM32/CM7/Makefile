@@ -43,13 +43,43 @@ CPPLIB = ../ext/CppRobLib
 # CPP sources
 CXX_SOURCES =  \
 $(CPPLIB)/ConsoleInteractiveMenu/console_interaction.cpp \
+$(CPPLIB)/Communication/Messenger/databasebase.cpp \
+$(CPPLIB)/Communication/Messenger/nodebase.cpp \
+$(CPPLIB)/Communication/Messenger/messagebase.cpp \
+$(CPPLIB)/Communication/Messenger/messengerinterfacebase.cpp \
+$(CPPLIB)/Communication/Messenger/transporterbase.cpp \
+$(CPPLIB)/Communication/Messenger/transportergeneric.cpp \
+$(CPPLIB)/Communication/DataEncoderDecoder/data_encoder_decoder.cpp \
+$(CPPLIB)/PowerElectrobot/dspicpowerelectrobotbase.cpp \
+$(CPPLIB)/Communication/Messenger/DatabaseXbeeNetwork2019/databasexbeenetwork2019.cpp \
+$(CPPLIB)/Communication/Messenger/DatabaseXbeeNetwork2019/message_experience_status.cpp \
+$(CPPLIB)/Communication/Messenger/DatabaseXbeeNetwork2019/message_commande_experience.cpp \
+$(CPPLIB)/Communication/Messenger/DatabaseXbeeNetwork2019/message_robot_lego_2019.cpp \
+$(CPPLIB)/Communication/Messenger/MessagesGeneric/message_timestamp_match.cpp \
+$(CPPLIB)/Communication/Messenger/MessagesGeneric/message_grosbot_position.cpp \
+$(CPPLIB)/Communication/Messenger/MessagesGeneric/message_robotlego_status.cpp \
+$(CPPLIB)/Communication/Messenger/MessagesGeneric/message_balise_positions.cpp \
+$(CPPLIB)/Communication/Messenger/MessagesGeneric/message_free_string.cpp \
+$(CPPLIB)/Communication/XBEE/xbeedriverbase.cpp \
+$(CPPLIB)/common-rob/CRouesBase.cpp \
+$(CPPLIB)/common-rob/CAsservissementChariotBase.cpp \
+$(CPPLIB)/common-rob/CLeds.cpp \
+$(CPPLIB)/common-rob/CLedBase.cpp \
+$(CPPLIB)/common-rob/CTelemetresBase.cpp \
+$(CPPLIB)/common-rob/CCapteursBase.cpp \
+$(CPPLIB)/common-rob/CKmarBase.cpp \
+$(CPPLIB)/ServosAX/servoaxbase.cpp \
+$(CPPLIB)/ServosAX/servoax_utils.cpp \
+$(CPPLIB)/Lidar/Lidar_utils.cpp \
 Sources/main_app.cpp \
 Sources/CGlobale.cpp \
 Sources/CGlobale_ModeAutonome.cpp \
 Sources/CGlobale_ModePiloteLaBotBox.cpp \
 Sources/CGlobale_ModePiloteTerminal.cpp \
 Sources/RessourcesHardware.cpp \
-Sources/console_interactive_menu.cpp
+Sources/console_interactive_menu.cpp \
+Sources/CLed.cpp
+
 
 # C sources
 C_SOURCES =  \
@@ -151,6 +181,16 @@ C_INCLUDES =  \
 -IIncludes \
 -I$(LIB_STM32)/Includes \
 -I$(CPPLIB)/ConsoleInteractiveMenu \
+-I$(CPPLIB)/Communication/Messenger \
+-I$(CPPLIB)/Communication/Messenger/DatabaseXbeeNetwork2019 \
+-I$(CPPLIB)/Communication/Messenger/MessagesGeneric \
+-I$(CPPLIB)/Communication/XBEE \
+-I$(CPPLIB)/Communication/DataEncoderDecoder \
+-I$(CPPLIB)/PowerElectrobot \
+-I$(CPPLIB)/common-rob \
+-I$(CPPLIB)/common-rob/Modelia \
+-I$(CPPLIB)/ServosAX \
+-I$(CPPLIB)/Lidar \
 -I$(LIB_STM32)/CM7/Core/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy \

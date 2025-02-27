@@ -11,6 +11,11 @@
    \return --
 */
 CGlobale::CGlobale()
+    : m_led1(LED4_GPIO_Port, LED4_Pin),
+      m_led2(LED5_GPIO_Port, LED5_Pin),
+      m_led3(LED6_GPIO_Port, LED6_Pin),
+      m_led4(LED7_GPIO_Port, LED7_Pin),
+      m_leds(&m_led1, &m_led2, &m_led3, &m_led4)
 {
     ModeFonctionnement = MODE_PILOTE_TERMINAL;
 }

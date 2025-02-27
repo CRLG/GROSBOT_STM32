@@ -79,10 +79,13 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     if (cpt50msec >= TEMPO_50msec) {
         cpt50msec = 0;
 
+        /*
         HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
         HAL_GPIO_TogglePin(LED5_GPIO_Port, LED5_Pin);
         HAL_GPIO_TogglePin(LED6_GPIO_Port, LED6_Pin);
         HAL_GPIO_TogglePin(LED7_GPIO_Port, LED7_Pin);
+        */
+        m_leds.compute();
     }
 
     // ______________________________

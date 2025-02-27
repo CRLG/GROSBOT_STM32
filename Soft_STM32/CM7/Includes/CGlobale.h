@@ -5,6 +5,8 @@
 #define _GLOBALE_H_
 
 #include "RessourcesHardware.h"
+#include "CLeds.h"
+#include "CLed.h"
 #include "console_interactive_menu.h"
 
 typedef enum {
@@ -47,6 +49,13 @@ public :
     void ReceiveRS232_ModeAutonome(unsigned char data);
     void ReceiveRS232_ModePiloteLabotbox(unsigned char data);
     void ReceiveRS232_ModePiloteTerminal(unsigned char data);
+
+    //! La gestion des Led
+    CLed m_led1;
+    CLed m_led2;
+    CLed m_led3;
+    CLed m_led4;
+    CLeds m_leds;
 
     CMenuApp m_menu_interactive;
 
