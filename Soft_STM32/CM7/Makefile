@@ -125,8 +125,12 @@ FPU = -mfpu=fpv5-d16
 # float-abi
 FLOAT-ABI = -mfloat-abi=hard
 
+# float printf
+# https://community.st.com/t5/stm32cubeide-mcus/how-to-use-float-in-printf/td-p/323872
+FLOAT-PRINTF = -u _printf_float 
+
 # mcu
-MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
+MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI) $(FLOAT-PRINTF)
 
 # macros for gcc
 # AS defines
