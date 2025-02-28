@@ -13,6 +13,7 @@ Sources/CCapteurs.cpp
 Sources/CMoteurs.cpp
 Sources/CRoues.cpp
 Sources/CAsservissement.cpp
+Sources/PowerElectrobot.cpp
 
 Includes/main_app.h
 Includes/CGlobale.h
@@ -27,6 +28,7 @@ Includes/CCapteurs.h
 Includes/CMoteurs.h
 Includes/CRoues.h
 Includes/CAsservissement.h
+Includes/PowerElectrobot.h
 
 ../ext/CppRobLib/common-rob/CRouesBase.cpp
 ../ext/CppRobLib/common-rob/CRouesBase.h

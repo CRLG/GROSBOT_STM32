@@ -104,6 +104,8 @@ void CGlobale::SequenceurModeAutonome(void)
     cpt200msec++;
     if (cpt200msec >= TEMPO_200msec) {
         cpt200msec = 0;
+
+        m_power_electrobot.periodicCall();
     }
     // ______________________________
     cpt500msec++;
@@ -114,6 +116,8 @@ void CGlobale::SequenceurModeAutonome(void)
     cpt1sec++;
     if (cpt1sec >= TEMPO_1sec) {
         cpt1sec = 0;
+
+        m_power_electrobot.refreshOuptuts();
     }
 
 }

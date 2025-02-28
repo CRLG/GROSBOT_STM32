@@ -16,6 +16,7 @@
 #include "CMoteurs.h"
 #include "CAsservissement.h"
 #include "console_interactive_menu.h"
+#include "PowerElectrobot.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -80,6 +81,8 @@ public :
     CMoteurs m_moteurs;
     //! Gestion de l'asservissement vitesse/position du robot
     CAsservissement m_asservissement;
+    //! Carte PowerElectrobot
+    PowerElectrobot m_power_electrobot;
 
     CMenuApp m_menu_interactive;
 

@@ -88,8 +88,10 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
     // ______________________________
     cpt200msec++;
     if (cpt200msec >= TEMPO_200msec) {
-        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
         cpt200msec = 0;
+
+        HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+        m_power_electrobot.periodicCall();
     }
     // ______________________________
     cpt500msec++;
@@ -100,6 +102,8 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
     cpt1sec++;
     if (cpt1sec >= TEMPO_1sec) {
         cpt1sec = 0;
+
+        m_power_electrobot.refreshOuptuts();
     }
 
 }
