@@ -79,8 +79,12 @@ Sources/CGlobale_ModePiloteTerminal.cpp \
 Sources/RessourcesHardware.cpp \
 Sources/console_interactive_menu.cpp \
 Sources/CLed.cpp \
-Sources/CTelemetres.cpp
-
+Sources/CTelemetres.cpp \
+Sources/CCodeurs.cpp \
+Sources/CElectrobot.cpp \
+Sources/CCapteurs.cpp \
+Sources/CMoteurs.cpp \
+Soruces/CRoues.cpp
 
 # C sources
 C_SOURCES =  \

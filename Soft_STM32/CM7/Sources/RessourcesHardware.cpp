@@ -176,6 +176,13 @@ unsigned int readAnalog(int num_eana)
     return analog_value;
 }
 
+// --------------------------------------------------
+#define COEF_ADC_VOLTS (3.3f/4096)
+float readAnalogVolt(int num_eana)
+{
+    return readAnalog(num_eana) * COEF_ADC_VOLTS;
+}
+
 // ===================================================
 //              SERVO MOTEURS
 // ===================================================

@@ -7,3 +7,4 @@
 ../ext/libElectrobotH755/Drivers/CMSIS/Device/ST/STM32H7xx/Include
 ../ext/libElectrobotH755/Drivers/CMSIS/Include
 
+../ext/CppRobLib/common-rob

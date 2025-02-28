@@ -54,6 +54,8 @@ void CGlobale::SequenceurModeAutonome(void)
     cpt1msec++;
     if (cpt1msec >= TEMPO_1msec) {
         cpt1msec = 0;
+
+        m_codeurs.Traitement();
     }
     // ______________________________
     cpt10msec++;
@@ -68,6 +70,8 @@ void CGlobale::SequenceurModeAutonome(void)
     if (cpt20msec >= TEMPO_20msec) {
         cpt20msec = 0;
 
+        m_electrobot.Traitement();
+        m_capteurs.Traitement();
         m_telemetres.Traitement();
 
         toggleLedBuiltin();

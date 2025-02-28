@@ -8,6 +8,11 @@
 #include "CLeds.h"
 #include "CLed.h"
 #include "CTelemetres.h"
+#include "CCodeurs.h"
+#include "CElectrobot.h"
+#include "CCapteurs.h"
+#include "CRoues.h"
+#include "CMoteurs.h"
 #include "console_interactive_menu.h"
 
 typedef enum {
@@ -57,8 +62,18 @@ public :
     CLed m_led3;
     CLed m_led4;
     CLeds m_leds;
+    //! Gestion des codeurs de position
+    CCodeurs m_codeurs;
     //! Gestion des télémètres
     CTelemetres m_telemetres;
+    //! Gestion Electrobot
+    CElectrobot m_electrobot;
+    //! Gestion des capteurs
+    CCapteurs m_capteurs;
+    //! La gestion des roues gauches et droites
+    CRoues m_roues;
+    //! Gestion des moteurs
+    CMoteurs m_moteurs;
 
     CMenuApp m_menu_interactive;
 

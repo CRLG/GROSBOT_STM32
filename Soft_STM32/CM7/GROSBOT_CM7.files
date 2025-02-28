@@ -7,6 +7,11 @@ Sources/RessourcesHardware.cpp
 Sources/console_interactive_menu.cpp
 Sources/CLed.cpp
 Sources/CTelemetres.cpp
+Sources/CCodeurs.cpp
+Sources/CElectrobot.cpp
+Sources/CCapteurs.cpp
+Sources/CMoteurs.cpp
+Sources/CRoues.cpp
 
 Includes/main_app.h
 Includes/CGlobale.h
@@ -15,6 +20,12 @@ Includes/console_interactive_menu.h
 Includes/CLed.h
 Includes/ConfigSpecifiqueCoupe.h
 Includes/CTelemetres.h
+Includes/CCodeurs.h
+Includes/CElectrobot.h
+Includes/CCapteurs.h
+Includes/CMoteurs.h
+Includes/CRoues.h
+
 ../ext/CppRobLib/common-rob/CLeds.cpp
 ../ext/CppRobLib/common-rob/CLeds.h
 ../ext/CppRobLib/common-rob/CLedBase.cpp

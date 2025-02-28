@@ -55,6 +55,8 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     // ______________________________
     cpt1msec++;
     if (cpt1msec >= TEMPO_1msec) {
+
+        m_codeurs.Traitement();
         cpt1msec = 0;
     }
 
@@ -70,6 +72,9 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     if (cpt20msec >= TEMPO_20msec) {
         cpt20msec = 0;
 
+        m_electrobot.Traitement();
+        m_capteurs.Traitement();
+        m_telemetres.Traitement();
         //m_asservissement.CalculsMouvementsRobots();
     }
 
