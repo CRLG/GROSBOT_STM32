@@ -75,6 +75,8 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
+        m_asservissement.CalculsMouvementsRobots();
+
         //m_asservissement.CalculsMouvementsRobots();
     }
 

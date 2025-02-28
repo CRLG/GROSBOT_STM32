@@ -56,6 +56,7 @@ void CGlobale::SequenceurModeAutonome(void)
         cpt1msec = 0;
 
         m_codeurs.Traitement();
+
     }
     // ______________________________
     cpt10msec++;
@@ -73,6 +74,7 @@ void CGlobale::SequenceurModeAutonome(void)
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
+        m_asservissement.CalculsMouvementsRobots();
 
         toggleLedBuiltin();
         //printf("Hello %ld\n\r", HAL_GetTick());

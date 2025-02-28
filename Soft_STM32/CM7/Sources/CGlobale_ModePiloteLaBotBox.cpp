@@ -67,6 +67,8 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
+        m_asservissement.CalculsMouvementsRobots();
+
     }
 
     // ______________________________

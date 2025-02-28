@@ -13,6 +13,7 @@
 #include "CCapteurs.h"
 #include "CRoues.h"
 #include "CMoteurs.h"
+#include "CAsservissement.h"
 #include "console_interactive_menu.h"
 
 typedef enum {
@@ -74,6 +75,8 @@ public :
     CRoues m_roues;
     //! Gestion des moteurs
     CMoteurs m_moteurs;
+    //! Gestion de l'asservissement vitesse/position du robot
+    CAsservissement m_asservissement;
 
     CMenuApp m_menu_interactive;
 

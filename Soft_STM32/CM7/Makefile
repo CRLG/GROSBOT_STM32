@@ -61,6 +61,7 @@ $(CPPLIB)/Communication/Messenger/MessagesGeneric/message_robotlego_status.cpp \
 $(CPPLIB)/Communication/Messenger/MessagesGeneric/message_balise_positions.cpp \
 $(CPPLIB)/Communication/Messenger/MessagesGeneric/message_free_string.cpp \
 $(CPPLIB)/Communication/XBEE/xbeedriverbase.cpp \
+$(CPPLIB)/common-rob/CAsservissementBase.cpp \
 $(CPPLIB)/common-rob/CRouesBase.cpp \
 $(CPPLIB)/common-rob/CAsservissementChariotBase.cpp \
 $(CPPLIB)/common-rob/CLeds.cpp \
@@ -84,7 +85,9 @@ Sources/CCodeurs.cpp \
 Sources/CElectrobot.cpp \
 Sources/CCapteurs.cpp \
 Sources/CMoteurs.cpp \
-Soruces/CRoues.cpp
+Sources/CRoues.cpp \
+Sources/CAsservissement.cpp
+
 
 # C sources
 C_SOURCES =  \

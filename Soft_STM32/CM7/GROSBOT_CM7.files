@@ -12,6 +12,7 @@ Sources/CElectrobot.cpp
 Sources/CCapteurs.cpp
 Sources/CMoteurs.cpp
 Sources/CRoues.cpp
+Sources/CAsservissement.cpp
 
 Includes/main_app.h
 Includes/CGlobale.h
@@ -25,7 +26,12 @@ Includes/CElectrobot.h
 Includes/CCapteurs.h
 Includes/CMoteurs.h
 Includes/CRoues.h
+Includes/CAsservissement.h
 
+../ext/CppRobLib/common-rob/CRouesBase.cpp
+../ext/CppRobLib/common-rob/CRouesBase.h
+../ext/CppRobLib/common-rob/CAsservissementBase.cpp
+../ext/CppRobLib/common-rob/CAsservissementBase.h
 ../ext/CppRobLib/common-rob/CLeds.cpp
 ../ext/CppRobLib/common-rob/CLeds.h
 ../ext/CppRobLib/common-rob/CLedBase.cpp
@@ -33,6 +39,8 @@ Includes/CRoues.h
 ../ext/CppRobLib/common-rob/CTelemetresBase.cpp
 ../ext/CppRobLib/common-rob/CTelemetresBase.h
 ../ext/CppRobLib/common-rob/CDetectionObstaclesBase.cpp
+../ext/CppRobLib/common-rob/CCapteursBase.cpp
+../ext/CppRobLib/common-rob/CCapteursBase.h
 
 ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
 ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
