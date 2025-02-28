@@ -17,6 +17,7 @@
 #include "CAsservissement.h"
 #include "console_interactive_menu.h"
 #include "PowerElectrobot.h"
+#include "CLaBotBox.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -55,8 +56,6 @@ public :
     void Run(void);
 
     //! Reception RS232 en IRQ
-    void ReceiveRS232_ModeAutonome(unsigned char data);
-    void ReceiveRS232_ModePiloteLabotbox(unsigned char data);
     void ReceiveRS232_ModePiloteTerminal(unsigned char data);
 
     //! La gestion des Led
@@ -83,6 +82,8 @@ public :
     CAsservissement m_asservissement;
     //! Carte PowerElectrobot
     PowerElectrobot m_power_electrobot;
+    //! La gestion Labotbox
+    CLaBotBox m_LaBotBox;
 
     CMenuApp m_menu_interactive;
 

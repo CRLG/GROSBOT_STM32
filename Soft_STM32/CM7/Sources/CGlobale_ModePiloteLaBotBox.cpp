@@ -12,19 +12,16 @@
 */
 void CGlobale::ModePiloteLaBotBox(void)
 {
+    m_LaBotBox.Start();
+    m_LaBotBox.setAllTransmitPeriod(200);  // Toutes les trames sont envoyées à Labotbox avec la même période
+    m_leds.setPattern(PATTERN_CLIGNO_12_34, 200);
+
     while(1) {
         if (tick>0) {
             tick = 0;
             SequenceurModePiloteLaBotBox();
         }
     }
-}
-
-// _____________________________________________________________
-void CGlobale::ReceiveRS232_ModePiloteLabotbox(unsigned char data)
-{
-    char rxData;
-    //rxData = _rs232_pc_rx.getc();
 }
 
 //___________________________________________________________________________
@@ -57,6 +54,8 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
     cpt10msec++;
     if (cpt10msec >= TEMPO_10msec) {
         cpt10msec = 0;
+
+        m_LaBotBox.Execute();
     }
 
     // ______________________________

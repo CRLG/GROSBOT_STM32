@@ -49,7 +49,9 @@ void CGlobale::Run(void)
     // avant de commencer à  lui en envoyer des messages (et d'en recevoir)
     //wait_ms(3000);
 
-    //m_electrobot.Init();
+    m_electrobot.Init();
+    // Carte PowerElectrobot
+    m_power_electrobot.init(POWER_ELECTROBOT_I2C_ADDR);
 
     switch(ModeFonctionnement) {
     case MODE_AUTONOME : 			ModeAutonome();			break;

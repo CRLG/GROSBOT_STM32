@@ -13,6 +13,7 @@
 */
 void CGlobale::ModePiloteTerminal(void)
 {
+    m_leds.setPattern(PATTERN_K2000, 50);
     while(1) {
         if (tick) {
             tick = 0;
@@ -41,7 +42,7 @@ void CGlobale::ReceiveRS232_ModePiloteTerminal(unsigned char data)
 void CGlobale::SequenceurModePiloteTerminal(void)
 {
     static unsigned int cpt1msec = 0;
-    static unsigned int cpt10msec = 0;
+    static unsigned int cpt10msec = 0; // TODO : initialiser à des valeurs différentes pour que les appels soient sur des ticks différents pour répartir la charge CPU
     static unsigned int cpt20msec = 0;
     static unsigned int cpt50msec = 0;
     static unsigned int cpt100msec = 0;

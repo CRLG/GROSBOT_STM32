@@ -233,3 +233,15 @@ void CdeServo(unsigned char num_servo, unsigned int pulse_usec)
         break;
     }
 }
+// ===================================================
+//                  Time
+// ===================================================
+unsigned long getTime()
+{
+    return HAL_GetTick();
+}
+
+void wait_ms(unsigned int ms)
+{
+    HAL_Delay(ms);
+}

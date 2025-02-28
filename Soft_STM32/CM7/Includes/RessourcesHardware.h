@@ -20,6 +20,8 @@ void CdeServo(unsigned char num_servo, unsigned int pulse_usec);
 unsigned int readAnalog(int num_eana);
 float readAnalogVolt(int num_eana);
 int getCodeur(int num);
+unsigned long getTime();
+void wait_ms(unsigned int ms);
 
 #ifdef __cplusplus
 }

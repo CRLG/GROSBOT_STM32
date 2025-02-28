@@ -16,19 +16,15 @@
 */
 void CGlobale::ModeAutonome(void)
 {
+    m_LaBotBox.Start();
+    m_LaBotBox.setAllTransmitPeriod(200);
+
     while(1) {
         if (tick) {
             tick = 0;
             SequenceurModeAutonome();
         }
     }
-}
-
-// _____________________________________________________________
-void CGlobale::ReceiveRS232_ModeAutonome(unsigned char data)
-{
-    char rxData;
-    //rxData = _rs232_pc_rx.getc();
 }
 
 //___________________________________________________________________________
@@ -63,7 +59,7 @@ void CGlobale::SequenceurModeAutonome(void)
     if (cpt10msec >= TEMPO_10msec) {
         cpt10msec = 0;
 
-        //m_LaBotBox.Execute();
+        m_LaBotBox.Execute();
     }
 
     // ______________________________

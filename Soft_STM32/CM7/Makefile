@@ -88,7 +88,10 @@ Sources/CCapteurs.cpp \
 Sources/CMoteurs.cpp \
 Sources/CRoues.cpp \
 Sources/CAsservissement.cpp \
-Sources/PowerElectrobot.cpp
+Sources/PowerElectrobot.cpp \
+Sources/MessagerieLaBotBox.cpp \
+Sources/CLaBotBox.cpp \
+Sources/CTrameLaBotBox.cpp
 
 # C sources
 C_SOURCES =  \

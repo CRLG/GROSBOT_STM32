@@ -14,6 +14,9 @@ Sources/CMoteurs.cpp
 Sources/CRoues.cpp
 Sources/CAsservissement.cpp
 Sources/PowerElectrobot.cpp
+Sources/MessagerieLaBotBox.cpp
+Sources/CLaBotBox.cpp
+Sources/CTrameLaBotBox.cpp
 
 Includes/main_app.h
 Includes/CGlobale.h
@@ -29,6 +32,9 @@ Includes/CMoteurs.h
 Includes/CRoues.h
 Includes/CAsservissement.h
 Includes/PowerElectrobot.h
+Includes/MessagerieLaBotBox.h
+Includes/CLaBotBox.h
+Includes/CTrameLaBotBox.h
 
 ../ext/CppRobLib/common-rob/CRouesBase.cpp
 ../ext/CppRobLib/common-rob/CRouesBase.h
