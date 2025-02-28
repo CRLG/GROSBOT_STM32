@@ -39,6 +39,7 @@ Includes/CAsservissement.h
 ../ext/CppRobLib/common-rob/CTelemetresBase.cpp
 ../ext/CppRobLib/common-rob/CTelemetresBase.h
 ../ext/CppRobLib/common-rob/CDetectionObstaclesBase.cpp
+../ext/CppRobLib/common-rob/CDetectionObstaclesBase.h
 ../ext/CppRobLib/common-rob/CCapteursBase.cpp
 ../ext/CppRobLib/common-rob/CCapteursBase.h
 

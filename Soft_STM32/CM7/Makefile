@@ -67,6 +67,7 @@ $(CPPLIB)/common-rob/CAsservissementChariotBase.cpp \
 $(CPPLIB)/common-rob/CLeds.cpp \
 $(CPPLIB)/common-rob/CLedBase.cpp \
 $(CPPLIB)/common-rob/CTelemetresBase.cpp \
+$(CPPLIB)/common-rob/CDetectionObstaclesBase.cpp \
 $(CPPLIB)/common-rob/CCapteursBase.cpp \
 $(CPPLIB)/common-rob/CKmarBase.cpp \
 $(CPPLIB)/ServosAX/servoaxbase.cpp \

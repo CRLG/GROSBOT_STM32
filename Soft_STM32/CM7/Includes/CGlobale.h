@@ -8,6 +8,7 @@
 #include "CLeds.h"
 #include "CLed.h"
 #include "CTelemetres.h"
+#include "CDetectionObstaclesBase.h"
 #include "CCodeurs.h"
 #include "CElectrobot.h"
 #include "CCapteurs.h"
@@ -67,6 +68,8 @@ public :
     CCodeurs m_codeurs;
     //! Gestion des télémètres
     CTelemetres m_telemetres;
+    //! Gestion des détections d'obstacles (à priori l'algo de la classe de base suffit).
+    CDetectionObstaclesBase m_detection_obstacles;
     //! Gestion Electrobot
     CElectrobot m_electrobot;
     //! Gestion des capteurs
