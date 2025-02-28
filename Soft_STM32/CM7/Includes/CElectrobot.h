@@ -37,20 +37,6 @@ public :
 	float m_b_Eana12;
 	float m_b_Eana13;
 
-	// Les codeurs de position
-	signed short m_CodeurPosition1;
-	signed short m_CodeurPosition2;
-	signed short m_CodeurPosition3;
-	signed short m_CodeurPosition4;
-
-	signed long m_CumulCodeurPosition1;
-	signed long m_CumulCodeurPosition2;
-	signed long m_CumulCodeurPosition3;
-	signed long m_CumulCodeurPosition4;
-
-	// Buffer de communication avec le dsPIC
-	char m_buff[50];
-
     // ___________________________________________________
     // Les grandeurs mises en forme pou l'application
     float m_tension_batterie;

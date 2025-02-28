@@ -54,10 +54,10 @@ void CCodeurs::reset(unsigned char num_codeur, signed long val /*=0*/)
 {
     switch(num_codeur)
     {
-    case CODEUR_1: m_CumulCodeurPosition1 = 0; break;
-    case CODEUR_2: m_CumulCodeurPosition2 = 0; break;
-    case CODEUR_3: m_CumulCodeurPosition3 = 0; break;
-    case CODEUR_4: m_CumulCodeurPosition4 = 0; break;
+    case CODEUR_1: m_CumulCodeurPosition1 = val; break;
+    case CODEUR_2: m_CumulCodeurPosition2 = val; break;
+    case CODEUR_3: m_CumulCodeurPosition3 = val; break;
+    case CODEUR_4: m_CumulCodeurPosition4 = val; break;
     default : break;
     }
 }

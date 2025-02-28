@@ -10,7 +10,7 @@ public :
     CCodeurs();
 
     typedef enum {
-     CODEUR_1 = 0,
+     CODEUR_1 = 1,
      CODEUR_2,
      CODEUR_3,
      CODEUR_4
