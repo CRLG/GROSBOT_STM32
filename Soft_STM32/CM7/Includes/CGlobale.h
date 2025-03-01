@@ -18,6 +18,7 @@
 #include "console_interactive_menu.h"
 #include "PowerElectrobot.h"
 #include "CLaBotBox.h"
+#include "CEEPROM.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -64,6 +65,8 @@ public :
     CLed m_led3;
     CLed m_led4;
     CLeds m_leds;
+    //! Gestion de l'EEPROM
+    CEEPROM m_eeprom;
     //! Gestion des codeurs de position
     CCodeurs m_codeurs;
     //! Gestion des télémètres

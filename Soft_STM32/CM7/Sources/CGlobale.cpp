@@ -41,13 +41,13 @@ CGlobale::~CGlobale()
 */
 void CGlobale::Run(void)
 {
-    // Lecture des paramètres EEPROM
-    readEEPROM();
-
     // Attends la montée de toutes les alimentation et l'initialisation de l'écran
     // Temps nécessaire en pratique pour que l'écran tactile ai fini de démarrer
     // avant de commencer à  lui en envoyer des messages (et d'en recevoir)
-    //wait_ms(3000);
+    wait_ms(2000);
+
+    // Lecture des paramètres EEPROM
+    readEEPROM();
 
     m_electrobot.Init();
     // Carte PowerElectrobot
@@ -75,5 +75,14 @@ void CGlobale::Run(void)
 */
 void CGlobale::readEEPROM()
 {
+    uint16_t data;
+    int status;
 
+    if (m_eeprom.init()) {
+        if (!m_eeprom.is_valid()) m_eeprom.format();  // C'est peut être la première fois (carte neuve, après un formatage de la flash)
+    }
+    if (m_eeprom.is_valid()) {
+        // récupère les valeurs
+        // ....
+    }
 }

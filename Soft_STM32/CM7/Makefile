@@ -74,6 +74,7 @@ $(CPPLIB)/ServosAX/servoaxbase.cpp \
 $(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Lidar/Lidar_utils.cpp \
 Sources/main_app.cpp \
+Sources/CEEPROM.cpp \
 Sources/CGlobale.cpp \
 Sources/CGlobale_ModeAutonome.cpp \
 Sources/CGlobale_ModePiloteLaBotBox.cpp \
@@ -101,6 +102,7 @@ $(LIB_STM32)/CM7/Core/Src/syscalls.c \
 $(LIB_STM32)/CM7/Core/Src/sysmem.c \
 $(LIB_STM32)/CM7/Core/Src/stm32h7xx_it.c \
 $(LIB_STM32)/CM7/Core/Src/stm32h7xx_hal_msp.c \
+$(LIB_STM32)/CM7/Core/Src/eeprom_emul.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c \

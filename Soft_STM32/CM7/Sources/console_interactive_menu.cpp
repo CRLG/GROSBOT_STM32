@@ -3,6 +3,7 @@
 */
 #include "console_interactive_menu.h"
 #include "RessourcesHardware.h"
+#include "CGlobale.h"
 #include "stdio.h"
 
 CMenuApp::CMenuApp()
@@ -23,9 +24,10 @@ void CMenuApp::send_to_console(char msg[])
 void CMenuApp::page1()
 {
     DECLARE_PAGE("Menu Page 1", CMenuApp::page1);
-    DECLARE_OPTION('a', "Commande moteurs", CMenuApp::page_cde_moteurs);
-    DECLARE_OPTION('z', "Commande servo", CMenuApp::page_servos);
-    DECLARE_OPTION('e', "Capteurs", CMenuApp::page_capteurs);
+    DECLARE_OPTION('m', "Commande moteurs", CMenuApp::page_cde_moteurs);
+    DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
+    DECLARE_OPTION('c', "Capteurs", CMenuApp::page_capteurs);
+    DECLARE_OPTION('e', "EEPPROM", CMenuApp::page_eeprom);
     DECLARE_OPTION('q', "TEST", CMenuApp::page_set_param_1);
     DECLARE_OPTION('s', "TEST", CMenuApp::page_set_param_2);
 }
@@ -82,6 +84,70 @@ void CMenuApp::page_servos()
     DECLARE_ACTION('v', "Servo3 : 2000", CMenuApp::page_servo3_2000);
 
 }
+
+// =============================================================================
+//                          EEPROM
+// =============================================================================
+void CMenuApp::page_eeprom()
+{
+    DECLARE_PAGE("EEPROM", CMenuApp::page_eeprom);
+    DECLARE_ACTION('i', "Initialisation", CMenuApp::eep_action_init);
+    DECLARE_ACTION('v', "Test la validité EEPROM", CMenuApp::eep_action_is_valid);
+    DECLARE_ACTION('f', "Format l'EEPROM", CMenuApp::eep_action_format);
+    DECLARE_ACTION('c', "Checksum EEPROM ", CMenuApp::eep_action_checkshum);
+    DECLARE_ACTION('m', "Magic Number", CMenuApp::eep_action_magic_number);
+    DECLARE_ACTION('r', "Read all", CMenuApp::eep_action_read_all);
+}
+
+void CMenuApp::eep_action_init()
+{
+    _printf("Statut de l'init EEPROM: %d\n\r", Application.m_eeprom.init());
+}
+
+
+void CMenuApp::eep_action_is_valid()
+{
+    _printf("Validité de l'EEPROM: %d\n\r", Application.m_eeprom.is_valid());
+}
+
+void CMenuApp::eep_action_format()
+{
+    _printf("Formatage...\n\r");
+    bool status = Application.m_eeprom.format();
+    _printf("Statut du formatage : %d\n\r", status);
+}
+
+void CMenuApp::eep_action_checkshum()
+{
+    unsigned long cs_computed = Application.m_eeprom.compute_checksum();
+    unsigned long cs_read;
+    bool status = Application.m_eeprom._read_uint32(Application.m_eeprom.ADDR_CHECKSUM_MSB, &cs_read);
+    printf("Statut Lecture CS: %d / Val=%ld / Computed=%ld\n\r", status, cs_read, cs_computed);
+}
+
+void CMenuApp::eep_action_magic_number()
+{
+    unsigned short usval;
+    bool status = Application.m_eeprom._read_uint16(Application.m_eeprom.ADDR_MAGIC_NUMBER, &usval);
+    printf("Statut Lecture MagicNumber: %d / Val=0x%x\n\r", status, usval);
+}
+
+void CMenuApp::eep_action_read_all()
+{
+    unsigned short usval;
+    bool status = true;
+    for (int i=0; i<Application.m_eeprom.EEPROM_MAX_SIZE; i++)
+    {
+        for(unsigned long j=0; j<100000; j++);
+        status = Application.m_eeprom._read_uint16(i, &usval);
+        if (status) printf("[%d] : 0x%x / %d\n\r", i, usval, usval);
+        else        printf("[%d] : Erreur de lecture\n\r", i);
+    }
+}
+
+
+
+
 
 
 

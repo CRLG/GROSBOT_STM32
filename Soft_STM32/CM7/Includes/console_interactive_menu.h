@@ -62,6 +62,15 @@ public:
     bool page_servo3_1700();
     bool page_servo3_2000();
 
+    void page_eeprom();
+    void eep_action_init();
+    void eep_action_is_valid();
+    void eep_action_format();
+    void eep_action_checkshum();
+    void eep_action_magic_number();
+    void eep_action_read_all();
+
+
     double m_param1;
     int m_param2;
 };

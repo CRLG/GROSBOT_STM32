@@ -1,4 +1,5 @@
 Sources/main_app.cpp
+Sources/CEEPROM.cpp
 Sources/CGlobale.cpp
 Sources/CGlobale_ModeAutonome.cpp
 Sources/CGlobale_ModePiloteLaBotBox.cpp
@@ -19,6 +20,7 @@ Sources/CLaBotBox.cpp
 Sources/CTrameLaBotBox.cpp
 
 Includes/main_app.h
+Includes/CEEPROM.h
 Includes/CGlobale.h
 Includes/RessourcesHardware.h
 Includes/console_interactive_menu.h
@@ -61,6 +63,7 @@ ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
 ../ext/libElectrobotH755/CM7/Core/Src/sysmem.c
 ../ext/libElectrobotH755/CM7/Core/Src/stm32h7xx_it.c
 ../ext/libElectrobotH755/CM7/Core/Src/stm32h7xx_hal_msp.c
+../ext/libElectrobotH755/CM7/Core/Src/eeprom_emul.c
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
@@ -92,6 +95,7 @@ ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
 ../ext/libElectrobotH755/CM7/Core/Inc/retarget.h
 ../ext/libElectrobotH755/CM7/Core/Inc/stm32h7xx_hal_conf.h
 ../ext/libElectrobotH755/CM7/Core/Inc/stm32h7xx_it.h
+../ext/libElectrobotH755/CM7/Core/Inc/eeprom_emul.h
 
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc_ex.h
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc.h
