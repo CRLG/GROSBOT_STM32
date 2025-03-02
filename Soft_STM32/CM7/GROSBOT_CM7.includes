@@ -2,7 +2,6 @@
 ./Includes
 ./Modelia
 
-../ext/CppRobLib/ConsoleInteractiveMenu
 ../ext/libElectrobotH755/CM7/Core/Inc
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy

@@ -70,6 +70,8 @@ public:
     void eep_action_magic_number();
     void eep_action_read_all();
 
+    void page_i2c();
+    void i2c_action_scan();
 
     double m_param1;
     int m_param2;

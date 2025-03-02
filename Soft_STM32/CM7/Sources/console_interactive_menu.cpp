@@ -28,6 +28,7 @@ void CMenuApp::page1()
     DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
     DECLARE_OPTION('c', "Capteurs", CMenuApp::page_capteurs);
     DECLARE_OPTION('e', "EEPPROM", CMenuApp::page_eeprom);
+    DECLARE_OPTION('i', "I2C", CMenuApp::page_i2c);
     DECLARE_OPTION('q', "TEST", CMenuApp::page_set_param_1);
     DECLARE_OPTION('s', "TEST", CMenuApp::page_set_param_2);
 }
@@ -145,11 +146,41 @@ void CMenuApp::eep_action_read_all()
     }
 }
 
+// =============================================================================
+//                          I2C
+// =============================================================================
+void CMenuApp::page_i2c()
+{
+    DECLARE_PAGE("I2C", CMenuApp::page_i2c);
+    DECLARE_ACTION('s', "Scan I2C", CMenuApp::i2c_action_scan);
+}
 
+void CMenuApp::i2c_action_scan()
+{
+    uint8_t data;
+    _printf("SCAN I2C\n\r");
+    for (unsigned int addr=0; addr<0xFF; addr++)
+    {
+        if (HAL_I2C_Master_Transmit(&I2C_HDL_ELECTROBOT, addr, &data, 1, 200) == HAL_OK) {
+            printf(" Echo on 0x%x\n\r", addr);
+        }
+    }
 
+    _printf("\n\r      ");
+    for (unsigned int i=0; i<16; i++) _printf("%x   ", i);
+    for (unsigned int addr=0; addr<=0xFF; addr++)
+    {
+        if ((addr%16) == 0) printf("\n\r0x%02x", addr);
+        if (HAL_I2C_Master_Transmit(&I2C_HDL_ELECTROBOT, addr, &data, 1, 200) == HAL_OK) {
+            _printf("  OK", addr);
+        }
+        else {
+            _printf("  --", addr);
+        }
+    }
+    _printf("\n\r");
 
-
-
+}
 
 void CMenuApp::page_set_param_1()
 {
