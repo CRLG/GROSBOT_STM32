@@ -1,5 +1,7 @@
 .
 ./Includes
+./Modelia
+
 ../ext/CppRobLib/ConsoleInteractiveMenu
 ../ext/libElectrobotH755/CM7/Core/Inc
 ../ext/libElectrobotH755/Drivers/STM32H7xx_HAL_Driver/Inc
@@ -7,5 +9,9 @@
 ../ext/libElectrobotH755/Drivers/CMSIS/Device/ST/STM32H7xx/Include
 ../ext/libElectrobotH755/Drivers/CMSIS/Include
 
+../ext/CppRobLib/ConsoleInteractiveMenu
+../ext/CppRobLib/Communication/Messenger
 ../ext/CppRobLib/PowerElectrobot
 ../ext/CppRobLib/common-rob
+../ext/CppRobLib/common-rob/Modelia
+../ext/CppRobLib/ServosAX

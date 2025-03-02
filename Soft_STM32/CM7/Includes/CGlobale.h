@@ -19,6 +19,7 @@
 #include "PowerElectrobot.h"
 #include "CLaBotBox.h"
 #include "CEEPROM.h"
+#include "ia.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -87,6 +88,8 @@ public :
     PowerElectrobot m_power_electrobot;
     //! La gestion Labotbox
     CLaBotBox m_LaBotBox;
+    //! Le match à  jouer
+    IA m_modelia;
 
     CMenuApp m_menu_interactive;
 

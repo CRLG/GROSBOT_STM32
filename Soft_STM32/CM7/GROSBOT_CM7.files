@@ -18,6 +18,15 @@ Sources/PowerElectrobot.cpp
 Sources/MessagerieLaBotBox.cpp
 Sources/CLaBotBox.cpp
 Sources/CTrameLaBotBox.cpp
+Modelia/ia.cpp
+Modelia/sm_inputsinterface.cpp
+Modelia/sm_outputsinterface.cpp
+Modelia/sm_datasinterface.cpp
+Modelia/sm_sequenceur.cpp
+Modelia/sm_autotest.cpp
+Modelia/sm_chasseneige.cpp
+Modelia/sm_retourzonedepart.cpp
+
 
 Includes/main_app.h
 Includes/CEEPROM.h
@@ -38,6 +47,20 @@ Includes/MessagerieLaBotBox.h
 Includes/CLaBotBox.h
 Includes/CTrameLaBotBox.h
 
+Modelia/ia.h
+Modelia/sm_inputsinterface.h
+Modelia/sm_outputsinterface.h
+Modelia/sm_datasinterface.h
+Modelia/sm_sequenceur.h
+Modelia/sm_autotest.h
+Modelia/sm_chasseneige.h
+Modelia/sm_retourzonedepart.h
+
+
+../ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
+../ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
+../ext/CppRobLib/PowerElectrobot/dspicpowerelectrobotbase.cpp
+../ext/CppRobLib/PowerElectrobot/dspicpowerelectrobotbase.h
 ../ext/CppRobLib/common-rob/CRouesBase.cpp
 ../ext/CppRobLib/common-rob/CRouesBase.h
 ../ext/CppRobLib/common-rob/CAsservissementBase.cpp
@@ -52,9 +75,19 @@ Includes/CTrameLaBotBox.h
 ../ext/CppRobLib/common-rob/CDetectionObstaclesBase.h
 ../ext/CppRobLib/common-rob/CCapteursBase.cpp
 ../ext/CppRobLib/common-rob/CCapteursBase.h
+../ext/CppRobLib/common-rob/Modelia/sm_statemachinebase.h
+../ext/CppRobLib/common-rob/Modelia/sm_statemachinebase.cpp
+../ext/CppRobLib/common-rob/Modelia/iabase.cpp
+../ext/CppRobLib/common-rob/Modelia/iabase.h
+../ext/CppRobLib/common-rob/Modelia/sm_evitement.cpp
+../ext/CppRobLib/common-rob/Modelia/sm_evitement.h
+../ext/CppRobLib/common-rob/Modelia/sm_debuginterface.cpp
+../ext/CppRobLib/common-rob/Modelia/sm_debuginterface.h
+../ext/CppRobLib/common-rob/Modelia/sm_main.cpp
+../ext/CppRobLib/common-rob/Modelia/sm_main.h
+../ext/CppRobLib/Lidar/Lidar_utils.h
+../ext/CppRobLib/Lidar/Lidar_utils.cpp
 
-ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
-ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp
 
 
 ../ext/libElectrobotH755/CM7/Core/Src/main.c

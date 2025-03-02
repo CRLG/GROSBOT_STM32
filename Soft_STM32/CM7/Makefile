@@ -73,6 +73,11 @@ $(CPPLIB)/common-rob/CKmarBase.cpp \
 $(CPPLIB)/ServosAX/servoaxbase.cpp \
 $(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Lidar/Lidar_utils.cpp \
+$(CPPLIB)/common-rob/Modelia/sm_statemachinebase.cpp \
+$(CPPLIB)/common-rob/Modelia/iabase.cpp \
+$(CPPLIB)/common-rob/Modelia/sm_evitement.cpp \
+$(CPPLIB)/common-rob/Modelia/sm_debuginterface.cpp \
+$(CPPLIB)/common-rob/Modelia/sm_main.cpp \
 Sources/main_app.cpp \
 Sources/CEEPROM.cpp \
 Sources/CGlobale.cpp \
@@ -92,7 +97,15 @@ Sources/CAsservissement.cpp \
 Sources/PowerElectrobot.cpp \
 Sources/MessagerieLaBotBox.cpp \
 Sources/CLaBotBox.cpp \
-Sources/CTrameLaBotBox.cpp
+Sources/CTrameLaBotBox.cpp \
+Modelia/ia.cpp \
+Modelia/sm_inputsinterface.cpp \
+Modelia/sm_outputsinterface.cpp \
+Modelia/sm_datasinterface.cpp \
+Modelia/sm_sequenceur.cpp \
+Modelia/sm_autotest.cpp \
+Modelia/sm_chasseneige.cpp \
+Modelia/sm_retourzonedepart.cpp
 
 # C sources
 C_SOURCES =  \
@@ -193,6 +206,7 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -IIncludes \
+-IModelia \
 -I$(LIB_STM32)/Includes \
 -I$(CPPLIB)/ConsoleInteractiveMenu \
 -I$(CPPLIB)/Communication/Messenger \

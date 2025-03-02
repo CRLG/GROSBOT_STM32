@@ -18,6 +18,7 @@ void CGlobale::ModeAutonome(void)
 {
     m_LaBotBox.Start();
     m_LaBotBox.setAllTransmitPeriod(200);
+    m_modelia.init();
 
     while(1) {
         if (tick) {
@@ -78,7 +79,7 @@ void CGlobale::SequenceurModeAutonome(void)
         //m_asservissement.CalculsMouvementsRobots();
 
         // Execute un pas de calcul du modele
-        //m_modelia.step();
+        m_modelia.step();
     }
 
 
