@@ -694,7 +694,6 @@ void CLaBotBox::CheckReceptionTrame(void)
   }
   // ___________________________
   if  (m_ETAT_ECRAN.isNewTrame() ) {
-/*
       switch(m_ETAT_ECRAN.CodeCommande) {
       // _________________________________________
       case LBB_CMDE_CHOIX_EQUIPE : // Choix couleur équipe
@@ -713,7 +712,6 @@ void CLaBotBox::CheckReceptionTrame(void)
           //_led1 = !_led1;
           break;
       } // switch
-*/
   }
   // ___________________________
   if  (m_CONFIG_PERIODE_TRAME.isNewTrame() ) {
@@ -929,7 +927,6 @@ void CLaBotBox::SendTramesLaBotBox(void)
     // _____________________________________________
     if (m_ETAT_MATCH.isTimeToSend())
     {
-/*
         m_ETAT_MATCH.TempsMatch = (unsigned char)(Application.m_modelia.m_datas_interface.TempsMatch);
         m_ETAT_MATCH.CouleurEquipe = Application.m_modelia.m_datas_interface.couleur_equipe;
         m_ETAT_MATCH.ModeFonctionnement = Application.ModeFonctionnement;
@@ -940,7 +937,6 @@ void CLaBotBox::SendTramesLaBotBox(void)
         m_ETAT_MATCH.Score = Application.m_modelia.getScore();
         m_ETAT_MATCH.ChoixStrategie = Application.m_modelia.m_datas_interface.ChoixStrategieMatch;
         SerialiseTrame(m_ETAT_MATCH.Encode(&trame));
-*/
     }
     // _____________________________________________
     if (m_ETAT_DETECTION_EVITEMENT_OBSTACLE.isTimeToSend())
