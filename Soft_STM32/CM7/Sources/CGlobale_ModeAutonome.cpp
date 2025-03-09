@@ -18,6 +18,7 @@ void CGlobale::ModeAutonome(void)
 {
     m_LaBotBox.Start();
     m_LaBotBox.setAllTransmitPeriod(200);
+    m_leds.setPattern(PATTERN_K2000, 50);
     m_modelia.init();
 
     while(1) {

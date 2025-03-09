@@ -13,7 +13,7 @@
 */
 void CGlobale::ModePiloteTerminal(void)
 {
-    m_leds.setPattern(PATTERN_K2000, 50);
+    m_leds.setPattern(PATTERN_CLIGNO_1234, 200);
     while(1) {
         if (tick) {
             tick = 0;
