@@ -18,6 +18,8 @@ Sources/PowerElectrobot.cpp
 Sources/MessagerieLaBotBox.cpp
 Sources/CLaBotBox.cpp
 Sources/CTrameLaBotBox.cpp
+Sources/CServomoteurs.cpp
+
 Modelia/ia.cpp
 Modelia/sm_inputsinterface.cpp
 Modelia/sm_outputsinterface.cpp
@@ -46,6 +48,7 @@ Includes/PowerElectrobot.h
 Includes/MessagerieLaBotBox.h
 Includes/CLaBotBox.h
 Includes/CTrameLaBotBox.h
+Includes/CServomoteurs.h
 
 Modelia/ia.h
 Modelia/sm_inputsinterface.h
@@ -87,6 +90,8 @@ Modelia/sm_retourzonedepart.h
 ../ext/CppRobLib/common-rob/Modelia/sm_main.h
 ../ext/CppRobLib/Lidar/Lidar_utils.h
 ../ext/CppRobLib/Lidar/Lidar_utils.cpp
+../ext/CppRobLib/Servomoteurs/CServomoteursBase.cpp
+../ext/CppRobLib/Servomoteurs/CServomoteursBase.h
 
 
 

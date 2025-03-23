@@ -29,6 +29,9 @@ void CGlobale::ReceiveRS232_ModePiloteTerminal(unsigned char data)
 {
     HAL_UART_Transmit(&huart3, &data, 1, 100); // renvoi le caractère comme écho
     m_menu_interactive.receive_car(data);
+//    if (data == 'i') {
+//    	scan_i2c();
+//    }
 }
 
 
@@ -52,6 +55,7 @@ void CGlobale::SequenceurModePiloteTerminal(void)
 
     static unsigned char compteur=1;
     static unsigned char toggle=0;
+    static unsigned char pos=0;
 
     // ______________________________
     cpt1msec++;
@@ -77,8 +81,6 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         m_capteurs.Traitement();
         m_telemetres.Traitement();
         m_asservissement.CalculsMouvementsRobots();
-
-        //m_asservissement.CalculsMouvementsRobots();
     }
 
 
@@ -86,13 +88,6 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     cpt50msec++;
     if (cpt50msec >= TEMPO_50msec) {
         cpt50msec = 0;
-
-        /*
-        HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-        HAL_GPIO_TogglePin(LED5_GPIO_Port, LED5_Pin);
-        HAL_GPIO_TogglePin(LED6_GPIO_Port, LED6_Pin);
-        HAL_GPIO_TogglePin(LED7_GPIO_Port, LED7_Pin);
-        */
         m_leds.compute();
     }
 
@@ -115,26 +110,6 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         cpt500msec = 0;
 
         toggleLedBuiltin();
-        printf("[%d] : Hello\n\r", HAL_GetTick());
-        for (int i=1; i<=6; i++) {
-            printf("\t Eana%i = %d\n\r", i, readAnalog(i));
-        }
-
-        printf("Codeur : %d / %d / %d / %d\n\r", (signed short)getCodeur(1), (signed short)getCodeur(2), (signed short)getCodeur(3), (signed short)getCodeur(4));
-
-        CdeServo(1, 1000);
-        CdeServo(2, 1100);
-        CdeServo(3, 1200);
-        CdeServo(4, 1300);
-        CdeServo(5, 1400);
-        CdeServo(6, 1500);
-        CdeServo(7, 1647);
-
-        CdeMoteur(1, 10);
-        CdeMoteur(2, 1.2);
-        CdeMoteur(3, 52);
-        CdeMoteur(4, -76);
-
     }
     // ______________________________
     cpt1sec++;

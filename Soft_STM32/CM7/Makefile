@@ -78,6 +78,7 @@ $(CPPLIB)/common-rob/Modelia/iabase.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_evitement.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_debuginterface.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_main.cpp \
+$(CPPLIB)/Servomoteurs/CServomoteursBase.cpp \
 Sources/main_app.cpp \
 Sources/CEEPROM.cpp \
 Sources/CGlobale.cpp \
@@ -98,6 +99,7 @@ Sources/PowerElectrobot.cpp \
 Sources/MessagerieLaBotBox.cpp \
 Sources/CLaBotBox.cpp \
 Sources/CTrameLaBotBox.cpp \
+Sources/CServomoteurs.cpp \
 Modelia/ia.cpp \
 Modelia/sm_inputsinterface.cpp \
 Modelia/sm_outputsinterface.cpp \
@@ -218,6 +220,7 @@ C_INCLUDES =  \
 -I$(CPPLIB)/common-rob \
 -I$(CPPLIB)/common-rob/Modelia \
 -I$(CPPLIB)/ServosAX \
+-I$(CPPLIB)/Servomoteurs \
 -I$(CPPLIB)/Lidar \
 -I$(LIB_STM32)/CM7/Core/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc \

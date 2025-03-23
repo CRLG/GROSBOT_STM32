@@ -69,18 +69,17 @@ void CGlobale::SequenceurModeAutonome(void)
     if (cpt20msec >= TEMPO_20msec) {
         cpt20msec = 0;
 
+        toggleLedBuiltin();
+
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
-        m_asservissement.CalculsMouvementsRobots();
-
-        toggleLedBuiltin();
-        //printf("Hello %ld\n\r", HAL_GetTick());
-
-        //m_asservissement.CalculsMouvementsRobots();
 
         // Execute un pas de calcul du modele
         m_modelia.step();
+
+        m_asservissement.CalculsMouvementsRobots();
+        m_servos.periodicCall();
     }
 
 

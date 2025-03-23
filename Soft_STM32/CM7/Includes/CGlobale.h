@@ -15,6 +15,7 @@
 #include "CRoues.h"
 #include "CMoteurs.h"
 #include "CAsservissement.h"
+#include "CServomoteurs.h"
 #include "console_interactive_menu.h"
 #include "PowerElectrobot.h"
 #include "CLaBotBox.h"
@@ -86,6 +87,8 @@ public :
     CAsservissement m_asservissement;
     //! Carte PowerElectrobot
     PowerElectrobot m_power_electrobot;
+    //! Servmoteurs intégrés
+    CServomoteurs m_servos;
     //! La gestion Labotbox
     CLaBotBox m_LaBotBox;
     //! Le match à  jouer

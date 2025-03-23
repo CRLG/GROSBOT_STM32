@@ -467,20 +467,14 @@ void CLaBotBox::CheckReceptionTrame(void)
         //          la vitesse de déplacement des servo
         //          les butées min/max
         //          les valeurs d'init
-        CdeServo(m_ELECTROBOT_CDE_SERVOS.NumeroServoMoteur1, m_ELECTROBOT_CDE_SERVOS.PositionServoMoteur1);
-        CdeServo(m_ELECTROBOT_CDE_SERVOS.NumeroServoMoteur2, m_ELECTROBOT_CDE_SERVOS.PositionServoMoteur2);
-
-
-/*
-        Application.m_servos_sd20.CommandePositionVitesse(
+        Application.m_servos.CommandePositionVitesse(
                     m_ELECTROBOT_CDE_SERVOS.NumeroServoMoteur1,
                     m_ELECTROBOT_CDE_SERVOS.PositionServoMoteur1,
                     m_ELECTROBOT_CDE_SERVOS.VitesseServoMoteur1);
-        Application.m_servos_sd20.CommandePositionVitesse(
+        Application.m_servos.CommandePositionVitesse(
                     m_ELECTROBOT_CDE_SERVOS.NumeroServoMoteur2,
                     m_ELECTROBOT_CDE_SERVOS.PositionServoMoteur2,
                     m_ELECTROBOT_CDE_SERVOS.VitesseServoMoteur2);
-*/
    }
 
   // ___________________________
