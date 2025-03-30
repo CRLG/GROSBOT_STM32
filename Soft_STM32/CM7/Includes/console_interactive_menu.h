@@ -62,16 +62,22 @@ public:
     bool page_servo3_1700();
     bool page_servo3_2000();
 
-    void page_eeprom();
-    void eep_action_init();
-    void eep_action_is_valid();
-    void eep_action_format();
-    void eep_action_checkshum();
-    void eep_action_magic_number();
-    void eep_action_read_all();
+    void  page_eeprom();
+    bool eep_action_init();
+    bool eep_action_is_valid();
+    bool eep_action_format();
+    bool eep_action_checkshum();
+    bool eep_action_magic_number();
+    bool eep_action_read_all();
+
+    void page_servos_ax();
+    bool ax_check_present();
+    bool ax_100();
+    bool ax_200();
+    bool ax_lecture_pos();
 
     void page_i2c();
-    void i2c_action_scan();
+    bool i2c_action_scan();
 
     double m_param1;
     int m_param2;

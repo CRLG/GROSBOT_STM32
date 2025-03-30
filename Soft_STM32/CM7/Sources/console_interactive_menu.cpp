@@ -26,6 +26,7 @@ void CMenuApp::page1()
     DECLARE_PAGE("Menu Page 1", CMenuApp::page1);
     DECLARE_OPTION('m', "Commande moteurs", CMenuApp::page_cde_moteurs);
     DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
+    DECLARE_OPTION('a', "Commande servo AX", CMenuApp::page_servos_ax);
     DECLARE_OPTION('c', "Capteurs", CMenuApp::page_capteurs);
     DECLARE_OPTION('e', "EEPPROM", CMenuApp::page_eeprom);
     DECLARE_OPTION('i', "I2C", CMenuApp::page_i2c);
@@ -100,40 +101,45 @@ void CMenuApp::page_eeprom()
     DECLARE_ACTION('r', "Read all", CMenuApp::eep_action_read_all);
 }
 
-void CMenuApp::eep_action_init()
+bool CMenuApp::eep_action_init()
 {
     _printf("Statut de l'init EEPROM: %d\n\r", Application.m_eeprom.init());
+    return true;
 }
 
 
-void CMenuApp::eep_action_is_valid()
+bool CMenuApp::eep_action_is_valid()
 {
     _printf("Validité de l'EEPROM: %d\n\r", Application.m_eeprom.is_valid());
+    return true;
 }
 
-void CMenuApp::eep_action_format()
+bool CMenuApp::eep_action_format()
 {
     _printf("Formatage...\n\r");
     bool status = Application.m_eeprom.format();
     _printf("Statut du formatage : %d\n\r", status);
+    return true;
 }
 
-void CMenuApp::eep_action_checkshum()
+bool CMenuApp::eep_action_checkshum()
 {
     unsigned long cs_computed = Application.m_eeprom.compute_checksum();
     unsigned long cs_read;
     bool status = Application.m_eeprom._read_uint32(Application.m_eeprom.ADDR_CHECKSUM_MSB, &cs_read);
     printf("Statut Lecture CS: %d / Val=%ld / Computed=%ld\n\r", status, cs_read, cs_computed);
+    return true;
 }
 
-void CMenuApp::eep_action_magic_number()
+bool CMenuApp::eep_action_magic_number()
 {
     unsigned short usval;
     bool status = Application.m_eeprom._read_uint16(Application.m_eeprom.ADDR_MAGIC_NUMBER, &usval);
     printf("Statut Lecture MagicNumber: %d / Val=0x%x\n\r", status, usval);
+    return true;
 }
 
-void CMenuApp::eep_action_read_all()
+bool CMenuApp::eep_action_read_all()
 {
     unsigned short usval;
     bool status = true;
@@ -144,6 +150,7 @@ void CMenuApp::eep_action_read_all()
         if (status) printf("[%d] : 0x%x / %d\n\r", i, usval, usval);
         else        printf("[%d] : Erreur de lecture\n\r", i);
     }
+    return true;
 }
 
 // =============================================================================
@@ -155,7 +162,7 @@ void CMenuApp::page_i2c()
     DECLARE_ACTION('s', "Scan I2C", CMenuApp::i2c_action_scan);
 }
 
-void CMenuApp::i2c_action_scan()
+bool CMenuApp::i2c_action_scan()
 {
     uint8_t data;
     _printf("SCAN I2C\n\r");
@@ -180,6 +187,7 @@ void CMenuApp::i2c_action_scan()
     }
     _printf("\n\r");
 
+    return true;
 }
 
 void CMenuApp::page_set_param_1()
@@ -416,5 +424,64 @@ bool CMenuApp::read_codeurs()
 bool CMenuApp::read_analog_inputs()
 {
     _printf("Eana1=%d / Eana2=%d / Eana3=%d / Eana4=%d / Eana5=%d / Vbat=%d\n\r", readAnalog(1), readAnalog(2), readAnalog(3), readAnalog(4), readAnalog(5), readAnalog(6));
+    return true;
+}
+
+
+
+// ===========================================================
+//                  SERVOS AX
+// ===========================================================
+
+void CMenuApp::page_servos_ax()
+{
+    DECLARE_PAGE("SERVOS AX", CMenuApp::page_servos_ax);
+    DECLARE_ACTION('p', "Test présents", CMenuApp::ax_check_present);
+    DECLARE_ACTION('q', "Consigne 100", CMenuApp::ax_100);
+    DECLARE_ACTION('s', "Consigne 200", CMenuApp::ax_200);
+    DECLARE_ACTION('l', "Lecture position", CMenuApp::ax_lecture_pos);
+}
+
+
+bool CMenuApp::ax_check_present()
+{
+    int count = 0;
+
+    _printf("Test present\n\r");
+    for (unsigned int i=0; i< 20; i++) {
+        bool present = Application.m_servos_ax.isPresent(i);
+        count += present;
+        if (present) _printf("ID %d : OK\n\r", i);
+    }
+    if (count)  _printf("   %d AX trouvés\n\r", count);
+    else        _printf(" > Aucun servo AX trouvé !\n\r");
+
+    return true;
+}
+
+bool CMenuApp::ax_100()
+{
+    Application.m_servos_ax.setPosition(1, 512);
+    Application.m_servos_ax.setLed(1, 1);
+    return true;
+}
+
+bool CMenuApp::ax_200()
+{
+    Application.m_servos_ax.setPosition(1, 600);
+    Application.m_servos_ax.setLed(1, 0);
+    unsigned short pos = Application.m_servos_ax.getPosition(1);
+    _printf("Servo Position = %d\n\r", pos);
+    return true;
+}
+
+bool CMenuApp::ax_lecture_pos()
+{
+    for (unsigned char i=0; i<Application.m_servos_ax.m_present_count; i++) {
+        unsigned char id = Application.m_servos_ax.m_presents_list[i];
+        unsigned short pos = Application.m_servos_ax.getPosition(id);
+        _printf("ID=%d - Position = %d\n\r", id, pos);
+    }
+
     return true;
 }

@@ -70,14 +70,14 @@ $(CPPLIB)/common-rob/CTelemetresBase.cpp \
 $(CPPLIB)/common-rob/CDetectionObstaclesBase.cpp \
 $(CPPLIB)/common-rob/CCapteursBase.cpp \
 $(CPPLIB)/common-rob/CKmarBase.cpp \
-$(CPPLIB)/ServosAX/servoaxbase.cpp \
-$(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Lidar/Lidar_utils.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_statemachinebase.cpp \
 $(CPPLIB)/common-rob/Modelia/iabase.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_evitement.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_debuginterface.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_main.cpp \
+$(CPPLIB)/ServosAX/servoaxbase.cpp \
+$(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Servomoteurs/CServomoteursBase.cpp \
 Sources/main_app.cpp \
 Sources/CEEPROM.cpp \
@@ -100,6 +100,7 @@ Sources/MessagerieLaBotBox.cpp \
 Sources/CLaBotBox.cpp \
 Sources/CTrameLaBotBox.cpp \
 Sources/CServomoteurs.cpp \
+Sources/CServoMoteursAX.cpp \
 Modelia/ia.cpp \
 Modelia/sm_inputsinterface.cpp \
 Modelia/sm_outputsinterface.cpp \

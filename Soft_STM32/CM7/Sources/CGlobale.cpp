@@ -52,6 +52,9 @@ void CGlobale::Run(void)
     m_electrobot.Init();
     // Carte PowerElectrobot
     m_power_electrobot.init(POWER_ELECTROBOT_I2C_ADDR);
+ #ifdef UTILSATION_SERVOS_AX
+    m_servos_ax.Init();
+ #endif // UTILSATION_SERVOS_AX
 
     switch(ModeFonctionnement) {
     case MODE_AUTONOME : 			ModeAutonome();			break;

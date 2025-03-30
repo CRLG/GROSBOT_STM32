@@ -76,6 +76,12 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
         cpt50msec = 0;
 
         m_leds.compute();
+#ifdef UTILSATION_SERVOS_AX
+        m_servos_ax.compute();
+#endif
+#ifdef UTILISATION_KMAR
+        m_kmar.compute();
+#endif
     }
 
     // ______________________________

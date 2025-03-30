@@ -16,11 +16,13 @@
 #include "CMoteurs.h"
 #include "CAsservissement.h"
 #include "CServomoteurs.h"
+#include "CServoMoteursAX.h"
 #include "console_interactive_menu.h"
 #include "PowerElectrobot.h"
 #include "CLaBotBox.h"
 #include "CEEPROM.h"
 #include "ia.h"
+#include "ConfigSpecifiqueCoupe.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -89,6 +91,8 @@ public :
     PowerElectrobot m_power_electrobot;
     //! Servmoteurs intégrés
     CServomoteurs m_servos;
+    //! Servmoteurs AX
+    CServoMoteursAX m_servos_ax;
     //! La gestion Labotbox
     CLaBotBox m_LaBotBox;
     //! Le match à  jouer

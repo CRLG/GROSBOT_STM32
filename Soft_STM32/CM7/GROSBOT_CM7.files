@@ -19,6 +19,7 @@ Sources/MessagerieLaBotBox.cpp
 Sources/CLaBotBox.cpp
 Sources/CTrameLaBotBox.cpp
 Sources/CServomoteurs.cpp
+Sources/CServoMoteursAX.cpp
 
 Modelia/ia.cpp
 Modelia/sm_inputsinterface.cpp
@@ -49,6 +50,7 @@ Includes/MessagerieLaBotBox.h
 Includes/CLaBotBox.h
 Includes/CTrameLaBotBox.h
 Includes/CServomoteurs.h
+Includes/CServoMoteursAX.h
 
 Modelia/ia.h
 Modelia/sm_inputsinterface.h
@@ -88,6 +90,10 @@ Modelia/sm_retourzonedepart.h
 ../ext/CppRobLib/common-rob/Modelia/sm_debuginterface.h
 ../ext/CppRobLib/common-rob/Modelia/sm_main.cpp
 ../ext/CppRobLib/common-rob/Modelia/sm_main.h
+../ext/CppRobLib/ServosAX/servoaxbase.cpp
+../ext/CppRobLib/ServosAX/servoaxbase.h
+../ext/CppRobLib/ServosAX/servoax_utils.cpp
+../ext/CppRobLib/ServosAX/servoax_utils.h
 ../ext/CppRobLib/Lidar/Lidar_utils.h
 ../ext/CppRobLib/Lidar/Lidar_utils.cpp
 ../ext/CppRobLib/Servomoteurs/CServomoteursBase.cpp

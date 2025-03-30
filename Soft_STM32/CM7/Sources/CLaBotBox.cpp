@@ -480,7 +480,7 @@ void CLaBotBox::CheckReceptionTrame(void)
   // ___________________________
   if  (m_ELECTROBOT_CDE_SERVOS_AX.isNewTrame() ) {
     // sous adressage : le champ commande_ax donne le type d'action à  réaliser
-/*
+
     switch (m_ELECTROBOT_CDE_SERVOS_AX.commande_ax) {
         case cSERVO_AX_POSITION :
             Application.m_servos_ax.setPosition(
@@ -509,28 +509,31 @@ void CLaBotBox::CheckReceptionTrame(void)
             Application.m_servos_ax.setLimitPositionMin(
                         m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax,
                         m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
-            sprintf(cbuff, "butee_min_servo_ax_%d", m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax);
-            Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
+            // TODO : sauvegarder dans l'EEPROM
+            //sprintf(cbuff, "butee_min_servo_ax_%d", m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax);
+            //Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
         break;
 
         case cSERVO_AX_BUTEE_MAX :
             Application.m_servos_ax.setLimitPositionMax(
                         m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax,
                         m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
-            sprintf(cbuff, "butee_max_servo_ax_%d", m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax);
-            Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
+            // TODO : sauvegarder dans l'EEPROM
+            //sprintf(cbuff, "butee_max_servo_ax_%d", m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax);
+            //Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
         break;
 
         case cSERVO_AX_POSITION_INIT :
-            sprintf(cbuff, "position_initiale_servo_ax_%d", m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax);
-            Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
+            // TODO : sauvegarder dans l'EEPROM
+            //sprintf(cbuff, "position_initiale_servo_ax_%d", m_ELECTROBOT_CDE_SERVOS_AX.num_servo_ax);
+            //Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_AX.valeur_commande_ax);
         break;
 
         default :
         break; //  ne rien faire
 
     } // switch commande_ax
-*/
+
    }
 
   // ___________________________
@@ -1010,7 +1013,6 @@ void CLaBotBox::SendTramesLaBotBox(void)
     // _____________________________________________
     if (m_ETAT_SERVO_AX.isTimeToSend())
     {
-/*
         // Envoie tous les servos détectés au démarrage, à la suite
         // Si aucun servo n'a été détecté,
         for(unsigned int i=0; i<Application.m_servos_ax.m_present_count; i++)
@@ -1020,11 +1022,12 @@ void CLaBotBox::SendTramesLaBotBox(void)
                 m_ETAT_SERVO_AX.num_servo_ax = servo_id;
                 m_ETAT_SERVO_AX.position = Application.m_servos_ax.m_positions[i];
                 m_ETAT_SERVO_AX.mouvement_en_cours = Application.m_servos_ax.m_moving[i];
+                m_ETAT_SERVO_AX.couple = Application.m_servos_ax.m_rx_err_count;
+                m_ETAT_SERVO_AX.temperature = Application.m_servos_ax.m_tx_err_count;
 
                 SerialiseTrame(m_ETAT_SERVO_AX.Encode(&trame));
             }
         }
-*/
     }
     // _____________________________________________
     if (m_ETAT_KMAR_GENERAL.isTimeToSend())
