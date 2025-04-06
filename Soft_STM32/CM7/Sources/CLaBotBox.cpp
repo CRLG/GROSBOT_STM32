@@ -57,7 +57,7 @@ void CLaBotBox::initListeTrames()
     m_liste_trames[m_nombre_trames++] = &m_COMMANDE_MVT_XY_TETA;
     m_liste_trames[m_nombre_trames++] = &m_ELECTROBOT_CDE_SERVOS;
     m_liste_trames[m_nombre_trames++] = &m_ELECTROBOT_CDE_SERVOS_AX;
-    m_liste_trames[m_nombre_trames++] = &m_ELECTROBOT_CDE_SERVOS_SD20;
+    m_liste_trames[m_nombre_trames++] = &m_ELECTROBOT_CONFIG_SERVOS;
     m_liste_trames[m_nombre_trames++] = &m_COMMANDE_MVT_MANUEL;
     m_liste_trames[m_nombre_trames++] = &m_ETAT_PID_ASSERVISSEMENT;
     m_liste_trames[m_nombre_trames++] = &m_ETAT_ASSERVISSEMENT;
@@ -537,36 +537,35 @@ void CLaBotBox::CheckReceptionTrame(void)
    }
 
   // ___________________________
-  if  (m_ELECTROBOT_CDE_SERVOS_SD20.isNewTrame() ) {
-     //_led2 = !_led2;
+  if  (m_ELECTROBOT_CONFIG_SERVOS.isNewTrame() ) {
     // sous adressage : le champ commande_sd20 donne le type d'action à  réaliser
-    switch (m_ELECTROBOT_CDE_SERVOS_SD20.commande_sd20) {
-        case cSERVO_SD20_POSITION :
-        CdeServo(m_ELECTROBOT_CDE_SERVOS_SD20.num_servo_sd20,
-                 m_ELECTROBOT_CDE_SERVOS_SD20.valeur_commande_sd20);
-        break;
-/*
-        case cSERVO_SD20_BUTEE_MIN :
-            Application.m_servos_sd20.setButeeMinPosition(
-                        m_ELECTROBOT_CDE_SERVOS_SD20.num_servo_sd20,
-                        m_ELECTROBOT_CDE_SERVOS_SD20.valeur_commande_sd20);
-            sprintf(cbuff, "butee_min_servo_sd20_%d", m_ELECTROBOT_CDE_SERVOS_SD20.num_servo_sd20);
-            Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_SD20.valeur_commande_sd20);
+    switch (m_ELECTROBOT_CONFIG_SERVOS.commande) {
+        case cCONFIG_SERVO_POSITION :
+        CdeServo(m_ELECTROBOT_CONFIG_SERVOS.num_servo,
+                 m_ELECTROBOT_CONFIG_SERVOS.valeur_commande);
         break;
 
-        case cSERVO_SD20_BUTEE_MAX :
-            Application.m_servos_sd20.setButeeMaxPosition(
-                        m_ELECTROBOT_CDE_SERVOS_SD20.num_servo_sd20,
-                        m_ELECTROBOT_CDE_SERVOS_SD20.valeur_commande_sd20);
-            sprintf(cbuff, "butee_max_servo_sd20_%d", m_ELECTROBOT_CDE_SERVOS_SD20.num_servo_sd20);
-            Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_SD20.valeur_commande_sd20);
+        case cCONFIG_SERVO_BUTEE_MIN :
+            Application.m_servos.setButeeMinPosition(
+                        m_ELECTROBOT_CONFIG_SERVOS.num_servo,
+                        m_ELECTROBOT_CONFIG_SERVOS.valeur_commande);
+            //sprintf(cbuff, "butee_min_servo_sd20_%d", m_ELECTROBOT_CONFIG_SERVOS.num_servo_sd20);
+            //Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CONFIG_SERVOS.valeur_commande_sd20);
         break;
 
-        case cSERVO_SD20_POSITION_INIT :
-            sprintf(cbuff, "position_initiale_servo_sd20_%d", m_ELECTROBOT_CDE_SERVOS_SD20.num_servo_sd20);
-            Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CDE_SERVOS_SD20.valeur_commande_sd20);
+        case cCONFIG_SERVO_BUTEE_MAX :
+            Application.m_servos.setButeeMaxPosition(
+                        m_ELECTROBOT_CONFIG_SERVOS.num_servo,
+                        m_ELECTROBOT_CONFIG_SERVOS.valeur_commande);
+            //sprintf(cbuff, "butee_max_servo_sd20_%d", m_ELECTROBOT_CONFIG_SERVOS.num_servo_sd20);
+            //Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CONFIG_SERVOS.valeur_commande_sd20);
         break;
-*/
+
+        case cCONFIG_SERVO_POSITION_INIT :
+            //sprintf(cbuff, "position_initiale_servo_sd20_%d", m_ELECTROBOT_CONFIG_SERVOS.num_servo_sd20);
+            //Application.m_eeprom.setValue(cbuff, m_ELECTROBOT_CONFIG_SERVOS.valeur_commande_sd20);
+        break;
+
         default :
         break; //  ne rien faire
 

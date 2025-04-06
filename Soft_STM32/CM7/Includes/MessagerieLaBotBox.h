@@ -24,7 +24,7 @@
 #define ID_COMMANDE_POWER_ELECTROBOT 0x60
 #define ID_ETAT_POWER_ELECTROBOT 0x62
 #define ID_COMMANDE_KMAR 0x55
-#define ID_ELECTROBOT_CDE_SERVOS_SD20 0x53
+#define ID_ELECTROBOT_CONFIG_SERVOS 0x53
 #define ID_ELECTROBOT_CDE_SERVOS_AX 0x52
 #define ID_ELECTROBOT_CDE_MOTEURS 0x50
 #define ID_COMMANDE_MVT_XY 0x102
@@ -64,7 +64,7 @@
 
 #define DLC_COMMANDE_POWER_ELECTROBOT 4
 #define DLC_ETAT_POWER_ELECTROBOT 8
-#define DLC_ELECTROBOT_CDE_SERVOS_SD20 5
+#define DLC_ELECTROBOT_CONFIG_SERVOS 5
 #define DLC_ELECTROBOT_CDE_SERVOS_AX 5
 #define DLC_ELECTROBOT_CDE_MOTEURS 6
 #define DLC_COMMANDE_MVT_XY 5
@@ -325,14 +325,14 @@
 
 // -----------------------------
 //! Classe de base pour les trames CAN
-class CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20 : public CTrameLaBotBox {
+class CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS : public CTrameLaBotBox {
 public :
 	//! Les signaux de la messagerie
-	unsigned short valeur_commande_sd20;
-	unsigned short commande_sd20;
-	unsigned char num_servo_sd20;
+	unsigned short valeur_commande;
+	unsigned short commande;
+	unsigned char num_servo;
 
-	CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20();
+	CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS();
     tStructTrameLaBotBox* Encode(tStructTrameLaBotBox* trame);
 	void Decode(tStructTrameLaBotBox* trameRecue);
 };

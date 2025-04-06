@@ -15,29 +15,29 @@
    \param --
    \return --
    */
-CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20::CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20()
+CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS::CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS()
 {
-  m_ID = ID_ELECTROBOT_CDE_SERVOS_SD20;
-  m_DLC = DLC_ELECTROBOT_CDE_SERVOS_SD20;
+  m_ID = ID_ELECTROBOT_CONFIG_SERVOS;
+  m_DLC = DLC_ELECTROBOT_CONFIG_SERVOS;
 }
 //___________________________________________________________________________
  /*!
-   \brief Decode les signaux de la trame ELECTROBOT_CDE_SERVOS_SD20
+   \brief Decode les signaux de la trame ELECTROBOT_CONFIG_SERVOS
 
 		- Renseigne les champs de la structure de donnee de la trame
    \param bufBrut le buffer des octets de la trames a decoder
    \return --
    */
-void CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20::Decode(tStructTrameLaBotBox *trameRecue)
+void CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS::Decode(tStructTrameLaBotBox *trameRecue)
 {
   //long lDonnee_temp = 0; // utilisé si besoin pour le décodage des données en flottant
 
    // Decode les signaux de la trame
-   valeur_commande_sd20 = ( ( ((unsigned short)(trameRecue->Data[4])) & 0xFF) )  |  ( ( ((unsigned short)(trameRecue->Data[3])) & 0xFF) << 8 );
+   valeur_commande = ( ( ((unsigned short)(trameRecue->Data[4])) & 0xFF) )  |  ( ( ((unsigned short)(trameRecue->Data[3])) & 0xFF) << 8 );
 
-   commande_sd20 = ( ( ((unsigned short)(trameRecue->Data[2])) & 0xFF) )  |  ( ( ((unsigned short)(trameRecue->Data[1])) & 0xFF) << 8 );
+   commande = ( ( ((unsigned short)(trameRecue->Data[2])) & 0xFF) )  |  ( ( ((unsigned short)(trameRecue->Data[1])) & 0xFF) << 8 );
 
-   num_servo_sd20 = ( ( ((unsigned char)(trameRecue->Data[0])) & 0xFF) );
+   num_servo = ( ( ((unsigned char)(trameRecue->Data[0])) & 0xFF) );
 
 
   m_new_trame = true;
@@ -47,23 +47,23 @@ void CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20::Decode(tStructTrameLaBotBox *tra
 
 //___________________________________________________________________________
  /*!
-   \brief Decode les signaux de la trame ELECTROBOT_CDE_SERVOS_SD20
+   \brief Decode les signaux de la trame ELECTROBOT_CONFIG_SERVOS
         - Renseigne les champs de la structure de donnee de la trame a transmettre
    \param trame pointeur sur une structure trame deja alloue
    \return le pointeur sur la trame a envoyer (renvoie le pointeur recu)
    */
-tStructTrameLaBotBox* CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_SD20::Encode(tStructTrameLaBotBox* trame)
+tStructTrameLaBotBox* CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS::Encode(tStructTrameLaBotBox* trame)
 {
     initTrame(trame);
 
   	// Encode chacun des signaux de la trame
-    trame->Data[4] |= (unsigned char)( ( (valeur_commande_sd20) & 0xFF) );
-    trame->Data[3] |= (unsigned char)( ( (valeur_commande_sd20 >> 8) & 0xFF) );
+    trame->Data[4] |= (unsigned char)( ( (valeur_commande) & 0xFF) );
+    trame->Data[3] |= (unsigned char)( ( (valeur_commande >> 8) & 0xFF) );
 
-    trame->Data[2] |= (unsigned char)( ( (commande_sd20) & 0xFF) );
-    trame->Data[1] |= (unsigned char)( ( (commande_sd20 >> 8) & 0xFF) );
+    trame->Data[2] |= (unsigned char)( ( (commande) & 0xFF) );
+    trame->Data[1] |= (unsigned char)( ( (commande >> 8) & 0xFF) );
 
-    trame->Data[0] |= (unsigned char)( ( (num_servo_sd20) & 0xFF) );
+    trame->Data[0] |= (unsigned char)( ( (num_servo) & 0xFF) );
 
     return(trame);
 }
