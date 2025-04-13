@@ -64,13 +64,13 @@ void CdeMoteur(unsigned char num_moteur, float cde_pourcent)
                __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, 0);
            }
            else if (cde_pourcent > 0) {
-               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_SET);
-               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_RESET);
+               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_RESET);
+               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_SET);
                __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, COEF_CDE_MOTEUR * cde_pourcent);
            }
            else {
-               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_RESET);
-               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_SET);
+               HAL_GPIO_WritePin(Mot2_Sens1_GPIO_Port, Mot2_Sens1_Pin, GPIO_PIN_SET);
+               HAL_GPIO_WritePin(Mot2_Sens2_GPIO_Port, Mot2_Sens2_Pin, GPIO_PIN_RESET);
                __HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_2, COEF_CDE_MOTEUR * (-cde_pourcent));
            }
         break;
@@ -244,4 +244,12 @@ unsigned long getTime()
 void wait_ms(unsigned int ms)
 {
     HAL_Delay(ms);
+}
+
+// ===================================================
+//                  Reset CPU
+// ===================================================
+void reset_cpu(unsigned int secure_code)
+{
+    if (secure_code == RESET_CPU_SECURE_CODE)  NVIC_SystemReset();
 }
