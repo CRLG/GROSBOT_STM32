@@ -4,6 +4,7 @@
 #include "RessourcesHardware.h"
 #include "CTelemetres.h"
 #include "ConfigSpecifiqueCoupe.h"
+#include "CGlobale.h"
 
 //___________________________________________________________________________
 /*!
@@ -53,12 +54,12 @@ float CTelemetres::getDistanceARD()
 
 float CTelemetres::getDistanceARGCentre()
 {
-    return 200;//m_distance[INDEX_TELEMETRE_ARGCentre];
+    return m_distance[INDEX_TELEMETRE_ARGCentre];
 }
 
 float CTelemetres::getDistanceARDCentre()
 {
-    return 200;//m_distance[INDEX_TELEMETRE_ARDCentre];
+    return m_distance[INDEX_TELEMETRE_ARDCentre];
 }
 
 
@@ -157,6 +158,12 @@ void CTelemetres::Traitement_I2C(void)
 #define COEF_TELEMETRE_ULTRASON (3.3 * 259.183)
 void CTelemetres::Traitement_Analog(void)
 {
+    m_distance[INDEX_TELEMETRE_ARGCentre] = MoyenneGlissante_float(Application.m_electrobot.m_b_Eana2 * COEF_TELEMETRE_ULTRASON,
+                                                                   m_buff_moy_us_arg_centre,
+                                                                   TAILLE_MOYENNE_GLISSANTE_CAPTEURS_US_ANA);
+    m_distance[INDEX_TELEMETRE_ARDCentre] = MoyenneGlissante_float(Application.m_electrobot.m_b_Eana3 * COEF_TELEMETRE_ULTRASON,
+                                                                   m_buff_moy_us_ard_centre,
+                                                                   TAILLE_MOYENNE_GLISSANTE_CAPTEURS_US_ANA);
 
 }
 
