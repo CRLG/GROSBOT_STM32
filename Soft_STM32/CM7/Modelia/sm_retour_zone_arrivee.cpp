@@ -2,21 +2,21 @@
  * Generated 28_05_2022 at 01_21
  */
 
-#include "sm_retourzonedepart.h"
+#include "sm_retour_zone_arrivee.h"
 #include "CGlobale.h"
 
-SM_RetourZoneDepart::SM_RetourZoneDepart()
+SM_RetourZoneArrivee::SM_RetourZoneArrivee()
 {
 	m_main_mission_type = true;
 	m_max_score = 0;
 }
 
-const char* SM_RetourZoneDepart::getName()
+const char* SM_RetourZoneArrivee::getName()
 {
 	return "SM_RetourZoneDepart";
 }
 
-const char* SM_RetourZoneDepart::stateToName(unsigned short state)
+const char* SM_RetourZoneArrivee::stateToName(unsigned short state)
 {
 	switch(state)
 	{
@@ -31,7 +31,7 @@ const char* SM_RetourZoneDepart::stateToName(unsigned short state)
 }
 
 // _____________________________________
-void SM_RetourZoneDepart::step()
+void SM_RetourZoneArrivee::step()
 {
 	switch (m_state)
 	{

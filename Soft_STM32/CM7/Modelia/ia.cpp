@@ -15,7 +15,11 @@ IA::IA()
 {
     m_sm_liste[m_state_machine_count++] = &m_sm_autotest;
     m_sm_liste[m_state_machine_count++] = &m_sm_chasse_neige;
-    m_sm_liste[m_state_machine_count++] = &m_sm_retour_zone_depart;
+    m_sm_liste[m_state_machine_count++] = &m_sm_retour_zone_arrivee;
+    m_sm_liste[m_state_machine_count++] = &m_deposer_banderole;
+    m_sm_liste[m_state_machine_count++] = &m_deposer_pile_bordure;
+    m_sm_liste[m_state_machine_count++] = &m_deposer_pile_centrale;
+    m_sm_liste[m_state_machine_count++] = &m_deposer_pile_bas_de_pente;
 }
 
 // ________________________________________________
@@ -70,9 +74,8 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_chasse_neige.setEnabled(false);
-        m_sm_retour_zone_depart.setEnabled(false);
         //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_deposer_banderole.setPrioriteExecution(ordre++);
 
         break;
     // ________________________
@@ -82,11 +85,12 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_chasse_neige.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_deposer_banderole.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
 
         break;
-    // ________________________  A VERIFIER
+    // ________________________
+    case STRATEGIE_01:
     case STRATEGIE_PAR_DEFAUT:
     default:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
@@ -94,8 +98,11 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_chasse_neige.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_deposer_banderole.setPrioriteExecution(ordre++);
+        m_deposer_pile_bordure.setPrioriteExecution(ordre++);
+        m_deposer_pile_centrale.setPrioriteExecution(ordre++);
+        m_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
         break;
     }
     m_datas_interface.ChoixStrategieMatch = strategie;
@@ -107,7 +114,7 @@ void IA::setMaxScores()
     // TODO : valeurs des scores max fixées au pif.
     // Mettre les vraies valeurs
     m_sm_chasse_neige.setScoreMax(5);
-    m_sm_retour_zone_depart.setScoreMax(5);
+    m_sm_retour_zone_arrivee.setScoreMax(5);
 }
 
 // ________________________________________________

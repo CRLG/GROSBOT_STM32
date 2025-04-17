@@ -107,8 +107,12 @@ Modelia/sm_outputsinterface.cpp \
 Modelia/sm_datasinterface.cpp \
 Modelia/sm_sequenceur.cpp \
 Modelia/sm_autotest.cpp \
+Modelia/sm_retour_zone_arrivee.cpp \
 Modelia/sm_chasseneige.cpp \
-Modelia/sm_retourzonedepart.cpp
+Modelia/sm_deposer_banderole.cpp \
+Modelia/sm_deposer_pile_bordure.cpp \
+Modelia/sm_deposer_pile_centrale.cpp \
+Modelia/sm_deposer_pile_bas_de_pente.cpp
 
 # C sources
 C_SOURCES =  \

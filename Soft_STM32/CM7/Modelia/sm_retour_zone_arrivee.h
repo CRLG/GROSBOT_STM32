@@ -7,10 +7,10 @@
 
 #include "sm_statemachinebase.h"
 
-class SM_RetourZoneDepart : public SM_StateMachineBase
+class SM_RetourZoneArrivee : public SM_StateMachineBase
 {
 public:
-	SM_RetourZoneDepart();
+    SM_RetourZoneArrivee();
 	void step();
 	const char* getName();
 	const char* stateToName(unsigned short state);
