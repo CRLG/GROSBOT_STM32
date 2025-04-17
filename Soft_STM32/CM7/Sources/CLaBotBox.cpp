@@ -812,7 +812,7 @@ void CLaBotBox::CheckReceptionTrame(void)
   if (m_RESET_CPU.isNewTrame())
   {
       if (m_RESET_CPU.secure_code == 0x69) {
-          NVIC_SystemReset();
+          reset_cpu(RESET_CPU_SECURE_CODE);
       }
   }
 }
