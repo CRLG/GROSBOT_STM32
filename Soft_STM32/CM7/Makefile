@@ -70,7 +70,6 @@ $(CPPLIB)/common-rob/CTelemetresBase.cpp \
 $(CPPLIB)/common-rob/CDetectionObstaclesBase.cpp \
 $(CPPLIB)/common-rob/CCapteursBase.cpp \
 $(CPPLIB)/common-rob/CKmarBase.cpp \
-$(CPPLIB)/Lidar/Lidar_utils.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_statemachinebase.cpp \
 $(CPPLIB)/common-rob/Modelia/iabase.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_evitement.cpp \
@@ -79,6 +78,7 @@ $(CPPLIB)/common-rob/Modelia/sm_main.cpp \
 $(CPPLIB)/ServosAX/servoaxbase.cpp \
 $(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Servomoteurs/CServomoteursBase.cpp \
+$(CPPLIB)/Lidar/Lidar_utils.cpp \
 Sources/main_app.cpp \
 Sources/CEEPROM.cpp \
 Sources/CGlobale.cpp \

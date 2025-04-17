@@ -10,8 +10,13 @@
 
 ../ext/CppRobLib/ConsoleInteractiveMenu
 ../ext/CppRobLib/Communication/Messenger
+../ext/CppRobLib/Communication/Messenger/DatabaseXbeeNetwork2019
+../ext/CppRobLib/Communication/Messenger/MessagesGeneric
+../ext/CppRobLib/Communication/XBEE
+../ext/CppRobLib/Communication/DataEncoderDecoder
 ../ext/CppRobLib/PowerElectrobot
 ../ext/CppRobLib/common-rob
 ../ext/CppRobLib/common-rob/Modelia
 ../ext/CppRobLib/ServosAX
+../ext/CppRobLib/Lidar
 ../ext/CppRobLib/Servomoteurs
