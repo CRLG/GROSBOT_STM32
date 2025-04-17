@@ -44,7 +44,7 @@ void CGlobale::Run(void)
     // Attends la montée de toutes les alimentation et l'initialisation de l'écran
     // Temps nécessaire en pratique pour que l'écran tactile ai fini de démarrer
     // avant de commencer à  lui en envoyer des messages (et d'en recevoir)
-    wait_ms(2000);
+    wait_ms(200);
 
     // Lecture des paramètres EEPROM
     readEEPROM();
