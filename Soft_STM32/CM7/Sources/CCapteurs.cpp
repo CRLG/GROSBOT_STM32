@@ -19,7 +19,7 @@ void CCapteurs::Traitement(void)
 // Liste tous les capteurs possibles (pour tous les robots)
 bool CCapteurs::getTirette()
 {
-    return Application.m_electrobot.m_b_Eana1<2.0f;
+    return Application.m_electrobot.m_b_Eana1<1.7f;
 }
 
 // ____________________________________________
