@@ -573,51 +573,50 @@ void CLaBotBox::CheckReceptionTrame(void)
    }
   // ___________________________
   if  (m_ASSERV_DIAG_WRITE_PARAM.isNewTrame() ) {
-/*
     float fval_coef100 	= (float)m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE / 100.0f;
     //float fval_coef10 	= (float)m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE / 10.0f;
     // sous adressage : le champ commande_ax donne le type d'action à  réaliser
     switch (m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_PARAM) {
         case cASSERV_SEUIL_CONV_DIST :
             Application.m_asservissement.seuil_conv_distance=fval_coef100;
-            Application.m_eeprom.setValue("seuil_conv_distance", fval_coef100);
+            //Application.m_eeprom.setValue("seuil_conv_distance", fval_coef100);
         break;
 
         case cASSERV_SEUIL_CONV_ANGLE :
             Application.m_asservissement.seuil_conv_angle=fval_coef100;
-            Application.m_eeprom.setValue("seuil_conv_angle", fval_coef100);
+            //Application.m_eeprom.setValue("seuil_conv_angle", fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KI_ANGLE :
             Application.m_asservissement.ki_angle=fval_coef100;
-            Application.m_eeprom.setValue("ki_angle", fval_coef100);
+            //Application.m_eeprom.setValue("ki_angle", fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KP_ANGLE :
             Application.m_asservissement.kp_angle=fval_coef100;
-            Application.m_eeprom.setValue("kp_angle", fval_coef100);
+            //Application.m_eeprom.setValue("kp_angle", fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KI_DISTANCE :
             Application.m_asservissement.ki_distance=fval_coef100;
-            Application.m_eeprom.setValue("ki_distance", fval_coef100);
+            //Application.m_eeprom.setValue("ki_distance", fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KP_DISTANCE :
             Application.m_asservissement.kp_distance=fval_coef100;
-            Application.m_eeprom.setValue("kp_distance", fval_coef100);
+            //Application.m_eeprom.setValue("kp_distance", fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_CDE_MIN :
             Application.m_asservissement.cde_min=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
-            Application.m_eeprom.setValue("cde_min", m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+            //Application.m_eeprom.setValue("cde_min", m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
         break;
 
         case cASSERV_DIAG_WR_CDE_MAX :
             Application.m_asservissement.cde_max=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
-            Application.m_eeprom.setValue("cde_max", m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+            //Application.m_eeprom.setValue("cde_max", m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
         break;
-
+/*
         case cASSERV_DIAG_RACK_CDE_MAX :
             Application.m_asservissement_chariot.setCommandeMax(m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
             Application.m_eeprom.setValue("rackCommandeMax", (float)m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
@@ -642,8 +641,9 @@ void CLaBotBox::CheckReceptionTrame(void)
             Application.m_asservissement_chariot.setSeuilConv(m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
             Application.m_eeprom.setValue("rackSeuilConv", (float)m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
         break;
-    } // switch
 */
+    } // switch
+
   }
 
   // ___________________________
