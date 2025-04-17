@@ -155,7 +155,10 @@ void CTelemetres::Traitement_I2C(void)
    \return --
    \remark
 */
-#define COEF_TELEMETRE_ULTRASON (3.3 * 259.183)
+//#define COEF_TELEMETRE_ULTRASON (3.3 * 259.183)
+#define COEF_TELEMETRE_ULTRASON (3.3 / (18./28.) * 259.183)   // (18./28.) pour compenser le pont diviseur 10k-18k sur la carte
+
+
 void CTelemetres::Traitement_Analog(void)
 {
     m_distance[INDEX_TELEMETRE_ARGCentre] = MoyenneGlissante_float(Application.m_electrobot.m_b_Eana2 * COEF_TELEMETRE_ULTRASON,
