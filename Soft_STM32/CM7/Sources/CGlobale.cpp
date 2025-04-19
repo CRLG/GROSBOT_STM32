@@ -78,14 +78,31 @@ void CGlobale::Run(void)
 */
 void CGlobale::readEEPROM()
 {
-    uint16_t data;
+    unsigned long uldata;
+    signed long ldata;
+    float fdata;
+    bool err;
+
     int status;
 
     if (m_eeprom.init()) {
         if (!m_eeprom.is_valid()) m_eeprom.format();  // C'est peut être la première fois (carte neuve, après un formatage de la flash)
     }
+
     if (m_eeprom.is_valid()) {
-        // récupère les valeurs
-        // ....
+        if (m_eeprom.read_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, &uldata)) ModeFonctionnement = uldata;
+        // Asservissement
+        if (m_eeprom.read_uint32(EEPROM_MAPPING::CDE_MAX, &uldata))             m_asservissement.cde_max = uldata;
+        if (m_eeprom.read_int32(EEPROM_MAPPING::CDE_MIN, &ldata))               m_asservissement.cde_min = uldata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::KP_DISTANCE, &fdata))           m_asservissement.kp_distance = fdata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::KI_DISTANCE, &fdata))           m_asservissement.ki_distance = fdata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::KP_ANGLE, &fdata))              m_asservissement.kp_angle = fdata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::KI_ANGLE, &fdata))              m_asservissement.ki_angle = fdata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::K_ANGLE, &fdata))               m_asservissement.k_angle = fdata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::SEUIL_CONV_DISTANCE, &fdata))   m_asservissement.seuil_conv_distance = fdata;
+        if (m_eeprom.read_float(EEPROM_MAPPING::SEUIL_CONV_ANGLE, &fdata))      m_asservissement.seuil_conv_angle = fdata;
+        if (m_eeprom.read_uint32(EEPROM_MAPPING::COMPTEUR_MAX, &uldata))        m_asservissement.compteur_max = uldata;
+        if (m_eeprom.read_uint32(EEPROM_MAPPING::ZONE_MORTE_D, &uldata))        m_asservissement.zone_morte_D = uldata;
+        if (m_eeprom.read_uint32(EEPROM_MAPPING::ZONE_MORTE_G, &uldata))        m_asservissement.zone_morte_G = uldata;
     }
 }
