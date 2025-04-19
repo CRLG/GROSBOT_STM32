@@ -61,6 +61,7 @@
 #define ID_FREE_STRING 0x10A
 #define ID_ETAT_CHARGE_CPU 0x10B
 #define ID_RESET_CPU 0x10C
+#define ID_COMMANDE_MODE_FONCTIONNEMENT_CPU 0x10D
 
 #define DLC_COMMANDE_POWER_ELECTROBOT 4
 #define DLC_ETAT_POWER_ELECTROBOT 8
@@ -102,6 +103,7 @@
 #define DLC_FREE_STRING 64
 #define DLC_ETAT_CHARGE_CPU 8
 #define DLC_RESET_CPU 1
+#define DLC_COMMANDE_MODE_FONCTIONNEMENT_CPU 2
 
 
 #define BRUTE2PHYS_valeur_commande_sd20(val) ( ((float)val * (1.000000)) + (0.000000) ) 
@@ -965,6 +967,20 @@ public :
 
     unsigned char secure_code;
     CTrameLaBotBox_RESET_CPU();
+    void Decode(tStructTrameLaBotBox* trameRecue);
+};
+
+
+// ========================================================
+//             TRAME COMMANDE_MODE_FONCTIONNEMENT
+// ========================================================
+class CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU : public CTrameLaBotBox
+{
+public :
+    //! Les signaux de la messagerie
+    unsigned short ModeFonctionnement;
+
+    CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU();
     void Decode(tStructTrameLaBotBox* trameRecue);
 };
 

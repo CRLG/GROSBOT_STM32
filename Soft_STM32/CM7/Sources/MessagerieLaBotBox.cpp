@@ -1478,5 +1478,35 @@ void CTrameLaBotBox_RESET_CPU::Decode(tStructTrameLaBotBox *trameRecue)
   m_nombre_recue++;
 }
 
+//___________________________________________________________________________
+ /*!
+   \brief Constructeur
+   \param --
+   \return --
+   */
+CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU::CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU()
+{
+  m_ID = ID_COMMANDE_MODE_FONCTIONNEMENT_CPU;
+  m_DLC = DLC_COMMANDE_MODE_FONCTIONNEMENT_CPU;
+  ModeFonctionnement = 0;
+}
+//___________________________________________________________________________
+ /*!
+   \brief Decode les signaux de la trame COMMANDE_MODE_FONCTIONNEMENT
+
+        - Renseigne les champs de la structure de donnee de la trame
+   \param bufBrut le buffer des octets de la trames a decoder
+   \return --
+   */
+void CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU::Decode(tStructTrameLaBotBox *trameRecue)
+{
+
+  ModeFonctionnement = CDataEncoderDecoder::decode_uint16(trameRecue->Data, 0);
+
+  m_new_trame = true;
+  m_nombre_recue++;
+}
+
+
 /*! @} */
 

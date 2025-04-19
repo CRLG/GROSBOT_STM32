@@ -81,6 +81,7 @@ void CLaBotBox::initListeTrames()
     m_liste_trames[m_nombre_trames++] = &m_FREE_STRING;
     m_liste_trames[m_nombre_trames++] = &m_ETAT_CHARGE_CPU;
     m_liste_trames[m_nombre_trames++] = &m_RESET_CPU;
+    m_liste_trames[m_nombre_trames++] = &m_COMMANDE_MODE_FONCTIONNEMENT_CPU;
 }
 
 
@@ -579,43 +580,64 @@ void CLaBotBox::CheckReceptionTrame(void)
     switch (m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_PARAM) {
         case cASSERV_SEUIL_CONV_DIST :
             Application.m_asservissement.seuil_conv_distance=fval_coef100;
-            //Application.m_eeprom.setValue("seuil_conv_distance", fval_coef100);
+            Application.m_eeprom.write_float(EEPROM_MAPPING::SEUIL_CONV_DISTANCE, fval_coef100);
         break;
 
         case cASSERV_SEUIL_CONV_ANGLE :
             Application.m_asservissement.seuil_conv_angle=fval_coef100;
-            //Application.m_eeprom.setValue("seuil_conv_angle", fval_coef100);
+            Application.m_eeprom.write_float(EEPROM_MAPPING::SEUIL_CONV_ANGLE, fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KI_ANGLE :
             Application.m_asservissement.ki_angle=fval_coef100;
-            //Application.m_eeprom.setValue("ki_angle", fval_coef100);
+            Application.m_eeprom.write_float(EEPROM_MAPPING::KI_ANGLE, fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KP_ANGLE :
             Application.m_asservissement.kp_angle=fval_coef100;
-            //Application.m_eeprom.setValue("kp_angle", fval_coef100);
+            Application.m_eeprom.write_float(EEPROM_MAPPING::KP_ANGLE, fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KI_DISTANCE :
             Application.m_asservissement.ki_distance=fval_coef100;
-            //Application.m_eeprom.setValue("ki_distance", fval_coef100);
+            Application.m_eeprom.write_float(EEPROM_MAPPING::KI_DISTANCE, fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_KP_DISTANCE :
             Application.m_asservissement.kp_distance=fval_coef100;
-            //Application.m_eeprom.setValue("kp_distance", fval_coef100);
+            Application.m_eeprom.write_float(EEPROM_MAPPING::KP_DISTANCE, fval_coef100);
         break;
 
         case cASSERV_DIAG_WR_CDE_MIN :
             Application.m_asservissement.cde_min=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
-            //Application.m_eeprom.setValue("cde_min", m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+            Application.m_eeprom.write_int32(EEPROM_MAPPING::CDE_MIN, m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
         break;
 
         case cASSERV_DIAG_WR_CDE_MAX :
             Application.m_asservissement.cde_max=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
-            //Application.m_eeprom.setValue("cde_max", m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+            Application.m_eeprom.write_uint32(EEPROM_MAPPING::CDE_MAX, m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
         break;
+
+        case cASSERV_DIAG_WR_K_ANGLE :
+            Application.m_asservissement.k_angle=fval_coef100;
+            Application.m_eeprom.write_float(EEPROM_MAPPING::K_ANGLE, fval_coef100);
+        break;
+
+    case cASSERV_DIAG_WR_COMPTEUR_MAX :
+        Application.m_asservissement.cde_max=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
+        Application.m_eeprom.write_uint32(EEPROM_MAPPING::COMPTEUR_MAX, m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+    break;
+
+    case cASSERV_DIAG_WR_ZONE_MORTE_D :
+        Application.m_asservissement.zone_morte_D=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
+        Application.m_eeprom.write_uint32(EEPROM_MAPPING::ZONE_MORTE_D, m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+    break;
+
+    case cASSERV_DIAG_WR_ZONE_MORTE_G :
+        Application.m_asservissement.zone_morte_G=m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE;
+        Application.m_eeprom.write_uint32(EEPROM_MAPPING::ZONE_MORTE_G, m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
+    break;
+
 /*
         case cASSERV_DIAG_RACK_CDE_MAX :
             Application.m_asservissement_chariot.setCommandeMax(m_ASSERV_DIAG_WRITE_PARAM.ASSERV_DIAG_WRITE_VALUE);
@@ -643,7 +665,6 @@ void CLaBotBox::CheckReceptionTrame(void)
         break;
 */
     } // switch
-
   }
 
   // ___________________________
@@ -814,6 +835,11 @@ void CLaBotBox::CheckReceptionTrame(void)
       if (m_RESET_CPU.secure_code == 0x69) {
           reset_cpu(RESET_CPU_SECURE_CODE);
       }
+  }
+  // ___________________________
+  if (m_COMMANDE_MODE_FONCTIONNEMENT_CPU.isNewTrame())
+  {
+      Application.m_eeprom.write_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, m_COMMANDE_MODE_FONCTIONNEMENT_CPU.ModeFonctionnement);
   }
 }
 
