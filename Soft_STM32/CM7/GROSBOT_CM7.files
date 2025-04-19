@@ -36,6 +36,7 @@ Modelia/sm_deposer_pile_bas_de_pente.cpp
 
 Includes/main_app.h
 Includes/CEEPROM.h
+Includes/EEPROM_mapping.h
 Includes/CGlobale.h
 Includes/RessourcesHardware.h
 Includes/console_interactive_menu.h

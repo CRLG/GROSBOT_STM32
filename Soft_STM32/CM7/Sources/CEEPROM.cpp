@@ -37,12 +37,12 @@ bool CEEPROM::is_valid()
 {
     unsigned long cs_computed = compute_checksum();
     unsigned long cs_read;
-    unsigned short magic_read;
+    unsigned long magic_read;
 
-    if (!_read_uint16(ADDR_MAGIC_NUMBER, &magic_read)) return false;
+    if (!_read_uint32(EEPROM_MAPPING::ADDR_MAGIC_NUMBER, &magic_read)) return false;
     if (magic_read != MAGIC_NUMBER) return false;
 
-    if (!_read_uint32(ADDR_CHECKSUM_MSB, &cs_read)) return false;
+    if (!_read_uint32(EEPROM_MAPPING::ADDR_CHECKSUM, &cs_read)) return false;
     if (cs_read != cs_computed) return false;
 
     return true;
@@ -61,10 +61,10 @@ bool CEEPROM::is_valid()
 */
 bool CEEPROM::format()
 {
-    for(unsigned int i=0; i<ADDR_MAGIC_NUMBER; i++) {
-        if (!_write_uint16(i, 0, false)) return false;
+    for(unsigned int i=0; i<EEPROM_MAPPING::ADDR_MAGIC_NUMBER; i++) {
+        if (!_write_uint32(i, 0, false)) return false;
     }
-    if (!_write_uint16(ADDR_MAGIC_NUMBER, MAGIC_NUMBER, false)) return false;
+    if (!_write_uint32(EEPROM_MAPPING::ADDR_MAGIC_NUMBER, MAGIC_NUMBER, false)) return false;
     if (!update_checksum()) return false;
     return is_valid();  // refait un test de validité
 }
@@ -78,10 +78,10 @@ bool CEEPROM::format()
 unsigned long CEEPROM::compute_checksum()
 {
     unsigned long cs = 0;
-    unsigned short usval;
+    unsigned long usval;
 
-    for (unsigned int i=0; i<ADDR_CHECKSUM_MSB; i++) { // toute la plage jusqu'au checksum (exclu)
-        _read_uint16(i, &usval);
+    for (unsigned int i=0; i<EEPROM_MAPPING::ADDR_CHECKSUM; i++) { // toute la plage jusqu'au checksum (exclu)
+        _read_uint32(i, &usval);
         cs += usval;
     }
     return cs;
@@ -94,11 +94,10 @@ unsigned long CEEPROM::compute_checksum()
 //___________________________________________________________________________
 bool CEEPROM::read_float(unsigned int idx, float *val)
 {
-    if (idx >= NB_FLOAT) return false;
+    if (idx >= EEPROM_MAPPING::NB_MAX_EE_DATA) return false;
 
     uEETypes u;
-    if (!__EE_ReadVariable(ADDR_BEGIN_FLOAT+idx, &u.buff[0])) return false;
-    if (!__EE_ReadVariable(ADDR_BEGIN_FLOAT+idx+1, &u.buff[1])) return false;
+    if (!_read_2words(idx, u.buff)) return false;
     if (val) *val = u.f_val;
     return true;
 }
@@ -106,16 +105,15 @@ bool CEEPROM::read_float(unsigned int idx, float *val)
 //___________________________________________________________________________
 bool CEEPROM::read_uint32(unsigned int idx, unsigned long *val)
 {
-    if (idx >= NB_UINT32) return false;
-    return _read_uint32(ADDR_BEGIN_UINT32+idx, val);
+    if (idx >= EEPROM_MAPPING::NB_MAX_EE_DATA) return false;
+    return _read_uint32(idx, val);
 }
 
 //___________________________________________________________________________
-bool CEEPROM::_read_uint32(unsigned int addr, unsigned long *val)
+bool CEEPROM::_read_uint32(unsigned int idx, unsigned long *val)
 {
     uEETypes u;
-    if (!__EE_ReadVariable(addr, &u.buff[0])) return false;
-    if (!__EE_ReadVariable(addr+1, &u.buff[1])) return false;
+    if (!_read_2words(idx, u.buff)) return false;
     if (val) *val = u.uint32_val;
     return true;
 }
@@ -123,50 +121,45 @@ bool CEEPROM::_read_uint32(unsigned int addr, unsigned long *val)
 //___________________________________________________________________________
 bool CEEPROM::read_int32(unsigned int idx, long *val)
 {
-    if (idx >= NB_INT32) return false;
+    if (idx >= EEPROM_MAPPING::NB_MAX_EE_DATA) return false;
 
     uEETypes u;
-    if (!__EE_ReadVariable(ADDR_BEGIN_INT32+idx, &u.buff[0])) return false;
-    if (!__EE_ReadVariable(ADDR_BEGIN_INT32+idx+1, &u.buff[1])) return false;
+    if (!_read_2words(idx, u.buff)) return false;
     if (val) *val = u.int32_val;
     return true;
 }
 
-//___________________________________________________________________________
-bool CEEPROM::read_uint16(unsigned int idx, unsigned short *val)
-{
-    if (idx >= NB_UINT16) return false;
-    return _read_uint16(ADDR_BEGIN_UINT16+idx, val);
-}
+
 
 //___________________________________________________________________________
-bool CEEPROM::_read_uint16(unsigned int addr, unsigned short *val)
-{
-    uEETypes u;
-    if (!__EE_ReadVariable(addr, &u.buff[0])) return false;
-    if (val) *val = u.uint16_val;
-    return true;
-}
-
-//___________________________________________________________________________
-bool CEEPROM::read_int16(unsigned int idx, short *val)
-{
-    if (idx >= NB_INT16) return false;
-
-    uEETypes u;
-    if (!__EE_ReadVariable(ADDR_BEGIN_INT16+idx, &u.buff[0])) return false;
-    if (val) *val = u.int16_val;
-    return true;
-}
-
-//___________________________________________________________________________
-bool CEEPROM::read_buff(unsigned int start_addr, unsigned short *buff, unsigned int size)
+bool CEEPROM::read_buff(unsigned int start_idx, unsigned long *buff, unsigned int size)
 {
     for (unsigned int i=0; i<size; i++) {
-        if (!_read_uint16(start_addr+i, &buff[i])) return false;
+        if (!_read_uint32(start_idx+i, &buff[i])) return false;
     }
     return true;
 }
+
+//___________________________________________________________________________
+bool CEEPROM::read_magic_number(unsigned long *val)
+{
+    return _read_uint32(EEPROM_MAPPING::ADDR_MAGIC_NUMBER, val);
+}
+
+//___________________________________________________________________________
+bool CEEPROM::read_checksum(unsigned long *val)
+{
+    return _read_uint32(EEPROM_MAPPING::ADDR_CHECKSUM, val);
+}
+
+//___________________________________________________________________________
+bool CEEPROM::_read_2words(unsigned int idx, unsigned short *buff)
+{
+    if (!__EE_ReadVariable(2*idx, &buff[0])) return false;  // *2 car idx est un numéro d'index de variable 32 bits alors que la mémoire bas niveau est gérée en mots de 16 bits
+    if (!__EE_ReadVariable(2*idx+1, &buff[1])) return false;
+    return true;
+}
+
 
 // ===========================================================================
 //                              ECRITURE
@@ -175,99 +168,71 @@ bool CEEPROM::read_buff(unsigned int start_addr, unsigned short *buff, unsigned 
 //___________________________________________________________________________
 bool CEEPROM::write_float(unsigned int idx, float val)
 {
-    if (idx >= NB_FLOAT) return false;
+    if (idx >= EEPROM_MAPPING::NB_MAX_EE_DATA) return false;
 
     uEETypes u;
     u.f_val = val;
-    if (!__EE_WriteVariable(ADDR_BEGIN_FLOAT+idx, u.buff[0])) return false;
-    if (!__EE_WriteVariable(ADDR_BEGIN_FLOAT+idx+1, u.buff[1])) return false;
-    if (!update_checksum()) return false;
+    if (!_write_2words(idx, u.buff)) return false;
     return true;
 }
 
 //___________________________________________________________________________
 bool CEEPROM::write_uint32(unsigned int idx, unsigned long val)
 {
-    if (idx >= NB_UINT32) return false;
-    return _write_uint32(ADDR_BEGIN_UINT32+idx, val);
+    if (idx >= EEPROM_MAPPING::NB_MAX_EE_DATA) return false;
+    return _write_uint32(idx, val);
 }
 
 //___________________________________________________________________________
-bool CEEPROM::_write_uint32(unsigned int addr, unsigned long val, bool update_cs/*=true*/)
+bool CEEPROM::_write_uint32(unsigned int idx, unsigned long val, bool update_cs/*=true*/)
 {
     uEETypes u;
     u.uint32_val = val;
-    if (!__EE_WriteVariable(addr, u.buff[0])) return false;
-    if (!__EE_WriteVariable(addr+1, u.buff[1])) return false;
-    if (update_cs) {
-        if (!update_checksum()) return false;
-    }
+    if (!_write_2words(idx, u.buff, update_cs)) return false;
     return true;
 }
 
 //___________________________________________________________________________
 bool CEEPROM::write_int32(unsigned int idx, long val)
 {
-    if (idx >= NB_INT32) return false;
+    if (idx >= EEPROM_MAPPING::NB_MAX_EE_DATA) return false;
 
     uEETypes u;
     u.int32_val = val;
-    if (!__EE_WriteVariable(ADDR_BEGIN_INT32+idx, u.buff[0])) return false;
-    if (!__EE_WriteVariable(ADDR_BEGIN_INT32+idx+1, u.buff[1])) return false;
-    if (!update_checksum()) return false;
-    return true;
-}
-
-//___________________________________________________________________________
-bool CEEPROM::write_uint16(unsigned int idx, unsigned short val)
-{
-    if (idx >= NB_UINT16) return false;
-    return _write_uint16(ADDR_BEGIN_UINT16+idx, val);
-}
-
-//___________________________________________________________________________
-bool CEEPROM::_write_uint16(unsigned int addr, unsigned short val, bool update_cs/*=true*/)
-{
-    uEETypes u;
-    u.uint16_val = val;
-    if (!__EE_WriteVariable(addr, u.buff[0])) return false;
-    if (update_cs) {
-        if (!update_checksum()) return false;
-    }
+    if (!_write_2words(idx, u.buff)) return false;
     return true;
 }
 
 //___________________________________________________________________________
 bool CEEPROM::update_checksum()
 {
-    return _write_uint32(ADDR_CHECKSUM_MSB, compute_checksum(), false);
+    return _write_uint32(EEPROM_MAPPING::ADDR_CHECKSUM, compute_checksum(), false);
 }
 
 //___________________________________________________________________________
-bool CEEPROM::write_int16(unsigned int idx, short val)
-{
-    if (idx >= NB_INT16) return false;
-
-    uEETypes u;
-    u.int16_val = val;
-    if (!__EE_WriteVariable(ADDR_BEGIN_INT16+idx, u.buff[0])) return false;
-    if (!update_checksum()) return false;
-    return true;
-}
-
-//___________________________________________________________________________
-bool CEEPROM::write_buff(unsigned int start_addr, unsigned short *buff, unsigned int size)
+bool CEEPROM::write_buff(unsigned int start_idx, unsigned long *buff, unsigned int size)
 {
     for (unsigned int i=0; i<size; i++) {
-        if (!__EE_WriteVariable(start_addr+i, buff[i])) return false;
+        if (!_write_uint32(start_idx+i, buff[i], false)) return false; // pas d'écriture du checksum à chaque fois mais une seule fois à la fin
     }
     if (!update_checksum()) return false;
     return true;
 }
 
 
+//___________________________________________________________________________
+bool CEEPROM::_write_2words(unsigned int idx, unsigned short *buff, bool update_cs/*=true*/)
+{
+    if (!__EE_WriteVariable(2*idx, buff[0])) return false;  // *2 car idx est un numéro d'index de variable 32 bits alors que la mémoire bas niveau est gérée en mots de 16 bits
+    if (!__EE_WriteVariable(2*idx+1, buff[1])) return false;
+    if (update_cs) {
+        if (!update_checksum()) return false;
+    }
+    return true;
+}
+
 // ==================================================================
-//    Appel des fonctions bas niveaux avec plusieurs tentatives
+//    Appel des fonctions bas niveaux 16 bits avec plusieurs tentatives
 // ==================================================================
 //___________________________________________________________________________
 bool CEEPROM::__EE_ReadVariable(unsigned short VirtAddress, unsigned short *Data)
