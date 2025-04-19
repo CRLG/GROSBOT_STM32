@@ -286,6 +286,14 @@ bool CEEPROM::__EE_WriteVariable(unsigned short VirtAddress, unsigned short Data
 {
     unsigned int attemp=0;
     unsigned short status;
+    unsigned short read_value;
+
+    // fait une première lecture de la donnée pour préserver le nombre de cycle d'écriture
+    // si la donnée a déjà la valeur attendue
+    if (__EE_ReadVariable(VirtAddress, &read_value)) {  // si la lecture échoue, c'est peut être que la mémoire n'est pas encore formatée
+        if (read_value == Data) return true;
+    }
+
     do {
         status = EE_WriteVariable(VirtAddress, Data);
         attemp++;
