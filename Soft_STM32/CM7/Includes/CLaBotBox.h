@@ -7,7 +7,7 @@
 
 #include "MessagerieLaBotBox.h"
 
-//! Enuméré des codes commandes de l'écran vers le MBED
+//! Enuméré des codes commandes de l'écran vers le CPU
 typedef enum {
     // Générique pour toutes les années
     LBB_CMDE_INVALIDE = 0,
@@ -43,7 +43,7 @@ typedef enum {
 }eERREUR_RECONSTITUTION;
 
 //! La liste des codes possibles dans le champ "commande_ax" de la trame ELECTROBOT_CDE_SERVOS_AX
-// (enum commun MBED<->LaBotBox)
+// (enum commun CPU<->LaBotBox)
 typedef enum {
   cSERVO_AX_POSITION = 0,
   cSERVO_AX_VITESSE,
@@ -62,8 +62,8 @@ typedef enum {
   cCONFIG_SERVO_POSITION_INIT
 }eCONFIG_SERVOS;
 
-//! La liste des codes possibles dans le champ "commande_ax" de la trame ELECTROBOT_CDE_SERVOS_AX
-// (enum commun MBED<->LaBotBox)
+//! La liste des codes possibles dans le champ "commande" de la trame ASSERV_DIAG_WRITE_PARAM
+// (enum commun CPU<->LaBotBox)
 typedef enum {
    cASSERV_SEUIL_CONV_DIST = 0,
    cASSERV_SEUIL_CONV_ANGLE,
@@ -73,6 +73,10 @@ typedef enum {
    cASSERV_DIAG_WR_KP_DISTANCE,
    cASSERV_DIAG_WR_CDE_MIN,
    cASSERV_DIAG_WR_CDE_MAX,
+   cASSERV_DIAG_WR_K_ANGLE,
+   cASSERV_DIAG_WR_COMPTEUR_MAX,
+   cASSERV_DIAG_WR_ZONE_MORTE_D,
+   cASSERV_DIAG_WR_ZONE_MORTE_G,
    cASSERV_DIAG_RACK_CDE_MAX,
    cASSERV_DIAG_RACK_K_POSVIT,
    cASSERV_DIAG_RACK_KP,
@@ -81,7 +85,7 @@ typedef enum {
 }eASSERV_WRITE_PARAM;
 
 //! La liste des codes possibles dans le champ "commande" de la trame COMMANDE_POWER_ELECTROBOT
-// (enum commun MBED<->LaBotBox)
+// (enum commun CPU<->LaBotBox)
 typedef enum {
     cCDE_PWR_ELECTROBOT_ALL_OUTPUTS = 0,
     cCDE_PWR_ELECTROBOT_OUTPUT_1,
