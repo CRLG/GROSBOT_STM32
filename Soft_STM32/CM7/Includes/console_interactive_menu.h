@@ -79,6 +79,10 @@ public:
     void page_i2c();
     bool i2c_action_scan();
 
+    void page_modes();
+    bool mode_labotbox();
+    bool mode_autonome();
+
     double m_param1;
     int m_param2;
 };

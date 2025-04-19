@@ -24,6 +24,7 @@ void CMenuApp::send_to_console(char msg[])
 void CMenuApp::page1()
 {
     DECLARE_PAGE("Menu Page 1", CMenuApp::page1);
+    DECLARE_OPTION('o', "Changement de mode", CMenuApp::page_modes);
     DECLARE_OPTION('m', "Commande moteurs", CMenuApp::page_cde_moteurs);
     DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
     DECLARE_OPTION('a', "Commande servo AX", CMenuApp::page_servos_ax);
@@ -126,30 +127,36 @@ bool CMenuApp::eep_action_checkshum()
 {
     unsigned long cs_computed = Application.m_eeprom.compute_checksum();
     unsigned long cs_read;
-    bool status = Application.m_eeprom._read_uint32(Application.m_eeprom.ADDR_CHECKSUM_MSB, &cs_read);
+    bool status = Application.m_eeprom.read_checksum(&cs_read);
     printf("Statut Lecture CS: %d / Val=%ld / Computed=%ld\n\r", status, cs_read, cs_computed);
     return true;
 }
 
 bool CMenuApp::eep_action_magic_number()
 {
-    unsigned short usval;
-    bool status = Application.m_eeprom._read_uint16(Application.m_eeprom.ADDR_MAGIC_NUMBER, &usval);
-    printf("Statut Lecture MagicNumber: %d / Val=0x%x\n\r", status, usval);
+    unsigned long ulval;
+    bool status = Application.m_eeprom.read_magic_number(&ulval);
+    printf("Statut Lecture MagicNumber: %d / Val=0x%lx\n\r", status, ulval);
     return true;
 }
 
 bool CMenuApp::eep_action_read_all()
 {
-    unsigned short usval;
     bool status = true;
-    for (int i=0; i<Application.m_eeprom.EEPROM_MAX_SIZE; i++)
+    typedef union {
+        unsigned long ulval;
+        float fval;
+    }uEE;
+    uEE val;
+    for (unsigned int i=0; i<EEPROM_MAPPING::NB_MAX_EE_DATA; i++)
     {
         for(unsigned long j=0; j<100000; j++);
-        status = Application.m_eeprom._read_uint16(i, &usval);
-        if (status) printf("[%d] : 0x%x / %d\n\r", i, usval, usval);
+        status = Application.m_eeprom.read_uint32(i, &val.ulval);
+        if (status) printf("[%d] : 0x%lx / %ld / %f\n\r", i, val.ulval, val.ulval, val.fval);
         else        printf("[%d] : Erreur de lecture\n\r", i);
     }
+    eep_action_magic_number();
+    eep_action_checkshum();
     return true;
 }
 
@@ -483,5 +490,31 @@ bool CMenuApp::ax_lecture_pos()
         _printf("ID=%d - Position = %d\n\r", id, pos);
     }
 
+    return true;
+}
+
+
+// ===========================================================
+//                  MODES
+// ===========================================================
+
+void CMenuApp::page_modes()
+{
+    DECLARE_PAGE("MODE FONCTIONNEMENT", CMenuApp::page_modes);
+    DECLARE_ACTION('a', "Force mode Autonome", CMenuApp::mode_autonome);
+    DECLARE_ACTION('l', "Force mode Labotbox", CMenuApp::mode_labotbox);
+}
+
+bool CMenuApp::mode_labotbox()
+{
+    Application.m_eeprom.write_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, MODE_PILOTE_LABOTBOX);
+    reset_cpu(RESET_CPU_SECURE_CODE);
+    return true;
+}
+
+bool CMenuApp::mode_autonome()
+{
+    Application.m_eeprom.write_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, MODE_AUTONOME);
+    reset_cpu(RESET_CPU_SECURE_CODE);
     return true;
 }
