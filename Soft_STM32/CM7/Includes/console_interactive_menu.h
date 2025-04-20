@@ -13,10 +13,7 @@ public:
 
     void send_to_console(char msg[]);  // méthode virtuelle pure ré-implémentée
 
-    void page1();
-    void page_cde_moteurs();
-    void page_capteurs();
-    void page_servos();
+    void page_principale();
     void page_set_param_1();
     void page_set_param_2();
 
@@ -27,6 +24,10 @@ public:
     bool action_read_param2();
 
     bool action_read_params();
+
+    // _____________________________
+    // Page Moteurs
+    void page_cde_moteurs();
 
     bool action_moteurG_stop();
     bool action_moteurG_10pct();
@@ -44,8 +45,31 @@ public:
     bool action_moteurD_M50pct();
     bool action_moteurD_M100pct();
 
+    // _____________________________
+    // Page Asservissement
+    void page_commande_asserv();
+    bool force_asserv_manuel();
+    bool cde_distance1();
+    bool cde_distance2();
+    bool cde_distance3();
+    bool cde_distance4();
+    bool cde_angle1();
+    bool cde_angle2();
+    bool cde_angle3();
+    bool cde_angle4();
+    bool cde_angle5();
+    bool cde_angle6();
+
+    // _____________________________
+    // Page Capteurs
+    void page_capteurs();
+
     bool read_codeurs();
     bool read_analog_inputs();
+
+    // _____________________________
+    // Page Servomoteurs
+    void page_servos();
 
     bool page_servo1_1200();
     bool page_servo1_1500();
@@ -62,7 +86,10 @@ public:
     bool page_servo3_1700();
     bool page_servo3_2000();
 
+     // _____________________________
+    // Page EEPROM
     void  page_eeprom();
+
     bool eep_action_init();
     bool eep_action_is_valid();
     bool eep_action_format();
@@ -70,16 +97,25 @@ public:
     bool eep_action_magic_number();
     bool eep_action_read_all();
 
+    // _____________________________
+    // Page servos AX
     void page_servos_ax();
+
     bool ax_check_present();
-    bool ax_100();
-    bool ax_200();
+    bool ax_512();
+    bool ax_600();
     bool ax_lecture_pos();
 
+    // _____________________________
+    // Page I2C
     void page_i2c();
+
     bool i2c_action_scan();
 
+    // _____________________________
+    // Page Mode de fonctionnement CPU
     void page_modes();
+
     bool mode_labotbox();
     bool mode_autonome();
 

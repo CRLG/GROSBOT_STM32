@@ -1,15 +1,16 @@
 /*! \file RessoucesHardware.cpp
     \brief Déclare les ressources hardware du MBED utilisées par le reste du logiciel
 */
+#include <math.h>
+#include <stdio.h>
 #include "console_interactive_menu.h"
 #include "RessourcesHardware.h"
 #include "CGlobale.h"
-#include "stdio.h"
 
 CMenuApp::CMenuApp()
 {
     enable_echo(false);
-    DECLARE_START_PAGE(CMenuApp::page1)
+    DECLARE_START_PAGE(CMenuApp::page_principale)
 }
 
 // ______________________________________________
@@ -21,12 +22,13 @@ void CMenuApp::send_to_console(char msg[])
 // ============================================================================
 //                             LES MENUS
 // ============================================================================
-void CMenuApp::page1()
+void CMenuApp::page_principale()
 {
-    DECLARE_PAGE("Menu Page 1", CMenuApp::page1);
+    DECLARE_PAGE("Menu Page 1", CMenuApp::page_principale);
     DECLARE_OPTION('o', "Changement de mode", CMenuApp::page_modes);
     DECLARE_OPTION('m', "Commande moteurs", CMenuApp::page_cde_moteurs);
-    DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
+    DECLARE_OPTION('z', "Commande asserv", CMenuApp::page_commande_asserv)
+            DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
     DECLARE_OPTION('a', "Commande servo AX", CMenuApp::page_servos_ax);
     DECLARE_OPTION('c', "Capteurs", CMenuApp::page_capteurs);
     DECLARE_OPTION('e', "EEPPROM", CMenuApp::page_eeprom);
@@ -35,58 +37,37 @@ void CMenuApp::page1()
     DECLARE_OPTION('s', "TEST", CMenuApp::page_set_param_2);
 }
 
-void CMenuApp::page_cde_moteurs()
+
+// =============================================================================
+//                          ASSERV
+// =============================================================================
+
+void CMenuApp::page_commande_asserv()
 {
-    DECLARE_PAGE("COMMANDE MOTEURS", CMenuApp::page_cde_moteurs);
-    DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page1);
-    DECLARE_ACTION('a', "Arrêt moteur G", CMenuApp::action_moteurG_stop);
-    DECLARE_ACTION('z', "Moteur G : 10%", CMenuApp::action_moteurG_10pct);
-    DECLARE_ACTION('e', "Moteur G : 50%", CMenuApp::action_moteurG_50pct);
-    DECLARE_ACTION('r', "Moteur G : 100%", CMenuApp::action_moteurG_100pct);
-    DECLARE_ACTION('s', "Moteur G : -10%", CMenuApp::action_moteurG_M10pct);
-    DECLARE_ACTION('d', "Moteur G : -50%", CMenuApp::action_moteurG_M50pct);
-    DECLARE_ACTION('f', "Moteur G : -100%", CMenuApp::action_moteurG_M100pct);
-
-    DECLARE_ACTION('u', "Arrêt moteur D", CMenuApp::action_moteurD_stop);
-    DECLARE_ACTION('i', "Moteur D : 10%", CMenuApp::action_moteurD_10pct);
-    DECLARE_ACTION('o', "Moteur D : 50%", CMenuApp::action_moteurD_50pct);
-    DECLARE_ACTION('p', "Moteur D : 100%", CMenuApp::action_moteurD_100pct);
-    DECLARE_ACTION('k', "Moteur D : -10%", CMenuApp::action_moteurD_M10pct);
-    DECLARE_ACTION('l', "Moteur D : -50%", CMenuApp::action_moteurD_M50pct);
-    DECLARE_ACTION('m', "Moteur D : -100%", CMenuApp::action_moteurD_M100pct);
-
-
+    DECLARE_PAGE("Commande mouvements", CMenuApp::page_commande_asserv);
+    //DECLARE_ACTION('a', "Arrêt moteurs / Asserv manuel", CMenuApp::arret_moteurs);
+    DECLARE_ACTION('q', "CommandeMouvementDistanceAngle(10, 0)", CMenuApp::cde_distance1);
+    DECLARE_ACTION('s', "CommandeMouvementDistanceAngle(20, 0)", CMenuApp::cde_distance2);
+    DECLARE_ACTION('d', "CommandeMouvementDistanceAngle(50, 0)", CMenuApp::cde_distance3);
+    DECLARE_ACTION('f', "CommandeMouvementDistanceAngle(100, 0)", CMenuApp::cde_distance4);
+    DECLARE_ACTION('w', "CommandeMouvementDistanceAngle(0, M_PI/4.)", CMenuApp::cde_angle1);
+    DECLARE_ACTION('x', "CommandeMouvementDistanceAngle(0, M_PI/2.)", CMenuApp::cde_angle2);
+    DECLARE_ACTION('c', "CommandeMouvementDistanceAngle(0, M_PI)", CMenuApp::cde_angle3);
+    DECLARE_ACTION('v', "CommandeMouvementDistanceAngle(0, -M_PI/4.)", CMenuApp::cde_angle4);
+    DECLARE_ACTION('b', "CommandeMouvementDistanceAngle(0, -M_PI/2.)", CMenuApp::cde_angle5);
+    DECLARE_ACTION('n', "CommandeMouvementDistanceAngle(0, -M_PI)", CMenuApp::cde_angle6);
 }
 
-void CMenuApp::page_capteurs()
-{
-    DECLARE_PAGE("Capteurs", CMenuApp::page_capteurs);
-    DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page1);
-    DECLARE_ACTION('a', "Etat des codeurs", CMenuApp::read_codeurs);
-    DECLARE_ACTION('z', "Etat des entrees analogiques", CMenuApp::read_analog_inputs);
-}
-
-void CMenuApp::page_servos()
-{
-    DECLARE_PAGE("SERVO MOTEURS", CMenuApp::page_servos);
-    DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page1);
-    DECLARE_ACTION('a', "Servo1 : 1500", CMenuApp::page_servo1_1500);
-    DECLARE_ACTION('z', "Servo1 : 1200", CMenuApp::page_servo1_1200);
-    DECLARE_ACTION('e', "Servo1 : 1700", CMenuApp::page_servo1_1700);
-    DECLARE_ACTION('r', "Servo1 : 2000", CMenuApp::page_servo1_2000);
-
-
-    DECLARE_ACTION('q', "Servo2 : 1500", CMenuApp::page_servo2_1500);
-    DECLARE_ACTION('s', "Servo2 : 1200", CMenuApp::page_servo2_1200);
-    DECLARE_ACTION('d', "Servo2 : 1700", CMenuApp::page_servo2_1700);
-    DECLARE_ACTION('f', "Servo2 : 2000", CMenuApp::page_servo2_2000);
-
-    DECLARE_ACTION('w', "Servo3 : 1500", CMenuApp::page_servo3_1500);
-    DECLARE_ACTION('x', "Servo3 : 1200", CMenuApp::page_servo3_1200);
-    DECLARE_ACTION('c', "Servo3 : 1700", CMenuApp::page_servo3_1700);
-    DECLARE_ACTION('v', "Servo3 : 2000", CMenuApp::page_servo3_2000);
-
-}
+bool CMenuApp::cde_distance1()    { Application.m_asservissement.CommandeMouvementDistanceAngle(10, 0); return true; }
+bool CMenuApp::cde_distance2()    { Application.m_asservissement.CommandeMouvementDistanceAngle(20, 0); return true; }
+bool CMenuApp::cde_distance3()    { Application.m_asservissement.CommandeMouvementDistanceAngle(50, 0); return true; }
+bool CMenuApp::cde_distance4()    { Application.m_asservissement.CommandeMouvementDistanceAngle(100, 0); return true; }
+bool CMenuApp::cde_angle1()       { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI_4); return true; }
+bool CMenuApp::cde_angle2()       { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI_2); return true; }
+bool CMenuApp::cde_angle3()       { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI); return true; }
+bool CMenuApp::cde_angle4()       { Application.m_asservissement.CommandeMouvementDistanceAngle(0, -M_PI_4); return true; }
+bool CMenuApp::cde_angle5()       { Application.m_asservissement.CommandeMouvementDistanceAngle(0, -M_PI_2); return true; }
+bool CMenuApp::cde_angle6()       { Application.m_asservissement.CommandeMouvementDistanceAngle(0, -M_PI); return true; }
 
 // =============================================================================
 //                          EEPROM
@@ -173,6 +154,8 @@ bool CMenuApp::i2c_action_scan()
 {
     uint8_t data;
     _printf("SCAN I2C\n\r");
+
+    // 1. présentation du scan sous une forme linéaire des calculateurs présents
     for (unsigned int addr=0; addr<0xFF; addr++)
     {
         if (HAL_I2C_Master_Transmit(&I2C_HDL_ELECTROBOT, addr, &data, 1, 200) == HAL_OK) {
@@ -180,6 +163,7 @@ bool CMenuApp::i2c_action_scan()
         }
     }
 
+    // 1. présentation du scan sous une forme de tableau
     _printf("\n\r      ");
     for (unsigned int i=0; i<16; i++) _printf("%x   ", i);
     for (unsigned int addr=0; addr<=0xFF; addr++)
@@ -199,18 +183,18 @@ bool CMenuApp::i2c_action_scan()
 
 void CMenuApp::page_set_param_1()
 {
-    DECLARE_PAGE("Forçage paramètre Param1", CMenuApp::page_set_param_1)
-            DECLARE_ACTION('r', "Lecture du paramètre", CMenuApp::action_read_param1)
-            DECLARE_OPTION('q', "Retour en page principale", CMenuApp::page1)
-            DECLARE_ACTION_DOUBLE("Entrez une valeur pour Param1", CMenuApp::action_set_param1)
+    DECLARE_PAGE("Forçage paramètre Param1", CMenuApp::page_set_param_1);
+    DECLARE_ACTION('r', "Lecture du paramètre", CMenuApp::action_read_param1);
+    DECLARE_OPTION('q', "Retour en page principale", CMenuApp::page_principale);
+    DECLARE_ACTION_DOUBLE("Entrez une valeur pour Param1", CMenuApp::action_set_param1);
 }
 
 void CMenuApp::page_set_param_2()
 {
-    DECLARE_PAGE("Forçage paramètre Param2", CMenuApp::page_set_param_2)
-            DECLARE_ACTION('r', "Lecture du paramètre", CMenuApp::action_read_param2)
-            DECLARE_OPTION('q', "Retour en page principale", CMenuApp::page_set_param_1)
-            DECLARE_ACTION_INT("Entrez une valeur pour Param2", CMenuApp::action_set_param2)
+    DECLARE_PAGE("Forçage paramètre Param2", CMenuApp::page_set_param_2);
+    DECLARE_ACTION('r', "Lecture du paramètre", CMenuApp::action_read_param2);
+    DECLARE_OPTION('q', "Retour en page principale", CMenuApp::page_set_param_1);
+    DECLARE_ACTION_INT("Entrez une valeur pour Param2", CMenuApp::action_set_param2);
 }
 
 
@@ -254,6 +238,27 @@ bool CMenuApp::action_read_params()
 // ===========================================================
 //                  MOTEURS
 // ===========================================================
+
+void CMenuApp::page_cde_moteurs()
+{
+    DECLARE_PAGE("COMMANDE MOTEURS", CMenuApp::page_cde_moteurs);
+    DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page_principale);
+    DECLARE_ACTION('a', "Arrêt moteur G", CMenuApp::action_moteurG_stop);
+    DECLARE_ACTION('z', "Moteur G : 10%", CMenuApp::action_moteurG_10pct);
+    DECLARE_ACTION('e', "Moteur G : 50%", CMenuApp::action_moteurG_50pct);
+    DECLARE_ACTION('r', "Moteur G : 100%", CMenuApp::action_moteurG_100pct);
+    DECLARE_ACTION('s', "Moteur G : -10%", CMenuApp::action_moteurG_M10pct);
+    DECLARE_ACTION('d', "Moteur G : -50%", CMenuApp::action_moteurG_M50pct);
+    DECLARE_ACTION('f', "Moteur G : -100%", CMenuApp::action_moteurG_M100pct);
+
+    DECLARE_ACTION('u', "Arrêt moteur D", CMenuApp::action_moteurD_stop);
+    DECLARE_ACTION('i', "Moteur D : 10%", CMenuApp::action_moteurD_10pct);
+    DECLARE_ACTION('o', "Moteur D : 50%", CMenuApp::action_moteurD_50pct);
+    DECLARE_ACTION('p', "Moteur D : 100%", CMenuApp::action_moteurD_100pct);
+    DECLARE_ACTION('k', "Moteur D : -10%", CMenuApp::action_moteurD_M10pct);
+    DECLARE_ACTION('l', "Moteur D : -50%", CMenuApp::action_moteurD_M50pct);
+    DECLARE_ACTION('m', "Moteur D : -100%", CMenuApp::action_moteurD_M100pct);
+}
 
 bool CMenuApp::action_moteurG_stop()
 {
@@ -343,6 +348,27 @@ bool CMenuApp::action_moteurD_M100pct()
 // ===========================================================
 //                  SERVO MOTEURS
 // ===========================================================
+void CMenuApp::page_servos()
+{
+    DECLARE_PAGE("SERVO MOTEURS", CMenuApp::page_servos);
+    DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page_principale);
+    DECLARE_ACTION('a', "Servo1 : 1500", CMenuApp::page_servo1_1500);
+    DECLARE_ACTION('z', "Servo1 : 1200", CMenuApp::page_servo1_1200);
+    DECLARE_ACTION('e', "Servo1 : 1700", CMenuApp::page_servo1_1700);
+    DECLARE_ACTION('r', "Servo1 : 2000", CMenuApp::page_servo1_2000);
+
+
+    DECLARE_ACTION('q', "Servo2 : 1500", CMenuApp::page_servo2_1500);
+    DECLARE_ACTION('s', "Servo2 : 1200", CMenuApp::page_servo2_1200);
+    DECLARE_ACTION('d', "Servo2 : 1700", CMenuApp::page_servo2_1700);
+    DECLARE_ACTION('f', "Servo2 : 2000", CMenuApp::page_servo2_2000);
+
+    DECLARE_ACTION('w', "Servo3 : 1500", CMenuApp::page_servo3_1500);
+    DECLARE_ACTION('x', "Servo3 : 1200", CMenuApp::page_servo3_1200);
+    DECLARE_ACTION('c', "Servo3 : 1700", CMenuApp::page_servo3_1700);
+    DECLARE_ACTION('v', "Servo3 : 2000", CMenuApp::page_servo3_2000);
+}
+
 bool CMenuApp::page_servo1_1200()
 {
     CdeServo(1, 1200);
@@ -369,50 +395,49 @@ bool CMenuApp::page_servo1_2000()
 
 bool CMenuApp::page_servo2_1200()
 {
-   CdeServo(2, 1200);
+    CdeServo(2, 1200);
     return true;
 }
 
 bool CMenuApp::page_servo2_1500()
 {
-   CdeServo(2, 1500);
+    CdeServo(2, 1500);
     return true;
 }
 
 bool CMenuApp::page_servo2_1700()
 {
-   CdeServo(2, 1700);
+    CdeServo(2, 1700);
     return true;
 }
 
 bool CMenuApp::page_servo2_2000()
 {
-   CdeServo(2, 2000);
+    CdeServo(2, 2000);
     return true;
 }
 
-
 bool CMenuApp::page_servo3_1200()
 {
-   CdeServo(3, 1200);
+    CdeServo(3, 1200);
     return true;
 }
 
 bool CMenuApp::page_servo3_1500()
 {
-   CdeServo(3, 1500);
+    CdeServo(3, 1500);
     return true;
 }
 
 bool CMenuApp::page_servo3_1700()
 {
-   CdeServo(3, 1700);
+    CdeServo(3, 1700);
     return true;
 }
 
 bool CMenuApp::page_servo3_2000()
 {
-   CdeServo(3, 2000);
+    CdeServo(3, 2000);
     return true;
 }
 
@@ -421,6 +446,14 @@ bool CMenuApp::page_servo3_2000()
 // ===========================================================
 //                  CAPTEURS
 // ===========================================================
+
+void CMenuApp::page_capteurs()
+{
+    DECLARE_PAGE("Capteurs", CMenuApp::page_capteurs);
+    DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page_principale);
+    DECLARE_ACTION('a', "Etat des codeurs", CMenuApp::read_codeurs);
+    DECLARE_ACTION('z', "Etat des entrees analogiques", CMenuApp::read_analog_inputs);
+}
 
 bool CMenuApp::read_codeurs()
 {
@@ -444,8 +477,8 @@ void CMenuApp::page_servos_ax()
 {
     DECLARE_PAGE("SERVOS AX", CMenuApp::page_servos_ax);
     DECLARE_ACTION('p', "Test présents", CMenuApp::ax_check_present);
-    DECLARE_ACTION('q', "Consigne 100", CMenuApp::ax_100);
-    DECLARE_ACTION('s', "Consigne 200", CMenuApp::ax_200);
+    DECLARE_ACTION('q', "Consigne 100", CMenuApp::ax_512);
+    DECLARE_ACTION('s', "Consigne 200", CMenuApp::ax_600);
     DECLARE_ACTION('l', "Lecture position", CMenuApp::ax_lecture_pos);
 }
 
@@ -466,14 +499,14 @@ bool CMenuApp::ax_check_present()
     return true;
 }
 
-bool CMenuApp::ax_100()
+bool CMenuApp::ax_512()
 {
     Application.m_servos_ax.setPosition(1, 512);
     Application.m_servos_ax.setLed(1, 1);
     return true;
 }
 
-bool CMenuApp::ax_200()
+bool CMenuApp::ax_600()
 {
     Application.m_servos_ax.setPosition(1, 600);
     Application.m_servos_ax.setLed(1, 0);
@@ -489,7 +522,6 @@ bool CMenuApp::ax_lecture_pos()
         unsigned short pos = Application.m_servos_ax.getPosition(id);
         _printf("ID=%d - Position = %d\n\r", id, pos);
     }
-
     return true;
 }
 
