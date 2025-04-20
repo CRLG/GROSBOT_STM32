@@ -29,21 +29,27 @@ public:
     // Page Moteurs
     void page_cde_moteurs();
 
-    bool action_moteurG_stop();
-    bool action_moteurG_10pct();
-    bool action_moteurG_50pct();
-    bool action_moteurG_100pct();
-    bool action_moteurG_M10pct();
-    bool action_moteurG_M50pct();
-    bool action_moteurG_M100pct();
+    bool arret_moteurs();
+    bool cde_mot_G_M1();
+    bool cde_mot_G_M2();
+    bool cde_mot_G_M3();
+    bool cde_mot_G_P1();
+    bool cde_mot_G_P2();
+    bool cde_mot_G_P3();
 
-    bool action_moteurD_stop();
-    bool action_moteurD_10pct();
-    bool action_moteurD_50pct();
-    bool action_moteurD_100pct();
-    bool action_moteurD_M10pct();
-    bool action_moteurD_M50pct();
-    bool action_moteurD_M100pct();
+    bool cde_mot_D_M1();
+    bool cde_mot_D_M2();
+    bool cde_mot_D_M3();
+    bool cde_mot_D_P1();
+    bool cde_mot_D_P2();
+    bool cde_mot_D_P3();
+
+    bool cde_mot_GD_M1();
+    bool cde_mot_GD_M2();
+    bool cde_mot_GD_M3();
+    bool cde_mot_GD_P1();
+    bool cde_mot_GD_P2();
+    bool cde_mot_GD_P3();
 
     // _____________________________
     // Page Asservissement
@@ -59,6 +65,30 @@ public:
     bool cde_angle4();
     bool cde_angle5();
     bool cde_angle6();
+
+    // _____________________________
+    // Pages réglages coefs asserv
+    void page_reglage_coefs();
+
+    void page_kp_distance();
+    bool action_set_Kp_distance(double val);
+
+    void page_ki_distance();
+    bool action_set_Ki_distance(double val);
+
+    void page_kp_angle();
+    bool action_set_Kp_angle(double val);
+
+    void page_ki_angle();
+    bool action_set_Ki_angle(double val);
+
+    void page_cde_min();
+    bool action_set_cde_min(int val);
+
+    void page_cde_max();
+    bool action_set_cde_max(int val);
+
+    bool affiche_coefs_asserv();
 
     // _____________________________
     // Page Capteurs
