@@ -523,9 +523,9 @@ void CMenuApp::page_servos_ax()
 {
     DECLARE_PAGE("SERVOS AX", CMenuApp::page_servos_ax);
     DECLARE_ACTION('p', "Test présents", CMenuApp::ax_check_present);
-    DECLARE_ACTION('q', "Consigne 100", CMenuApp::ax_512);
-    DECLARE_ACTION('s', "Consigne 200", CMenuApp::ax_600);
-    DECLARE_ACTION('l', "Lecture position", CMenuApp::ax_lecture_pos);
+    DECLARE_ACTION('q', "Consigne 512 - servo 1", CMenuApp::ax_512);
+    DECLARE_ACTION('s', "Consigne 600 - servo 1", CMenuApp::ax_600);
+    DECLARE_ACTION('l', "Lecture position - servo 1", CMenuApp::ax_lecture_pos);
 }
 
 
