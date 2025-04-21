@@ -431,96 +431,40 @@ void CMenuApp::page_servos()
 {
     DECLARE_PAGE("SERVO MOTEURS", CMenuApp::page_servos);
     DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page_principale);
-    DECLARE_ACTION('a', "Servo1 : 1500", CMenuApp::page_servo1_1500);
+    DECLARE_ACTION('a', "Servo1 : 1000", CMenuApp::page_servo1_1000);
     DECLARE_ACTION('z', "Servo1 : 1200", CMenuApp::page_servo1_1200);
-    DECLARE_ACTION('e', "Servo1 : 1700", CMenuApp::page_servo1_1700);
-    DECLARE_ACTION('r', "Servo1 : 2000", CMenuApp::page_servo1_2000);
+    DECLARE_ACTION('e', "Servo1 : 1500", CMenuApp::page_servo1_1500);
+    DECLARE_ACTION('r', "Servo1 : 1700", CMenuApp::page_servo1_1700);
+    DECLARE_ACTION('t', "Servo1 : 2000", CMenuApp::page_servo1_2000);
 
-
-    DECLARE_ACTION('q', "Servo2 : 1500", CMenuApp::page_servo2_1500);
+    DECLARE_ACTION('q', "Servo2 : 1000", CMenuApp::page_servo2_1000);
     DECLARE_ACTION('s', "Servo2 : 1200", CMenuApp::page_servo2_1200);
-    DECLARE_ACTION('d', "Servo2 : 1700", CMenuApp::page_servo2_1700);
-    DECLARE_ACTION('f', "Servo2 : 2000", CMenuApp::page_servo2_2000);
+    DECLARE_ACTION('d', "Servo2 : 1500", CMenuApp::page_servo2_1500);
+    DECLARE_ACTION('f', "Servo2 : 1700", CMenuApp::page_servo2_1700);
+    DECLARE_ACTION('g', "Servo2 : 2000", CMenuApp::page_servo2_2000);
 
-    DECLARE_ACTION('w', "Servo3 : 1500", CMenuApp::page_servo3_1500);
+    DECLARE_ACTION('w', "Servo3 : 1000", CMenuApp::page_servo3_1000);
     DECLARE_ACTION('x', "Servo3 : 1200", CMenuApp::page_servo3_1200);
-    DECLARE_ACTION('c', "Servo3 : 1700", CMenuApp::page_servo3_1700);
-    DECLARE_ACTION('v', "Servo3 : 2000", CMenuApp::page_servo3_2000);
+    DECLARE_ACTION('c', "Servo3 : 1500", CMenuApp::page_servo3_1500);
+    DECLARE_ACTION('v', "Servo3 : 1700", CMenuApp::page_servo3_1700);
+    DECLARE_ACTION('b', "Servo3 : 2000", CMenuApp::page_servo3_2000);
 }
 
-bool CMenuApp::page_servo1_1200()
-{
-    CdeServo(1, 1200);
-    return true;
-}
-
-bool CMenuApp::page_servo1_1500()
-{
-    CdeServo(1, 1500);
-    return true;
-}
-
-bool CMenuApp::page_servo1_1700()
-{
-    CdeServo(1, 1700);
-    return true;
-}
-
-bool CMenuApp::page_servo1_2000()
-{
-    CdeServo(1, 2000);
-    return true;
-}
-
-bool CMenuApp::page_servo2_1200()
-{
-    CdeServo(2, 1200);
-    return true;
-}
-
-bool CMenuApp::page_servo2_1500()
-{
-    CdeServo(2, 1500);
-    return true;
-}
-
-bool CMenuApp::page_servo2_1700()
-{
-    CdeServo(2, 1700);
-    return true;
-}
-
-bool CMenuApp::page_servo2_2000()
-{
-    CdeServo(2, 2000);
-    return true;
-}
-
-bool CMenuApp::page_servo3_1200()
-{
-    CdeServo(3, 1200);
-    return true;
-}
-
-bool CMenuApp::page_servo3_1500()
-{
-    CdeServo(3, 1500);
-    return true;
-}
-
-bool CMenuApp::page_servo3_1700()
-{
-    CdeServo(3, 1700);
-    return true;
-}
-
-bool CMenuApp::page_servo3_2000()
-{
-    CdeServo(3, 2000);
-    return true;
-}
-
-
+bool CMenuApp::page_servo1_1000() { CdeServo(1, 1000); return true; }
+bool CMenuApp::page_servo1_1200() { CdeServo(1, 1200); return true; }
+bool CMenuApp::page_servo1_1500() { CdeServo(1, 1500); return true; }
+bool CMenuApp::page_servo1_1700() { CdeServo(1, 1700); return true; }
+bool CMenuApp::page_servo1_2000() { CdeServo(1, 2000); return true; }
+bool CMenuApp::page_servo2_1000() { CdeServo(2, 1000); return true; }
+bool CMenuApp::page_servo2_1200() { CdeServo(2, 1200); return true; }
+bool CMenuApp::page_servo2_1500() { CdeServo(2, 1500); return true; }
+bool CMenuApp::page_servo2_1700() { CdeServo(2, 1700); return true; }
+bool CMenuApp::page_servo2_2000() { CdeServo(2, 2000); return true; }
+bool CMenuApp::page_servo3_1000() { CdeServo(3, 1000); return true; }
+bool CMenuApp::page_servo3_1200() { CdeServo(3, 1200); return true; }
+bool CMenuApp::page_servo3_1500() { CdeServo(3, 1500); return true; }
+bool CMenuApp::page_servo3_1700() { CdeServo(3, 1700); return true; }
+bool CMenuApp::page_servo3_2000() { CdeServo(3, 2000); return true; }
 
 // ===========================================================
 //                  CAPTEURS

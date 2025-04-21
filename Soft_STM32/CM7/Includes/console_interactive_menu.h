@@ -101,16 +101,19 @@ public:
     // Page Servomoteurs
     void page_servos();
 
+    bool page_servo1_1000();
     bool page_servo1_1200();
     bool page_servo1_1500();
     bool page_servo1_1700();
     bool page_servo1_2000();
 
+    bool page_servo2_1000();
     bool page_servo2_1200();
     bool page_servo2_1500();
     bool page_servo2_1700();
     bool page_servo2_2000();
 
+    bool page_servo3_1000();
     bool page_servo3_1200();
     bool page_servo3_1500();
     bool page_servo3_1700();
