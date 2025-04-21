@@ -10,6 +10,7 @@
 //#define UTILISATION_KMAR
 //#define UTILISATION_CHARIOT
 //#define UTILISATION_XBEE
+#define UTILISATION_ASSERV_LOGGER
 
 // Couleur de l'équipe
 #define EQUIPE_BLEU     SM_DatasInterface::EQUIPE_COULEUR_2

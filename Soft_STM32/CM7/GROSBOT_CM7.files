@@ -20,6 +20,7 @@ Sources/CLaBotBox.cpp
 Sources/CTrameLaBotBox.cpp
 Sources/CServomoteurs.cpp
 Sources/CServoMoteursAX.cpp
+Sources/CAsservLogger.cpp
 
 Modelia/ia.cpp
 Modelia/sm_inputsinterface.cpp
@@ -55,6 +56,8 @@ Includes/CLaBotBox.h
 Includes/CTrameLaBotBox.h
 Includes/CServomoteurs.h
 Includes/CServoMoteursAX.h
+Includes/CAsservLogger.h
+
 
 Modelia/ia.h
 Modelia/sm_inputsinterface.h
