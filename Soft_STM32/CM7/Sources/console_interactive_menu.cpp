@@ -37,6 +37,63 @@ void CMenuApp::page_principale()
     DECLARE_OPTION('s', "TEST", CMenuApp::page_set_param_2);
 }
 
+// ===========================================================
+//                  MOTEURS
+// ===========================================================
+
+void CMenuApp::page_cde_moteurs()
+{
+    DECLARE_PAGE("Commande moteurs", CMenuApp::page_cde_moteurs);
+    DECLARE_ACTION('a', "Arrêt moteurs", CMenuApp::arret_moteurs);
+
+    DECLARE_ACTION('q', "Gauche -10%", CMenuApp::cde_mot_G_M1);
+    DECLARE_ACTION('s', "Gauche -25%", CMenuApp::cde_mot_G_M2);
+    DECLARE_ACTION('d', "Gauche -50%", CMenuApp::cde_mot_G_M3);
+
+    DECLARE_ACTION('k', "Gauche +10%", CMenuApp::cde_mot_G_P1);
+    DECLARE_ACTION('l', "Gauche +25%", CMenuApp::cde_mot_G_P2);
+    DECLARE_ACTION('m', "Gauche +50%", CMenuApp::cde_mot_G_P3);
+
+
+    DECLARE_ACTION('w', "Droit -10%", CMenuApp::cde_mot_D_M1);
+    DECLARE_ACTION('x', "Droit -25%", CMenuApp::cde_mot_D_M2);
+    DECLARE_ACTION('c', "Droit -50%", CMenuApp::cde_mot_D_M3);
+
+    DECLARE_ACTION('v', "Droit +10%", CMenuApp::cde_mot_D_P1);
+    DECLARE_ACTION('b', "Droit +25%", CMenuApp::cde_mot_D_P2);
+    DECLARE_ACTION('n', "Droit +50%", CMenuApp::cde_mot_D_P3);
+
+    DECLARE_ACTION('r', "Gauche & Droit -10%", CMenuApp::cde_mot_GD_M1);
+    DECLARE_ACTION('t', "Gauche & Droit -25%", CMenuApp::cde_mot_GD_M2);
+    DECLARE_ACTION('y', "Gauche & Droit -50%", CMenuApp::cde_mot_GD_M3);
+
+    DECLARE_ACTION('i', "Gauche & Droit +10%", CMenuApp::cde_mot_GD_P1);
+    DECLARE_ACTION('o', "Gauche & Droit +25%", CMenuApp::cde_mot_GD_P2);
+    DECLARE_ACTION('p', "Gauche & Droit +50%", CMenuApp::cde_mot_GD_P3);
+}
+
+bool CMenuApp::arret_moteurs()  { Application.m_asservissement.CommandeManuelle(0, 0); return true;}
+bool CMenuApp::cde_mot_G_M1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-10); return true; }  // Pour commander une seule roue, on s'assure être en mode asserv manuel
+bool CMenuApp::cde_mot_G_M2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-25); return true; }
+bool CMenuApp::cde_mot_G_M3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-50); return true; }
+bool CMenuApp::cde_mot_G_P1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(+10); return true; }
+bool CMenuApp::cde_mot_G_P2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(+25); return true; }
+bool CMenuApp::cde_mot_G_P3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(+50); return true; }
+
+bool CMenuApp::cde_mot_D_M1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(-10); return true; }
+bool CMenuApp::cde_mot_D_M2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(-25); return true; }
+bool CMenuApp::cde_mot_D_M3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(-50); return true; }
+bool CMenuApp::cde_mot_D_P1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(+10); return true; }
+bool CMenuApp::cde_mot_D_P2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(+25); return true; }
+bool CMenuApp::cde_mot_D_P3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(+50); return true; }
+
+bool CMenuApp::cde_mot_GD_M1()   { Application.m_asservissement.CommandeManuelle(-10, -10); return true; }
+bool CMenuApp::cde_mot_GD_M2()   { Application.m_asservissement.CommandeManuelle(-25, -25); return true; }
+bool CMenuApp::cde_mot_GD_M3()   { Application.m_asservissement.CommandeManuelle(-50, -50); return true; }
+bool CMenuApp::cde_mot_GD_P1()   { Application.m_asservissement.CommandeManuelle(+10, +10); return true; }
+bool CMenuApp::cde_mot_GD_P2()   { Application.m_asservissement.CommandeManuelle(+25, +25); return true; }
+bool CMenuApp::cde_mot_GD_P3()   { Application.m_asservissement.CommandeManuelle(+50, +50); return true; }
+
 
 // =============================================================================
 //                          ASSERV
@@ -45,7 +102,8 @@ void CMenuApp::page_principale()
 void CMenuApp::page_commande_asserv()
 {
     DECLARE_PAGE("Commande Asservissement", CMenuApp::page_commande_asserv);
-    DECLARE_OPTION('e', "Coeficients Asserv", CMenuApp::page_reglage_coefs)
+    DECLARE_OPTION('e', "Coeficients Asserv", CMenuApp::page_reglage_coefs);
+    DECLARE_OPTION('l', "Data Logger", CMenuApp::page_asserv_data_logger);
     DECLARE_ACTION('a', "Arrêt moteurs / Asserv manuel", CMenuApp::arret_moteurs);
     DECLARE_ACTION('q', "CommandeMouvementDistanceAngle(10, 0)", CMenuApp::cde_distance1);
     DECLARE_ACTION('s', "CommandeMouvementDistanceAngle(20, 0)", CMenuApp::cde_distance2);
@@ -198,6 +256,27 @@ bool CMenuApp::affiche_coefs_asserv()
 
     return true;
 }
+
+
+// =============================================================================
+//                   DATA LOGGER POUR ASSERV
+// =============================================================================
+void CMenuApp::page_asserv_data_logger()
+{
+    DECLARE_PAGE("Data Logger", CMenuApp::page_asserv_data_logger)
+    DECLARE_ACTION('s', "Start logger", CMenuApp::start_logger)
+    DECLARE_ACTION('t', "Stop logger", CMenuApp::stop_logger)
+    DECLARE_ACTION('p', "Print logger", CMenuApp::print_logger)
+    DECLARE_ACTION('w', "Synchro logger OFF", CMenuApp::synchro_logger_off)
+    DECLARE_ACTION('x', "Synchro logger ON", CMenuApp::synchro_logger_on)
+}
+
+bool CMenuApp::start_logger()       { Application.m_asservissement.m_data_logger.start(); return true; }
+bool CMenuApp::stop_logger()        { Application.m_asservissement.m_data_logger.stop(); return true; }
+bool CMenuApp::print_logger()       { Application.m_asservissement.m_data_logger.print(); return true; }
+bool CMenuApp::synchro_logger_off() { Application.m_asservissement.m_automatic_start_logger = false; return true; }
+bool CMenuApp::synchro_logger_on()  { Application.m_asservissement.m_automatic_start_logger = true; return true; }
+
 
 
 // =============================================================================
@@ -366,62 +445,6 @@ bool CMenuApp::action_read_params()
 }
 
 
-// ===========================================================
-//                  MOTEURS
-// ===========================================================
-
-void CMenuApp::page_cde_moteurs()
-{
-    DECLARE_PAGE("Commande moteurs", CMenuApp::page_cde_moteurs);
-    DECLARE_ACTION('a', "Arrêt moteurs", CMenuApp::arret_moteurs);
-
-    DECLARE_ACTION('q', "Gauche -10%", CMenuApp::cde_mot_G_M1);
-    DECLARE_ACTION('s', "Gauche -25%", CMenuApp::cde_mot_G_M2);
-    DECLARE_ACTION('d', "Gauche -50%", CMenuApp::cde_mot_G_M3);
-
-    DECLARE_ACTION('k', "Gauche +10%", CMenuApp::cde_mot_G_P1);
-    DECLARE_ACTION('l', "Gauche +25%", CMenuApp::cde_mot_G_P2);
-    DECLARE_ACTION('m', "Gauche +50%", CMenuApp::cde_mot_G_P3);
-
-
-    DECLARE_ACTION('w', "Droit -10%", CMenuApp::cde_mot_D_M1);
-    DECLARE_ACTION('x', "Droit -25%", CMenuApp::cde_mot_D_M2);
-    DECLARE_ACTION('c', "Droit -50%", CMenuApp::cde_mot_D_M3);
-
-    DECLARE_ACTION('v', "Droit +10%", CMenuApp::cde_mot_D_P1);
-    DECLARE_ACTION('b', "Droit +25%", CMenuApp::cde_mot_D_P2);
-    DECLARE_ACTION('n', "Droit +50%", CMenuApp::cde_mot_D_P3);
-
-    DECLARE_ACTION('r', "Gauche & Droit -10%", CMenuApp::cde_mot_GD_M1);
-    DECLARE_ACTION('t', "Gauche & Droit -25%", CMenuApp::cde_mot_GD_M2);
-    DECLARE_ACTION('y', "Gauche & Droit -50%", CMenuApp::cde_mot_GD_M3);
-
-    DECLARE_ACTION('i', "Gauche & Droit +10%", CMenuApp::cde_mot_GD_P1);
-    DECLARE_ACTION('o', "Gauche & Droit +25%", CMenuApp::cde_mot_GD_P2);
-    DECLARE_ACTION('p', "Gauche & Droit +50%", CMenuApp::cde_mot_GD_P3);
-}
-
-bool CMenuApp::arret_moteurs()  { Application.m_asservissement.CommandeManuelle(0, 0); return true;}
-bool CMenuApp::cde_mot_G_M1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-10); return true; }  // Pour commander une seule roue, on s'assure être en mode asserv manuel
-bool CMenuApp::cde_mot_G_M2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-25); return true; }
-bool CMenuApp::cde_mot_G_M3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-50); return true; }
-bool CMenuApp::cde_mot_G_P1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(+10); return true; }
-bool CMenuApp::cde_mot_G_P2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(+25); return true; }
-bool CMenuApp::cde_mot_G_P3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(+50); return true; }
-
-bool CMenuApp::cde_mot_D_M1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(-10); return true; }
-bool CMenuApp::cde_mot_D_M2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(-25); return true; }
-bool CMenuApp::cde_mot_D_M3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(-50); return true; }
-bool CMenuApp::cde_mot_D_P1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(+10); return true; }
-bool CMenuApp::cde_mot_D_P2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(+25); return true; }
-bool CMenuApp::cde_mot_D_P3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_D(+50); return true; }
-
-bool CMenuApp::cde_mot_GD_M1()   { Application.m_asservissement.CommandeManuelle(-10, -10); return true; }
-bool CMenuApp::cde_mot_GD_M2()   { Application.m_asservissement.CommandeManuelle(-25, -25); return true; }
-bool CMenuApp::cde_mot_GD_M3()   { Application.m_asservissement.CommandeManuelle(-50, -50); return true; }
-bool CMenuApp::cde_mot_GD_P1()   { Application.m_asservissement.CommandeManuelle(+10, +10); return true; }
-bool CMenuApp::cde_mot_GD_P2()   { Application.m_asservissement.CommandeManuelle(+25, +25); return true; }
-bool CMenuApp::cde_mot_GD_P3()   { Application.m_asservissement.CommandeManuelle(+50, +50); return true; }
 
 
 // ===========================================================
