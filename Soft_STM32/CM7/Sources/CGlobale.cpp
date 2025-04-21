@@ -93,7 +93,7 @@ void CGlobale::readEEPROM()
         if (m_eeprom.read_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, &uldata)) ModeFonctionnement = uldata;
         // Asservissement
         if (m_eeprom.read_uint32(EEPROM_MAPPING::CDE_MAX, &uldata))             m_asservissement.cde_max = uldata;
-        if (m_eeprom.read_int32(EEPROM_MAPPING::CDE_MIN, &ldata))               m_asservissement.cde_min = uldata;
+        if (m_eeprom.read_int32(EEPROM_MAPPING::CDE_MIN, &ldata))               m_asservissement.cde_min = ldata;
         if (m_eeprom.read_float(EEPROM_MAPPING::KP_DISTANCE, &fdata))           m_asservissement.kp_distance = fdata;
         if (m_eeprom.read_float(EEPROM_MAPPING::KI_DISTANCE, &fdata))           m_asservissement.ki_distance = fdata;
         if (m_eeprom.read_float(EEPROM_MAPPING::KP_ANGLE, &fdata))              m_asservissement.kp_angle = fdata;
