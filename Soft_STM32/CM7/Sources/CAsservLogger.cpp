@@ -50,15 +50,19 @@ static tLogData m_datas[NBRE_LIGNES];
 CAsservLogger::CAsservLogger()
     : m_started(false),
       m_start_time(0),
-      m_index(0)
+      m_index(0),
+      m_rollback_until_convergence(false)
 {
 }
-
+#include <string.h>
 // ________________________________________
 /*! Démarre le logger
  */
 void CAsservLogger::start()
 {
+#ifdef UTILISATION_ASSERV_LOGGER
+    memset(m_datas, 0, sizeof(m_datas));    // RAZ de la strucuture
+#endif // UTILISATION_ASSERV_LOGGER
     m_index = 0;
     m_started = true;
 }
@@ -79,8 +83,6 @@ bool CAsservLogger::step()
 {
     if (!m_started)             return false;
 #ifdef UTILISATION_ASSERV_LOGGER
-    if (m_index >= NBRE_LIGNES) return false;
-
     m_datas[m_index]._time = getTime();
     m_datas[m_index].codeur_g =                 Application.m_roues.getCodeurG();
     m_datas[m_index].codeur_d =                 Application.m_roues.getCodeurD();
@@ -100,7 +102,18 @@ bool CAsservLogger::step()
     m_datas[m_index].convergence_rapide =       Application.m_asservissement.convergence_rapide;
     m_datas[m_index].convergence_conf =         Application.m_asservissement.convergence_conf;
 
+    // Si on arrive en fin de buffer du logger, 2 solutions :
+    //  (1). On est en mode rollback jusqu'à la convergence -> on reboucle et on continue de logger (ce qu'on chercheà logger, c'est la phase finale)
+    //  (2). On est pas en mode rollback -> dans ce cas, on arrête le logger
     m_index++;
+    if (m_index >= NBRE_LIGNES) {
+        if (m_rollback_until_convergence)   m_index = 0;        // cas (1) ci-dessus
+        else                                m_started = false;  // cas (2) ci-dessus
+    }
+    // arrêt du logger si convergence confirmé en mode roolback
+    if (m_rollback_until_convergence) {
+        if (Application.m_asservissement.convergence_conf) m_started = false;
+    }
 #endif
     return true;
 }

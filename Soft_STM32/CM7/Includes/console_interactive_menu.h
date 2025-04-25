@@ -95,9 +95,12 @@ public:
     void page_asserv_data_logger();
     bool start_logger();
     bool stop_logger();
+    bool statut_logger();
     bool print_logger();
     bool synchro_logger_off();
     bool synchro_logger_on();
+    bool rollback_logger_off();
+    bool rollback_logger_on();
 
     // _____________________________
     // Page Capteurs

@@ -263,12 +263,15 @@ bool CMenuApp::affiche_coefs_asserv()
 // =============================================================================
 void CMenuApp::page_asserv_data_logger()
 {
-    DECLARE_PAGE("Data Logger", CMenuApp::page_asserv_data_logger)
-    DECLARE_ACTION('s', "Start logger", CMenuApp::start_logger)
-    DECLARE_ACTION('t', "Stop logger", CMenuApp::stop_logger)
-    DECLARE_ACTION('p', "Print logger", CMenuApp::print_logger)
-    DECLARE_ACTION('w', "Synchro logger OFF", CMenuApp::synchro_logger_off)
-    DECLARE_ACTION('x', "Synchro logger ON", CMenuApp::synchro_logger_on)
+    DECLARE_PAGE("Data Logger", CMenuApp::page_asserv_data_logger);
+    DECLARE_ACTION('s', "Start logger", CMenuApp::start_logger);
+    DECLARE_ACTION('t', "Stop logger", CMenuApp::stop_logger);
+    DECLARE_ACTION('e', "Statut du logger", CMenuApp::statut_logger);
+    DECLARE_ACTION('p', "Print logger", CMenuApp::print_logger);
+    DECLARE_ACTION('w', "Synchro logger OFF", CMenuApp::synchro_logger_off);
+    DECLARE_ACTION('x', "Synchro logger ON", CMenuApp::synchro_logger_on);
+    DECLARE_ACTION('b', "Rollback logger OFF", CMenuApp::rollback_logger_off);
+    DECLARE_ACTION('n', "Rollback logger ON", CMenuApp::rollback_logger_on);
 }
 
 bool CMenuApp::start_logger()       { Application.m_asservissement.m_data_logger.start(); return true; }
@@ -276,6 +279,15 @@ bool CMenuApp::stop_logger()        { Application.m_asservissement.m_data_logger
 bool CMenuApp::print_logger()       { Application.m_asservissement.m_data_logger.print(); return true; }
 bool CMenuApp::synchro_logger_off() { Application.m_asservissement.m_automatic_start_logger = false; return true; }
 bool CMenuApp::synchro_logger_on()  { Application.m_asservissement.m_automatic_start_logger = true; return true; }
+bool CMenuApp::rollback_logger_off(){ Application.m_asservissement.m_data_logger.m_rollback_until_convergence = false; return true; }
+bool CMenuApp::rollback_logger_on() { Application.m_asservissement.m_data_logger.m_rollback_until_convergence = true; return true; }
+bool CMenuApp::statut_logger()
+{
+    if (Application.m_asservissement.m_data_logger.m_started)   _printf("Enregistrement en cours...\n\r");
+    else                                                        _printf("Enregistrement arrêté\n\r");
+
+    return true;
+}
 
 
 
