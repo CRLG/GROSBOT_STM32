@@ -62,6 +62,9 @@
 #define ID_ETAT_CHARGE_CPU 0x10B
 #define ID_RESET_CPU 0x10C
 #define ID_COMMANDE_MODE_FONCTIONNEMENT_CPU 0x10D
+#define ID_READ_EEPROM_REQ 0x10E
+#define ID_WRITE_EEPROM_REQ 0x10F
+#define ID_EEPROM_VALUE 0x110
 
 #define DLC_COMMANDE_POWER_ELECTROBOT 4
 #define DLC_ETAT_POWER_ELECTROBOT 8
@@ -104,6 +107,9 @@
 #define DLC_ETAT_CHARGE_CPU 8
 #define DLC_RESET_CPU 1
 #define DLC_COMMANDE_MODE_FONCTIONNEMENT_CPU 2
+#define DLC_READ_EEPROM_REQ 8
+#define DLC_WRITE_EEPROM_REQ 8
+#define DLC_EEPROM_VALUE 8
 
 
 #define BRUTE2PHYS_valeur_commande_sd20(val) ( ((float)val * (1.000000)) + (0.000000) ) 
@@ -984,6 +990,47 @@ public :
     void Decode(tStructTrameLaBotBox* trameRecue);
 };
 
+// ========================================================
+//             TRAME READ_EEPROM_REQ
+// ========================================================
+class CTrameLaBotBox_READ_EEPROM_REQ : public CTrameLaBotBox
+{
+public :
+    //! Les signaux de la messagerie
+    unsigned long start_address;    // adresse de départ à lire
+    unsigned long count;            // nombre d'élements à lire à partir de l'adresse de départ
+
+    CTrameLaBotBox_READ_EEPROM_REQ();
+    void Decode(tStructTrameLaBotBox* trameRecue);
+};
+
+// ========================================================
+//             TRAME WRITE_EEPROM_REQ
+// ========================================================
+class CTrameLaBotBox_WRITE_EEPROM_REQ : public CTrameLaBotBox
+{
+public :
+    //! Les signaux de la messagerie
+    unsigned long address;  // adresse(=index) de la donnée EEPROM
+    unsigned long value;    // valeur de la donnée
+
+    CTrameLaBotBox_WRITE_EEPROM_REQ();
+    void Decode(tStructTrameLaBotBox* trameRecue);
+};
+
+// ========================================================
+//             TRAME EEPROM_VALUE
+// ========================================================
+class CTrameLaBotBox_EEPROM_VALUE : public CTrameLaBotBox
+{
+public :
+    //! Les signaux de la messagerie
+    unsigned long address;  // adresse(=index) de la donnée EEPROM
+    unsigned long value;    // valeur de la donnée
+
+    CTrameLaBotBox_EEPROM_VALUE();
+    tStructTrameLaBotBox* Encode(tStructTrameLaBotBox* trame);
+};
 
 #endif
 /*! @} */

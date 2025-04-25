@@ -152,7 +152,7 @@ public :
     //! Fixe la période de toutes les trames TX d'un seul coup
     void setAllTransmitPeriod(int period_msec);
 
-#define NOMBRE_MAX_TRAMES_LABOTBOX 42
+#define NOMBRE_MAX_TRAMES_LABOTBOX 45
 	// __________________________________________ INSTANCE DE CHAQUE TRAME
 	//! Trame
     CTrameLaBotBox_COMMANDE_POWER_ELECTROBOT    m_COMMANDE_POWER_ELECTROBOT;
@@ -169,7 +169,7 @@ public :
     CTrameLaBotBox_COMMANDE_MVT_XY_TETA         m_COMMANDE_MVT_XY_TETA;
     CTrameLaBotBox_ELECTROBOT_CDE_SERVOS        m_ELECTROBOT_CDE_SERVOS;
     CTrameLaBotBox_ELECTROBOT_CDE_SERVOS_AX     m_ELECTROBOT_CDE_SERVOS_AX;
-    CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS   m_ELECTROBOT_CONFIG_SERVOS;
+    CTrameLaBotBox_ELECTROBOT_CONFIG_SERVOS     m_ELECTROBOT_CONFIG_SERVOS;
     CTrameLaBotBox_COMMANDE_MVT_MANUEL          m_COMMANDE_MVT_MANUEL;
     CTrameLaBotBox_ETAT_PID_ASSERVISSEMENT      m_ETAT_PID_ASSERVISSEMENT;
     CTrameLaBotBox_ETAT_ASSERVISSEMENT          m_ETAT_ASSERVISSEMENT;
@@ -196,6 +196,9 @@ public :
     CTrameLaBotBox_ETAT_CHARGE_CPU              m_ETAT_CHARGE_CPU;
     CTrameLaBotBox_RESET_CPU                    m_RESET_CPU;
     CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU m_COMMANDE_MODE_FONCTIONNEMENT_CPU;
+    CTrameLaBotBox_READ_EEPROM_REQ              m_READ_EEPROM_REQ;
+    CTrameLaBotBox_WRITE_EEPROM_REQ             m_WRITE_EEPROM_REQ;
+    CTrameLaBotBox_EEPROM_VALUE                 m_EEPROM_VALUE;
 
 private : 
     //! Autorise la réception de données en IRQ en provenance de Labotbox

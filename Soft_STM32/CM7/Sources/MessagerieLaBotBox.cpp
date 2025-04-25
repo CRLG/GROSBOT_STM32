@@ -1424,7 +1424,7 @@ tStructTrameLaBotBox* CTrameLaBotBox_FREE_STRING::Encode(tStructTrameLaBotBox* t
 }
 
 // ========================================================
-//             TRAME ETAT_KMAR_GENERAL
+//             TRAME ETAT_CHARGE_CPU
 // ========================================================
 CTrameLaBotBox_ETAT_CHARGE_CPU::CTrameLaBotBox_ETAT_CHARGE_CPU()
 {
@@ -1449,6 +1449,9 @@ tStructTrameLaBotBox* CTrameLaBotBox_ETAT_CHARGE_CPU::Encode(tStructTrameLaBotBo
     return(trame);
 }
 
+// ========================================================
+//             TRAME RESET_CPU
+// ========================================================
 //___________________________________________________________________________
  /*!
    \brief Constructeur
@@ -1478,6 +1481,9 @@ void CTrameLaBotBox_RESET_CPU::Decode(tStructTrameLaBotBox *trameRecue)
   m_nombre_recue++;
 }
 
+// ========================================================
+//             TRAME COMMANDE_MODE_FONCTIONNEMENT_CPU
+// ========================================================
 //___________________________________________________________________________
  /*!
    \brief Constructeur
@@ -1505,6 +1511,102 @@ void CTrameLaBotBox_COMMANDE_MODE_FONCTIONNEMENT_CPU::Decode(tStructTrameLaBotBo
 
   m_new_trame = true;
   m_nombre_recue++;
+}
+
+// ========================================================
+//             TRAME READ_EEPROM_REQ
+// ========================================================
+//___________________________________________________________________________
+ /*!
+   \brief Constructeur
+   \param --
+   \return --
+   */
+CTrameLaBotBox_READ_EEPROM_REQ::CTrameLaBotBox_READ_EEPROM_REQ()
+{
+  m_ID = ID_READ_EEPROM_REQ;
+  m_DLC = DLC_READ_EEPROM_REQ;
+  start_address = 0;
+  count = 0;
+}
+//___________________________________________________________________________
+ /*!
+   \brief Decode les signaux de la trame READ_EEPROM_REQ
+
+        - Renseigne les champs de la structure de donnee de la trame
+   \param bufBrut le buffer des octets de la trames a decoder
+   \return --
+   */
+void CTrameLaBotBox_READ_EEPROM_REQ::Decode(tStructTrameLaBotBox *trameRecue)
+{
+
+  start_address = CDataEncoderDecoder::decode_uint32(trameRecue->Data, 0);
+  count = CDataEncoderDecoder::decode_uint32(trameRecue->Data, 4);
+
+  m_new_trame = true;
+  m_nombre_recue++;
+}
+
+// ========================================================
+//             TRAME WRITE_EEPROM_REQ
+// ========================================================
+//___________________________________________________________________________
+ /*!
+   \brief Constructeur
+   \param --
+   \return --
+   */
+CTrameLaBotBox_WRITE_EEPROM_REQ::CTrameLaBotBox_WRITE_EEPROM_REQ()
+{
+  m_ID = ID_WRITE_EEPROM_REQ;
+  m_DLC = DLC_WRITE_EEPROM_REQ;
+  address = 0;
+  value = 0;
+}
+//___________________________________________________________________________
+ /*!
+   \brief Decode les signaux de la trame WRITE_EEPROM_REQ
+
+        - Renseigne les champs de la structure de donnee de la trame
+   \param bufBrut le buffer des octets de la trames a decoder
+   \return --
+   */
+void CTrameLaBotBox_WRITE_EEPROM_REQ::Decode(tStructTrameLaBotBox *trameRecue)
+{
+
+  address = CDataEncoderDecoder::decode_uint32(trameRecue->Data, 0);
+  value = CDataEncoderDecoder::decode_uint32(trameRecue->Data, 4);
+
+  m_new_trame = true;
+  m_nombre_recue++;
+}
+
+
+// ========================================================
+//             TRAME ETAT_CHARGE_CPU
+// ========================================================
+
+CTrameLaBotBox_EEPROM_VALUE::CTrameLaBotBox_EEPROM_VALUE()
+{
+    m_ID = ID_EEPROM_VALUE;
+    m_DLC = DLC_EEPROM_VALUE;
+}
+//___________________________________________________________________________
+ /*!
+   \brief Decode les signaux de la trame
+        - Renseigne les champs de la structure de donnee de la trame a transmettre
+   \param trame pointeur sur une structure trame deja alloue
+   \return le pointeur sur la trame a envoyer (renvoie le pointeur recu)
+   */
+tStructTrameLaBotBox* CTrameLaBotBox_EEPROM_VALUE::Encode(tStructTrameLaBotBox* trame)
+{
+    initTrame(trame);
+
+    // Encode chacun des signaux de la trame
+    CDataEncoderDecoder::encode_uint32(trame->Data,    0,  address);
+    CDataEncoderDecoder::encode_uint32(trame->Data,    4,  value);
+
+    return(trame);
 }
 
 

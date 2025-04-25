@@ -82,6 +82,9 @@ void CLaBotBox::initListeTrames()
     m_liste_trames[m_nombre_trames++] = &m_ETAT_CHARGE_CPU;
     m_liste_trames[m_nombre_trames++] = &m_RESET_CPU;
     m_liste_trames[m_nombre_trames++] = &m_COMMANDE_MODE_FONCTIONNEMENT_CPU;
+    m_liste_trames[m_nombre_trames++] = &m_READ_EEPROM_REQ;
+    m_liste_trames[m_nombre_trames++] = &m_WRITE_EEPROM_REQ;
+    m_liste_trames[m_nombre_trames++] = &m_EEPROM_VALUE;
 }
 
 
@@ -383,6 +386,8 @@ void CLaBotBox::DecodeTrame(tStructTrameLaBotBox *trameRecue)
 */
 void CLaBotBox::CheckReceptionTrame(void)
 {
+  tStructTrameLaBotBox trame;
+
   // ___________________________
   if  (m_COMMANDE_POWER_ELECTROBOT.isNewTrame() ) {
       switch(m_COMMANDE_POWER_ELECTROBOT.commande) {
@@ -841,6 +846,26 @@ void CLaBotBox::CheckReceptionTrame(void)
   {
       Application.m_eeprom.write_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, m_COMMANDE_MODE_FONCTIONNEMENT_CPU.ModeFonctionnement);
   }
+  // ___________________________
+  if (m_READ_EEPROM_REQ.isNewTrame())
+  {
+      // rien à faire, l'envoie des données sera géré dans la partie émission de trame
+  }
+  // ___________________________
+  if (m_WRITE_EEPROM_REQ.isNewTrame())
+  {
+      typedef union {
+        unsigned long ulval;
+        unsigned long buff[1];
+      }uEE; // permet d'écrire les 4 octets de la donnée sans savoir s'il s'agit d'un unsigned long, signed long, float
+      uEE data;
+      data.ulval = m_WRITE_EEPROM_REQ.value;
+      if (Application.m_eeprom.write_buff(m_WRITE_EEPROM_REQ.address, data.buff, 1)) {
+          m_EEPROM_VALUE.address = m_WRITE_EEPROM_REQ.address;
+          m_EEPROM_VALUE.value = m_WRITE_EEPROM_REQ.value;
+          SerialiseTrame(m_EEPROM_VALUE.Encode(&trame));  // renvoi la trame avec la valeur comme acquittement
+      }
+  }
 }
 
 
@@ -1082,6 +1107,24 @@ void CLaBotBox::SendTramesLaBotBox(void)
         m_ETAT_CHARGE_CPU.task_real_period_usec= Application.m_cpu_load_delta_t;
         SerialiseTrame(m_ETAT_CHARGE_CPU.Encode(&trame));
 */
+    }
+
+    // _____________________________________________ EEEPROM
+    // L'émission de la trame EEPROM_VALUE est conditionnée par le fait qu'il reste des données
+    // à lire depuis la dernière requête de lecture EEPROM_READ_REQ
+    if (m_READ_EEPROM_REQ.count > 0) {
+        typedef union {
+          unsigned long ulval;
+          unsigned long buff[1];
+        }uEE; // permet d'écrire les 4 octets de la donnée sans savoir s'il s'agit d'un unsigned long, signed long, float
+        uEE data;
+        if (Application.m_eeprom.read_buff(m_READ_EEPROM_REQ.start_address, data.buff, 1)) {
+            m_EEPROM_VALUE.address = m_READ_EEPROM_REQ.start_address;
+            m_EEPROM_VALUE.value = data.ulval;
+            SerialiseTrame(m_EEPROM_VALUE.Encode(&trame));  // renvoi la trame avec la valeur comme acquittement
+        }
+        m_READ_EEPROM_REQ.count--;
+        m_READ_EEPROM_REQ.start_address++;
     }
 }
 
