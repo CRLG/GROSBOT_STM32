@@ -59,6 +59,10 @@ public:
     bool cde_distance2();
     bool cde_distance3();
     bool cde_distance4();
+    bool cde_distance5();
+    bool cde_distance6();
+    bool cde_distance7();
+    bool cde_distance8();
     bool cde_angle1();
     bool cde_angle2();
     bool cde_angle3();

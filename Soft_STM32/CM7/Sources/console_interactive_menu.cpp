@@ -109,12 +109,16 @@ void CMenuApp::page_commande_asserv()
     DECLARE_ACTION('s', "CommandeMouvementDistanceAngle(20, 0)", CMenuApp::cde_distance2);
     DECLARE_ACTION('d', "CommandeMouvementDistanceAngle(50, 0)", CMenuApp::cde_distance3);
     DECLARE_ACTION('f', "CommandeMouvementDistanceAngle(100, 0)", CMenuApp::cde_distance4);
+    DECLARE_ACTION('Q', "CommandeMouvementDistanceAngle(-10, 0)", CMenuApp::cde_distance5);
+    DECLARE_ACTION('S', "CommandeMouvementDistanceAngle(-20, 0)", CMenuApp::cde_distance6);
+    DECLARE_ACTION('D', "CommandeMouvementDistanceAngle(-50, 0)", CMenuApp::cde_distance7);
+    DECLARE_ACTION('F', "CommandeMouvementDistanceAngle(-100, 0)", CMenuApp::cde_distance8);
     DECLARE_ACTION('w', "CommandeMouvementDistanceAngle(0, M_PI/4.)", CMenuApp::cde_angle1);
     DECLARE_ACTION('x', "CommandeMouvementDistanceAngle(0, M_PI/2.)", CMenuApp::cde_angle2);
     DECLARE_ACTION('c', "CommandeMouvementDistanceAngle(0, M_PI)", CMenuApp::cde_angle3);
-    DECLARE_ACTION('v', "CommandeMouvementDistanceAngle(0, -M_PI/4.)", CMenuApp::cde_angle4);
-    DECLARE_ACTION('b', "CommandeMouvementDistanceAngle(0, -M_PI/2.)", CMenuApp::cde_angle5);
-    DECLARE_ACTION('n', "CommandeMouvementDistanceAngle(0, -M_PI)", CMenuApp::cde_angle6);
+    DECLARE_ACTION('W', "CommandeMouvementDistanceAngle(0, -M_PI/4.)", CMenuApp::cde_angle4);
+    DECLARE_ACTION('X', "CommandeMouvementDistanceAngle(0, -M_PI/2.)", CMenuApp::cde_angle5);
+    DECLARE_ACTION('C', "CommandeMouvementDistanceAngle(0, -M_PI)", CMenuApp::cde_angle6);
 }
 
 bool CMenuApp::force_asserv_manuel(){ Application.m_asservissement.ModeAsservissement = CAsservissementBase::cMODE_MANUEL; return true; }
@@ -122,6 +126,10 @@ bool CMenuApp::cde_distance1()      { Application.m_asservissement.CommandeMouve
 bool CMenuApp::cde_distance2()      { Application.m_asservissement.CommandeMouvementDistanceAngle(20, 0); return true; }
 bool CMenuApp::cde_distance3()      { Application.m_asservissement.CommandeMouvementDistanceAngle(50, 0); return true; }
 bool CMenuApp::cde_distance4()      { Application.m_asservissement.CommandeMouvementDistanceAngle(100, 0); return true; }
+bool CMenuApp::cde_distance5()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-10, 0); return true; }
+bool CMenuApp::cde_distance6()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-20, 0); return true; }
+bool CMenuApp::cde_distance7()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-50, 0); return true; }
+bool CMenuApp::cde_distance8()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-100, 0); return true; }
 bool CMenuApp::cde_angle1()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI_4); return true; }
 bool CMenuApp::cde_angle2()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI_2); return true; }
 bool CMenuApp::cde_angle3()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI); return true; }
