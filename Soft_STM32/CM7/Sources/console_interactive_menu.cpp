@@ -113,6 +113,7 @@ void CMenuApp::page_commande_asserv()
     DECLARE_ACTION('S', "CommandeMouvementDistanceAngle(-20, 0)", CMenuApp::cde_distance6);
     DECLARE_ACTION('D', "CommandeMouvementDistanceAngle(-50, 0)", CMenuApp::cde_distance7);
     DECLARE_ACTION('F', "CommandeMouvementDistanceAngle(-100, 0)", CMenuApp::cde_distance8);
+    DECLARE_ACTION('0', "CommandeMouvementDistanceAngle(0, 0)", CMenuApp::cde_angle0);
     DECLARE_ACTION('w', "CommandeMouvementDistanceAngle(0, M_PI/4.)", CMenuApp::cde_angle1);
     DECLARE_ACTION('x', "CommandeMouvementDistanceAngle(0, M_PI/2.)", CMenuApp::cde_angle2);
     DECLARE_ACTION('c', "CommandeMouvementDistanceAngle(0, M_PI)", CMenuApp::cde_angle3);
@@ -130,6 +131,7 @@ bool CMenuApp::cde_distance5()      { Application.m_asservissement.CommandeMouve
 bool CMenuApp::cde_distance6()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-20, 0); return true; }
 bool CMenuApp::cde_distance7()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-50, 0); return true; }
 bool CMenuApp::cde_distance8()      { Application.m_asservissement.CommandeMouvementDistanceAngle(-100, 0); return true; }
+bool CMenuApp::cde_angle0()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, 0); return true; }
 bool CMenuApp::cde_angle1()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI_4); return true; }
 bool CMenuApp::cde_angle2()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI_2); return true; }
 bool CMenuApp::cde_angle3()         { Application.m_asservissement.CommandeMouvementDistanceAngle(0, M_PI); return true; }
@@ -601,6 +603,7 @@ void CMenuApp::page_modes()
     DECLARE_PAGE("MODE FONCTIONNEMENT", CMenuApp::page_modes);
     DECLARE_ACTION('a', "Force mode Autonome", CMenuApp::mode_autonome);
     DECLARE_ACTION('l', "Force mode Labotbox", CMenuApp::mode_labotbox);
+    DECLARE_ACTION('r', "Reset CPU", CMenuApp::_reset_cpu);
 }
 
 bool CMenuApp::mode_labotbox()
@@ -613,6 +616,12 @@ bool CMenuApp::mode_labotbox()
 bool CMenuApp::mode_autonome()
 {
     Application.m_eeprom.write_uint32(EEPROM_MAPPING::MODE_FONCTIONNEMENT, MODE_AUTONOME);
+    reset_cpu(RESET_CPU_SECURE_CODE);
+    return true;
+}
+
+bool CMenuApp::_reset_cpu()
+{
     reset_cpu(RESET_CPU_SECURE_CODE);
     return true;
 }

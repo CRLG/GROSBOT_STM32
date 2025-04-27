@@ -63,6 +63,7 @@ public:
     bool cde_distance6();
     bool cde_distance7();
     bool cde_distance8();
+    bool cde_angle0();
     bool cde_angle1();
     bool cde_angle2();
     bool cde_angle3();
@@ -167,6 +168,7 @@ public:
 
     bool mode_labotbox();
     bool mode_autonome();
+    bool _reset_cpu();
 
     double m_param1;
     int m_param2;
