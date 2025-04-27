@@ -49,6 +49,7 @@ void CGlobale::Run(void)
     // Lecture des paramètres EEPROM
     readEEPROM();
 
+    m_asservissement.Init();
     m_electrobot.Init();
     // Carte PowerElectrobot
     m_power_electrobot.init(POWER_ELECTROBOT_I2C_ADDR);
