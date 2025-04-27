@@ -6,9 +6,9 @@
 #include "CGlobale.h"
 
 // Constantes spécifiques au robot
-const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_G = 0.00330905f;
-const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_D = 0.00330905f;
-const float CAsservissementBase::VOIE_ROBOT = 31.6867261f;
+const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_G = 0.003189567f;  // (27/04/2025)
+const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_D = 0.003200126f;  // (27/04/2025)
+const float CAsservissementBase::VOIE_ROBOT = 30.7;                         // (27/04/2025)
 
 // Cartos spécifique au robo
 const float CAsservissementBase::ini_conv_erreur_dist_vitesse_cur_x[NBRE_POINTS_CARTO_ERREUR] = {-40, -20, -10, -4, -2, -1, 0, 1, 2, 4, 10, 20, 40};							// [cm]
@@ -47,20 +47,20 @@ void CAsservissement::Init(void)
  CAsservissementBase::Init();
 
  // initialisation des paramètres de l'asservissement
- cde_max = 100;				// %	Commande maximum normalisée pour saturer la régulation
- cde_min = -100 ;			// %	Commande minimum normalisée pour saturer la régulation
- kp_distance =  1.2;//1.7;		// 		Gain proportionnel pour la régulation en distance
- ki_distance =  1.0;//3.0;		// 		Gain intégral pour la régulation en distance
- kp_angle =  7.0;			// 		Gain proportionnel pour la régulation en angle
- ki_angle =  5.0;			// 		Gain intégral pour la régulation en angle
+ cde_max = 80;				// %	Commande maximum normalisée pour saturer la régulation
+ cde_min = -80 ;			// %	Commande minimum normalisée pour saturer la régulation
+ kp_distance = 0.8;		// 		Gain proportionnel pour la régulation en distance
+ ki_distance = 4.0;		// 		Gain intégral pour la régulation en distance
+ kp_angle =  5.0;			// 		Gain proportionnel pour la régulation en angle
+ ki_angle =  10.0;			// 		Gain intégral pour la régulation en angle
  k_angle = 0.5;				//		Coeff de filtrage pour le terme dérivé
- seuil_conv_distance =  0.5;	// cm	Erreur en dessous de laquelle on considère que le robot est en position sur la distance
- seuil_conv_angle =  0.01;	// rad	Erreur en dessous de laquelle on considère que le robot est en position sur l'angle
+ seuil_conv_distance =  1;	// cm	Erreur en dessous de laquelle on considère que le robot est en position sur la distance
+ seuil_conv_angle =  0.02;	// rad	Erreur en dessous de laquelle on considère que le robot est en position sur l'angle
  compteur_max = 3;			// 		Nombre de coups d'horloge (N*te) avant de confirmer que le robot est en position
 
  // Initialisation des zones mortes
- zone_morte_D = 0;
- zone_morte_G = 0;
+ zone_morte_D = 4;
+ zone_morte_G = 4;
 
  cde_offset_min_D = zone_morte_D;
  cde_offset_min_G = zone_morte_G;
