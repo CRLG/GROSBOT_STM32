@@ -45,6 +45,7 @@ void CGlobale::ReceiveRS232_ModePiloteTerminal(unsigned char data)
 void CGlobale::SequenceurModePiloteTerminal(void)
 {
     static unsigned int cpt1msec = 0;
+    static unsigned int cpt5msec = 0;
     static unsigned int cpt10msec = 0; // TODO : initialiser à des valeurs différentes pour que les appels soient sur des ticks différents pour répartir la charge CPU
     static unsigned int cpt20msec = 0;
     static unsigned int cpt50msec = 0;
@@ -53,16 +54,21 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     static unsigned int cpt500msec = 0;
     static unsigned int cpt1sec = 0;
 
-    static unsigned char compteur=1;
-    static unsigned char toggle=0;
-    static unsigned char pos=0;
-
     // ______________________________
     cpt1msec++;
     if (cpt1msec >= TEMPO_1msec) {
 
         m_codeurs.Traitement();
         cpt1msec = 0;
+    }
+
+
+    // ______________________________
+    cpt5msec++;
+    if (cpt5msec >= TEMPO_5msec) {
+        cpt5msec = 0;
+
+        m_asservissement.CalculsMouvementsRobots();
     }
 
     // ______________________________
@@ -80,7 +86,6 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
-        m_asservissement.CalculsMouvementsRobots();
     }
 
 

@@ -34,6 +34,7 @@ void CGlobale::ModePiloteLaBotBox(void)
 void CGlobale::SequenceurModePiloteLaBotBox(void)
 {
     static unsigned int cpt1msec= 0;
+    static unsigned int cpt5msec= 0;
     static unsigned int cpt10msec = 0;
     static unsigned int cpt20msec = 0;
     static unsigned int cpt50msec = 0;
@@ -48,6 +49,14 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
         cpt1msec = 0;
 
         m_codeurs.Traitement();
+    }
+
+    // ______________________________
+    cpt5msec++;
+    if (cpt5msec >= TEMPO_5msec) {
+        cpt5msec = 0;
+
+        m_asservissement.CalculsMouvementsRobots();
     }
 
     // ______________________________
@@ -66,7 +75,6 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
-        m_asservissement.CalculsMouvementsRobots();
         m_servos.periodicCall();
     }
 

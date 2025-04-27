@@ -46,6 +46,7 @@ void CAsservissement::Init(void)
  
  CAsservissementBase::Init();
 
+ te = 0.005f;
  // initialisation des paramètres de l'asservissement
  cde_max = 80;				// %	Commande maximum normalisée pour saturer la régulation
  cde_min = -80 ;			// %	Commande minimum normalisée pour saturer la régulation

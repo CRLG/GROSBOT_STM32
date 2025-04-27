@@ -33,6 +33,7 @@ typedef enum {
 // Pour le séquenceur de tâche
 #define PERIODE_TICK    (1)
 #define TEMPO_1msec     (1/PERIODE_TICK)
+#define TEMPO_5msec     (5/PERIODE_TICK)
 #define TEMPO_10msec    (10/PERIODE_TICK)
 #define TEMPO_20msec    (20/PERIODE_TICK)
 #define TEMPO_50msec    (50/PERIODE_TICK)
