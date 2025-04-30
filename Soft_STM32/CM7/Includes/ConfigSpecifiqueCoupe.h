@@ -10,7 +10,7 @@
 //#define UTILISATION_KMAR
 //#define UTILISATION_CHARIOT
 //#define UTILISATION_XBEE
-#define UTILISATION_ASSERV_LOGGER
+//#define UTILISATION_ASSERV_LOGGER
 
 // Couleur de l'équipe
 #define EQUIPE_BLEU     SM_DatasInterface::EQUIPE_COULEUR_2
@@ -53,6 +53,43 @@ typedef enum {
 typedef enum {
 
 }eATTRIBUTION_CODEURS;
+
+//! cet enumere contient les numeros d'attribution des servos
+typedef enum {
+    SERVO_1    = 1,
+	SERVO_2=2,
+    SERVO_3    = 3,
+    SERVO_4      = 4
+} eATTRIBUTION_SERVOS;
+
+typedef enum {
+    POSITION_TEST1    = 1140,
+    POSITION_TEST2  = 2000
+}eVALUES_SERVOS;
+
+//! cet enumere contient les numeros d'attribution des servos SD20
+typedef enum {
+    SERVO_GROSSE_TAPETTE    = 13,
+	SERVO_POTS=15,
+    SERVO_INCLINE_PLANTE    = 18,
+    SERVO_PINCE_PLANTE      = 19
+} eATTRIBUTION_SERVOS_SD20;
+
+typedef enum {
+    POSITION_GROSSE_TAPETTE_LEVE    = 140,
+    POSITION_GROSSE_TAPETTE_BAISSE  = 220,
+    POSITION_GROSSE_TAPETTE_RANGE   = 230,
+
+    POSITION_PINCE_PLANTE_OUVERT    = 200,
+    POSITION_PINCE_PLANTE_FERME     = 80,
+
+    POSITION_INCLINE_PLANTE_LEVE = 180,
+    POSITION_INCLINE_PLANTE_BAISSE = 20,
+
+POSITION_POTS_SORTIS=201,
+POSITION_POTS_RANGES=1
+
+}eVALUES_SERVOS_SD20;
 
 //! cet enumere contient les numeros d'attribution des servos AX (ID)
 typedef enum {
