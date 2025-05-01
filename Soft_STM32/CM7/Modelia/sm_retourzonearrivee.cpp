@@ -2,7 +2,7 @@
  * Generated 28_05_2022 at 01_21
  */
 
-#include "sm_retour_zone_arrivee.h"
+#include "sm_retourzonearrivee.h"
 #include "CGlobale.h"
 
 SM_RetourZoneArrivee::SM_RetourZoneArrivee()

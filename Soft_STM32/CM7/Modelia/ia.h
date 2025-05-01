@@ -5,12 +5,12 @@
 #include "sm_autotest.h"
 
 #include "sm_debuginterface.h"
-#include "sm_retour_zone_arrivee.h"
+#include "sm_retourzonearrivee.h"
 #include "sm_chasseneige.h"
-#include "sm_deposer_banderole.h"
-#include "sm_deposer_pile_bordure.h"
-#include "sm_deposer_pile_centrale.h"
-#include "sm_deposer_pile_bas_de_pente.h"
+#include "sm_deposerbanderole.h"
+#include "sm_deposerpilebordure.h"
+#include "sm_deposerpilecentrale.h"
+#include "sm_deposerpilebasdepente.h"
 
 class IA : public IABase
 {

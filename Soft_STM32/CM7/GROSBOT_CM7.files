@@ -29,11 +29,11 @@ Modelia/sm_datasinterface.cpp
 Modelia/sm_sequenceur.cpp
 Modelia/sm_autotest.cpp
 Modelia/sm_chasseneige.cpp
-Modelia/sm_retour_zone_arrivee.cpp
-Modelia/sm_deposer_banderole.cpp
-Modelia/sm_deposer_pile_bordure.cpp
-Modelia/sm_deposer_pile_centrale.cpp
-Modelia/sm_deposer_pile_bas_de_pente.cpp
+Modelia/sm_retourzonearrivee.cpp
+Modelia/sm_deposerbanderole.cpp
+Modelia/sm_deposerpilebordure.cpp
+Modelia/sm_deposerpilecentrale.cpp
+Modelia/sm_deposerpilebasdepente.cpp
 
 Includes/main_app.h
 Includes/CEEPROM.h
@@ -66,11 +66,11 @@ Modelia/sm_datasinterface.h
 Modelia/sm_sequenceur.h
 Modelia/sm_autotest.h
 Modelia/sm_chasseneige.h
-Modelia/sm_retour_zone_arrivee.h
-Modelia/sm_deposer_banderole.h
-Modelia/sm_deposer_pile_bordure.h
-Modelia/sm_deposer_pile_centrale.h
-Modelia/sm_deposer_pile_bas_de_pente.h
+Modelia/sm_retourzonearrivee.h
+Modelia/sm_deposerbanderole.h
+Modelia/sm_deposerpilebordure.h
+Modelia/sm_deposerpilecentrale.h
+Modelia/sm_deposerpilebasdepente.h
 
 ../ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
 ../ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp

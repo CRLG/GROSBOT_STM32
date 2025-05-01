@@ -2,21 +2,21 @@
  * Generated 17_04_2025 at 13_24
  */
 
-#include "sm_deposer_banderole.h"
+#include "sm_deposerpilebordure.h"
 #include "CGlobale.h"
 
-SM_DeposerBanderole::SM_DeposerBanderole()
+SM_DeposerPileBordure::SM_DeposerPileBordure()
 {
 	m_main_mission_type = true;
 	m_max_score = 0;
 }
 
-const char* SM_DeposerBanderole::getName()
+const char* SM_DeposerPileBordure::getName()
 {
-    return "SM_DeposerBanderole";
+    return "SM_DeposerPileBordure";
 }
 
-const char* SM_DeposerBanderole::stateToName(unsigned short state)
+const char* SM_DeposerPileBordure::stateToName(unsigned short state)
 {
 	switch(state)
 	{
@@ -27,7 +27,7 @@ const char* SM_DeposerBanderole::stateToName(unsigned short state)
 }
 
 // _____________________________________
-void SM_DeposerBanderole::step()
+void SM_DeposerPileBordure::step()
 {
 	switch (m_state)
 	{

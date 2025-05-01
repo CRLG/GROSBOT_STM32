@@ -2,21 +2,21 @@
  * Generated 17_04_2025 at 13_24
  */
 
-#include "sm_deposer_pile_bas_de_pente.h"
+#include "sm_deposerpilecentrale.h"
 #include "CGlobale.h"
 
-SM_DeposerPileBasDePente::SM_DeposerPileBasDePente()
+SM_DeposerPileCentrale::SM_DeposerPileCentrale()
 {
 	m_main_mission_type = true;
 	m_max_score = 0;
 }
 
-const char* SM_DeposerPileBasDePente::getName()
+const char* SM_DeposerPileCentrale::getName()
 {
-    return "SM_DeposerPileBasDePente";
+    return "SM_DeposerPileCentrale";
 }
 
-const char* SM_DeposerPileBasDePente::stateToName(unsigned short state)
+const char* SM_DeposerPileCentrale::stateToName(unsigned short state)
 {
 	switch(state)
 	{
@@ -27,7 +27,7 @@ const char* SM_DeposerPileBasDePente::stateToName(unsigned short state)
 }
 
 // _____________________________________
-void SM_DeposerPileBasDePente::step()
+void SM_DeposerPileCentrale::step()
 {
 	switch (m_state)
 	{
