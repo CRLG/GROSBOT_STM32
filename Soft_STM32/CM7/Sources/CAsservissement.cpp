@@ -71,8 +71,8 @@ void CAsservissement::Init(void)
  m_tension_batterie_filt = 1.44;
  m_tension_batterie_filt_prec = 14.4;
  k_batt = 0.9;							// Coeff de filtrage de la tension batterie (1 = pas de filtrage)
- k_filt_avance = 0.7;					// Coeff de filtrage de la vitesse d'avance (1 = pas de filtrage)
- k_filt_rotation = 0.8;					// Coeff de filtrage de la vitesse de rotation (1 = pas de filtrage)
+ k_filt_avance = 0.98;					// Coeff de filtrage de la vitesse d'avance (1 = pas de filtrage)
+ k_filt_rotation = 0.98;					// Coeff de filtrage de la vitesse de rotation (1 = pas de filtrage)
  seuil_vitesse_diag_blocage = 2;		// cm/s
  commande_min_diag_blocage = 38;		// En cas de blocage l'égrateur charge rapidement à des valeurs importantes
  seuil_vitesse_diag_rotation = 0.1;	// rad/s
@@ -82,7 +82,7 @@ void CAsservissement::Init(void)
 
  vitesse_avance_max = 80;				//	[cm/s]
  vitesse_rotation_max = 3;				//	[rad/s]
- Ind_perfo = 0.5;
+ Ind_perfo = 0.4;
 
  // Initialisation des valeurs par défauts des tableaux
  for (i=0; i<NBRE_POINTS_CARTO_ERREUR; i++) {

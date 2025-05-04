@@ -49,7 +49,23 @@ void CGlobale::Run(void)
     // Lecture des paramètres EEPROM
     readEEPROM();
 
+    m_asservissement.cde_min = -100;
+    m_asservissement.cde_max = 100;
+
     m_asservissement.Init();
+
+    m_asservissement.vitesse_avance_max = 80;				//	[cm/s]
+    m_asservissement.kp_distance = 1; //0.8;
+    m_asservissement.ki_distance = 10; // 8;
+    m_asservissement.kp_angle = 20;
+    m_asservissement.ki_angle = 20;
+
+    m_asservissement.seuil_conv_distance = 0.5;	// cm	Erreur en dessous de laquelle on considère que le robot est en position sur la distance
+    m_asservissement. seuil_conv_angle =  0.018;	// rad	Erreur en dessous de laquelle on considère que le robot est en position sur l'angle
+
+    m_asservissement.Ind_perfo = 0.5;
+
+
     m_electrobot.Init();
     // Carte PowerElectrobot
     m_power_electrobot.init(POWER_ELECTROBOT_I2C_ADDR);
