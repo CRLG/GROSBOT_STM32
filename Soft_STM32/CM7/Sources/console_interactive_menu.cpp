@@ -49,19 +49,16 @@ void CMenuApp::page_cde_moteurs()
     DECLARE_ACTION('q', "Gauche -10%", CMenuApp::cde_mot_G_M1);
     DECLARE_ACTION('s', "Gauche -25%", CMenuApp::cde_mot_G_M2);
     DECLARE_ACTION('d', "Gauche -50%", CMenuApp::cde_mot_G_M3);
-
-    DECLARE_ACTION('k', "Gauche +10%", CMenuApp::cde_mot_G_P1);
-    DECLARE_ACTION('l', "Gauche +25%", CMenuApp::cde_mot_G_P2);
-    DECLARE_ACTION('m', "Gauche +50%", CMenuApp::cde_mot_G_P3);
-
+    DECLARE_ACTION('Q', "Gauche +10%", CMenuApp::cde_mot_G_P1);
+    DECLARE_ACTION('S', "Gauche +25%", CMenuApp::cde_mot_G_P2);
+    DECLARE_ACTION('D', "Gauche +50%", CMenuApp::cde_mot_G_P3);
 
     DECLARE_ACTION('w', "Droit -10%", CMenuApp::cde_mot_D_M1);
     DECLARE_ACTION('x', "Droit -25%", CMenuApp::cde_mot_D_M2);
     DECLARE_ACTION('c', "Droit -50%", CMenuApp::cde_mot_D_M3);
-
-    DECLARE_ACTION('v', "Droit +10%", CMenuApp::cde_mot_D_P1);
-    DECLARE_ACTION('b', "Droit +25%", CMenuApp::cde_mot_D_P2);
-    DECLARE_ACTION('n', "Droit +50%", CMenuApp::cde_mot_D_P3);
+    DECLARE_ACTION('W', "Droit +10%", CMenuApp::cde_mot_D_P1);
+    DECLARE_ACTION('X', "Droit +25%", CMenuApp::cde_mot_D_P2);
+    DECLARE_ACTION('C', "Droit +50%", CMenuApp::cde_mot_D_P3);
 
     DECLARE_ACTION('r', "Gauche & Droit -10%", CMenuApp::cde_mot_GD_M1);
     DECLARE_ACTION('t', "Gauche & Droit -25%", CMenuApp::cde_mot_GD_M2);
@@ -70,9 +67,23 @@ void CMenuApp::page_cde_moteurs()
     DECLARE_ACTION('i', "Gauche & Droit +10%", CMenuApp::cde_mot_GD_P1);
     DECLARE_ACTION('o', "Gauche & Droit +25%", CMenuApp::cde_mot_GD_P2);
     DECLARE_ACTION('p', "Gauche & Droit +50%", CMenuApp::cde_mot_GD_P3);
+
+    DECLARE_ACTION('j', "Mot3 -10%", CMenuApp::cde_mot_M3_M1);
+    DECLARE_ACTION('k', "Mot3 -25%", CMenuApp::cde_mot_M3_M2);
+    DECLARE_ACTION('l', "Mot3 -50%", CMenuApp::cde_mot_M3_M3);
+    DECLARE_ACTION('J', "Mot3 +10%", CMenuApp::cde_mot_M3_P1);
+    DECLARE_ACTION('K', "Mot3 +10%", CMenuApp::cde_mot_M3_P2);
+    DECLARE_ACTION('L', "Mot3 +10%", CMenuApp::cde_mot_M3_P3);
+
+    DECLARE_ACTION('v', "Mot4 -10%", CMenuApp::cde_mot_M4_M1);
+    DECLARE_ACTION('b', "Mot4 -25%", CMenuApp::cde_mot_M4_M2);
+    DECLARE_ACTION('n', "Mot4 -50%", CMenuApp::cde_mot_M4_M3);
+    DECLARE_ACTION('V', "Mot4 +10%", CMenuApp::cde_mot_M4_P1);
+    DECLARE_ACTION('B', "Mot4 +25%", CMenuApp::cde_mot_M4_P2);
+    DECLARE_ACTION('N', "Mot4 +50%", CMenuApp::cde_mot_M4_P3);
 }
 
-bool CMenuApp::arret_moteurs()  { Application.m_asservissement.CommandeManuelle(0, 0); return true;}
+bool CMenuApp::arret_moteurs()  { Application.m_asservissement.CommandeManuelle(0, 0); CdeMoteur(3,0); CdeMoteur(4, 0); return true;}
 bool CMenuApp::cde_mot_G_M1()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-10); return true; }  // Pour commander une seule roue, on s'assure être en mode asserv manuel
 bool CMenuApp::cde_mot_G_M2()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-25); return true; }
 bool CMenuApp::cde_mot_G_M3()   { force_asserv_manuel(); Application.m_roues.AdapteCommandeMoteur_G(-50); return true; }
@@ -93,6 +104,20 @@ bool CMenuApp::cde_mot_GD_M3()   { Application.m_asservissement.CommandeManuelle
 bool CMenuApp::cde_mot_GD_P1()   { Application.m_asservissement.CommandeManuelle(+10, +10); return true; }
 bool CMenuApp::cde_mot_GD_P2()   { Application.m_asservissement.CommandeManuelle(+25, +25); return true; }
 bool CMenuApp::cde_mot_GD_P3()   { Application.m_asservissement.CommandeManuelle(+50, +50); return true; }
+
+bool CMenuApp::cde_mot_M3_M1()   { CdeMoteur(3, -10); return true; }
+bool CMenuApp::cde_mot_M3_M2()   { CdeMoteur(3, -25); return true; }
+bool CMenuApp::cde_mot_M3_M3()   { CdeMoteur(3, -50); return true; }
+bool CMenuApp::cde_mot_M3_P1()   { CdeMoteur(3, 10); return true; }
+bool CMenuApp::cde_mot_M3_P2()   { CdeMoteur(3, 25); return true; }
+bool CMenuApp::cde_mot_M3_P3()   { CdeMoteur(3, 50); return true; }
+
+bool CMenuApp::cde_mot_M4_M1()   { CdeMoteur(4, -10); return true; }
+bool CMenuApp::cde_mot_M4_M2()   { CdeMoteur(4, -25); return true; }
+bool CMenuApp::cde_mot_M4_M3()   { CdeMoteur(4, -50); return true; }
+bool CMenuApp::cde_mot_M4_P1()   { CdeMoteur(4, 10); return true; }
+bool CMenuApp::cde_mot_M4_P2()   { CdeMoteur(4, 25); return true; }
+bool CMenuApp::cde_mot_M4_P3()   { CdeMoteur(4, 50); return true; }
 
 
 // =============================================================================
@@ -519,8 +544,9 @@ void CMenuApp::page_capteurs()
 {
     DECLARE_PAGE("Capteurs", CMenuApp::page_capteurs);
     DECLARE_OPTION('0', "Retour en page d'accueil", CMenuApp::page_principale);
-    DECLARE_ACTION('a', "Etat des codeurs", CMenuApp::read_codeurs);
-    DECLARE_ACTION('z', "Etat des entrees analogiques", CMenuApp::read_analog_inputs);
+    DECLARE_ACTION('c', "Etat des codeurs", CMenuApp::read_codeurs);
+    DECLARE_ACTION('a', "Etat des entrees analogiques", CMenuApp::read_analog_inputs);
+    DECLARE_ACTION('t', "Etat des entrees tout ou rien", CMenuApp::read_digital_inputs);
 }
 
 bool CMenuApp::read_codeurs()
@@ -532,6 +558,12 @@ bool CMenuApp::read_codeurs()
 bool CMenuApp::read_analog_inputs()
 {
     _printf("Eana1=%d / Eana2=%d / Eana3=%d / Eana4=%d / Eana5=%d / Vbat=%d\n\r", readAnalog(1), readAnalog(2), readAnalog(3), readAnalog(4), readAnalog(5), readAnalog(6));
+    return true;
+}
+
+bool CMenuApp::read_digital_inputs()
+{
+    _printf("Etor1=%d / Etor2=%d / Etor3=%d / Etor4=%d\n\r", Application.m_electrobot.m_b_Etor1, Application.m_electrobot.m_b_Etor2, Application.m_electrobot.m_b_Etor3, Application.m_electrobot.m_b_Etor4);
     return true;
 }
 

@@ -51,6 +51,20 @@ public:
     bool cde_mot_GD_P2();
     bool cde_mot_GD_P3();
 
+    bool cde_mot_M3_M1();
+    bool cde_mot_M3_M2();
+    bool cde_mot_M3_M3();
+    bool cde_mot_M3_P1();
+    bool cde_mot_M3_P2();
+    bool cde_mot_M3_P3();
+
+    bool cde_mot_M4_M1();
+    bool cde_mot_M4_M2();
+    bool cde_mot_M4_M3();
+    bool cde_mot_M4_P1();
+    bool cde_mot_M4_P2();
+    bool cde_mot_M4_P3();
+
     // _____________________________
     // Page Asservissement
     void page_commande_asserv();
@@ -113,6 +127,7 @@ public:
 
     bool read_codeurs();
     bool read_analog_inputs();
+    bool read_digital_inputs();
 
     // _____________________________
     // Page Servomoteurs
