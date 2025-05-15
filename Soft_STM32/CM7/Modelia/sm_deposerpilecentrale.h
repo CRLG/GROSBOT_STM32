@@ -1,16 +1,16 @@
 /**
- * Generated 17_04_2025 at 13_24
+ * Generated 08_05_2025 at 19_58
  */
 
-#ifndef SM_DEPOSER_PILE_CENTRALE_H_
-#define SM_DEPOSER_PILE_CENTRALE_H_
+#ifndef SM_DEPOSERPILECENTRALE_H
+#define SM_DEPOSERPILECENTRALE_H
 
 #include "sm_statemachinebase.h"
 
 class SM_DeposerPileCentrale : public SM_StateMachineBase
 {
 public:
-    SM_DeposerPileCentrale();
+	SM_DeposerPileCentrale();
 	void step();
 	const char* getName();
 	const char* stateToName(unsigned short state);
@@ -31,8 +31,20 @@ public:
 	STATE_13,
 	STATE_14,
 	STATE_15,
+	STATE_16,
+	STATE_17,
+	STATE_18,
+	STATE_19,
+	STATE_20,
+	STATE_21,
+	STATE_22,
+	STATE_23,
+	STATE_24,
+	STATE_25,
+	STATE_26,
+	STATE_27,
 	FIN_MISSION
 	}tState;
 };
 
-#endif // SM_DEPOSER_PILE_CENTRALE_H_
+#endif // SM_DEPOSERPILECENTRALE_H
