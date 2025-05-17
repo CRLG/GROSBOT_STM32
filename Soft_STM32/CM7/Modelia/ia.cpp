@@ -46,7 +46,7 @@ void IA::init()
 void IA::match_started()
 {
     //Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)DECO_LED_CRLG, true);
-    m_outputs_interface.setPosition_XYTeta_sym(0, 0, 0);
+    m_outputs_interface.setPosition_XYTeta_sym(0, 0, M_PI/2); // pour l'année 2025 Teta=PI/2
 }
 
 // ________________________________________________
