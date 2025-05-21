@@ -816,20 +816,17 @@ void CLaBotBox::CheckReceptionTrame(void)
   // ___________________________
   if (m_ETAT_LIDAR.isNewTrame())
   {
-/*
+
       LidarUtils::copy_tab_obstacles(m_ETAT_LIDAR.m_obstacles, Application.m_modelia.m_inputs_interface.m_lidar_obstacles);
       Application.m_modelia.m_inputs_interface.m_lidar_status = m_ETAT_LIDAR.m_status;
-*/
   }
   else // recherche une perte de communication et force le statut LIDAR si c'est le cas
   {
-/*
       const int LOST_COM_ETAT_LIDAR = 500; // msec
       int _current_time = getTime();
       if ((_current_time - m_ETAT_LIDAR.m_last_time_rx) > LOST_COM_ETAT_LIDAR) {
         Application.m_modelia.m_inputs_interface.m_lidar_status = LidarUtils::LIDAR_DISCONNECTED;
       }
-  */
   }
 
   // ___________________________
@@ -986,7 +983,6 @@ void CLaBotBox::SendTramesLaBotBox(void)
     // _____________________________________________
     if (m_ETAT_DETECTION_EVITEMENT_OBSTACLE.isTimeToSend())
     {
-/*
         m_ETAT_DETECTION_EVITEMENT_OBSTACLE.x_robot = Application.m_modelia.m_inputs_interface.X_robot;
         m_ETAT_DETECTION_EVITEMENT_OBSTACLE.y_robot = Application.m_modelia.m_inputs_interface.Y_robot;
         m_ETAT_DETECTION_EVITEMENT_OBSTACLE.teta_robot = Application.m_modelia.m_inputs_interface.angle_robot*100;  // rad
@@ -1014,7 +1010,6 @@ void CLaBotBox::SendTramesLaBotBox(void)
         m_ETAT_DETECTION_EVITEMENT_OBSTACLE.EvitementEnCours = Application.m_modelia.m_datas_interface.evit_strategie_evitement_en_cours;
 
         SerialiseTrame(m_ETAT_DETECTION_EVITEMENT_OBSTACLE.Encode(&trame));
-*/
     }
     // _____________________________________________
     if (m_ETAT_RACK.isTimeToSend())
