@@ -76,13 +76,13 @@ void IA::setStrategie(unsigned char strategie)
 
         m_sm_chasse_neige.setEnabled(false);
         m_sm_retour_zone_arrivee.setEnabled(false);
-        m_deposer_banderole.setEnabled(false);
-        m_deposer_pile_bordure.setEnabled(false);
-        m_deposer_pile_centrale.setEnabled(true);
-        m_deposer_pile_bas_de_pente.setEnabled(false);
+        m_sm_deposer_banderole.setEnabled(false);
+        m_sm_deposer_pile_bordure.setEnabled(false);
+        m_sm_deposer_pile_centrale.setEnabled(true);
+        m_sm_deposer_pile_bas_de_pente.setEnabled(false);
 
         //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
-        m_deposer_pile_centrale.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
 
         break;
     // ________________________
@@ -92,7 +92,7 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_deposer_banderole.setPrioriteExecution(ordre++);
+        m_sm_deposer_banderole.setPrioriteExecution(ordre++);
         m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
 
         break;
@@ -105,10 +105,10 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_deposer_banderole.setPrioriteExecution(ordre++);
-        m_deposer_pile_bordure.setPrioriteExecution(ordre++);
-        m_deposer_pile_centrale.setPrioriteExecution(ordre++);
-        m_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
+        m_sm_deposer_banderole.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
         m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
         break;
     }
