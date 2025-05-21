@@ -115,6 +115,26 @@ void CGlobale::SequenceurModeAutonome(void)
     if (cpt200msec >= TEMPO_200msec) {
         cpt200msec = 0;
 
+        // dès que le match est commencé, supprime l'IRQ sur RS232 de l'ecran pour ne pas risquer d'interrompre le match
+        // lorsque le match est terminé, ré-active la communication entrante et diffuse à nouveau toutes les trames
+        if (m_modelia.isMatchEnCours()) {
+            if (old_match_en_cours == 0) {  // Ca permet de détecter un front montant du début de match
+                m_LaBotBox.setAllTransmitPeriod(CTrameLaBotBox::NO_PERIODIC);  // Inhibe toutes les émissions de trames
+                m_LaBotBox.m_ETAT_MATCH.setTransmitPeriod(190);                // sauf la trame spécifique match (190 pour ne pas etre sur le meme tick sequenceur que celle a 200msec)
+                m_LaBotBox.m_POSITION_ABSOLUE_XY_TETA.setTransmitPeriod(500);
+                //m_LaBotBox.m_CPU_CMDE_TRAME.setTransmitPeriod(200); //recoit des infos génériques de la rasp comme des traitements video
+                //m_LaBotBox.m_CPU_ETAT_TRAME.setTransmitPeriod(200); //envoit des demandes génériques à la rasp comme des demande de traitement video
+            }
+            old_match_en_cours = 1;
+        }
+        else {
+            if (old_match_en_cours != 0) {  // detecte un front montant du match terminé
+                if (!m_LaBotBox.isRxEnabled()) m_LaBotBox.Start();  // réactive l'autorisation d'émettre si desactivé
+                m_LaBotBox.setAllTransmitPeriod(200);  // Toutes les trames sont envoyées à Labotbox avec la même période
+            }
+            old_match_en_cours = 0;
+        }
+
         m_power_electrobot.periodicCall();
     }
     // ______________________________
