@@ -752,15 +752,13 @@ void CLaBotBox::CheckReceptionTrame(void)
       }
   }
   // ___________________________
-  if (m_MBED_CMDE_TRAME.isNewTrame())
+  if (m_CPU_CMDE.isNewTrame())
   {
-/*
-      Application.m_modelia.m_datas_interface.m_rx_code_cmd=m_MBED_CMDE_TRAME.CodeCommande;
-      Application.m_modelia.m_datas_interface.m_rx_value_01=m_MBED_CMDE_TRAME.Valeur_01;
-      Application.m_modelia.m_datas_interface.m_rx_value_02=m_MBED_CMDE_TRAME.Valeur_02;
-      Application.m_modelia.m_datas_interface.m_rx_value_03=m_MBED_CMDE_TRAME.Valeur_03;
-      Application.m_modelia.m_datas_interface.m_rx_value_04=m_MBED_CMDE_TRAME.Valeur_04;
-*/
+      Application.m_modelia.m_datas_interface.m_rx_code_cmd=m_CPU_CMDE.CodeCommande;
+      Application.m_modelia.m_datas_interface.m_rx_value_01=m_CPU_CMDE.Valeur_01;
+      Application.m_modelia.m_datas_interface.m_rx_value_02=m_CPU_CMDE.Valeur_02;
+      Application.m_modelia.m_datas_interface.m_rx_value_03=m_CPU_CMDE.Valeur_03;
+      Application.m_modelia.m_datas_interface.m_rx_value_04=m_CPU_CMDE.Valeur_04;
   }
   // ___________________________
   if (m_COMMANDE_KMAR.isNewTrame())
@@ -1049,16 +1047,14 @@ void CLaBotBox::SendTramesLaBotBox(void)
         SerialiseTrame(m_ETAT_POWER_ELECTROBOT.Encode(&trame));
     }
     // _____________________________________________
-    if (m_MBED_ETAT_TRAME.isTimeToSend())
+    if (m_CPU_ETAT.isTimeToSend())
     {
-/*
-        m_MBED_ETAT_TRAME.Valeur_mbed_etat_01=Application.m_modelia.m_datas_interface.m_tx_value_01;
-        m_MBED_ETAT_TRAME.Valeur_mbed_etat_02=Application.m_modelia.m_datas_interface.m_tx_value_02;
-        m_MBED_ETAT_TRAME.Valeur_mbed_etat_03=Application.m_modelia.m_datas_interface.m_tx_value_03;
-        m_MBED_ETAT_TRAME.Valeur_mbed_etat_04=Application.m_modelia.m_datas_interface.m_tx_value_04;
-        m_MBED_ETAT_TRAME.Cde_mbed_etat=Application.m_modelia.m_datas_interface.m_tx_code_cmd;
-        SerialiseTrame(m_MBED_ETAT_TRAME.Encode(&trame));
-*/
+        m_CPU_ETAT.Valeur_01=Application.m_modelia.m_datas_interface.m_tx_value_01;
+        m_CPU_ETAT.Valeur_02=Application.m_modelia.m_datas_interface.m_tx_value_02;
+        m_CPU_ETAT.Valeur_03=Application.m_modelia.m_datas_interface.m_tx_value_03;
+        m_CPU_ETAT.Valeur_04=Application.m_modelia.m_datas_interface.m_tx_value_04;
+        m_CPU_ETAT.Cde_cpu_etat=Application.m_modelia.m_datas_interface.m_tx_code_cmd;
+        SerialiseTrame(m_CPU_ETAT.Encode(&trame));
     }
     // _____________________________________________
     if (m_ETAT_SERVO_AX.isTimeToSend())
