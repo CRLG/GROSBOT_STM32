@@ -1,5 +1,5 @@
 /*! \file RessoucesHardware.h
-	\brief Déclare les ressources hardware du MBED utilisées par le reste du logiciel
+	\brief Déclare les ressources hardware du CPU utilisées par le reste du logiciel
 */
 #ifndef _CM7_RESSOURCES_HARDWARE_H_ 
 #define _CM7_RESSOURCES_HARDWARE_H_

@@ -1,5 +1,5 @@
 /*! \file CRoues.cpp
-    \brief Implémentationd la classe CRoues pour MBED
+    \brief Implémentationd la classe CRoues pour CPU
 */
 #include "RessourcesHardware.h"
 #include "CGlobale.h"

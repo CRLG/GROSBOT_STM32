@@ -5,7 +5,7 @@
 #ifndef _ELECTROBOT_H_
 #define _ELECTROBOT_H_
 
-#define TENSION_REF_EANA_MBED	3.3
+#define TENSION_REF_EANA_CPU	3.3
 
 #define SEUIL_TENSION_BATT_FAIBLE 14.0
 
@@ -54,9 +54,9 @@ private :
 
     float _pulsewidth, _period;
 
-    //! Traitements pour les entrées TOR du MBED
+    //! Traitements pour les entrées TOR du CPU
 	void AcquisitionEntreesTOR(void);
-	//! Traitements pour les entrées analogiques du MBED
+    //! Traitements pour les entrées analogiques du CPU
 	void AcquisitionEntreesANA(void);
     //! Traitement pour la mesure de la tension batterie
     void TraitementTensionBatterie(void);

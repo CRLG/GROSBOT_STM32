@@ -1,5 +1,5 @@
 /*! \file RessoucesHardware.cpp
-	\brief Déclare les ressources hardware du MBED utilisées par le reste du logiciel
+	\brief Déclare les ressources hardware du CPU utilisées par le reste du logiciel
 */
 #include "RessourcesHardware.h"
 

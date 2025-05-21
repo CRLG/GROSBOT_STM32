@@ -186,8 +186,8 @@ public :
     CTrameLaBotBox_ETAT_RACK                    m_ETAT_RACK;
     CTrameLaBotBox_ELECTROBOT_COLOR_SENSOR      m_COLOR_SENSOR;
     CTrameLaBotBox_CONFIG_PERIODE_TRAME         m_CONFIG_PERIODE_TRAME;
-    CTrameLaBotBox_MBED_CMDE                    m_MBED_CMDE_TRAME;
-    CTrameLaBotBox_MBED_ETAT                    m_MBED_ETAT_TRAME;
+    CTrameLaBotBox_CPU_CMDE                     m_CPU_CMDE;
+    CTrameLaBotBox_CPU_ETAT                     m_CPU_ETAT;
     CTrameLaBotBox_ETAT_SERVO_AX                m_ETAT_SERVO_AX;
     CTrameLaBotBox_COMMANDE_KMAR                m_COMMANDE_KMAR;
     CTrameLaBotBox_ETAT_KMAR_GENERAL            m_ETAT_KMAR_GENERAL;

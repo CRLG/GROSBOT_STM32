@@ -1208,19 +1208,19 @@ void CTrameLaBotBox_CONFIG_PERIODE_TRAME::Decode(tStructTrameLaBotBox *trameRecu
 }
 
 // ========================================================
-//             TRAME MBED_CMDE
+//             TRAME CPU_CMDE
 // ========================================================
-CTrameLaBotBox_MBED_CMDE::CTrameLaBotBox_MBED_CMDE()
+CTrameLaBotBox_CPU_CMDE::CTrameLaBotBox_CPU_CMDE()
 {
-    m_ID = ID_MBED_CMDE;
-    m_DLC = DLC_MBED_CMDE;
+    m_ID = ID_CPU_CMDE;
+    m_DLC = DLC_CPU_CMDE;
 }
 
 //___________________________________________________________________________
 /*!
   \brief Encode et envoie la trame
 */
-void CTrameLaBotBox_MBED_CMDE::Decode(tStructTrameLaBotBox *trameRecue)
+void CTrameLaBotBox_CPU_CMDE::Decode(tStructTrameLaBotBox *trameRecue)
 {
     Valeur_04 = ( ((short)(trameRecue->Data[7])) & 0xFF);
     Valeur_03 = ( ((short)(trameRecue->Data[6])) & 0xFF) ;
@@ -1236,34 +1236,34 @@ void CTrameLaBotBox_MBED_CMDE::Decode(tStructTrameLaBotBox *trameRecue)
 }
 
 // ========================================================
-//             TRAME MBED_ETAT
+//             TRAME CPU_ETAT
 // ========================================================
-CTrameLaBotBox_MBED_ETAT::CTrameLaBotBox_MBED_ETAT()
+CTrameLaBotBox_CPU_ETAT::CTrameLaBotBox_CPU_ETAT()
 {
-    m_ID = ID_MBED_ETAT;
-    m_DLC = DLC_MBED_ETAT;
+    m_ID = ID_CPU_ETAT;
+    m_DLC = DLC_CPU_ETAT;
 }
 //___________________________________________________________________________
 /*!
   \brief Decode les signaux de la trame
   \param trameRecue la trame brute recue a decoder
 */
-tStructTrameLaBotBox* CTrameLaBotBox_MBED_ETAT::Encode(tStructTrameLaBotBox* trame)
+tStructTrameLaBotBox* CTrameLaBotBox_CPU_ETAT::Encode(tStructTrameLaBotBox* trame)
 {
     initTrame(trame);
 
     // Encode chacun des signaux de la trame
-    trame->Data[7] |= (unsigned char)( ( (Valeur_mbed_etat_04) & 0xFF) );
-    trame->Data[6] |= (unsigned char)( ( (Valeur_mbed_etat_03) & 0xFF) );
+    trame->Data[7] |= (unsigned char)( ( (Valeur_04) & 0xFF) );
+    trame->Data[6] |= (unsigned char)( ( (Valeur_03) & 0xFF) );
 
-    trame->Data[5] |= (unsigned char)( ( (Valeur_mbed_etat_02) & 0xFF) );
-    trame->Data[4] |= (unsigned char)( ( (Valeur_mbed_etat_02 >> 8) & 0xFF) );
+    trame->Data[5] |= (unsigned char)( ( (Valeur_02) & 0xFF) );
+    trame->Data[4] |= (unsigned char)( ( (Valeur_02 >> 8) & 0xFF) );
 
-    trame->Data[3] |= (unsigned char)( ( (Valeur_mbed_etat_01) & 0xFF) );
-    trame->Data[2] |= (unsigned char)( ( (Valeur_mbed_etat_01 >> 8) & 0xFF) );
+    trame->Data[3] |= (unsigned char)( ( (Valeur_01) & 0xFF) );
+    trame->Data[2] |= (unsigned char)( ( (Valeur_01 >> 8) & 0xFF) );
 
-    trame->Data[1] |= (unsigned char)( ( (Cde_mbed_etat) & 0xFF) );
-    trame->Data[0] |= (unsigned char)( ( (Cde_mbed_etat >> 8) & 0xFF) );
+    trame->Data[1] |= (unsigned char)( ( (Cde_cpu_etat) & 0xFF) );
+    trame->Data[0] |= (unsigned char)( ( (Cde_cpu_etat >> 8) & 0xFF) );
 
     return(trame);
 }

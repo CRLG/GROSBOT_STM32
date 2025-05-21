@@ -1,7 +1,7 @@
 // ________________________________________________
 // !! ATTENTION !!
 // Ce code est commun aux projets du robot réel et simulation
-// Il ne doit pas y avoir de code spécifique MBED
+// Il ne doit pas y avoir de code spécifique CPU
 //  ou d'appel à une classe non gérée par une couche d'abstraction
 //  au risque de ne plus pouvoir tourner en simulation
 

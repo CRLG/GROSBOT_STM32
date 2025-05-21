@@ -104,7 +104,7 @@ typedef enum {
 typedef enum {
 } eVALUES_SERVOS_AX;
 
-//code des demandes MBED vers LABOTBOX (trame générique)
+//code des demandes CPU vers LABOTBOX (trame générique)
 typedef enum {
     DMDE_DEFAULT = 0,
     DMDE_DISTANCE_BALISE = 1,
@@ -112,7 +112,7 @@ typedef enum {
     DMDE_VIDEO_CODE_COULEUR = 3
 }eVALUES_DMDE_GEN;
 
-//code des commandes/traitements LABOTBOX vers MBED (trame générique)
+//code des commandes/traitements LABOTBOX vers CPU (trame générique)
 typedef enum {
     CMDE_DEFAULT = 0,
     CMDE_DISTANCE_BALISE = 1, // c'est un traitement: reco des balises aruco et distance par rapport au robot
