@@ -47,7 +47,7 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_1 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementXY_TETA(64,7,0);/**/
+            Application.m_asservissement.CommandeMouvementXY_TETA(7,64, 0);/**/
 		}
 
 			gotoStateIfConvergence(STATE_2,5000);
@@ -56,7 +56,7 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementXY_TETA(80,7,0);/**/
+            Application.m_asservissement.CommandeMouvementXY_TETA(7,80, 0);/**/
 		}
 
 			gotoStateIfConvergence(STATE_3,5000);
@@ -101,7 +101,7 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_7 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementXY_TETA(20,-5,3.14);/**/
+            Application.m_asservissement.CommandeMouvementXY_TETA(-5,20,3.14);/**/
 		}
 
 			gotoStateIfConvergence(STATE_8,5000);

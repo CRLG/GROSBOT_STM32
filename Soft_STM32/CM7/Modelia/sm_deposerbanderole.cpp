@@ -35,7 +35,8 @@ void SM_DeposerBanderole::step()
 	// ___________________________
 	case STATE_1 :
 		if (onEntry()) {
-            Application.m_asservissement.CommandeMouvementXY(160,0);/**/
+            Application.m_asservissement.CommandeMouvementXY(0, 160);/**/
+            Application.m_leds.setPattern(PATTERN_CLIGNO_12_34);
 		}
 
             gotoStateAfter(FIN_MISSION, 20000);
