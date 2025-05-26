@@ -132,8 +132,8 @@ typedef enum {
 }eKMAR_MOUVEMENTS;
 
 // Affectation des numéros de télémètres SRF08 et ANA
-#define INDEX_TELEMETRE_AVG 2
-#define INDEX_TELEMETRE_AVD 0
+#define INDEX_TELEMETRE_AVG 0
+#define INDEX_TELEMETRE_AVD 2
 #define INDEX_TELEMETRE_ARG 3
 #define INDEX_TELEMETRE_ARD 1
 #define INDEX_TELEMETRE_ARGCentre 4
