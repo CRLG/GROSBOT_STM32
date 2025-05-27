@@ -69,6 +69,8 @@ void CGlobale::Run(void)
     m_electrobot.Init();
     // Carte PowerElectrobot
     m_power_electrobot.init(POWER_ELECTROBOT_I2C_ADDR);
+    m_ascenseur.set_speeds(-25, 6); // TODO : mettre les valeurs en EEPROM
+
  #ifdef UTILSATION_SERVOS_AX
     m_servos_ax.Init();
  #endif // UTILSATION_SERVOS_AX

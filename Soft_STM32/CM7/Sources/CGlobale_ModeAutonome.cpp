@@ -96,6 +96,7 @@ void CGlobale::SequenceurModeAutonome(void)
         cpt50msec = 0;
 
         m_leds.compute();
+        m_ascenseur.periodicCall();
 #ifdef UTILSATION_SERVOS_AX
         m_servos_ax.compute();
 #endif

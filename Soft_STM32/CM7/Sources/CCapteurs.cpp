@@ -29,7 +29,7 @@ bool CCapteurs::getAscenseurButeeHaute()
 }
 bool CCapteurs::getAscenseurButeeBasse()
 {
-    return (Application.m_electrobot.m_b_Etor4==false);
+    return (Application.m_electrobot.m_b_Etor1==false);
 }
 
 // ____________________________________________

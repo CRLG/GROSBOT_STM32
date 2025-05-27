@@ -94,6 +94,7 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     if (cpt50msec >= TEMPO_50msec) {
         cpt50msec = 0;
         m_leds.compute();
+        m_ascenseur.periodicCall();
     }
 
     // ______________________________

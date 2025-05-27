@@ -20,6 +20,7 @@
 #include "console_interactive_menu.h"
 #include "PowerElectrobot.h"
 #include "CLaBotBox.h"
+#include "CAscenseur.h"
 #include "CEEPROM.h"
 #include "ia.h"
 #include "ConfigSpecifiqueCoupe.h"
@@ -94,6 +95,8 @@ public :
     CServomoteurs m_servos;
     //! Servmoteurs AX
     CServoMoteursAX m_servos_ax;
+    //! Ascenseur
+    CAscenseur m_ascenseur;
     //! La gestion Labotbox
     CLaBotBox m_LaBotBox;
     //! Le match à  jouer

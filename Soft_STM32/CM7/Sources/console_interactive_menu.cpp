@@ -31,6 +31,8 @@ void CMenuApp::page_principale()
     DECLARE_OPTION('s', "Commande servo", CMenuApp::page_servos);
     DECLARE_OPTION('a', "Commande servo AX", CMenuApp::page_servos_ax);
     DECLARE_OPTION('c', "Capteurs", CMenuApp::page_capteurs);
+    DECLARE_OPTION('w', "Ascenseur", CMenuApp::page_ascenseur);
+
     DECLARE_OPTION('e', "EEPPROM", CMenuApp::page_eeprom);
     DECLARE_OPTION('i', "I2C", CMenuApp::page_i2c);
     DECLARE_OPTION('q', "TEST", CMenuApp::page_set_param_1);
@@ -655,5 +657,46 @@ bool CMenuApp::mode_autonome()
 bool CMenuApp::_reset_cpu()
 {
     reset_cpu(RESET_CPU_SECURE_CODE);
+    return true;
+}
+
+
+// ===========================================================
+//                  ASCENSEUR
+// ===========================================================
+
+void CMenuApp::page_ascenseur()
+{
+    DECLARE_PAGE("ASCENSEUR", CMenuApp::page_ascenseur);
+    DECLARE_ACTION('u', "Ascenseur UP", CMenuApp::ascenseur_up);
+    DECLARE_ACTION('d', "Ascenseur DOWN", CMenuApp::ascenseur_down);
+    DECLARE_ACTION('s', "Ascenseur STOP", CMenuApp::ascenseur_stop);
+    DECLARE_ACTION('p', "Ascenseur GET POSTITION", CMenuApp::ascenseur_get_position);
+}
+
+bool CMenuApp::ascenseur_up()
+{
+    Application.m_ascenseur.up();
+    return true;
+}
+
+bool CMenuApp::ascenseur_down()
+{
+    Application.m_ascenseur.down();
+    return true;
+}
+
+bool CMenuApp::ascenseur_stop()
+{
+    Application.m_ascenseur.stop();
+    return true;
+}
+
+bool CMenuApp::ascenseur_get_position()
+{
+    unsigned char pos = Application.m_ascenseur.get_position();
+    if (pos == CAscenseur::POSITION_HIGH) _printf("Position butée haute\n\r");
+    else if (pos == CAscenseur::POSITION_LOW) _printf("Position butée basse\n\r");
+    else _printf("Position indeterminée\n\r");
     return true;
 }

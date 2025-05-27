@@ -185,6 +185,14 @@ public:
     bool mode_autonome();
     bool _reset_cpu();
 
+    // _____________________________
+    // Page Ascenseur
+    void page_ascenseur();
+    bool ascenseur_up();
+    bool ascenseur_down();
+    bool ascenseur_stop();
+    bool ascenseur_get_position();
+
     double m_param1;
     int m_param2;
 };

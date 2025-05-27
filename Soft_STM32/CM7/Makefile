@@ -102,6 +102,7 @@ Sources/CTrameLaBotBox.cpp \
 Sources/CServomoteurs.cpp \
 Sources/CServoMoteursAX.cpp \
 Sources/CAsservLogger.cpp \
+Sources/CAscenseur.cpp \
 Modelia/ia.cpp \
 Modelia/sm_inputsinterface.cpp \
 Modelia/sm_outputsinterface.cpp \
