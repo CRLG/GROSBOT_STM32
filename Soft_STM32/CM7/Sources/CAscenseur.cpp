@@ -41,8 +41,8 @@ void CAscenseur::set_speeds(int speed_up, int speed_down)
 // _________________________________________
 void CAscenseur::stop()
 {
-    CdeMoteur(MOTEUR_ASCENSEUR, 0);
     m_target = TARGET_STOP;
+    CdeMoteur(MOTEUR_ASCENSEUR, 0);
 }
 
 // _________________________________________
@@ -54,14 +54,15 @@ unsigned int CAscenseur::get_position()
 }
 
 // _________________________________________
+// Fonctionnement de l'ascenseur :
+//   -> On donne une consigne cible haut, bas ou arrêt (target)
+// L'ascenseur maintien la consigne, même si par gravité l'ascenseur redescend et quitte la butée haute,
+//  le moteur sera de nouveau piloté (pour rester en haut)
 void CAscenseur::periodicCall()
 {
-    //printf("m_target = %d\n\r", m_target);
-
-    if (m_target == TARGET_STOP)                                                            stop();
-    else if ((Application.m_capteurs.getAscenseurButeeBasse()) && (m_target==TARGET_DOWN))  stop();
-    else if ((Application.m_capteurs.getAscenseurButeeHaute()) && (m_target==TARGET_UP))    stop();
-    else if (m_target==TARGET_DOWN) CdeMoteur(MOTEUR_ASCENSEUR, m_speed_down);
-    else if (m_target==TARGET_UP) CdeMoteur(MOTEUR_ASCENSEUR, m_speed_up);
-    else stop();
+    if ((Application.m_capteurs.getAscenseurButeeBasse()) && (m_target==TARGET_DOWN))       CdeMoteur(MOTEUR_ASCENSEUR, 0);
+    else if ((Application.m_capteurs.getAscenseurButeeHaute()) && (m_target==TARGET_UP))    CdeMoteur(MOTEUR_ASCENSEUR, 0);
+    else if (m_target==TARGET_DOWN)                                                         CdeMoteur(MOTEUR_ASCENSEUR, m_speed_down);
+    else if (m_target==TARGET_UP)                                                           CdeMoteur(MOTEUR_ASCENSEUR, m_speed_up);
+    else                                                                                    CdeMoteur(MOTEUR_ASCENSEUR, 0);
 }
