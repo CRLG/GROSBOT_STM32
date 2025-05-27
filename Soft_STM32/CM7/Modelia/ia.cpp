@@ -69,17 +69,10 @@ void IA::setStrategie(unsigned char strategie)
     // ________________________
     case STRATEGIE_HOMOLO1:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
-        m_datas_interface.evit_inhibe_obstacle=true;
+        m_datas_interface.evit_inhibe_obstacle=false;
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
-
-        m_sm_chasse_neige.setEnabled(false);
-        m_sm_retour_zone_arrivee.setEnabled(false);
-        m_sm_deposer_banderole.setEnabled(false);
-        m_sm_deposer_pile_bordure.setEnabled(false);
-        m_sm_deposer_pile_centrale.setEnabled(true);
-        m_sm_deposer_pile_bas_de_pente.setEnabled(false);
 
         //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
@@ -100,17 +93,14 @@ void IA::setStrategie(unsigned char strategie)
     case STRATEGIE_01:
     case STRATEGIE_PAR_DEFAUT:
     default:
-        m_datas_interface.evit_inhibe_obstacle=true;
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
+        m_datas_interface.evit_inhibe_obstacle=false;
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_deposer_banderole.setPrioriteExecution(ordre++);
-        m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
+        //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
-        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
         break;
     }
     m_datas_interface.ChoixStrategieMatch = strategie;
