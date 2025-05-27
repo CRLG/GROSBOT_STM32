@@ -56,11 +56,62 @@ typedef enum {
 
 //! cet enumere contient les numeros d'attribution des servos
 typedef enum {
-    SERVO_1    = 1,
-	SERVO_2=2,
-    SERVO_3    = 3,
-    SERVO_4      = 4
+    SERVO_PINCE_PLANCHE     = 1,
+    SERVO_VERIN             = 2,
+    SERVO_CAN_MOVER_INT     = 3,
+    SERVO_CAN_MOVER_EXT     = 4,
+    SERVO_BANDEROLE         = 5,
+    SERVO_PINCE_ARG         = 6,
+    SERVO_PINCe_ARD         = 7
 } eATTRIBUTION_SERVOS;
+
+//
+typedef enum {
+    SERVO_PINCE_PLANCHE_FERMEE      = 0,  // TODO
+    SERVO_PINCE_PLANCHE_REPOS       = 0,  // TODO
+    SERVO_PINCE_PLANCHE_OUVERTE     = 0
+}tServoPincePlanche;
+
+// ______________
+typedef enum {
+    VERRIN_POSITION_HAUT = 2000,
+    VERRIN_POSITION_BAS  = 1000
+}tServoVerrin;
+
+// ______________
+typedef enum {
+    SERVO_CAN_MOVER_INT_ON    = 0,  // TODO
+    SERVO_CAN_MOVER_INT_OFF   = 0
+}tServoCanMoverInt;
+
+// ______________
+typedef enum {
+    SERVO_CAN_MOVER_EXT_ON    = 0,  // TODO
+    SERVO_CAN_MOVER_EXT_OFF   = 0
+}tServoCanMoverExt;
+
+
+// ______________
+typedef enum {
+    SERVO_BANDEROLE_DEPLOYEE    = 750,
+    SERVO_BANDEROLE_RANGEE      = 1800,  // à ajuster
+    SERVO_BANDEROLE_POSITION_HORIZONTAL = 2000
+}tServoBanderole;
+
+// ______________
+typedef enum {
+    SERVO_PINCE_ARG_FERMEE          = 0,  // TODO
+    SERVO_PINCE_ARG_INTERMEDIAIRE   = 0,
+    SERVO_PINCE_ARG_OUVERTE         = 0,
+}tServoPinceARG;
+
+// ______________
+typedef enum {
+    SERVO_PINCE_ARD_FERMEE          = 0,  // TODO
+    SERVO_PINCE_ARD_INTERMEDIAIRE   = 0,
+    SERVO_PINCE_ARD_OUVERTE         = 0,
+}tServoPinceARD;
+
 
 typedef enum {
     POSITION_TEST1    = 1140,
