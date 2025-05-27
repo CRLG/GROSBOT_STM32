@@ -1610,5 +1610,33 @@ tStructTrameLaBotBox* CTrameLaBotBox_EEPROM_VALUE::Encode(tStructTrameLaBotBox* 
 }
 
 
+// ========================================================
+//             TRAME ACTION_ROBOT
+// ========================================================
+CTrameLaBotBox_ACTION_ROBOT::CTrameLaBotBox_ACTION_ROBOT()
+{
+    m_ID = ID_ACTION_ROBOT;
+    m_DLC = DLC_ACTION_ROBOT;
+}
+
+//___________________________________________________________________________
+ /*!
+   \brief Decode les signaux de la trame ACTION_ROBOT
+
+        - Renseigne les champs de la structure de donnee de la trame
+   \param bufBrut le buffer des octets de la trames a decoder
+   \return --
+   */
+void CTrameLaBotBox_ACTION_ROBOT::Decode(tStructTrameLaBotBox *trameRecue)
+{
+
+  command = CDataEncoderDecoder::decode_uint32(trameRecue->Data, 0);
+  value = CDataEncoderDecoder::decode_uint32(trameRecue->Data, 4);
+
+  m_new_trame = true;
+  m_nombre_recue++;
+}
+
+
 /*! @} */
 

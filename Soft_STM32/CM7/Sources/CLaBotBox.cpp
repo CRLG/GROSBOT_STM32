@@ -85,6 +85,7 @@ void CLaBotBox::initListeTrames()
     m_liste_trames[m_nombre_trames++] = &m_READ_EEPROM_REQ;
     m_liste_trames[m_nombre_trames++] = &m_WRITE_EEPROM_REQ;
     m_liste_trames[m_nombre_trames++] = &m_EEPROM_VALUE;
+    m_liste_trames[m_nombre_trames++] = &m_ACTION_ROBOT;
 }
 
 
@@ -860,6 +861,26 @@ void CLaBotBox::CheckReceptionTrame(void)
           m_EEPROM_VALUE.value = m_WRITE_EEPROM_REQ.value;
           SerialiseTrame(m_EEPROM_VALUE.Encode(&trame));  // renvoi la trame avec la valeur comme acquittement
       }
+  }
+  // ___________________________
+  if  (m_ACTION_ROBOT.isNewTrame() ) {
+    // sous adressage : le champ command donne le type d'action à  réaliser
+    switch (m_ACTION_ROBOT.command) {
+    case ACTIONNEURS_POSITION_INIT :
+        break;
+
+    case ASCENSEUR_DESCEND :
+        Application.m_ascenseur.down();
+        break;
+
+    case ASCENSEUR_MONTE :
+        Application.m_ascenseur.up();
+        break;
+
+    case ASCENSEUR_STOP :
+        Application.m_ascenseur.stop();
+        break;
+    }
   }
 }
 

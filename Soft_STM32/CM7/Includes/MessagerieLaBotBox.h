@@ -65,7 +65,7 @@
 #define ID_READ_EEPROM_REQ 0x10E
 #define ID_WRITE_EEPROM_REQ 0x10F
 #define ID_EEPROM_VALUE 0x110
-
+#define ID_ACTION_ROBOT 0x111
 #define DLC_COMMANDE_POWER_ELECTROBOT 4
 #define DLC_ETAT_POWER_ELECTROBOT 8
 #define DLC_ELECTROBOT_CONFIG_SERVOS 5
@@ -110,6 +110,7 @@
 #define DLC_READ_EEPROM_REQ 8
 #define DLC_WRITE_EEPROM_REQ 8
 #define DLC_EEPROM_VALUE 8
+#define DLC_ACTION_ROBOT 8
 
 
 #define BRUTE2PHYS_valeur_commande_sd20(val) ( ((float)val * (1.000000)) + (0.000000) )
@@ -1031,6 +1032,21 @@ public :
     CTrameLaBotBox_EEPROM_VALUE();
     tStructTrameLaBotBox* Encode(tStructTrameLaBotBox* trame);
 };
+
+// ========================================================
+//             TRAME ACTION_ROBOT
+// ========================================================
+class CTrameLaBotBox_ACTION_ROBOT : public CTrameLaBotBox
+{
+public :
+    //! Les signaux de la messagerie
+    unsigned long command;	// code commande
+    unsigned long value;    // valeur associée (si besoin)
+
+    CTrameLaBotBox_ACTION_ROBOT();
+    void Decode(tStructTrameLaBotBox* trameRecue);
+};
+
 
 #endif
 /*! @} */

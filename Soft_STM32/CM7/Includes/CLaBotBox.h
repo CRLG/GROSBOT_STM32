@@ -199,6 +199,7 @@ public :
     CTrameLaBotBox_READ_EEPROM_REQ              m_READ_EEPROM_REQ;
     CTrameLaBotBox_WRITE_EEPROM_REQ             m_WRITE_EEPROM_REQ;
     CTrameLaBotBox_EEPROM_VALUE                 m_EEPROM_VALUE;
+    CTrameLaBotBox_ACTION_ROBOT                 m_ACTION_ROBOT;
 
 private : 
     //! Autorise la réception de données en IRQ en provenance de Labotbox
