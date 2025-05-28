@@ -54,12 +54,14 @@ float CTelemetres::getDistanceARD()
 
 float CTelemetres::getDistanceARGCentre()
 {
-    return m_distance[INDEX_TELEMETRE_ARGCentre];
+    return 1000;  // CDR2025 inhibition forcée des capteurs (valeur non fiable des télémètres analogiques)
+    //return m_distance[INDEX_TELEMETRE_ARGCentre];
 }
 
 float CTelemetres::getDistanceARDCentre()
 {
-    return m_distance[INDEX_TELEMETRE_ARDCentre];
+    return 1000;  // CDR2025 inhibition forcée des capteurs (valeur non fiable des télémètres analogiques)
+    //return m_distance[INDEX_TELEMETRE_ARDCentre];
 }
 
 
