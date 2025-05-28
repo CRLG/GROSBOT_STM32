@@ -207,7 +207,7 @@ typedef enum {
 #define INDEX_TELEMETRE_ARDCentre 5
 
 //Seuil de détection des capteurs US et du Lidar
-#define SEUIL_DETECTION_US  30
+#define SEUIL_DETECTION_US  40
 #define SEUIL_DETECTION_LIDAR 50
 
 
