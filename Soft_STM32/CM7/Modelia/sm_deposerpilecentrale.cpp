@@ -1,5 +1,5 @@
 /**
- * Generated 08_05_2025 at 19_58
+ * Generated 28_05_2025 at 10_55
  */
 
 #include "sm_deposerpilecentrale.h"
@@ -47,16 +47,16 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_1 :
 		if (onEntry()) {
-            Application.m_asservissement.CommandeMouvementXY_TETA(7,64, 0);/**/
+			Application.m_asservissement.CommandeManuelle(-8,-8);/**/
 		}
 
-			gotoStateIfConvergence(STATE_2,5000);
+			gotoStateAfter(STATE_2,1500);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-            Application.m_asservissement.CommandeMouvementXY_TETA(7,80, 0);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(-7,64,1.57);/**/
 		}
 
 			gotoStateIfConvergence(STATE_3,5000);
@@ -65,43 +65,43 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_3 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,1600,255);/*1*/
+			outputs()->CommandeMouvementXY_TETA_sym(-7,80,1.57);/**/
 		}
 
-			gotoStateAfter(STATE_4,2000);
+			gotoStateIfConvergence(STATE_4,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_4 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(2,1000,255);/*2*/
+			Application.m_servos.CommandePositionVitesse(1,1600,255);/*1*/
 		}
 
-			gotoStateAfter(STATE_5,3000);
+			gotoStateAfter(STATE_5,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_5 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,2450,255);/*1*/
+			Application.m_servos.CommandePositionVitesse(2,1000,255);/*2*/
 		}
 
-			gotoStateAfter(STATE_6,2000);
+			gotoStateAfter(STATE_6,3000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_6 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(0,-1.57);/**/
+			Application.m_servos.CommandePositionVitesse(1,2450,255);/*1*/
 		}
 
-			gotoStateIfConvergence(STATE_7,5000);
+			gotoStateAfter(STATE_7,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_7 :
 		if (onEntry()) {
-            Application.m_asservissement.CommandeMouvementXY_TETA(-5,20,3.14);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(5,20,-1.57);/**/
 		}
 
 			gotoStateIfConvergence(STATE_8,5000);
@@ -137,7 +137,7 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_11 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(-20,3.14);/**/
+            Application.m_asservissement.CommandeMouvementDistanceAngle(-20,-1.57);/**/
 		}
 
 			gotoStateIfConvergence(STATE_12,5000);
