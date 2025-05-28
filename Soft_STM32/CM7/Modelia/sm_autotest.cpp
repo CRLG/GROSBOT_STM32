@@ -44,29 +44,29 @@ void SM_Autotest::step()
 		if (onEntry()) {
 			
             //TODO: On monte l'ascenseur à la main en attendant que Simulia le gère
-            //Application.m_ascenseur.up();
+            Application.m_ascenseur.up();
 
 		}
 
-			gotoStateAfter(STATE_2,40);
+            gotoStateAfter(STATE_2,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(2,0,255);/*TODO SERVO_PINCE_ARG values=SERVO_PINCE_ARG_OUVERTE*/
+            Application.m_servos.CommandePositionVitesse(2,SERVO_PINCE_ARG_OUVERTE,255);/*TODO SERVO_PINCE_ARG values=SERVO_PINCE_ARG_OUVERTE*/
 		}
 
-			gotoStateAfter(STATE_3,40);
+            gotoStateAfter(STATE_3,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_3 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(6,0,255);/*TODO SERVO_PINCE_ARD values=SERVO_PINCE_ARD_OUVERTE*/
+            Application.m_servos.CommandePositionVitesse(6,SERVO_PINCE_ARD_OUVERTE,255);/*TODO SERVO_PINCE_ARD values=SERVO_PINCE_ARD_OUVERTE*/
 		}
 
-			gotoStateAfter(STATE_4,40);
+            gotoStateAfter(STATE_4,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
@@ -75,7 +75,7 @@ void SM_Autotest::step()
 			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
 		}
 
-			gotoStateAfter(STATE_5,40);
+            gotoStateAfter(STATE_5,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
@@ -84,7 +84,7 @@ void SM_Autotest::step()
 			Application.m_servos.CommandePositionVitesse(1,2350,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS*/
 		}
 
-			gotoStateAfter(STATE_6,40);
+            gotoStateAfter(STATE_6,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
@@ -93,25 +93,25 @@ void SM_Autotest::step()
 			Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
 		}
 
-			gotoStateAfter(STATE_7,40);
+            gotoStateAfter(STATE_7,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_7 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(4,0,255);/*TODO SERVO_CAN_TODO MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
+            Application.m_servos.CommandePositionVitesse(4,SERVO_CAN_MOVER_EXT_ON,255);/*TODO SERVO_CAN_TODO MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
 		}
 
-			gotoStateAfter(STATE_8,40);
+            gotoStateAfter(STATE_8,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_8 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(5,1800,255);/*TODO SERVO_BANDEROLE values=SERVO_BANDEROLE_RANGEE*/
+            Application.m_servos.CommandePositionVitesse(5,SERVO_BANDEROLE_RANGEE,255);/*TODO SERVO_BANDEROLE values=SERVO_BANDEROLE_RANGEE*/
 		}
 
-			gotoStateAfter(FIN_MISSION,40);
+            gotoStateAfter(FIN_MISSION,400);
 		if (onExit()) {  }
 		break;
 
