@@ -68,15 +68,15 @@ typedef enum {
 //!  cet énuméré contient les positions de références des servos
 typedef enum {
     // SERVO PINCE PLANCHE
-    SERVO_PINCE_PLANCHE_FERMEE          = 0,    // TODO
-    SERVO_PINCE_PLANCHE_REPOS           = 0,    // TODO
-    SERVO_PINCE_PLANCHE_OUVERTE         = 0,    // TODO
+    SERVO_PINCE_PLANCHE_FERMEE          = 2450,    // TODO (à ajuster -> il faudra mettre un peu plus)
+    SERVO_PINCE_PLANCHE_REPOS           = 2350,
+    SERVO_PINCE_PLANCHE_OUVERTE         = 1500,
     // VERRIN
     VERRIN_POSITION_HAUT                = 2000,
     VERRIN_POSITION_BAS                 = 1000,
     // SERVO CAN MOVER INT
-    SERVO_CAN_MOVER_INT_ON              = 0,          // TODO
-    SERVO_CAN_MOVER_INT_OFF             = 0,
+    SERVO_CAN_MOVER_INT_ON              = 1500,          // TODO
+    SERVO_CAN_MOVER_INT_OFF             = 1150,
     // SERVO CAN MOVER EXT
     SERVO_CAN_MOVER_EXT_ON              = 0,          // TODO
     SERVO_CAN_MOVER_EXT_OFF             = 0,
