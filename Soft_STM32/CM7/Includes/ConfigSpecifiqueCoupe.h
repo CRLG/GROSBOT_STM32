@@ -75,23 +75,23 @@ typedef enum {
     VERRIN_POSITION_HAUT                = 2000,
     VERRIN_POSITION_BAS                 = 1000,
     // SERVO CAN MOVER INT
-    SERVO_CAN_MOVER_INT_ON              = 1500,          // TODO
+    SERVO_CAN_MOVER_INT_ON              = 1500,
     SERVO_CAN_MOVER_INT_OFF             = 1150,
     // SERVO CAN MOVER EXT
-    SERVO_CAN_MOVER_EXT_ON              = 0,          // TODO
-    SERVO_CAN_MOVER_EXT_OFF             = 0,
+    SERVO_CAN_MOVER_EXT_ON              = 1500,
+    SERVO_CAN_MOVER_EXT_OFF             = 1150,
     // BANDEROLE
     SERVO_BANDEROLE_DEPLOYEE            = 750,
     SERVO_BANDEROLE_RANGEE              = 1800,  // à ajuster
     SERVO_BANDEROLE_POSITION_HORIZONTAL = 2000,
     // SERVO PINCE ARG
-    SERVO_PINCE_ARG_FERMEE              = 0,    // TODO
-    SERVO_PINCE_ARG_INTERMEDIAIRE       = 0,    // TODO
-    SERVO_PINCE_ARG_OUVERTE             = 0,    // TODO
+    SERVO_PINCE_ARG_FERMEE              = 1500,
+    SERVO_PINCE_ARG_INTERMEDIAIRE       = 1300,
+    SERVO_PINCE_ARG_OUVERTE             = 1050,
     // SERVO PINCE EARD
-    SERVO_PINCE_ARD_FERMEE              = 0,    // TODO
-    SERVO_PINCE_ARD_INTERMEDIAIRE       = 0,    // TODO
-    SERVO_PINCE_ARD_OUVERTE             = 0,    // TODO
+    SERVO_PINCE_ARD_FERMEE              = 1500,
+    SERVO_PINCE_ARD_INTERMEDIAIRE       = 1300,
+    SERVO_PINCE_ARD_OUVERTE             = 1050,
 
 }eVALUES_SERVOS;
 
