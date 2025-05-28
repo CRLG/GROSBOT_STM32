@@ -1,5 +1,5 @@
 /**
- * Generated 28_05_2025 at 19_20
+ * Generated 28_05_2025 at 19_37
  */
 
 #ifndef SM_DEPOSERPILECENTRALE_H
@@ -47,6 +47,8 @@ public:
 	STATE_29,
 	STATE_30,
 	STATE_31,
+	STATE_32,
+	STATE_33,
 	FIN_MISSION
 	}tState;
 };

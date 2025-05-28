@@ -1,5 +1,5 @@
 /**
- * Generated 28_05_2025 at 19_20
+ * Generated 28_05_2025 at 19_37
  */
 
 #include "sm_deposerpilecentrale.h"
@@ -37,6 +37,8 @@ const char* SM_DeposerPileCentrale::stateToName(unsigned short state)
 		case STATE_15 :		return "STATE_15";
 		case STATE_16 :		return "STATE_16";
 		case STATE_17 :		return "STATE_17";
+		case STATE_18 :		return "STATE_18";
+		case STATE_19 :		return "STATE_19";
 		case FIN_MISSION :	return "FIN_MISSION";
 	}
 	return "UNKNOWN_STATE";
@@ -60,14 +62,23 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(5,750,3000);/*SERVO_BANDEROLE values=SERVO_BANDEROLE_DEPLOYEE*/
+			Application.m_asservissement.CommandeManuelle(0,0);/**/
 		}
 
-			gotoStateAfter(STATE_3,2000);
+			gotoStateAfter(STATE_3,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_3 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(5,750,3000);/*SERVO_BANDEROLE values=SERVO_BANDEROLE_DEPLOYEE*/
+		}
+
+			gotoStateAfter(STATE_4,2000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_4 :
 		if (onEntry()) {
 			
 			Application.m_ascenseur.down();
@@ -75,24 +86,15 @@ void SM_DeposerPileCentrale::step()
 			outputs()->CommandeMouvementXY_TETA_sym(-7,60,1.57);/**/
 		}
 
-			gotoStateAfter(STATE_4,1500);
-		if (onExit()) {  }
-		break;
-	// ___________________________
-	case STATE_4 :
-		if (onEntry()) {
-			
-			Application.m_detection_obstacles.inhibeDetection(false);
-
-		}
-
-			gotoStateIfConvergence(STATE_5,5000);
+			gotoStateAfter(STATE_5,1500);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_5 :
 		if (onEntry()) {
-			outputs()->CommandeMouvementXY_TETA_sym(-7,80,1.57);/**/
+			
+			Application.m_detection_obstacles.inhibeDetection(false);
+
 		}
 
 			gotoStateIfConvergence(STATE_6,5000);
@@ -101,97 +103,97 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_6 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
+			outputs()->CommandeMouvementXY_TETA_sym(-7,80,1.57);/**/
 		}
 
-			gotoStateAfter(STATE_7,2000);
+			gotoStateIfConvergence(STATE_7,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_7 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,1000,255);/*SERVO_VERIN values=VERRIN_POSITION_BAS*/
+			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
 		}
 
-			gotoStateAfter(STATE_8,3000);
+			gotoStateAfter(STATE_8,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_8 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,2450,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_FERMEE*/
+			Application.m_servos.CommandePositionVitesse(7,1000,255);/*SERVO_VERIN values=VERRIN_POSITION_BAS*/
 		}
 
-			gotoStateAfter(STATE_9,2000);
+			gotoStateAfter(STATE_9,3000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_9 :
 		if (onEntry()) {
-			outputs()->CommandeMouvementXY_TETA_sym(5,20,-1.57);/**/
+			Application.m_servos.CommandePositionVitesse(1,2450,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_FERMEE*/
 		}
 
-			gotoStateIfConvergence(STATE_10,5000);
+			gotoStateAfter(STATE_10,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_10 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
+			outputs()->CommandeMouvementXY_TETA_sym(5,20,-1.57);/**/
 		}
 
-			gotoStateAfter(STATE_11,2000);
+			gotoStateIfConvergence(STATE_11,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_11 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
+			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
 		}
 
-			gotoStateAfter(STATE_12,3500);
+			gotoStateAfter(STATE_12,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_12 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(3,1150,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF*/
+			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
 		}
 
-			gotoStateAfter(STATE_13,200);
+			gotoStateAfter(STATE_13,3500);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_13 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(4,1150,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF*/
+			Application.m_servos.CommandePositionVitesse(3,1150,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF*/
 		}
 
-			gotoStateAfter(STATE_14,2000);
+			gotoStateAfter(STATE_14,200);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_14 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeManuelle(-6,-6);/**/
+			Application.m_servos.CommandePositionVitesse(4,1150,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF*/
 		}
 
-			gotoStateIfConvergence(STATE_15,1000);
+			gotoStateAfter(STATE_15,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_15 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
+			Application.m_asservissement.CommandeManuelle(-6,-6);/**/
 		}
 
-			gotoStateAfter(STATE_16,400);
+			gotoStateAfter(STATE_16,1000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_16 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(4,1500,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
+			Application.m_asservissement.CommandeManuelle(0,0);/**/
 		}
 
 			gotoStateAfter(STATE_17,400);
@@ -199,6 +201,24 @@ void SM_DeposerPileCentrale::step()
 		break;
 	// ___________________________
 	case STATE_17 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
+		}
+
+			gotoStateAfter(STATE_18,400);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_18 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(4,1500,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
+		}
+
+			gotoStateAfter(STATE_19,400);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_19 :
 		if (onEntry()) {
 			Application.m_servos.CommandePositionVitesse(1,2350,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS*/
 		}
