@@ -16,6 +16,8 @@
 #define EQUIPE_BLEU     SM_DatasInterface::EQUIPE_COULEUR_2
 #define EQUIPE_JAUNE    SM_DatasInterface::EQUIPE_COULEUR_1
 
+#define PI 3.14159265358979f
+
 // Filtre de confirmation avant de lever le flag obstacleDetecte (pour rentrer en strategie d'evitement d'obstacle)
 // La valeur du define correspond a un nombre de passage dans la boucle dans laquelle est calculee l'info
 #define FILTRE_CONFIRMATION_OBSTACLE_DETECTE (3)
@@ -224,13 +226,13 @@ typedef enum {
 #define CDE_MAX_TOUT_DOUX (10)
 
 // Position d'init du robot dans le repère absolue terrain
-#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (11)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (172)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (0.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (117.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (13.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (PI/2.0f)
 
-#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (289)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (172)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (3.14f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (184.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (13.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (-PI/2.0f)
 
 // Coordonnées dans le repère absolue terrain
 // à partir desquelles il faut interdire la détection d'obstacle
