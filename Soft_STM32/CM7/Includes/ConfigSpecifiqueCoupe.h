@@ -57,12 +57,12 @@ typedef enum {
 //! cet enumere contient les numeros d'attribution des servos
 typedef enum {
     SERVO_PINCE_PLANCHE     = 1,
-    SERVO_VERIN             = 2,
+    SERVO_PINCE_ARG         = 2,
     SERVO_CAN_MOVER_INT     = 3,
     SERVO_CAN_MOVER_EXT     = 4,
     SERVO_BANDEROLE         = 5,
-    SERVO_PINCE_ARG         = 6,
-    SERVO_PINCe_ARD         = 7
+    SERVO_PINCE_ARD         = 6,
+    SERVO_VERIN             = 7
 } eATTRIBUTION_SERVOS;
 
 //
