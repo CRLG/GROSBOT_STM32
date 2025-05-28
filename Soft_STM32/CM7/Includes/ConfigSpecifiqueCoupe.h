@@ -65,57 +65,34 @@ typedef enum {
     SERVO_VERIN             = 7
 } eATTRIBUTION_SERVOS;
 
-//
+//!  cet énuméré contient les positions de références des servos
 typedef enum {
-    SERVO_PINCE_PLANCHE_FERMEE      = 0,  // TODO
-    SERVO_PINCE_PLANCHE_REPOS       = 0,  // TODO
-    SERVO_PINCE_PLANCHE_OUVERTE     = 0
-}tServoPincePlanche;
+    // SERVO PINCE PLANCHE
+    SERVO_PINCE_PLANCHE_FERMEE          = 0,    // TODO
+    SERVO_PINCE_PLANCHE_REPOS           = 0,    // TODO
+    SERVO_PINCE_PLANCHE_OUVERTE         = 0,    // TODO
+    // VERRIN
+    VERRIN_POSITION_HAUT                = 2000,
+    VERRIN_POSITION_BAS                 = 1000,
+    // SERVO CAN MOVER INT
+    SERVO_CAN_MOVER_INT_ON              = 0,          // TODO
+    SERVO_CAN_MOVER_INT_OFF             = 0,
+    // SERVO CAN MOVER EXT
+    SERVO_CAN_MOVER_EXT_ON              = 0,          // TODO
+    SERVO_CAN_MOVER_EXT_OFF             = 0,
+    // BANDEROLE
+    SERVO_BANDEROLE_DEPLOYEE            = 750,
+    SERVO_BANDEROLE_RANGEE              = 1800,  // à ajuster
+    SERVO_BANDEROLE_POSITION_HORIZONTAL = 2000,
+    // SERVO PINCE ARG
+    SERVO_PINCE_ARG_FERMEE              = 0,    // TODO
+    SERVO_PINCE_ARG_INTERMEDIAIRE       = 0,    // TODO
+    SERVO_PINCE_ARG_OUVERTE             = 0,    // TODO
+    // SERVO PINCE EARD
+    SERVO_PINCE_ARD_FERMEE              = 0,    // TODO
+    SERVO_PINCE_ARD_INTERMEDIAIRE       = 0,    // TODO
+    SERVO_PINCE_ARD_OUVERTE             = 0,    // TODO
 
-// ______________
-typedef enum {
-    VERRIN_POSITION_HAUT = 2000,
-    VERRIN_POSITION_BAS  = 1000
-}tServoVerrin;
-
-// ______________
-typedef enum {
-    SERVO_CAN_MOVER_INT_ON    = 0,  // TODO
-    SERVO_CAN_MOVER_INT_OFF   = 0
-}tServoCanMoverInt;
-
-// ______________
-typedef enum {
-    SERVO_CAN_MOVER_EXT_ON    = 0,  // TODO
-    SERVO_CAN_MOVER_EXT_OFF   = 0
-}tServoCanMoverExt;
-
-
-// ______________
-typedef enum {
-    SERVO_BANDEROLE_DEPLOYEE    = 750,
-    SERVO_BANDEROLE_RANGEE      = 1800,  // à ajuster
-    SERVO_BANDEROLE_POSITION_HORIZONTAL = 2000
-}tServoBanderole;
-
-// ______________
-typedef enum {
-    SERVO_PINCE_ARG_FERMEE          = 0,  // TODO
-    SERVO_PINCE_ARG_INTERMEDIAIRE   = 0,
-    SERVO_PINCE_ARG_OUVERTE         = 0,
-}tServoPinceARG;
-
-// ______________
-typedef enum {
-    SERVO_PINCE_ARD_FERMEE          = 0,  // TODO
-    SERVO_PINCE_ARD_INTERMEDIAIRE   = 0,
-    SERVO_PINCE_ARD_OUVERTE         = 0,
-}tServoPinceARD;
-
-
-typedef enum {
-    POSITION_TEST1    = 1140,
-    POSITION_TEST2  = 2000
 }eVALUES_SERVOS;
 
 //! cet enumere contient les numeros d'attribution des servos SD20
