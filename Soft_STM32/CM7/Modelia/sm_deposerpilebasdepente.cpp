@@ -1,5 +1,5 @@
 /**
- * Generated 29_05_2025 at 18_45
+ * Generated 29_05_2025 at 21_57
  */
 
 #include "sm_deposerpilebasdepente.h"
@@ -63,6 +63,9 @@ void SM_DeposerPileBasDePente::step()
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
+			
+			Application.m_detection_obstacles.inhibeDetection(true);
+
 			outputs()->CommandeMouvementXY_TETA_sym(-32,145,1.57);/*valeur x mesurée en réelle avec la dérive*/
 		}
 
@@ -138,6 +141,9 @@ void SM_DeposerPileBasDePente::step()
 	case NODE_3 :
 		if (onEntry()) {
 			/*Ne rien mettre ici (cf doc Modélia)*/
+			
+			Application.m_detection_obstacles.inhibeDetection(false);
+
 			outputs()->CommandeMouvementXY_TETA_sym(6,44,-1.57);/**/
 		}
 
