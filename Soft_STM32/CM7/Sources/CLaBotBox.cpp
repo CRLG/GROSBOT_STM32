@@ -882,6 +882,7 @@ void CLaBotBox::CheckReceptionTrame(void)
 
        case VERRIN_HAUT :              Application.m_servos.CommandePosition(SERVO_VERIN, VERRIN_POSITION_HAUT); break;
        case VERRIN_BAS :               Application.m_servos.CommandePosition(SERVO_VERIN, VERRIN_POSITION_BAS); break;
+       case VERRIN_INTERMEDIAIRE :     Application.m_servos.CommandePosition(SERVO_VERIN, VERRIN_POSITION_INTERMEDIAIRE); break;
 
        case PINCE_PLANCHE_OUVERT :     Application.m_servos.CommandePosition(SERVO_PINCE_PLANCHE, SERVO_PINCE_PLANCHE_OUVERTE); break;
        case PINCE_PLANCHE_FERMEE :     Application.m_servos.CommandePosition(SERVO_PINCE_PLANCHE, SERVO_PINCE_PLANCHE_FERMEE); break;
