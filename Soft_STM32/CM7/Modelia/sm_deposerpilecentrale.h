@@ -1,5 +1,5 @@
 /**
- * Generated 29_05_2025 at 03_10
+ * Generated 29_05_2025 at 07_59
  */
 
 #ifndef SM_DEPOSERPILECENTRALE_H
@@ -49,6 +49,7 @@ public:
 	STATE_31,
 	STATE_32,
 	STATE_33,
+	STATE_34,
 	JAUNE,
 	BLEU,
 	NODE_1,

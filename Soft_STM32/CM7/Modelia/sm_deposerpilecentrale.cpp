@@ -1,5 +1,5 @@
 /**
- * Generated 29_05_2025 at 03_10
+ * Generated 29_05_2025 at 07_59
  */
 
 #include "sm_deposerpilecentrale.h"
@@ -34,11 +34,12 @@ const char* SM_DeposerPileCentrale::stateToName(unsigned short state)
 		case STATE_12 :		return "STATE_12";
 		case STATE_13 :		return "STATE_13";
 		case STATE_14 :		return "STATE_14";
+		case STATE_15 :		return "STATE_15";
 		case JAUNE :		return "JAUNE";
 		case BLEU :		return "BLEU";
 		case NODE_1 :		return "NODE_1";
-		case STATE_18 :		return "STATE_18";
 		case STATE_19 :		return "STATE_19";
+		case STATE_20 :		return "STATE_20";
 		case FIN_MISSION :	return "FIN_MISSION";
 	}
 	return "UNKNOWN_STATE";
@@ -103,7 +104,7 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_6 :
 		if (onEntry()) {
-			outputs()->CommandeMouvementXY_TETA_sym(-7,80,1.57);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(-7,80,1.57);/*on va prendre les colonnes au centre du terrain*/
 		}
 
 			gotoStateIfConvergence(STATE_7,5000);
@@ -139,7 +140,7 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_10 :
 		if (onEntry()) {
-			outputs()->CommandeMouvementXY_TETA_sym(5,20,-1.57);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(-7,60,-1.57);/**/
 		}
 
 			gotoStateIfConvergence(STATE_11,5000);
@@ -148,32 +149,41 @@ void SM_DeposerPileCentrale::step()
 	// ___________________________
 	case STATE_11 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
+			outputs()->CommandeMouvementXY_TETA_sym(5,20,-1.57);/*on revient dans la zone de départ pour déposer le gradin*/
 		}
 
-			gotoStateAfter(STATE_12,2000);
+			gotoStateIfConvergence(STATE_12,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_12 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
+			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
 		}
 
-			gotoStateAfter(STATE_13,3500);
+			gotoStateAfter(STATE_13,2000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_13 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(3,1150,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF*/
+			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
 		}
 
-			gotoStateAfter(STATE_14,200);
+			gotoStateAfter(STATE_14,3500);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_14 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(3,1150,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF*/
+		}
+
+			gotoStateAfter(STATE_15,200);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_15 :
 		if (onEntry()) {
 			Application.m_servos.CommandePositionVitesse(4,1150,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF*/
 			/*Ne rien mettre ici (cf doc Modélia)*/
@@ -190,7 +200,7 @@ void SM_DeposerPileCentrale::step()
 		}
 
 			gotoStateIfConvergence(NODE_1,5000);
-		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_14 car un seul lien avant le noeud (cf doc Modélia)*/  }
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_15 car un seul lien avant le noeud (cf doc Modélia)*/  }
 		break;
 	// ___________________________
 	case BLEU :
@@ -208,20 +218,20 @@ void SM_DeposerPileCentrale::step()
 			Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
 		}
 
-			gotoStateAfter(STATE_18,400);
+			gotoStateAfter(STATE_19,400);
 		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_18 :
+	case STATE_19 :
 		if (onEntry()) {
 			Application.m_servos.CommandePositionVitesse(4,1500,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
 		}
 
-			gotoStateAfter(STATE_19,400);
+			gotoStateAfter(STATE_20,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_19 :
+	case STATE_20 :
 		if (onEntry()) {
 			Application.m_servos.CommandePositionVitesse(1,2350,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS*/
 		}
