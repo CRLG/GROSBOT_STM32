@@ -70,6 +70,7 @@ $(CPPLIB)/common-rob/CTelemetresBase.cpp \
 $(CPPLIB)/common-rob/CDetectionObstaclesBase.cpp \
 $(CPPLIB)/common-rob/CCapteursBase.cpp \
 $(CPPLIB)/common-rob/CKmarBase.cpp \
+$(CPPLIB)/common-rob/CAscenseurBase.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_statemachinebase.cpp \
 $(CPPLIB)/common-rob/Modelia/iabase.cpp \
 $(CPPLIB)/common-rob/Modelia/sm_evitement.cpp \

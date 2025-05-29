@@ -1,41 +1,21 @@
 #ifndef _ASCENSEUR_H_
 #define _ASCENSEUR_H_
 
+#include "CAscenseurBase.h"
 
 // ====================================================
 //
 // ====================================================
-class CAscenseur
+class CAscenseur : public CAscenseurBase
 {
 public:
     CAscenseur();
-    virtual ~CAscenseur();
 
-    typedef enum {
-        POSITION_UNKNOWN = 0,
-        POSITION_HIGH,
-        POSITION_LOW
-    }tPositionAscenseur;
+    // Méthodes vituelles pures à réimplémenter dans l'applicatif
+    /*virtual*/ void command_motor(signed char consigne_pourcent);  // consigne_pource positif pour le sens monter / négatif pour le sens descente
+    /*virtual*/ bool is_sensor_high();  // capteur de butée haute
+    /*virtual*/ bool is_sensor_low();   // capteur de butée basse
 
-
-    typedef enum {
-        TARGET_STOP,
-        TARGET_UP,
-        TARGET_DOWN
-    }tTargetAscenseur;
-
-    void up();
-    void down();
-    void set_position(unsigned char target);
-    void stop();
-    unsigned int get_position();
-    void set_speeds(int speed_up, int speed_down);
-
-    void periodicCall();
-
-    unsigned char m_target;
-    int m_speed_up;     // Vitesse en montée [%]
-    int m_speed_down;   // Vitesse en descente [%]
 };
 
 #endif // _ASCENSEUR_H_

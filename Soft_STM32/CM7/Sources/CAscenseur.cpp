@@ -3,66 +3,23 @@
 #include <stdio.h>
 
 CAscenseur::CAscenseur()
-    : m_target(TARGET_STOP),
-      m_speed_up(0),
-      m_speed_down(0)
-{
-}
-CAscenseur::~CAscenseur()
 {
 }
 
 // _________________________________________
-void CAscenseur::up()
+void CAscenseur::command_motor(signed char consigne_pourcent)
 {
-    set_position(TARGET_UP);
+    CdeMoteur(MOTEUR_ASCENSEUR, -consigne_pourcent);
 }
 
 // _________________________________________
-void CAscenseur::down()
+bool CAscenseur::is_sensor_high()
 {
-    set_position(TARGET_DOWN);
+    Application.m_capteurs.getAscenseurButeeHaute();
 }
 
 // _________________________________________
-void CAscenseur::set_position(unsigned char target)
+bool CAscenseur::is_sensor_low()
 {
-    m_target = target;
-}
-
-// _________________________________________
-void CAscenseur::set_speeds(int speed_up, int speed_down)
-{
-    m_speed_up = speed_up;
-    m_speed_down = speed_down;
-}
-
-
-// _________________________________________
-void CAscenseur::stop()
-{
-    m_target = TARGET_STOP;
-    CdeMoteur(MOTEUR_ASCENSEUR, 0);
-}
-
-// _________________________________________
-unsigned int CAscenseur::get_position()
-{
-    if (Application.m_capteurs.getAscenseurButeeBasse() && !Application.m_capteurs.getAscenseurButeeHaute()) return POSITION_LOW;
-    else if (Application.m_capteurs.getAscenseurButeeHaute() && !Application.m_capteurs.getAscenseurButeeBasse()) return POSITION_HIGH;
-    else return POSITION_UNKNOWN;
-}
-
-// _________________________________________
-// Fonctionnement de l'ascenseur :
-//   -> On donne une consigne cible haut, bas ou arrêt (target)
-// L'ascenseur maintien la consigne, même si par gravité l'ascenseur redescend et quitte la butée haute,
-//  le moteur sera de nouveau piloté (pour rester en haut)
-void CAscenseur::periodicCall()
-{
-    if ((Application.m_capteurs.getAscenseurButeeBasse()) && (m_target==TARGET_DOWN))       CdeMoteur(MOTEUR_ASCENSEUR, 0);
-    else if ((Application.m_capteurs.getAscenseurButeeHaute()) && (m_target==TARGET_UP))    CdeMoteur(MOTEUR_ASCENSEUR, 0);
-    else if (m_target==TARGET_DOWN)                                                         CdeMoteur(MOTEUR_ASCENSEUR, m_speed_down);
-    else if (m_target==TARGET_UP)                                                           CdeMoteur(MOTEUR_ASCENSEUR, m_speed_up);
-    else                                                                                    CdeMoteur(MOTEUR_ASCENSEUR, 0);
+    Application.m_capteurs.getAscenseurButeeBasse();
 }
