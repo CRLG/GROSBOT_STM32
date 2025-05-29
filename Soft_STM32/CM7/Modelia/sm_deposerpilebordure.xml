@@ -1,0 +1,22 @@
+<!DOCTYPE sequence_xml>
+<sequence name="DeposerPileBordure">
+ <ligne prototype="false" comments="On se place face aux éléments de jeux" value="-39,40,-1.57" type="Asser" symetrie="true" state="" id="XYTheta"/>
+ <ligne prototype="false" comments="" value="5000" type="Event" symetrie="false" state="" id="convAsserv"/>
+ <ligne prototype="false" comments="" value="-39,8,-1.57" type="Asser" symetrie="true" state="" id="XYTheta"/>
+ <ligne prototype="false" comments="" value="5000" type="Event" symetrie="false" state="" id="convAsserv"/>
+ <ligne prototype="false" comments="SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF" value="1150,255" type="Servo" symetrie="false" state="" id="3"/>
+ <ligne prototype="false" comments="" value="200" type="Wait" symetrie="false" state="" id="0"/>
+ <ligne prototype="false" comments="SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF" value="1150,255" type="Servo" symetrie="false" state="" id="4"/>
+ <ligne prototype="false" comments="" value="" type="Node" symetrie="false" state="NODE_0" id="0"/>
+ <ligne prototype="false" comments="" value="internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1" type="FreeEvent" symetrie="false" state="JAUNE" id="0"/>
+ <ligne prototype="false" comments="" value="internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2" type="FreeEvent" symetrie="false" state="BLEU" id="0"/>
+ <ligne prototype="false" comments="" value="-20,-1.57" type="Asser" symetrie="false" state="JAUNE" id="DistAng"/>
+ <ligne prototype="false" comments="" value="5000" type="Event" symetrie="false" state="NODE_1" id="convAsserv"/>
+ <ligne prototype="false" comments="" value="-20,1.57" type="Asser" symetrie="false" state="BLEU" id="DistAng"/>
+ <ligne prototype="false" comments="" value="5000" type="Event" symetrie="false" state="NODE_1" id="convAsserv"/>
+ <ligne prototype="false" comments="" value="" type="Node" symetrie="false" state="NODE_1" id="0"/>
+ <ligne prototype="false" comments="SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON" value="1500,255" type="Servo" symetrie="false" state="" id="3"/>
+ <ligne prototype="false" comments="" value="400" type="Wait" symetrie="false" state="" id="0"/>
+ <ligne prototype="false" comments="SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON" value="1500,255" type="Servo" symetrie="false" state="" id="4"/>
+ <ligne prototype="false" comments="" value="400" type="Wait" symetrie="false" state="" id="0"/>
+</sequence>
