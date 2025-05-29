@@ -1,47 +1,47 @@
 <!DOCTYPE sequence_xml>
 <sequence name="DeposerPileCentrale">
- <ligne type="Asser" comments="" id="Manuel" symetrie="false" state="" value="-8,-8" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="1500" prototype="false"/>
- <ligne type="Asser" comments="" id="Manuel" symetrie="false" state="" value="0,0" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="400" prototype="false"/>
- <ligne type="Servo" comments="SERVO_BANDEROLE values=SERVO_BANDEROLE_DEPLOYEE" id="5" symetrie="false" state="" value="750,3000" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="2000" prototype="false"/>
- <ligne type="FreeAction" comments="on descend l'ascenseur qui risque de nous embeter pour l'évitement" id="0" symetrie="false" state="" value="Application.m_ascenseur.down();" prototype="false"/>
- <ligne type="Asser" comments="" id="XYTheta" symetrie="true" state="" value="-7,60,1.57" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="1500" prototype="false"/>
- <ligne type="FreeAction" comments="on attend un  peu avant de réactiver la détection d'obstacle" id="0" symetrie="false" state="" value="Application.m_detection_obstacles.inhibeDetection(false);" prototype="false"/>
- <ligne type="Event" comments="" id="convAsserv" symetrie="false" state="" value="5000" prototype="false"/>
- <ligne type="Asser" comments="on va prendre les colonnes au centre du terrain" id="XYTheta" symetrie="true" state="" value="-7,80,1.57" prototype="false"/>
- <ligne type="Event" comments="" id="convAsserv" symetrie="false" state="" value="5000" prototype="false"/>
- <ligne type="Servo" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE" id="1" symetrie="false" state="" value="1500,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="2000" prototype="false"/>
- <ligne type="Servo" comments="SERVO_VERIN values=VERRIN_POSITION_BAS" id="7" symetrie="false" state="" value="1000,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="3000" prototype="false"/>
- <ligne type="Servo" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_FERMEE" id="1" symetrie="false" state="" value="2450,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="2000" prototype="false"/>
- <ligne type="Asser" comments="" id="XYTheta" symetrie="true" state="" value="-7,60,-1.57" prototype="false"/>
- <ligne type="Event" comments="" id="convAsserv" symetrie="false" state="" value="5000" prototype="false"/>
- <ligne type="Asser" comments="on revient dans la zone de départ pour déposer le gradin" id="XYTheta" symetrie="true" state="" value="5,20,-1.57" prototype="false"/>
- <ligne type="Event" comments="" id="convAsserv" symetrie="false" state="" value="5000" prototype="false"/>
- <ligne type="Servo" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE" id="1" symetrie="false" state="" value="1500,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="2000" prototype="false"/>
- <ligne type="Servo" comments="SERVO_VERIN values=VERRIN_POSITION_HAUT" id="7" symetrie="false" state="" value="2000,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="3500" prototype="false"/>
- <ligne type="Servo" comments="SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF" id="3" symetrie="false" state="" value="1150,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="200" prototype="false"/>
- <ligne type="Servo" comments="SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF" id="4" symetrie="false" state="" value="1150,255" prototype="false"/>
- <ligne type="Node" comments="" id="0" symetrie="false" state="NODE_0" value="" prototype="false"/>
- <ligne type="FreeEvent" comments="" id="0" symetrie="false" state="JAUNE" value="internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1" prototype="false"/>
- <ligne type="FreeEvent" comments="" id="0" symetrie="false" state="BLEU" value="internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2" prototype="false"/>
- <ligne type="Asser" comments="" id="DistAng" symetrie="false" state="JAUNE" value="-20,-1.57" prototype="false"/>
- <ligne type="Event" comments="" id="convAsserv" symetrie="false" state="NODE_1" value="5000" prototype="false"/>
- <ligne type="Asser" comments="" id="DistAng" symetrie="false" state="BLEU" value="-20,1.57" prototype="false"/>
- <ligne type="Event" comments="" id="convAsserv" symetrie="false" state="NODE_1" value="5000" prototype="false"/>
- <ligne type="Node" comments="" id="0" symetrie="false" state="NODE_1" value="" prototype="false"/>
- <ligne type="Servo" comments="SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON" id="3" symetrie="false" state="" value="1500,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="400" prototype="false"/>
- <ligne type="Servo" comments="SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON" id="4" symetrie="false" state="" value="1500,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="400" prototype="false"/>
- <ligne type="Servo" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS" id="1" symetrie="false" state="" value="2350,255" prototype="false"/>
- <ligne type="Wait" comments="" id="0" symetrie="false" state="" value="2000" prototype="false"/>
+ <ligne symetrie="false" comments="" type="Asser" state="" prototype="false" id="Manuel" value="-8,-8"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="1500"/>
+ <ligne symetrie="false" comments="" type="Asser" state="" prototype="false" id="Manuel" value="0,0"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="400"/>
+ <ligne symetrie="false" comments="SERVO_BANDEROLE values=SERVO_BANDEROLE_DEPLOYEE" type="Servo" state="" prototype="false" id="5" value="750,3000"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="2000"/>
+ <ligne symetrie="false" comments="on descend l'ascenseur qui risque de nous embeter pour l'évitement" type="FreeAction" state="" prototype="false" id="0" value="Application.m_ascenseur.down();"/>
+ <ligne symetrie="true" comments="" type="Asser" state="" prototype="false" id="XYTheta" value="-7,60,1.57"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="800"/>
+ <ligne symetrie="false" comments="on attend un  peu avant de réactiver la détection d'obstacle" type="FreeAction" state="" prototype="false" id="0" value="Application.m_detection_obstacles.inhibeDetection(false);"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="true" comments="on va prendre les colonnes au centre du terrain" type="Asser" state="" prototype="false" id="XYTheta" value="-7,80,1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="false" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE" type="Servo" state="" prototype="false" id="1" value="1500,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="2000"/>
+ <ligne symetrie="false" comments="SERVO_VERIN values=VERRIN_POSITION_BAS" type="Servo" state="" prototype="false" id="7" value="1000,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="3000"/>
+ <ligne symetrie="false" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_FERMEE" type="Servo" state="" prototype="false" id="1" value="2450,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="2000"/>
+ <ligne symetrie="true" comments="" type="Asser" state="" prototype="false" id="XYTheta" value="-7,60,-1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="true" comments="on revient dans la zone de départ pour déposer le gradin" type="Asser" state="" prototype="false" id="XYTheta" value="5,20,-1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="false" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE" type="Servo" state="" prototype="false" id="1" value="1500,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="2000"/>
+ <ligne symetrie="false" comments="SERVO_VERIN values=VERRIN_POSITION_HAUT" type="Servo" state="" prototype="false" id="7" value="2000,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="3500"/>
+ <ligne symetrie="false" comments="SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_OFF" type="Servo" state="" prototype="false" id="3" value="1150,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="200"/>
+ <ligne symetrie="false" comments="SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF" type="Servo" state="" prototype="false" id="4" value="1150,255"/>
+ <ligne symetrie="false" comments="" type="Node" state="NODE_0" prototype="false" id="0" value=""/>
+ <ligne symetrie="false" comments="" type="FreeEvent" state="JAUNE" prototype="false" id="0" value="internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1"/>
+ <ligne symetrie="false" comments="" type="FreeEvent" state="BLEU" prototype="false" id="0" value="internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2"/>
+ <ligne symetrie="false" comments="" type="Asser" state="JAUNE" prototype="false" id="DistAng" value="-20,-1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="NODE_1" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="false" comments="" type="Asser" state="BLEU" prototype="false" id="DistAng" value="-20,1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="NODE_1" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="false" comments="" type="Node" state="NODE_1" prototype="false" id="0" value=""/>
+ <ligne symetrie="false" comments="SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON" type="Servo" state="" prototype="false" id="3" value="1500,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="400"/>
+ <ligne symetrie="false" comments="SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON" type="Servo" state="" prototype="false" id="4" value="1500,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="400"/>
+ <ligne symetrie="false" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS" type="Servo" state="" prototype="false" id="1" value="2350,255"/>
+ <ligne symetrie="false" comments="" type="Wait" state="" prototype="false" id="0" value="2000"/>
 </sequence>

@@ -1,9 +1,11 @@
 <!DOCTYPE sequence_xml>
 <sequence name="RetourZoneArrivee">
- <ligne type="Asser" symetrie="true" prototype="false" value="-41,100,2.23" id="XYTheta" state="" comments=""/>
- <ligne type="Event" symetrie="false" prototype="false" value="5000" id="convAsserv" state="" comments=""/>
- <ligne type="Servo" symetrie="false" prototype="false" value="1500,255" id="1" state="" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE"/>
- <ligne type="FreeEvent" symetrie="false" prototype="false" value="internals()->TempsMatch>96.0" id="0" state="" comments=""/>
- <ligne type="Asser" symetrie="true" prototype="false" value="-84,151,1.57" id="XYTheta" state="" comments=""/>
- <ligne type="Event" symetrie="false" prototype="false" value="5000" id="convAsserv" state="" comments=""/>
+ <ligne symetrie="true" comments="" type="Asser" state="" prototype="false" id="XYTheta" value="-56,119,3.14"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="false" comments="" type="Asser" state="" prototype="false" id="XYTheta" value="-80,119,1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
+ <ligne symetrie="false" comments="SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE" type="Servo" state="" prototype="false" id="1" value="1500,255"/>
+ <ligne symetrie="false" comments="" type="FreeEvent" state="" prototype="false" id="0" value="internals()->TempsMatch>96.0"/>
+ <ligne symetrie="false" comments="" type="Asser" state="" prototype="false" id="XYTheta" value="-80,164,1.57"/>
+ <ligne symetrie="false" comments="" type="Event" state="" prototype="false" id="convAsserv" value="5000"/>
 </sequence>

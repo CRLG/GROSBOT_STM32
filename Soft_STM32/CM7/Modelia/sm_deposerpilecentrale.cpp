@@ -1,5 +1,5 @@
 /**
- * Generated 29_05_2025 at 07_59
+ * Generated 29_05_2025 at 18_24
  */
 
 #include "sm_deposerpilecentrale.h"
@@ -87,7 +87,7 @@ void SM_DeposerPileCentrale::step()
 			outputs()->CommandeMouvementXY_TETA_sym(-7,60,1.57);/**/
 		}
 
-			gotoStateAfter(STATE_5,1500);
+			gotoStateAfter(STATE_5,800);
 		if (onExit()) {  }
 		break;
 	// ___________________________

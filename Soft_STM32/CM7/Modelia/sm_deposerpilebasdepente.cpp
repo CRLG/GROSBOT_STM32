@@ -1,5 +1,5 @@
 /**
- * Generated 29_05_2025 at 12_34
+ * Generated 29_05_2025 at 18_45
  */
 
 #include "sm_deposerpilebasdepente.h"
@@ -54,7 +54,7 @@ void SM_DeposerPileBasDePente::step()
 	// ___________________________
 	case STATE_1 :
 		if (onEntry()) {
-			outputs()->CommandeMouvementXY_TETA_sym(-35,125,1.57);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(-32,125,1.57);/*valeur x mesurée en réelle avec la dérive*/
 		}
 
 			gotoStateIfConvergence(STATE_2,8000);
@@ -63,7 +63,7 @@ void SM_DeposerPileBasDePente::step()
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-			outputs()->CommandeMouvementXY_TETA_sym(-35,145,1.57);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(-32,145,1.57);/*valeur x mesurée en réelle avec la dérive*/
 		}
 
 			gotoStateIfConvergence(STATE_3,7000);

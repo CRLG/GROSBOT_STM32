@@ -1,5 +1,5 @@
 /**
- * Generated 29_05_2025 at 12_26
+ * Generated 29_05_2025 at 19_12
  */
 
 #ifndef SM_RETOURZONEARRIVEE_H
@@ -33,6 +33,7 @@ public:
 	STATE_15,
 	STATE_16,
 	STATE_17,
+	STATE_18,
 	FIN_MISSION
 	}tState;
 };
