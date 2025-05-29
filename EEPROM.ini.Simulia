@@ -1,0 +1,100 @@
+[ActuatorSequencer]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+default_path_modelia=/home/laguiche/workspace/GROSBOT_STM32/Soft_STM32/CM7/Modelia
+default_path_softmbed=/home/laguiche/workspace/GROSBOT_STM32/Soft_STM32
+geometry=@Rect(50 64 1067 785)
+niveau_trace=4294967295
+visible=true
+
+[DataGraph]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=@Invalid()
+geometry=@Rect(50 64 739 431)
+niveau_trace=4294967295
+visible=false
+
+[DataPlayer]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+default_signal_path=./
+geometry=@Rect(50 64 425 381)
+niveau_trace=4294967295
+visible=false
+
+[DataView]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=PosTeta_robot, teta_pos
+geometry=@Rect(50 64 838 729)
+niveau_trace=4294967295
+visible=true
+
+[ExternalControler]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 150 150)
+niveau_trace=4294967295
+visible=false
+
+[Joystick]
+niveau_trace=4294967295
+
+[MainWindow]
+geometry=@Rect(50 64 350 150)
+visible=true
+
+[ModuleDesigner]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(0 0 489 356)
+niveau_trace=4294967295
+repertoire_projet=./
+visible=false
+
+[SimuBot]
+Theta_asserv_init_1_bot1=1.57
+Theta_asserv_init_1_bot2=0.
+Theta_asserv_init_2_bot1=-1.57
+Theta_asserv_init_2_bot2=0.
+Theta_init_1_bot1=1.57
+Theta_init_1_bot2=1.57
+Theta_init_2_bot1=1.57
+Theta_init_2_bot2=1.57
+X_init_1_bot1=117
+X_init_1_bot2=177
+X_init_2_bot1=184
+X_init_2_bot2=123
+Y_init_1_bot1=13
+Y_init_1_bot2=20
+Y_init_2_bot1=13
+Y_init_2_bot2=20
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(176 328 1402 752)
+mode_visu=2
+niveau_trace=4294967295
+polygon=(9.5x16.2), (-9.5x16.2), (-9.5x-16.2), (9.5x-16.2), (9.5x-15.2), (4.0x0.0), (9.5x15.2), (9.5x16.2)
+polygon2=(2.3x12), (-2.3x12), (-11.1x7), (-11.1x-7), (-2.3x-12), (2.3x-12), (5.3x-7), (5.3x7)
+use_2_bots=false
+visible=true
+zoom=2
+
+[Simulia]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+choix_strategie=1
+couleur_equipe=0
+geometry=@Rect(1291 65 623 560)
+niveau_trace=4294967295
+origine_donnees_detection_obstacle=2
+origine_donnees_telemetres=0
+visible=true
+
+[UserGuides]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+niveau_trace=4294967295
+
+[csvDataLogger]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=@Invalid()
+enable_log_on_value_changed=false
+enable_log_on_value_updated=false
+enable_log_periodic=true
+geometry=@Rect(50 64 411 249)
+log_period=1000
+niveau_trace=4294967295
+visible=false
