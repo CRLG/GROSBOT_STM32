@@ -115,10 +115,11 @@ void IA::setMaxScores()
 {
     // TODO : valeurs des scores max fixées au pif.
     // Mettre les vraies valeurs
-    m_sm_deposer_banderole.setScoreMax(131);
-    m_sm_deposer_pile_bordure.setScoreMax(10);
-    m_sm_chasse_neige.setScoreMax(5);
-    m_sm_retour_zone_arrivee.setScoreMax(5);
+    m_sm_deposer_pile_centrale.setScoreMax(24);
+    m_sm_deposer_banderole.setScoreMax(0);
+    m_sm_deposer_pile_bordure.setScoreMax(0);
+    m_sm_chasse_neige.setScoreMax(0);
+    m_sm_retour_zone_arrivee.setScoreMax(0);
 }
 
 // ________________________________________________

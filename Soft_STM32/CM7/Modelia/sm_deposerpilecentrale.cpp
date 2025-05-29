@@ -1,5 +1,5 @@
 /**
- * Generated 28_05_2025 at 19_37
+ * Generated 29_05_2025 at 03_10
  */
 
 #include "sm_deposerpilecentrale.h"
@@ -34,9 +34,9 @@ const char* SM_DeposerPileCentrale::stateToName(unsigned short state)
 		case STATE_12 :		return "STATE_12";
 		case STATE_13 :		return "STATE_13";
 		case STATE_14 :		return "STATE_14";
-		case STATE_15 :		return "STATE_15";
-		case STATE_16 :		return "STATE_16";
-		case STATE_17 :		return "STATE_17";
+		case JAUNE :		return "JAUNE";
+		case BLEU :		return "BLEU";
+		case NODE_1 :		return "NODE_1";
 		case STATE_18 :		return "STATE_18";
 		case STATE_19 :		return "STATE_19";
 		case FIN_MISSION :	return "FIN_MISSION";
@@ -176,37 +176,40 @@ void SM_DeposerPileCentrale::step()
 	case STATE_14 :
 		if (onEntry()) {
 			Application.m_servos.CommandePositionVitesse(4,1150,255);/*SERVO_CAN_MOVER_EXT values=SERVO_CAN_MOVER_EXT_OFF*/
+			/*Ne rien mettre ici (cf doc Modélia)*/
 		}
 
-			gotoStateAfter(STATE_15,2000);
+			gotoStateIfTrue(JAUNE,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1);
+			gotoStateIfTrue(BLEU,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2);
+		if (onExit()) {  /*Un seul lien vers un noeud: Ne rien mettre ici  (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case JAUNE :
+		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-20,-1.57);/**/
+		}
+
+			gotoStateIfConvergence(NODE_1,5000);
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_14 car un seul lien avant le noeud (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case BLEU :
+		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-20,1.57);/**/
+		}
+
+			gotoStateIfConvergence(NODE_1,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_15 :
+	case NODE_1 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeManuelle(-6,-6);/**/
-		}
-
-			gotoStateAfter(STATE_16,1000);
-		if (onExit()) {  }
-		break;
-	// ___________________________
-	case STATE_16 :
-		if (onEntry()) {
-			Application.m_asservissement.CommandeManuelle(0,0);/**/
-		}
-
-			gotoStateAfter(STATE_17,400);
-		if (onExit()) {  }
-		break;
-	// ___________________________
-	case STATE_17 :
-		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
 			Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
 		}
 
 			gotoStateAfter(STATE_18,400);
-		if (onExit()) {  }
+		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
 	case STATE_18 :
