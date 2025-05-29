@@ -80,6 +80,8 @@ void IA::setStrategie(unsigned char strategie)
         //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
 
         break;
     // ________________________
@@ -109,6 +111,8 @@ void IA::setStrategie(unsigned char strategie)
         //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);
         break;
     }
     m_datas_interface.ChoixStrategieMatch = strategie;

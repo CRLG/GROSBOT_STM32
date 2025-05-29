@@ -1,5 +1,5 @@
 /**
- * Generated 28_05_2022 at 01_21
+ * Generated 29_05_2025 at 12_26
  */
 
 #include "sm_retourzonearrivee.h"
@@ -13,7 +13,7 @@ SM_RetourZoneArrivee::SM_RetourZoneArrivee()
 
 const char* SM_RetourZoneArrivee::getName()
 {
-	return "SM_RetourZoneDepart";
+	return "SM_RetourZoneArrivee";
 }
 
 const char* SM_RetourZoneArrivee::stateToName(unsigned short state)
@@ -23,8 +23,6 @@ const char* SM_RetourZoneArrivee::stateToName(unsigned short state)
 		case STATE_1 :		return "STATE_1";
 		case STATE_2 :		return "STATE_2";
 		case STATE_3 :		return "STATE_3";
-		case STATE_4 :		return "STATE_4";
-		case STATE_5 :		return "STATE_5";
 		case FIN_MISSION :	return "FIN_MISSION";
 	}
 	return "UNKNOWN_STATE";
@@ -36,13 +34,31 @@ void SM_RetourZoneArrivee::step()
 	switch (m_state)
 	{
 
-
-    case STATE_1 :
+	// ___________________________
+	case STATE_1 :
 		if (onEntry()) {
-            //outputs()->CommandeMouvementXY_sym(0,0);/**/
+			outputs()->CommandeMouvementXY_TETA_sym(-41,100,2.23);/**/
 		}
 
-            gotoStateIfConvergence(FIN_MISSION,20000);
+			gotoStateIfConvergence(STATE_2,5000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_2 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(1,1500,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_OUVERTE*/
+		}
+
+			gotoStateIfTrue(STATE_3,internals()->TempsMatch>96.0);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_3 :
+		if (onEntry()) {
+			outputs()->CommandeMouvementXY_TETA_sym(-84,151,1.57);/**/
+		}
+
+			gotoStateIfConvergence(FIN_MISSION,5000);
 		if (onExit()) {  }
 		break;
 
