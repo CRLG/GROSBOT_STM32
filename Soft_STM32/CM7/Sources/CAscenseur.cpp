@@ -15,11 +15,11 @@ void CAscenseur::command_motor(signed char consigne_pourcent)
 // _________________________________________
 bool CAscenseur::is_sensor_high()
 {
-    Application.m_capteurs.getAscenseurButeeHaute();
+    return Application.m_capteurs.getAscenseurButeeHaute();
 }
 
 // _________________________________________
 bool CAscenseur::is_sensor_low()
 {
-    Application.m_capteurs.getAscenseurButeeBasse();
+    return Application.m_capteurs.getAscenseurButeeBasse();
 }
