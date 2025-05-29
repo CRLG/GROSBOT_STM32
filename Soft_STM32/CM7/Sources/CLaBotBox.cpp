@@ -864,23 +864,38 @@ void CLaBotBox::CheckReceptionTrame(void)
   }
   // ___________________________
   if  (m_ACTION_ROBOT.isNewTrame() ) {
-    // sous adressage : le champ command donne le type d'action à  réaliser
-    switch (m_ACTION_ROBOT.command) {
-    case ACTIONNEURS_POSITION_INIT :
-        break;
+      // sous adressage : le champ command donne le type d'action à  réaliser
+       switch (m_ACTION_ROBOT.command) {
+       case ACTIONNEURS_POSITION_INIT :
+           break;
+       case ASCENSEUR_DESCEND :    Application.m_ascenseur.down();   break;
+       case ASCENSEUR_MONTE :      Application.m_ascenseur.up();     break;
+       case ASCENSEUR_STOP :       Application.m_ascenseur.stop();   break;
 
-    case ASCENSEUR_DESCEND :
-        Application.m_ascenseur.down();
-        break;
+       case PINCE_ARG_FERMEE :         Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_FERMEE); break;
+       case PINCE_ARG_OUVERTE :        Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_OUVERTE); break;
+       case PINCE_ARG_INTERMEDIAIRE :  Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_INTERMEDIAIRE); break;
 
-    case ASCENSEUR_MONTE :
-        Application.m_ascenseur.up();
-        break;
+       case PINCE_ARD_FERMEE :         Application.m_servos.CommandePosition(SERVO_PINCE_ARD, SERVO_PINCE_ARD_FERMEE); break;
+       case PINCE_ARD_OUVERTE :        Application.m_servos.CommandePosition(SERVO_PINCE_ARD, SERVO_PINCE_ARD_OUVERTE); break;
+       case PINCE_ARD_INTERMEDIAIRE :  Application.m_servos.CommandePosition(SERVO_PINCE_ARD, SERVO_PINCE_ARD_INTERMEDIAIRE); break;
 
-    case ASCENSEUR_STOP :
-        Application.m_ascenseur.stop();
-        break;
-    }
+       case VERRIN_HAUT :              Application.m_servos.CommandePosition(SERVO_VERIN, VERRIN_POSITION_HAUT); break;
+       case VERRIN_BAS :               Application.m_servos.CommandePosition(SERVO_VERIN, VERRIN_POSITION_BAS); break;
+
+       case PINCE_PLANCHE_OUVERT :     Application.m_servos.CommandePosition(SERVO_PINCE_PLANCHE, SERVO_PINCE_PLANCHE_OUVERTE); break;
+       case PINCE_PLANCHE_FERMEE :     Application.m_servos.CommandePosition(SERVO_PINCE_PLANCHE, SERVO_PINCE_PLANCHE_FERMEE); break;
+       case PINCE_PLANCHE_INTERMEDIAIRE : Application.m_servos.CommandePosition(SERVO_PINCE_PLANCHE, SERVO_PINCE_PLANCHE_REPOS); break;
+
+       case BANDEROLE_RANGEE :         Application.m_servos.CommandePosition(SERVO_BANDEROLE, SERVO_BANDEROLE_RANGEE); break;
+       case BANDEROLE_DEPLOYEE :       Application.m_servos.CommandePosition(SERVO_BANDEROLE, SERVO_BANDEROLE_DEPLOYEE); break;
+       case BANDEROLE_HORIZONTALE :    Application.m_servos.CommandePosition(SERVO_BANDEROLE, SERVO_BANDEROLE_POSITION_HORIZONTAL); break;
+
+       case CAN_MOVER_INT_ON :         Application.m_servos.CommandePosition(SERVO_CAN_MOVER_INT, SERVO_CAN_MOVER_INT_ON); break;
+       case CAN_MOVER_INT_OFF :        Application.m_servos.CommandePosition(SERVO_CAN_MOVER_INT, SERVO_CAN_MOVER_INT_OFF); break;
+       case CAN_MOVER_EXT_ON :         Application.m_servos.CommandePosition(SERVO_CAN_MOVER_EXT, SERVO_CAN_MOVER_EXT_ON); break;
+       case CAN_MOVER_EXT_OFF :        Application.m_servos.CommandePosition(SERVO_CAN_MOVER_EXT, SERVO_CAN_MOVER_EXT_OFF); break;
+       }
   }
 }
 
