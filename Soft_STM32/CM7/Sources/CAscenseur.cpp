@@ -9,7 +9,7 @@ CAscenseur::CAscenseur()
 // _________________________________________
 void CAscenseur::command_motor(signed char consigne_pourcent)
 {
-    CdeMoteur(MOTEUR_ASCENSEUR, -consigne_pourcent);
+    CdeMoteur(MOTEUR_ASCENSEUR, consigne_pourcent);
 }
 
 // _________________________________________
