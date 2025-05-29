@@ -75,6 +75,7 @@ typedef enum {
     SERVO_PINCE_PLANCHE_OUVERTE         = 1500,
     // VERRIN
     VERRIN_POSITION_HAUT                = 2000,
+    VERRIN_POSITION_INTERMEDIAIRE       = 1590,
     VERRIN_POSITION_BAS                 = 1000,
     // SERVO CAN MOVER INT
     SERVO_CAN_MOVER_INT_ON              = 1500,
