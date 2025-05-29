@@ -100,12 +100,15 @@ void IA::setStrategie(unsigned char strategie)
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
         Application.m_detection_obstacles.inhibeDetection(true);
+        Application.m_asservissement.CommandeVitesseMouvement(20.,1.5); //normalement 80 cm.s-1 et 3 rad.s-1
+        Application.m_asservissement.setIndiceSportivite(0.3);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
         //m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
+        m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
         break;
     }
     m_datas_interface.ChoixStrategieMatch = strategie;
