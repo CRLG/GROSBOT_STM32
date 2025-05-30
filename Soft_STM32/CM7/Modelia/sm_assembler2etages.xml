@@ -1,0 +1,68 @@
+<!DOCTYPE sequence_xml>
+<sequence name="Assembler2Etages">
+ <ligne value="1500,255" comments="PINCE_PLANCHE OUVERTE" symetrie="false" prototype="false" type="Servo" id="1" state=""/>
+ <ligne value="20" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="-39,40,-1.57" comments="On se place face aux éléments de jeux" symetrie="true" prototype="false" type="Asser" id="XYTheta" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="-39,8,-1.57" comments="" symetrie="true" prototype="false" type="Asser" id="XYTheta" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="8,8" comments="on accoste les colonnes en boucle ouverte" symetrie="false" prototype="false" type="Asser" id="Manuel" state=""/>
+ <ligne value="1000" comments="TODO: à potarder" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="0,0" comments="" symetrie="false" prototype="false" type="Asser" id="Manuel" state=""/>
+ <ligne value="20" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1150,255" comments="VERIN POSITION_BAS" symetrie="false" prototype="false" type="Servo" id="7" state=""/>
+ <ligne value="3000" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="2450,255" comments="PINCE_PLANCHE FERMEE" symetrie="false" prototype="false" type="Servo" id="1" state=""/>
+ <ligne value="500" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1150,255" comments="CAN_MOVER_EXT OFF" symetrie="false" prototype="false" type="Servo" id="4" state=""/>
+ <ligne value="20" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1590,255" comments="VERIN POSITION_INTERMEDIARE" symetrie="false" prototype="false" type="Servo" id="7" state=""/>
+ <ligne value="2000" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="-50,-1.57" comments="on recule, suffisamment pour faire les manoeuvre après" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="0,1.57" comments="on tourne" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="1500,255" comments="PINCE_PLANCHE OUVERTE" symetrie="false" prototype="false" type="Servo" id="1" state=""/>
+ <ligne value="500" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1150,255" comments="CAN_MOVER_INT OFF" symetrie="false" prototype="false" type="Servo" id="3" state=""/>
+ <ligne value="350" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="2450,255" comments="PINCE_PLANCHE FERMEE" symetrie="false" prototype="false" type="Servo" id="1" state=""/>
+ <ligne value="500" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="2000,255" comments="VERIN POSITION_HAUT" symetrie="false" prototype="false" type="Servo" id="7" state=""/>
+ <ligne value="500" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="-25,1.57" comments="on recule avec le bon angle et à mi-distance pour pouvoir tourner sans tout défoncer" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="0,-1.57" comments="on tourne" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="1590,255" comments="VERIN POSITION_INTERMEDIARE" symetrie="false" prototype="false" type="Servo" id="7" state=""/>
+ <ligne value="25,-1.57" comments="on avance avec le bon angle" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="1500,255" comments="PINCE_PLANCHE OUVERTE" symetrie="false" prototype="false" type="Servo" id="1" state=""/>
+ <ligne value="100" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1300,255" comments="PINCE_ARD INTERMEDIAIRE" symetrie="false" prototype="false" type="Servo" id="6" state=""/>
+ <ligne value="40" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1300,255" comments="PINCE_ARG INTERMEDIAIRE" symetrie="false" prototype="false" type="Servo" id="2" state=""/>
+ <ligne value="40" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="-55,-1.57" comments="on recule un peu plus qu'avant" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="1500,255" comments="PINCE_ARD FERMEE" symetrie="false" prototype="false" type="Servo" id="6" state=""/>
+ <ligne value="200" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1500,255" comments="PINCE_ARG FERMEE" symetrie="false" prototype="false" type="Servo" id="2" state=""/>
+ <ligne value="200" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="2350,255" comments="PINCE_PLANCHE REPOS" symetrie="false" prototype="false" type="Servo" id="1" state=""/>
+ <ligne value="0,1.57" comments="on tourne avant de lever la planche" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="-55,1.57" comments="on recule" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="Application.m_ascenseur.up();" comments="on lève l'ascenseur" symetrie="false" prototype="false" type="FreeAction" id="0" state=""/>
+ <ligne value="Application.m_detection_obstacles.inhibeDetection(true);" comments="" symetrie="false" prototype="false" type="FreeAction" id="0" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="1300,255" comments="PINCE_ARG INTERMEDIAIRE" symetrie="false" prototype="false" type="Servo" id="2" state=""/>
+ <ligne value="20" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="1300,255" comments="PINCE_ARD INTERMEDIAIRE" symetrie="false" prototype="false" type="Servo" id="6" state=""/>
+ <ligne value="100" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="30,1.57" comments="on avance pour libérer l'empilement" symetrie="false" prototype="false" type="Asser" id="DistAng" state=""/>
+ <ligne value="5000" comments="" symetrie="false" prototype="false" type="Event" id="convAsserv" state=""/>
+ <ligne value="Application.m_ascenseur.down();" comments="on baisse l'ascenseur" symetrie="false" prototype="false" type="FreeAction" id="0" state=""/>
+ <ligne value="1500" comments="" symetrie="false" prototype="false" type="Wait" id="0" state=""/>
+ <ligne value="Application.m_detection_obstacles.inhibeDetection(false);" comments="" symetrie="false" prototype="false" type="FreeAction" id="0" state=""/>
+</sequence>
