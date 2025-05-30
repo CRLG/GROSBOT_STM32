@@ -20,6 +20,7 @@ IA::IA()
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_bordure;
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_centrale;
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_bas_de_pente;
+    m_sm_liste[m_state_machine_count++] = &m_sm_assembler_2_etages;
 }
 
 // ________________________________________________

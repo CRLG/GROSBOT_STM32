@@ -11,6 +11,7 @@
 #include "sm_deposerpilebordure.h"
 #include "sm_deposerpilecentrale.h"
 #include "sm_deposerpilebasdepente.h"
+#include "sm_assembler2etages.h"
 
 class IA : public IABase
 {
@@ -25,6 +26,7 @@ public:
     SM_DeposerPileCentrale              m_sm_deposer_pile_centrale;
     SM_DeposerPileBasDePente            m_sm_deposer_pile_bas_de_pente;
     SM_RetourZoneArrivee                m_sm_retour_zone_arrivee;
+    SM_Assembler2Etages                 m_sm_assembler_2_etages;
 
     void step();
     void init();
