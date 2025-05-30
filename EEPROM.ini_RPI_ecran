@@ -1,0 +1,267 @@
+[ActuatorElectrobot]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 265 361)
+niveau_trace=4294967295
+visible=false
+
+[ActuatorSequencer]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+default_path_modelia=/home/crlg/workspace/GROSBOT_STM32/Soft_STM32/CM7/Modelia
+default_path_softmbed=/home/crlg/workspace/GROSBOT_STM32/Soft_STM32
+geometry=@Rect(-179 155 1351 1016)
+niveau_trace=4294967295
+visible=true
+
+[Asserv]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 1429 805)
+niveau_trace=4294967295
+visible=false
+
+[DataExchanger]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=@Invalid()
+geometry=@Rect(50 64 413 281)
+niveau_trace=4294967295
+visible=false
+
+[DataGraph]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=@Invalid()
+geometry=@Rect(50 64 739 431)
+niveau_trace=4294967295
+visible=false
+
+[DataPlayer]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+default_signal_path=./
+geometry=@Rect(50 64 425 381)
+niveau_trace=4294967295
+visible=false
+
+[DataView]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=@Invalid()
+geometry=@Rect(50 64 520 204)
+niveau_trace=4294967295
+visible=false
+
+[EEPROM_CPU]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 150 150)
+niveau_trace=4294967295
+visible=false
+
+[Ecran]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 489 333)
+niveau_trace=4294967295
+visible=false
+
+[ExternalControler]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 150 150)
+niveau_trace=4294967295
+visible=false
+
+[ImageProcessing]
+algo_video=0
+auto_on=false
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+debug_active=false
+geometry=@Rect(50 64 150 150)
+niveau_trace=4294967295
+record=false
+tag1_aruco_lat=91
+tag2_aruco_lat=92
+taille_aruco_lat=45
+visible=false
+
+[Joystick]
+niveau_trace=4294967295
+
+[KMAR]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 727 431)
+niveau_trace=4294967295
+visible=false
+
+[Lidar]
+active_graph=true
+auto_increment_pathfilename=true
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+data_diplayed=0
+data_displayed=0
+enable_autostart_logger=false
+enable_update_datamanager=true
+geometry=@Rect(50 64 398 371)
+graph_type=0
+index_data_filter=0
+lidar_sample_period=100
+logger_pathfilename=./Log/LogLidar.csv
+logger_refresh_period=0
+niveau_trace=4294967295
+sick_autoreconnect=false
+sick_ip=192.168.0.1
+sick_port=2112
+synchro_match=true
+visible=false
+
+[MainWindow]
+geometry=@Rect(218 125 902 67)
+visible=true
+
+[MessagerieBot]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 458 150)
+niveau_trace=4294967295
+visible=false
+
+[ModeFonctionnementCPU]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 356 150)
+niveau_trace=4294967295
+visible=false
+
+[ModuleDesigner]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(0 0 489 356)
+niveau_trace=4294967295
+repertoire_projet=./
+visible=false
+
+[PowerElectrobot]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 363 368)
+niveau_trace=4294967295
+visible=false
+
+[RS232_cmucam]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 326 362)
+niveau_trace=4294967295
+visible=false
+
+[RS232_robot]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+baudrate=115200
+connected=1
+databits=8
+echo_enabled=0
+flowcontrol=0
+geometry=@Rect(507 198 326 362)
+niveau_trace=4294967295
+parity=0
+portname=ttyACM0
+stopbits=-1
+visible=false
+
+[RS232_xbee]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 326 362)
+niveau_trace=4294967295
+visible=false
+
+[RobotPanelControl]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(85 201 442 478)
+niveau_trace=4294967295
+visible=true
+
+[SensorElectroBot]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 513 467)
+niveau_trace=4294967295
+visible=false
+
+[SensorView]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 590 384)
+niveau_trace=4294967295
+signalsAdded=@Invalid()
+signalsPlacement=@Invalid()
+visible=false
+
+[SimuBot]
+Theta_asserv_init_1_bot1=1.57
+Theta_asserv_init_1_bot2=0.
+Theta_asserv_init_2_bot1=-1.57
+Theta_asserv_init_2_bot2=0.
+Theta_init_1_bot1=1.57
+Theta_init_1_bot2=1.57
+Theta_init_2_bot1=1.57
+Theta_init_2_bot2=1.57
+X_init_1_bot1=117
+X_init_1_bot2=177
+X_init_2_bot1=184
+X_init_2_bot2=123
+Y_init_1_bot1=13
+Y_init_1_bot2=20
+Y_init_2_bot1=13
+Y_init_2_bot2=20
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(54 64 1312 704)
+mode_visu=0
+niveau_trace=4294967295
+polygon=(9.5x16.2), (-9.5x16.2), (-9.5x-16.2), (9.5x-16.2), (9.5x-15.2), (4.0x0.0), (9.5x15.2), (9.5x16.2)
+polygon2=(2.3x12), (-2.3x12), (-11.1x7), (-11.1x-7), (-2.3x-12), (2.3x-12), (5.3x-7), (5.3x7)
+use_2_bots=false
+visible=false
+zoom=2
+
+[StrategyDesigner]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 680 443)
+niveau_trace=4294967295
+visible=false
+
+[TestUnitaire]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+baudrate=-1859981984
+databits=22043
+flowcontrol=199
+geometry=@Rect(50 64 159 150)
+niveau_trace=4294967295
+parity=199
+stopbits=-1871748144
+visible=false
+
+[UserGuides]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+niveau_trace=4294967295
+
+[XBEE]
+XBEE.APIMODE=1
+XBEE.CHANNEL=0E
+XBEE.COORDINATOR=1
+XBEE.COORDINATOR_OPTION=4
+XBEE.ID=1
+XBEE.KEY=6910DEA76FC0328DEBB4307854EDFC42
+XBEE.PANID=3321
+XBEE.SECURITY=1
+auto_init_xbee=false
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+data_to_send=
+destination_address=65535
+geometry=@Rect(50 64 332 393)
+niveau_trace=4294967295
+trace_active=false
+visible=false
+
+[XbeeNetworkMessenger]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+geometry=@Rect(50 64 235 215)
+niveau_trace=4294967295
+trace_active=false
+visible=false
+
+[csvDataLogger]
+background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
+datalist_logged=@Invalid()
+enable_log_on_value_changed=false
+enable_log_on_value_updated=false
+enable_log_periodic=true
+geometry=@Rect(50 64 411 249)
+log_period=1000
+niveau_trace=4294967295
+visible=false
