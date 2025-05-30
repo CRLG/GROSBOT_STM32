@@ -199,6 +199,10 @@ typedef enum {
 }eCOMMANDE_ETAT_ROBOT;
 
 
+typedef enum {
+    SORTIE_ALIMENTATION_LIDAR             = 7,  // (index 7 -> sortie physique n°8)
+}eATTRIBUTION_POWER_ELECTROBOT;
+
 // Affectation des numéros de télémètres SRF08 et ANA
 #define INDEX_TELEMETRE_AVG 0
 #define INDEX_TELEMETRE_AVD 2

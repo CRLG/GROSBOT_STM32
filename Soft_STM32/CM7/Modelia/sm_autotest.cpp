@@ -111,10 +111,19 @@ void SM_Autotest::step()
             Application.m_servos.CommandePositionVitesse(5,SERVO_BANDEROLE_RANGEE,255);/*TODO SERVO_BANDEROLE values=SERVO_BANDEROLE_RANGEE*/
 		}
 
-            gotoStateAfter(FIN_MISSION,400);
+            gotoStateAfter(STATE_9,400);
 		if (onExit()) {  }
 		break;
 
+    // ___________________________
+    case STATE_9 :
+        if (onEntry()) {
+            Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)SORTIE_ALIMENTATION_LIDAR, true);
+        }
+
+            gotoStateAfter(FIN_MISSION,400);
+        if (onExit()) {  }
+        break;
 	// ___________________________
 	case FIN_MISSION :
 		m_succes = true;
