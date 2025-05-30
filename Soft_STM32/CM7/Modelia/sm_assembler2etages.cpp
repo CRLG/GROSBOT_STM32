@@ -1,5 +1,5 @@
 /**
- * Generated 30_05_2025 at 13_04
+ * Generated 30_05_2025 at 15_28
  */
 
 #include "sm_assembler2etages.h"
@@ -29,28 +29,42 @@ const char* SM_Assembler2Etages::stateToName(unsigned short state)
 		case STATE_7 :		return "STATE_7";
 		case STATE_8 :		return "STATE_8";
 		case STATE_9 :		return "STATE_9";
-		case STATE_10 :		return "STATE_10";
-		case STATE_11 :		return "STATE_11";
+		case COULEUR_01_DEBUT :		return "COULEUR_01_DEBUT";
+		case JAUNE_01 :		return "JAUNE_01";
 		case STATE_12 :		return "STATE_12";
-		case STATE_13 :		return "STATE_13";
+		case BLEU_01 :		return "BLEU_01";
 		case STATE_14 :		return "STATE_14";
-		case STATE_15 :		return "STATE_15";
+		case COULEUR_01_FIN :		return "COULEUR_01_FIN";
 		case STATE_16 :		return "STATE_16";
 		case STATE_17 :		return "STATE_17";
 		case STATE_18 :		return "STATE_18";
-		case STATE_19 :		return "STATE_19";
-		case STATE_20 :		return "STATE_20";
+		case COULEUR_02_DEBUT :		return "COULEUR_02_DEBUT";
+		case JAUNE_02 :		return "JAUNE_02";
 		case STATE_21 :		return "STATE_21";
 		case STATE_22 :		return "STATE_22";
-		case STATE_23 :		return "STATE_23";
+		case BLEU_02 :		return "BLEU_02";
 		case STATE_24 :		return "STATE_24";
 		case STATE_25 :		return "STATE_25";
-		case STATE_26 :		return "STATE_26";
+		case COULEUR_02_FIN :		return "COULEUR_02_FIN";
 		case STATE_27 :		return "STATE_27";
 		case STATE_28 :		return "STATE_28";
-		case STATE_29 :		return "STATE_29";
-		case STATE_30 :		return "STATE_30";
-		case STATE_31 :		return "STATE_31";
+		case COULEUR_03_DEBUT :		return "COULEUR_03_DEBUT";
+		case JAUNE_03 :		return "JAUNE_03";
+		case BLEU_03 :		return "BLEU_03";
+		case COULEUR_03_FIN :		return "COULEUR_03_FIN";
+		case STATE_33 :		return "STATE_33";
+		case STATE_34 :		return "STATE_34";
+		case JAUNE_04 :		return "JAUNE_04";
+		case STATE_36 :		return "STATE_36";
+		case BLEU_04 :		return "BLEU_04";
+		case STATE_38 :		return "STATE_38";
+		case COULEUR_04_FIN :		return "COULEUR_04_FIN";
+		case STATE_40 :		return "STATE_40";
+		case COULEUR_05_DEBUT :		return "COULEUR_05_DEBUT";
+		case JAUNE_05 :		return "JAUNE_05";
+		case BLEU_05 :		return "BLEU_05";
+		case COULEUR_05_FIN :		return "COULEUR_05_FIN";
+		case STATE_45 :		return "STATE_45";
 		case FIN_MISSION :	return "FIN_MISSION";
 	}
 	return "UNKNOWN_STATE";
@@ -140,22 +154,23 @@ void SM_Assembler2Etages::step()
 			Application.m_servos.CommandePositionVitesse(7,1590,255);/*VERIN POSITION_INTERMEDIARE*/
 		}
 
-			gotoStateAfter(STATE_10,2000);
-		if (onExit()) {  }
+			gotoStateAfter(COULEUR_01_DEBUT,2000);
+		if (onExit()) {  /*Un seul lien vers un noeud: Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_10 :
+	case COULEUR_01_DEBUT :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(-50,-1.57);/*on recule, suffisamment pour faire les manoeuvre après*/
+			/*Ne rien mettre ici (cf doc Modélia)*/
 		}
 
-			gotoStateIfConvergence(STATE_11,5000);
-		if (onExit()) {  }
+			gotoStateIfTrue(JAUNE_01,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1);
+			gotoStateIfTrue(BLEU_01,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2);
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_9 car un seul lien avant le noeud (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_11 :
+	case JAUNE_01 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(0,1.57);/*on tourne*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-50,-1.57);/*on recule, suffisamment pour faire les manoeuvre après*/
 		}
 
 			gotoStateIfConvergence(STATE_12,5000);
@@ -164,133 +179,230 @@ void SM_Assembler2Etages::step()
 	// ___________________________
 	case STATE_12 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,1500,255);/*PINCE_PLANCHE OUVERTE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(0,1.57);/*on tourne*/
 		}
 
-			gotoStateAfter(STATE_13,500);
+			gotoStateIfConvergence(COULEUR_01_FIN,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_13 :
+	case BLEU_01 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(3,1150,255);/*CAN_MOVER_INT OFF*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-50,1.57);/**/
 		}
 
-			gotoStateAfter(STATE_14,350);
+			gotoStateIfConvergence(STATE_14,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_14 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,2450,255);/*PINCE_PLANCHE FERMEE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(0,-1.57);/**/
 		}
 
-			gotoStateAfter(STATE_15,500);
+			gotoStateIfConvergence(COULEUR_01_FIN,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_15 :
+	case COULEUR_01_FIN :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,2000,255);/*VERIN POSITION_HAUT*/
+			/*Ne rien mettre ici (cf doc Modélia)*/
+			Application.m_servos.CommandePositionVitesse(1,1500,255);/*PINCE_PLANCHE OUVERTE*/
 		}
 
 			gotoStateAfter(STATE_16,500);
-		if (onExit()) {  }
+		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
 	case STATE_16 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(-25,1.57);/*on recule avec le bon angle et à mi-distance pour pouvoir tourner sans tout défoncer*/
+			Application.m_servos.CommandePositionVitesse(3,1150,255);/*CAN_MOVER_INT OFF*/
 		}
 
-			gotoStateIfConvergence(STATE_17,5000);
+			gotoStateAfter(STATE_17,350);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_17 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(0,-1.57);/*on tourne*/
+			Application.m_servos.CommandePositionVitesse(1,2450,255);/*PINCE_PLANCHE FERMEE*/
 		}
 
-			gotoStateIfConvergence(STATE_18,5000);
+			gotoStateAfter(STATE_18,500);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_18 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,1590,255);/*VERIN POSITION_INTERMEDIARE*/
-			Application.m_asservissement.CommandeMouvementDistanceAngle(25,-1.57);/*on avance avec le bon angle*/
+			Application.m_servos.CommandePositionVitesse(7,2000,255);/*VERIN POSITION_HAUT*/
 		}
 
-			gotoStateIfConvergence(STATE_19,5000);
-		if (onExit()) {  }
+			gotoStateAfter(COULEUR_02_DEBUT,500);
+		if (onExit()) {  /*Un seul lien vers un noeud: Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_19 :
+	case COULEUR_02_DEBUT :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,1500,255);/*PINCE_PLANCHE OUVERTE*/
+			/*Ne rien mettre ici (cf doc Modélia)*/
 		}
 
-			gotoStateAfter(STATE_20,100);
-		if (onExit()) {  }
+			gotoStateIfTrue(JAUNE_02,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1);
+			gotoStateIfTrue(BLEU_02,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2);
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_18 car un seul lien avant le noeud (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_20 :
+	case JAUNE_02 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(6,1300,255);/*PINCE_ARD INTERMEDIAIRE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-25,1.57);/*on recule avec le bon angle et à mi-distance pour pouvoir tourner sans tout défoncer*/
 		}
 
-			gotoStateAfter(STATE_21,40);
+			gotoStateIfConvergence(STATE_21,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_21 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(2,1300,255);/*PINCE_ARG INTERMEDIAIRE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(0,-1.57);/*on tourne*/
 		}
 
-			gotoStateAfter(STATE_22,40);
+			gotoStateIfConvergence(STATE_22,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_22 :
 		if (onEntry()) {
-			Application.m_asservissement.CommandeMouvementDistanceAngle(-55,-1.57);/*on recule un peu plus qu'avant*/
+			Application.m_servos.CommandePositionVitesse(7,1590,255);/*VERIN POSITION_INTERMEDIARE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(25,-1.57);/*on avance avec le bon angle*/
 		}
 
-			gotoStateIfConvergence(STATE_23,5000);
+			gotoStateIfConvergence(COULEUR_02_FIN,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_23 :
+	case BLEU_02 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(6,1500,255);/*PINCE_ARD FERMEE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-25,-1.57);/*on recule avec le bon angle et à mi-distance pour pouvoir tourner sans tout défoncer*/
 		}
 
-			gotoStateAfter(STATE_24,200);
+			gotoStateIfConvergence(STATE_24,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_24 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(2,1500,255);/*PINCE_ARG FERMEE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(0,1.57);/*on tourne*/
 		}
 
-			gotoStateAfter(STATE_25,200);
+			gotoStateIfConvergence(STATE_25,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_25 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,2350,255);/*PINCE_PLANCHE REPOS*/
-			Application.m_asservissement.CommandeMouvementDistanceAngle(0,1.57);/*on tourne avant de lever la planche*/
+			Application.m_servos.CommandePositionVitesse(7,1590,255);/*VERIN POSITION_INTERMEDIARE*/
+			Application.m_asservissement.CommandeMouvementDistanceAngle(25,1.57);/*on avance avec le bon angle*/
 		}
 
-			gotoStateIfConvergence(STATE_26,5000);
+			gotoStateIfConvergence(COULEUR_02_FIN,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_26 :
+	case COULEUR_02_FIN :
+		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
+			Application.m_servos.CommandePositionVitesse(1,1500,255);/*PINCE_PLANCHE OUVERTE*/
+		}
+
+			gotoStateAfter(STATE_27,100);
+		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case STATE_27 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(6,1300,255);/*PINCE_ARD INTERMEDIAIRE*/
+		}
+
+			gotoStateAfter(STATE_28,40);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_28 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(2,1300,255);/*PINCE_ARG INTERMEDIAIRE*/
+		}
+
+			gotoStateAfter(COULEUR_03_DEBUT,40);
+		if (onExit()) {  /*Un seul lien vers un noeud: Ne rien mettre ici  (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case COULEUR_03_DEBUT :
+		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
+		}
+
+			gotoStateIfTrue(JAUNE_03,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1);
+			gotoStateIfTrue(BLEU_03,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2);
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_28 car un seul lien avant le noeud (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case JAUNE_03 :
+		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-55,-1.57);/*on recule un peu plus qu'avant*/
+		}
+
+			gotoStateIfConvergence(COULEUR_03_FIN,5000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case BLEU_03 :
+		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-55,1.57);/**/
+		}
+
+			gotoStateIfConvergence(COULEUR_03_FIN,5000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case COULEUR_03_FIN :
+		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
+			Application.m_servos.CommandePositionVitesse(6,1500,255);/*PINCE_ARD FERMEE*/
+		}
+
+			gotoStateAfter(STATE_33,200);
+		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case STATE_33 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(2,1500,255);/*PINCE_ARG FERMEE*/
+		}
+
+			gotoStateAfter(STATE_34,200);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_34 :
+		if (onEntry()) {
+			Application.m_servos.CommandePositionVitesse(1,2350,255);/*PINCE_PLANCHE REPOS*/
+			/*Ne rien mettre ici (cf doc Modélia)*/
+		}
+
+			gotoStateIfTrue(JAUNE_04,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1);
+			gotoStateIfTrue(BLEU_04,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2);
+		if (onExit()) {  /*Un seul lien vers un noeud: Ne rien mettre ici  (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case JAUNE_04 :
+		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(0,1.57);/*on tourne avant de lever la planche*/
+		}
+
+			gotoStateIfConvergence(STATE_36,5000);
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_34 car un seul lien avant le noeud (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case STATE_36 :
 		if (onEntry()) {
 			Application.m_asservissement.CommandeMouvementDistanceAngle(-55,1.57);/*on recule*/
 			
@@ -301,49 +413,94 @@ void SM_Assembler2Etages::step()
 
 		}
 
-			gotoStateIfConvergence(STATE_27,5000);
+			gotoStateIfConvergence(COULEUR_04_FIN,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_27 :
+	case BLEU_04 :
 		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(0,-1.57);/**/
+		}
+
+			gotoStateIfConvergence(STATE_38,5000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case STATE_38 :
+		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(-55,-1.57);/*on recule*/
+			
+			Application.m_ascenseur.up();
+
+			
+			Application.m_detection_obstacles.inhibeDetection(true);
+
+		}
+
+			gotoStateIfConvergence(COULEUR_04_FIN,5000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case COULEUR_04_FIN :
+		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
 			Application.m_servos.CommandePositionVitesse(2,1300,255);/*PINCE_ARG INTERMEDIAIRE*/
 		}
 
-			gotoStateAfter(STATE_28,20);
-		if (onExit()) {  }
+			gotoStateAfter(STATE_40,20);
+		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_28 :
+	case STATE_40 :
 		if (onEntry()) {
 			Application.m_servos.CommandePositionVitesse(6,1300,255);/*PINCE_ARD INTERMEDIAIRE*/
 		}
 
-			gotoStateAfter(STATE_29,100);
-		if (onExit()) {  }
+			gotoStateAfter(COULEUR_05_DEBUT,100);
+		if (onExit()) {  /*Un seul lien vers un noeud: Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_29 :
+	case COULEUR_05_DEBUT :
+		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
+		}
+
+			gotoStateIfTrue(JAUNE_05,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1);
+			gotoStateIfTrue(BLEU_05,internals()->couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_2);
+		if (onExit()) {  /* Mettre ici le code du onExit de létat STATE_40 car un seul lien avant le noeud (cf doc Modélia)*/  }
+		break;
+	// ___________________________
+	case JAUNE_05 :
 		if (onEntry()) {
 			Application.m_asservissement.CommandeMouvementDistanceAngle(30,1.57);/*on avance pour libérer l'empilement*/
 		}
 
-			gotoStateIfConvergence(STATE_30,5000);
+			gotoStateIfConvergence(COULEUR_05_FIN,5000);
 		if (onExit()) {  }
 		break;
 	// ___________________________
-	case STATE_30 :
+	case BLEU_05 :
 		if (onEntry()) {
+			Application.m_asservissement.CommandeMouvementDistanceAngle(30,-1.57);/**/
+		}
+
+			gotoStateIfConvergence(COULEUR_05_FIN,5000);
+		if (onExit()) {  }
+		break;
+	// ___________________________
+	case COULEUR_05_FIN :
+		if (onEntry()) {
+			/*Ne rien mettre ici (cf doc Modélia)*/
 			
 			Application.m_ascenseur.down();
 
 		}
 
-			gotoStateAfter(STATE_31,1500);
-		if (onExit()) {  }
+			gotoStateAfter(STATE_45,1500);
+		if (onExit()) {  /*Ne rien mettre ici  (cf doc Modélia)*/  }
 		break;
 	// ___________________________
-	case STATE_31 :
+	case STATE_45 :
 		if (onEntry()) {
 			
 			Application.m_detection_obstacles.inhibeDetection(false);
