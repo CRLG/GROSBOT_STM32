@@ -36,6 +36,7 @@ Modelia/sm_deposerpilebordure.cpp
 Modelia/sm_deposerpilecentrale.cpp
 Modelia/sm_deposerpilebasdepente.cpp
 Modelia/sm_assembler2etages.cpp
+Modelia/sm_blockly_debutant.cpp
 
 Includes/main_app.h
 Includes/CEEPROM.h
@@ -75,7 +76,7 @@ Modelia/sm_deposerpilebordure.h
 Modelia/sm_deposerpilecentrale.h
 Modelia/sm_deposerpilebasdepente.h
 Modelia/sm_assembler2etages.h
-
+Modelia/sm_blockly_debutant.h
 
 ../ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.h
 ../ext/CppRobLib/ConsoleInteractiveMenu/console_interaction.cpp

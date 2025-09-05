@@ -116,8 +116,8 @@ Modelia/sm_deposerbanderole.cpp \
 Modelia/sm_deposerpilebordure.cpp \
 Modelia/sm_deposerpilecentrale.cpp \
 Modelia/sm_deposerpilebasdepente.cpp \
-Modelia/sm_assembler2etages.cpp
-
+Modelia/sm_assembler2etages.cpp \
+Modelia/sm_blockly_debutant.cpp
 
 # C sources
 C_SOURCES =  \
