@@ -80,6 +80,7 @@ $(CPPLIB)/ServosAX/servoaxbase.cpp \
 $(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Servomoteurs/CServomoteursBase.cpp \
 $(CPPLIB)/Lidar/Lidar_utils.cpp \
+$(CPPLIB)/LedWS2812Uart/ws2812b_uart_base.cpp \
 Sources/main_app.cpp \
 Sources/CEEPROM.cpp \
 Sources/CGlobale.cpp \
@@ -104,6 +105,7 @@ Sources/CServomoteurs.cpp \
 Sources/CServoMoteursAX.cpp \
 Sources/CAsservLogger.cpp \
 Sources/CAscenseur.cpp \
+Sources/ws2812b.cpp \
 Modelia/ia.cpp \
 Modelia/sm_inputsinterface.cpp \
 Modelia/sm_outputsinterface.cpp \
@@ -232,6 +234,7 @@ C_INCLUDES =  \
 -I$(CPPLIB)/ServosAX \
 -I$(CPPLIB)/Servomoteurs \
 -I$(CPPLIB)/Lidar \
+-I$(CPPLIB)/LedWS2812Uart \
 -I$(LIB_STM32)/CM7/Core/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy \

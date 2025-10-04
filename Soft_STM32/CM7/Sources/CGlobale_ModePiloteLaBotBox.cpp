@@ -76,6 +76,7 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
         m_capteurs.Traitement();
         m_telemetres.Traitement();
         m_servos.periodicCall();
+        m_leds_rgb.periodicTask();
     }
 
     // ______________________________

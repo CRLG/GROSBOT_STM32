@@ -22,6 +22,7 @@ Sources/CServomoteurs.cpp
 Sources/CServoMoteursAX.cpp
 Sources/CAsservLogger.cpp
 Sources/CAscenseur.cpp
+Sources/ws2812b.cpp
 
 Modelia/ia.cpp
 Modelia/sm_inputsinterface.cpp
@@ -61,7 +62,7 @@ Includes/CServomoteurs.h
 Includes/CServoMoteursAX.h
 Includes/CAsservLogger.h
 Includes/CAscenseur.h
-
+Includes/ws2812b.h
 
 Modelia/ia.h
 Modelia/sm_inputsinterface.h
@@ -158,6 +159,9 @@ Modelia/sm_blockly_debutant.h
 ../ext/CppRobLib/Lidar/Lidar_utils.cpp
 ../ext/CppRobLib/Servomoteurs/CServomoteursBase.cpp
 ../ext/CppRobLib/Servomoteurs/CServomoteursBase.h
+../ext/CppRobLib/LedWS2812Uart/ws2812b_uart_base.cpp
+../ext/CppRobLib/LedWS2812Uart/ws2812b_uart_base.h
+
 
 
 

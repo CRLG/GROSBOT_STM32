@@ -87,6 +87,7 @@ void CGlobale::SequenceurModeAutonome(void)
         m_modelia.step();
 
         m_servos.periodicCall();
+        m_leds_rgb.periodicTask();
     }
 
 

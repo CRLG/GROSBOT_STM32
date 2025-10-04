@@ -86,6 +86,7 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         m_electrobot.Traitement();
         m_capteurs.Traitement();
         m_telemetres.Traitement();
+        m_leds_rgb.periodicTask();
     }
 
 

@@ -24,6 +24,7 @@
 #include "CEEPROM.h"
 #include "ia.h"
 #include "ConfigSpecifiqueCoupe.h"
+#include "ws2812b.h"
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -71,6 +72,8 @@ public :
     CLed m_led3;
     CLed m_led4;
     CLeds m_leds;
+    //! Bandeau de LED
+    WS2812b m_leds_rgb;
     //! Gestion de l'EEPROM
     CEEPROM m_eeprom;
     //! Gestion des codeurs de position

@@ -20,3 +20,4 @@
 ../ext/CppRobLib/ServosAX
 ../ext/CppRobLib/Lidar
 ../ext/CppRobLib/Servomoteurs
+../ext/CppRobLib/LedWS2812Uart
