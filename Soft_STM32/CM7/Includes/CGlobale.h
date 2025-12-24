@@ -25,6 +25,8 @@
 #include "ia.h"
 #include "ConfigSpecifiqueCoupe.h"
 #include "ws2812b.h"
+#include "vl53l0xMulti.h"
+
 
 typedef enum {
     MODE_AUTONOME = 0,
@@ -102,6 +104,8 @@ public :
     CAscenseur m_ascenseur;
     //! La gestion Labotbox
     CLaBotBox m_LaBotBox;
+    // Réseau de VL53
+    VL53L0xMulti m_vl53l0x_multi;
     //! Le match à  jouer
     IA m_modelia;
 

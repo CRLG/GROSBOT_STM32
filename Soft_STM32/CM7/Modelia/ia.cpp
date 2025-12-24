@@ -21,16 +21,6 @@ IA::IA()
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_centrale;
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_bas_de_pente;
     m_sm_liste[m_state_machine_count++] = &m_sm_assembler_2_etages;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache1;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache2;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache3;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache4;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache5;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache6;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache7;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache8;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache9;
-    m_sm_liste[m_state_machine_count++] = &m_sm_tache10;
 }
 
 // ________________________________________________
@@ -90,7 +80,6 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_tache1.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
         m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
@@ -133,8 +122,6 @@ void IA::setStrategie(unsigned char strategie)
     default:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         Application.m_detection_obstacles.inhibeDetection(true);
-        m_sm_tache1.setPrioriteExecution(ordre++);
-        m_sm_tache2.setEnabled(true);
         break;
     }
 
