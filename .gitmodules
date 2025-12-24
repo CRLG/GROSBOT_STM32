@@ -7,3 +7,6 @@
 [submodule "Simulia"]
 	path = Simulia
 	url = https://github.com/CRLG/LABOTBOX
+[submodule "Soft_STM32/ext/CppRobLibSTM32"]
+	path = Soft_STM32/ext/CppRobLibSTM32
+	url = https://github.com/CRLG/CppRobLibSTM32
