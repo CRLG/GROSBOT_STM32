@@ -8,7 +8,7 @@ class VL53L0xMulti : public VL53L0xMultiBase
 public :
     VL53L0xMulti(I2C_HandleTypeDef *i2c_hdl);
 
-    #define VL53_COUNT 2
+    #define VL53_COUNT 4
     VL53L0x m_vl53[VL53_COUNT];
 
     /*virtual*/uint8_t get_vl53_count();

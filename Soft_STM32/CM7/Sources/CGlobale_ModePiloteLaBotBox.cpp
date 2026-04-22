@@ -37,6 +37,7 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
     static unsigned int cpt5msec= 0;
     static unsigned int cpt10msec = 0;
     static unsigned int cpt20msec = 0;
+    static unsigned int cpt34msec = 0;
     static unsigned int cpt50msec = 0;
     static unsigned int cpt100msec = 0;
     static unsigned int cpt200msec = 0;
@@ -74,9 +75,17 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
 
         m_electrobot.Traitement();
         m_capteurs.Traitement();
-        m_telemetres.Traitement();
+        m_telemetres.periodicTask();
         m_servos.periodicCall();
         m_leds_rgb.periodicTask();
+    }
+    // ______________________________
+    cpt34msec++;
+    if (cpt34msec >= TEMPO_34msec) {
+        cpt34msec = 0;
+#ifdef UTILISATION_TELEMETRES_VL53
+        m_telemetres.periodicTask();
+#endif // UTILISATION_TELEMETRES_VL53
     }
 
     // ______________________________

@@ -36,6 +36,7 @@ BUILD_DIR = build
 ######################################
 LIB_STM32 = ../ext/libElectrobotH755
 CPPLIB = ../ext/CppRobLib
+CPPLIBSTM32 = ../ext/CppRobLibSTM32
 
 ######################################
 # source
@@ -81,6 +82,10 @@ $(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Servomoteurs/CServomoteursBase.cpp \
 $(CPPLIB)/Lidar/Lidar_utils.cpp \
 $(CPPLIB)/LedWS2812Uart/ws2812b_uart_base.cpp \
+$(CPPLIB)/VL53L0x/vl53l0x_base.cpp \
+$(CPPLIBSTM32)/Lidar/ydlidar_tminiplus_stm32.cpp \
+$(CPPLIBSTM32)/VL53L0x/vl53l0x.cpp \
+$(CPPLIBSTM32)/VL53L0x/vl53l0xMultiBase.cpp \
 Sources/main_app.cpp \
 Sources/CEEPROM.cpp \
 Sources/CGlobale.cpp \
@@ -90,7 +95,8 @@ Sources/CGlobale_ModePiloteTerminal.cpp \
 Sources/RessourcesHardware.cpp \
 Sources/console_interactive_menu.cpp \
 Sources/CLed.cpp \
-Sources/CTelemetres.cpp \
+Sources/CTelemetres_US_SRF08.cpp \
+Sources/CTelemetres_VL53.cpp \
 Sources/CCodeurs.cpp \
 Sources/CElectrobot.cpp \
 Sources/CCapteurs.cpp \
@@ -106,6 +112,7 @@ Sources/CServoMoteursAX.cpp \
 Sources/CAsservLogger.cpp \
 Sources/CAscenseur.cpp \
 Sources/ws2812b.cpp \
+Sources/vl53l0xMulti.cpp \
 Modelia/ia.cpp \
 Modelia/sm_inputsinterface.cpp \
 Modelia/sm_outputsinterface.cpp \
@@ -149,8 +156,6 @@ $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c \
-$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c \
-$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c \
@@ -235,6 +240,9 @@ C_INCLUDES =  \
 -I$(CPPLIB)/Servomoteurs \
 -I$(CPPLIB)/Lidar \
 -I$(CPPLIB)/LedWS2812Uart \
+-I$(CPPLIB)/VL53L0x \
+-I$(CPPLIBSTM32)/VL53L0x \
+-I$(CPPLIBSTM32)/Lidar \
 -I$(LIB_STM32)/CM7/Core/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc \
 -I$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy \

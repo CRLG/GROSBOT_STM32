@@ -7,7 +7,8 @@ Sources/CGlobale_ModePiloteTerminal.cpp
 Sources/RessourcesHardware.cpp
 Sources/console_interactive_menu.cpp
 Sources/CLed.cpp
-Sources/CTelemetres.cpp
+Sources/CTelemetres_US_SRF08.cpp
+Sources/CTelemetres_VL53.cpp
 Sources/CCodeurs.cpp
 Sources/CElectrobot.cpp
 Sources/CCapteurs.cpp
@@ -23,6 +24,7 @@ Sources/CServoMoteursAX.cpp
 Sources/CAsservLogger.cpp
 Sources/CAscenseur.cpp
 Sources/ws2812b.cpp
+Sources/vl53l0xMulti.cpp
 
 Modelia/ia.cpp
 Modelia/sm_inputsinterface.cpp
@@ -47,7 +49,8 @@ Includes/RessourcesHardware.h
 Includes/console_interactive_menu.h
 Includes/CLed.h
 Includes/ConfigSpecifiqueCoupe.h
-Includes/CTelemetres.h
+Includes/CTelemetres_US_SRF08.h
+Includes/CTelemetres_VL53.h
 Includes/CCodeurs.h
 Includes/CElectrobot.h
 Includes/CCapteurs.h
@@ -63,6 +66,7 @@ Includes/CServoMoteursAX.h
 Includes/CAsservLogger.h
 Includes/CAscenseur.h
 Includes/ws2812b.h
+Includes/vl53l0xMulti.h
 
 Modelia/ia.h
 Modelia/sm_inputsinterface.h
@@ -162,8 +166,15 @@ Modelia/sm_blockly_debutant.h
 ../ext/CppRobLib/LedWS2812Uart/ws2812b_uart_base.cpp
 ../ext/CppRobLib/LedWS2812Uart/ws2812b_uart_base.h
 
+../ext/CppRobLib/VL53L0x/vl53l0x_base.cpp
+../ext/CppRobLib/VL53L0x/vl53l0x_base.h
 
-
+../ext/CppRobLibSTM32/Lidar/ydlidar_tminiplus_stm32.cpp
+../ext/CppRobLibSTM32/Lidar/ydlidar_tminiplus_stm32.h
+../ext/CppRobLibSTM32/VL53L0x/vl53l0x.cpp
+../ext/CppRobLibSTM32/VL53L0x/vl53l0xMultiBase.cpp
+../ext/CppRobLibSTM32/VL53L0x/vl53l0x.h
+../ext/CppRobLibSTM32/VL53L0x/vl53l0xMultiBase.h
 
 ../ext/libElectrobotH755/CM7/Core/Src/main.c
 ../ext/libElectrobotH755/CM7/Core/Src/retarget.c

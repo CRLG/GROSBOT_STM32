@@ -7,7 +7,8 @@
 #include "RessourcesHardware.h"
 #include "CLeds.h"
 #include "CLed.h"
-#include "CTelemetres.h"
+#include "CTelemetres_US_SRF08.h"
+#include "CTelemetres_VL53.h"
 #include "CDetectionObstaclesBase.h"
 #include "CCodeurs.h"
 #include "CElectrobot.h"
@@ -40,6 +41,7 @@ typedef enum {
 #define TEMPO_5msec     (5/PERIODE_TICK)
 #define TEMPO_10msec    (10/PERIODE_TICK)
 #define TEMPO_20msec    (20/PERIODE_TICK)
+#define TEMPO_34msec    (34/PERIODE_TICK)
 #define TEMPO_50msec    (50/PERIODE_TICK)
 #define TEMPO_100msec   (100/PERIODE_TICK)
 #define TEMPO_200msec   (200/PERIODE_TICK)
@@ -81,7 +83,12 @@ public :
     //! Gestion des codeurs de position
     CCodeurs m_codeurs;
     //! Gestion des télémètres
-    CTelemetres m_telemetres;
+#ifdef UTILISATION_TELEMETRES_VL53
+    CTelemetresVL53 m_telemetres;
+#endif // UTILISATION_TELEMETRES_VL53
+#ifdef UTILISATION_TELEMETRES_US_SRF08
+    CTelemetresUS_SRF08 m_telemetres;
+#endif // UTILISATION_TELEMETRES_US_SRF08
     //! Gestion des détections d'obstacles (à priori l'algo de la classe de base suffit).
     CDetectionObstaclesBase m_detection_obstacles;
     //! Gestion Electrobot
@@ -104,8 +111,6 @@ public :
     CAscenseur m_ascenseur;
     //! La gestion Labotbox
     CLaBotBox m_LaBotBox;
-    // Réseau de VL53
-    VL53L0xMulti m_vl53l0x_multi;
     //! Le match à  jouer
     IA m_modelia;
 

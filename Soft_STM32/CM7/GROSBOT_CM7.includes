@@ -21,3 +21,6 @@
 ../ext/CppRobLib/Lidar
 ../ext/CppRobLib/Servomoteurs
 ../ext/CppRobLib/LedWS2812Uart
+../ext/CppRobLib/VL53L0x
+
+../ext/CppRobLibSTM32/VL53L0x

@@ -1,8 +1,8 @@
-/*! \file CTelemetres.cpp
+/*! \file CTelemetresUS_SRF08.cpp
     \brief Classe qui contient les méthodes pour le dialogue avec la capteur ultrason SRF08
 */
 #include "RessourcesHardware.h"
-#include "CTelemetres.h"
+#include "CTelemetres_US_SRF08.h"
 #include "ConfigSpecifiqueCoupe.h"
 #include "CGlobale.h"
 
@@ -13,7 +13,7 @@
    \param --
    \return --
 */
-CTelemetres::CTelemetres() 
+CTelemetresUS_SRF08::CTelemetresUS_SRF08()
 {
 
 }
@@ -25,40 +25,40 @@ CTelemetres::CTelemetres()
    \param --
    \return --
 */
-CTelemetres::~CTelemetres() 
+CTelemetresUS_SRF08::~CTelemetresUS_SRF08()
 {
 
 }
 
 
 //___________________________________________________________________________
-float CTelemetres::getDistanceAVG()
+float CTelemetresUS_SRF08::getDistanceAVG()
 {
     return m_distance[INDEX_TELEMETRE_AVG];
 }
 
-float CTelemetres::getDistanceAVD()
+float CTelemetresUS_SRF08::getDistanceAVD()
 {
     return m_distance[INDEX_TELEMETRE_AVD];
 }
 
-float CTelemetres::getDistanceARG()
+float CTelemetresUS_SRF08::getDistanceARG()
 {
     return m_distance[INDEX_TELEMETRE_ARG];
 }
 
-float CTelemetres::getDistanceARD()
+float CTelemetresUS_SRF08::getDistanceARD()
 {
     return m_distance[INDEX_TELEMETRE_ARD];
 }
 
-float CTelemetres::getDistanceARGCentre()
+float CTelemetresUS_SRF08::getDistanceARGCentre()
 {
     return 1000;  // CDR2025 inhibition forcée des capteurs (valeur non fiable des télémètres analogiques)
     //return m_distance[INDEX_TELEMETRE_ARGCentre];
 }
 
-float CTelemetres::getDistanceARDCentre()
+float CTelemetresUS_SRF08::getDistanceARDCentre()
 {
     return 1000;  // CDR2025 inhibition forcée des capteurs (valeur non fiable des télémètres analogiques)
     //return m_distance[INDEX_TELEMETRE_ARDCentre];
@@ -72,7 +72,7 @@ float CTelemetres::getDistanceARDCentre()
    \param --
    \return --
 */
-void CTelemetres::Config(void)
+bool CTelemetresUS_SRF08::init(void)
 {
     unsigned char i=0;
 
@@ -87,7 +87,7 @@ void CTelemetres::Config(void)
 }
 
 //___________________________________________________________________________
-void CTelemetres::Traitement(void)
+void CTelemetresUS_SRF08::periodicTask(void)
 {
     Traitement_I2C();
     Traitement_Analog();
@@ -107,7 +107,7 @@ void CTelemetres::Traitement(void)
    précédente mesure soit revenu avant de lancer une mesure sur un nouveau capteur.
    Cette méthode permet d'éviter les perturbations mutuelles d'un capteur sur l'autre.
 */
-void CTelemetres::Traitement_I2C(void)
+void CTelemetresUS_SRF08::Traitement_I2C(void)
 {
     static unsigned char tempoBootSRF08 = 0;
     unsigned int ui_tmp=0;
@@ -117,7 +117,7 @@ void CTelemetres::Traitement_I2C(void)
     if (tempoBootSRF08 < 10) {
         tempoBootSRF08++;
         if (tempoBootSRF08 == 7) {  // Une fois booté, on envoie la config au SRF et on laisse un petit temps avant les mesures
-            Config();
+            init();
         }
         return;   // Ne fait pas les mesures durant le temps de boot des SRF08
     }
@@ -161,7 +161,7 @@ void CTelemetres::Traitement_I2C(void)
 #define COEF_TELEMETRE_ULTRASON (3.3 / (18./28.) * 259.183)   // (18./28.) pour compenser le pont diviseur 10k-18k sur la carte
 
 
-void CTelemetres::Traitement_Analog(void)
+void CTelemetresUS_SRF08::Traitement_Analog(void)
 {
     m_distance[INDEX_TELEMETRE_ARGCentre] = MoyenneGlissante_float(Application.m_electrobot.m_b_Eana2 * COEF_TELEMETRE_ULTRASON,
                                                                    m_buff_moy_us_arg_centre,
@@ -181,7 +181,7 @@ void CTelemetres::Traitement_Analog(void)
    \param samplesNumbers le nombre de point pour la moyenne glissante
    \return la valeur moeyennée
 */
-float CTelemetres::MoyenneGlissante_float(float currentVal, float *buf_oldSamples, unsigned int samplesNumbers)
+float CTelemetresUS_SRF08::MoyenneGlissante_float(float currentVal, float *buf_oldSamples, unsigned int samplesNumbers)
 {
     float moy=currentVal;
     int i=0;  // Attention : doit être un "int" et non un "unsigned int" à cause du test de fin dans le "for"
@@ -209,7 +209,7 @@ float CTelemetres::MoyenneGlissante_float(float currentVal, float *buf_oldSample
    \param --
    \return --
 */
-void CTelemetres::WriteRegister(unsigned char add, unsigned char reg, unsigned char val)
+void CTelemetresUS_SRF08::WriteRegister(unsigned char add, unsigned char reg, unsigned char val)
 {
     m_buff[0] = reg;
     m_buff[1] = val;
@@ -219,7 +219,7 @@ void CTelemetres::WriteRegister(unsigned char add, unsigned char reg, unsigned c
 
 // -------------------------------------------------------
 // Séquence à respecter tel décrit dans la spec
-void CTelemetres::ChangeAdresse(unsigned char oldAdd, unsigned char newAdd)
+void CTelemetresUS_SRF08::ChangeAdresse(unsigned char oldAdd, unsigned char newAdd)
 {
     WriteRegister(oldAdd, SRF08_reg_COMMAND, 0xA0);
     WriteRegister(oldAdd, SRF08_reg_COMMAND, 0xAA);

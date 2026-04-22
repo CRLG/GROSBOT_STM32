@@ -1,5 +1,5 @@
-#ifndef _SRF08_H_
-#define _SRF08_H_
+#ifndef _TELEMETRES_US_SRF08_H_
+#define _TELEMETRES_US_SRF08_H_
 
 #include "CTelemetresBase.h"
 
@@ -58,24 +58,25 @@
 
 // -----------------------------
 //! Classe de gestion des options d'exécution passees en ligne de commande
-class CTelemetres : public CTelemetresBase
+class CTelemetresUS_SRF08 : public CTelemetresBase
 {
 public :
-	CTelemetres();
-	~CTelemetres();
+    CTelemetresUS_SRF08();
+    ~CTelemetresUS_SRF08();
 	
     // Ré-implémentation des méthodes virtuelles pures de la classe de base
-    /*virtual*/ float getDistanceAVG();
-    /*virtual*/ float getDistanceAVD();
-    /*virtual*/ float getDistanceARG();
-    /*virtual*/ float getDistanceARD();
-    /*virtual*/ float getDistanceARGCentre();
-    /*virtual*/ float getDistanceARDCentre();
+    /*virtual*/ float getDistanceAVG() override;
+    /*virtual*/ float getDistanceAVD() override;
+    /*virtual*/ float getDistanceARG() override;
+    /*virtual*/ float getDistanceARD() override;
+    /*virtual*/ float getDistanceARGCentre() override;
+    /*virtual*/ float getDistanceARDCentre() override;
 
-	//! Configuration de l'adresse I2C
-	void Config(void);
+    //! Initialisation
+    /*virtual*/ bool init(void) override;
 	//! Traitements
-    void Traitement(void);
+    /*virtual*/ void periodicTask(void) override;
+
     void Traitement_I2C(void);
     void Traitement_Analog(void);
     //! Ecrit une valeur dans un registre du SRF08
