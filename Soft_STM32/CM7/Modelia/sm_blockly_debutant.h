@@ -1,7 +1,6 @@
 /**
  * Generated 17_05_2023 at 17_34
  */
-
 #ifndef SM_BLOCKLY_DEBUTANT_H_
 #define SM_BLOCKLY_DEBUTANT_H_
 
@@ -460,6 +459,23 @@ public :
     void step();
     const char* getName() { return "SM_Tache10"; }
 };
+
+class SM_TachePostMatch : public SM_BlocklyDebutant
+{
+public :
+    SM_TachePostMatch() { }
+    void step();
+    const char* getName() { return "SM_TachePostMatch"; }
+};
+
+class SM_TacheAvantMatch : public SM_BlocklyDebutant
+{
+public :
+    SM_TacheAvantMatch() { }
+    void step();
+    const char* getName() { return "SM_TacheAvantMatch"; }
+};
+
 
 
 #endif // SM_BLOCKLY_DEBUTANT_H_

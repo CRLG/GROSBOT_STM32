@@ -21,6 +21,20 @@ IA::IA()
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_centrale;
     m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_bas_de_pente;
     m_sm_liste[m_state_machine_count++] = &m_sm_assembler_2_etages;
+
+    // Pour Blockly débutant:
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache1;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache2;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache3;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache4;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache5;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache6;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache7;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache8;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache9;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache10;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache_post_match;
+    m_sm_liste[m_state_machine_count++] = &m_sm_tache_avant_match;
 }
 
 // ________________________________________________
