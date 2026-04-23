@@ -11,10 +11,12 @@
 //#define UTILISATION_CHARIOT
 //#define UTILISATION_XBEE
 //#define UTILISATION_ASSERV_LOGGER
-
-// Le choix du type de télémètre, c'est l'un ou l'autre par compilation conditionnelle
+#define UTILISATION_YDLIDAR
+// Le choix du type de télémètre (UTILISATION_TELEMETRES_US_SRF08 ou UTILISATION_TELEMETRES_VL53),
+//      c'est l'un ou l'autre par compilation conditionnelle (!! MAIS PAS LES 2 !!)
 //#define UTILISATION_TELEMETRES_US_SRF08
 #define UTILISATION_TELEMETRES_VL53
+
 
 // Couleur de l'équipe
 #define EQUIPE_BLEU     SM_DatasInterface::EQUIPE_COULEUR_2

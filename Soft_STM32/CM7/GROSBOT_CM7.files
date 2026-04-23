@@ -161,6 +161,10 @@ Modelia/sm_blockly_debutant.h
 ../ext/CppRobLib/ServosAX/servoax_utils.h
 ../ext/CppRobLib/Lidar/Lidar_utils.h
 ../ext/CppRobLib/Lidar/Lidar_utils.cpp
+../ext/CppRobLib/Lidar/lidar_data.cpp
+../ext/CppRobLib/Lidar/lidar_data.h
+../ext/CppRobLib/Lidar/ydlidar_tminiplus_base.cpp
+../ext/CppRobLib/Lidar/ydlidar_tminiplus_base.h
 ../ext/CppRobLib/Servomoteurs/CServomoteursBase.cpp
 ../ext/CppRobLib/Servomoteurs/CServomoteursBase.h
 ../ext/CppRobLib/LedWS2812Uart/ws2812b_uart_base.cpp

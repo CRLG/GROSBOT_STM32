@@ -15,7 +15,8 @@ CGlobale::CGlobale()
       m_led2(LED5_GPIO_Port, LED5_Pin),
       m_led3(LED6_GPIO_Port, LED6_Pin),
       m_led4(LED7_GPIO_Port, LED7_Pin),
-      m_leds(&m_led1, &m_led2, &m_led3, &m_led4)
+      m_leds(&m_led1, &m_led2, &m_led3, &m_led4),
+	  m_ydlidar(&huart6, &hdma_usart6_rx)
 {
     ModeFonctionnement = MODE_PILOTE_TERMINAL;
 }
@@ -74,6 +75,10 @@ void CGlobale::Run(void)
  #ifdef UTILSATION_SERVOS_AX
     m_servos_ax.Init();
  #endif // UTILSATION_SERVOS_AX
+
+#ifdef UTILISATION_YDLIDAR
+    Application.m_ydlidar.init();
+#endif // UTILISATION_YDLIDAR
 
     switch(ModeFonctionnement) {
     case MODE_AUTONOME : 			ModeAutonome();			break;

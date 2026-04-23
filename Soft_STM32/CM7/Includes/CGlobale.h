@@ -27,6 +27,7 @@
 #include "ConfigSpecifiqueCoupe.h"
 #include "ws2812b.h"
 #include "vl53l0xMulti.h"
+#include "ydlidar_tminiplus_stm32.h"
 
 
 typedef enum {
@@ -89,6 +90,8 @@ public :
 #ifdef UTILISATION_TELEMETRES_US_SRF08
     CTelemetresUS_SRF08 m_telemetres;
 #endif // UTILISATION_TELEMETRES_US_SRF08
+    //! Lidar
+    YDLIDAR_TminiPlusSTM32 m_ydlidar;
     //! Gestion des détections d'obstacles (à priori l'algo de la classe de base suffit).
     CDetectionObstaclesBase m_detection_obstacles;
     //! Gestion Electrobot

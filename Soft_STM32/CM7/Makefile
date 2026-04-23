@@ -81,6 +81,8 @@ $(CPPLIB)/ServosAX/servoaxbase.cpp \
 $(CPPLIB)/ServosAX/servoax_utils.cpp \
 $(CPPLIB)/Servomoteurs/CServomoteursBase.cpp \
 $(CPPLIB)/Lidar/Lidar_utils.cpp \
+$(CPPLIB)/Lidar/lidar_data.cpp \
+$(CPPLIB)/Lidar/ydlidar_tminiplus_base.cpp \
 $(CPPLIB)/LedWS2812Uart/ws2812b_uart_base.cpp \
 $(CPPLIB)/VL53L0x/vl53l0x_base.cpp \
 $(CPPLIBSTM32)/Lidar/ydlidar_tminiplus_stm32.cpp \

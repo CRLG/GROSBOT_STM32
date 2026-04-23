@@ -26,6 +26,9 @@ void CGlobale::ModeAutonome(void)
             tick = 0;
             SequenceurModeAutonome();
         }
+#ifdef UTILISATION_YDLIDAR
+        m_ydlidar.check_and_compute_buffers();
+#endif
     }
 }
 

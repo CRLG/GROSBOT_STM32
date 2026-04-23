@@ -7,6 +7,7 @@ extern "C" {
 
 int main_app(void);
 void irq_uart3();
+void irq_dma_uart6();
 
 #ifdef __cplusplus
 }

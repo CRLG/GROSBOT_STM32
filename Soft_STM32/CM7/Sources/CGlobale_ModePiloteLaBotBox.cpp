@@ -21,6 +21,9 @@ void CGlobale::ModePiloteLaBotBox(void)
             tick = 0;
             SequenceurModePiloteLaBotBox();
         }
+#ifdef UTILISATION_YDLIDAR
+        m_ydlidar.check_and_compute_buffers();
+#endif
     }
 }
 
