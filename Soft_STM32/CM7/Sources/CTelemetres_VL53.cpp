@@ -16,7 +16,7 @@
 CTelemetresVL53::CTelemetresVL53()
 : m_vl53(&I2C_HDL_ELECTROBOT)
 {
-
+    m_facteur_converion_unites = (UNITES_MESURE == UNITES_cm)?10:1;
 }
 
 //___________________________________________________________________________
@@ -35,32 +35,32 @@ CTelemetresVL53::~CTelemetresVL53()
 //___________________________________________________________________________
 float CTelemetresVL53::getDistanceAVG()
 {
-    return m_dist_filt[IDX_VL53_AV];
+    return m_dist_filt[IDX_VL53_AVG];
 }
 
 float CTelemetresVL53::getDistanceAVD()
 {
-    return m_dist_filt[IDX_VL53_AV];
+    return m_dist_filt[IDX_VL53_AVD];
 }
 
 float CTelemetresVL53::getDistanceARG()
 {
-    return m_dist_filt[IDX_VL53_AR];
+    return m_dist_filt[IDX_VL53_ARG];
 }
 
 float CTelemetresVL53::getDistanceARD()
 {
-    return m_dist_filt[IDX_VL53_AR];
+    return m_dist_filt[IDX_VL53_ARD];
 }
 
 float CTelemetresVL53::getDistanceARGCentre()
 {
-    return m_dist_filt[IDX_VL53_AR];
+    return 9999.;  // pas de capteur
 }
 
 float CTelemetresVL53::getDistanceARDCentre()
 {
-    return m_dist_filt[IDX_VL53_AR];
+    return 9999.;  // pas de capteur
 }
 
 //___________________________________________________________________________
@@ -82,8 +82,8 @@ void CTelemetresVL53::periodicTask(void)
     m_vl53.read();
     // Filtrage moyenne glissante
     for (int i=0; i<VL53_COUNT; i++) {
-    	unsigned short current_dist = m_vl53.get_last_distance(i);
-    	m_dist_filt[i] = MoyenneGlissante_uint16(current_dist, m_buff_moy_dist_vl53[i], BUFF_SIZE_MOYENNE);
+        float current_dist = m_vl53.get_last_distance(i) / (float)m_facteur_converion_unites;  // conversion [mm] -> [cm] si besoin
+        m_dist_filt[i] = MoyenneGlissante_float(current_dist, m_buff_moy_dist_vl53[i], BUFF_SIZE_MOYENNE);
     }
 }
 
@@ -97,9 +97,9 @@ void CTelemetresVL53::periodicTask(void)
    \param samplesNumbers le nombre de point pour la moyenne glissante
    \return la valeur moeyennée
 */
-unsigned short CTelemetresVL53::MoyenneGlissante_uint16(unsigned short currentVal, unsigned short *buf_oldSamples, unsigned int samplesNumbers)
+float CTelemetresVL53::MoyenneGlissante_float(float currentVal, float *buf_oldSamples, unsigned int samplesNumbers)
 {
-	unsigned short moy=currentVal;
+    float moy=currentVal;
     int i=0;  // Attention : doit être un "int" et non un "unsigned int" à cause du test de fin dans le "for"
 
     // Traite tous les échantillons sauf le 1er (index 0 du tableau) qui est un cas particulier

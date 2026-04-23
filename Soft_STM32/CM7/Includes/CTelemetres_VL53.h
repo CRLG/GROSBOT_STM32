@@ -30,19 +30,28 @@ public :
 
 
     // Filtrage des capteurs US analogiques
-    unsigned short MoyenneGlissante_uint16(unsigned short currentVal, unsigned short *buf_oldSamples, unsigned int samplesNumbers);
+    float MoyenneGlissante_float(float currentVal, float *buf_oldSamples, unsigned int samplesNumbers);
 
 private :
     typedef enum {
-    	IDX_VL53_AV = 0,
-		IDX_VL53_AR
+        IDX_VL53_AVG = 0,
+        IDX_VL53_AVD,
+        IDX_VL53_ARG,
+        IDX_VL53_ARD
     }tAffectationTelemetres;
+
+    typedef enum {
+        UNITES_mm,
+        UNITES_cm
+    }tUnites;
+    const tUnites UNITES_MESURE = UNITES_cm;
+    unsigned int m_facteur_converion_unites;
 
     VL53L0xMulti m_vl53;
 
     static const unsigned short BUFF_SIZE_MOYENNE = 2;
-    unsigned short m_buff_moy_dist_vl53[VL53_COUNT][BUFF_SIZE_MOYENNE];
-    unsigned short m_dist_filt[VL53_COUNT];
+    float m_buff_moy_dist_vl53[VL53_COUNT][BUFF_SIZE_MOYENNE];
+    float m_dist_filt[VL53_COUNT];
 };
 
 #endif

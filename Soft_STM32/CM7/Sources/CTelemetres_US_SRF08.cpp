@@ -84,6 +84,7 @@ bool CTelemetresUS_SRF08::init(void)
     }
     // Initialise la machine d'état
     m_numSRF08 = 0;
+    return true;
 }
 
 //___________________________________________________________________________
