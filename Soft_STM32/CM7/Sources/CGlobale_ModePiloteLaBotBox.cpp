@@ -119,6 +119,9 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
 
         HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
         m_power_electrobot.periodicCall();
+#ifdef UTILISATION_YDLIDAR
+        m_ydlidar.periodicTask();  // diagnostic de présence
+#endif // UTILISATION_YDLIDAR
     }
     // ______________________________
     cpt500msec++;
