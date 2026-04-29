@@ -163,6 +163,11 @@ void IA::step()
 {
     m_inputs_interface.Tirette             = Application.m_capteurs.getTirette();
 
+    if (UTILISATION_LIDAR == LIDAR_INTERNE) {
+        LidarUtils::copy_tab_obstacles(Application.m_lidar.m_obstacles, m_inputs_interface.m_lidar_obstacles);
+        m_inputs_interface.m_lidar_status = Application.m_lidar.is_present() ? LidarUtils::LIDAR_OK : LidarUtils::LIDAR_ERROR;
+    }
+
     //commandes ou traitements venant de LABOTBOX via la trame générique
     switch(m_datas_interface.m_rx_code_cmd)
     {

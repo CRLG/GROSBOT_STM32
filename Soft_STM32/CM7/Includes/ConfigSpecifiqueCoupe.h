@@ -11,17 +11,29 @@
 //#define UTILISATION_CHARIOT
 //#define UTILISATION_XBEE
 //#define UTILISATION_ASSERV_LOGGER
-#define UTILISATION_YDLIDAR
 // Le choix du type de télémètre (UTILISATION_TELEMETRES_US_SRF08 ou UTILISATION_TELEMETRES_VL53),
 //      c'est l'un ou l'autre par compilation conditionnelle (!! MAIS PAS LES 2 !!)
 //#define UTILISATION_TELEMETRES_US_SRF08
 #define UTILISATION_TELEMETRES_VL53
 
+// Permet de configurer l'utilisation du LIDAR :
+// Plusieurs possibilités pour compatibilité :
+//      NO_LIDAR : N'utilise pas les données du LIDAR (ni Lidar connecté en direct sur le CPU, ni en provenance de la RPI)
+//      LIDAR_EXTERNE : Les infos du LIDAR proviennent de l'exterieur via un message Labotbox
+//      LIDAR_INTERNE : Le LIDAR est connecté directement au CPU (YDLIDAR)
+#define NO_LIDAR        (0)
+#define LIDAR_EXTERNE   (1)
+#define LIDAR_INTERNE   (2)
+#define UTILISATION_LIDAR (LIDAR_INTERNE)
+
+#if UTILISATION_LIDAR == LIDAR_INTERNE
+    #define UTILISATION_YDLIDAR     // active le YDLIDAR si c'est le LIDAR interne qui est choisi
+#endif
+
 
 // Couleur de l'équipe
 #define EQUIPE_BLEU     SM_DatasInterface::EQUIPE_COULEUR_2
 #define EQUIPE_JAUNE    SM_DatasInterface::EQUIPE_COULEUR_1
-
 #define PI 3.14159265358979f
 
 // Filtre de confirmation avant de lever le flag obstacleDetecte (pour rentrer en strategie d'evitement d'obstacle)

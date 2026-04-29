@@ -27,7 +27,7 @@ void CGlobale::ModeAutonome(void)
             SequenceurModeAutonome();
         }
 #ifdef UTILISATION_YDLIDAR
-        m_ydlidar.check_and_compute_buffers();
+        m_lidar.check_and_compute_buffers();
 #endif
     }
 }
@@ -153,7 +153,7 @@ void CGlobale::SequenceurModeAutonome(void)
 
         m_power_electrobot.periodicCall();
 #ifdef UTILISATION_YDLIDAR
-        m_ydlidar.periodicTask();  // diagnostic de présence
+        m_lidar.periodicTask();  // diagnostic de présence
 #endif // UTILISATION_YDLIDAR
     }
     // ______________________________

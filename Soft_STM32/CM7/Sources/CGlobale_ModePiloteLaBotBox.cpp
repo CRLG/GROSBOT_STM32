@@ -22,7 +22,7 @@ void CGlobale::ModePiloteLaBotBox(void)
             SequenceurModePiloteLaBotBox();
         }
 #ifdef UTILISATION_YDLIDAR
-        m_ydlidar.check_and_compute_buffers();
+        m_lidar.check_and_compute_buffers();
 #endif
     }
 }
@@ -120,7 +120,7 @@ void CGlobale::SequenceurModePiloteLaBotBox(void)
         HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
         m_power_electrobot.periodicCall();
 #ifdef UTILISATION_YDLIDAR
-        m_ydlidar.periodicTask();  // diagnostic de présence
+        m_lidar.periodicTask();  // diagnostic de présence
 #endif // UTILISATION_YDLIDAR
     }
     // ______________________________

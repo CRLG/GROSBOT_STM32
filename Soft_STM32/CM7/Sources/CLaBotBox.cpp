@@ -815,10 +815,9 @@ void CLaBotBox::CheckReceptionTrame(void)
 */
   }
   // ___________________________
-  //if (m_ETAT_LIDAR.isNewTrame())
-  if (0) // 30/05/2025 : force l'inhibition du LIDAR (juste utilisé pour logger les infos lidar sur la Rasp)
+#if (UTILISATION_LIDAR == LIDAR_EXTERNE)
+  if (m_ETAT_LIDAR.isNewTrame())
   {
-
       LidarUtils::copy_tab_obstacles(m_ETAT_LIDAR.m_obstacles, Application.m_modelia.m_inputs_interface.m_lidar_obstacles);
       Application.m_modelia.m_inputs_interface.m_lidar_status = m_ETAT_LIDAR.m_status;
   }
@@ -830,7 +829,7 @@ void CLaBotBox::CheckReceptionTrame(void)
         Application.m_modelia.m_inputs_interface.m_lidar_status = LidarUtils::LIDAR_DISCONNECTED;
       }
   }
-
+#endif
   // ___________________________
   if (m_RESET_CPU.isNewTrame())
   {

@@ -27,7 +27,7 @@ void irq_uart3()
 // --------------------------------------------------
 void irq_dma_uart6()
 {
-	Application.m_ydlidar.irq_dma();
+	Application.m_lidar.irq_dma();
 }
 
 // =====================================================
