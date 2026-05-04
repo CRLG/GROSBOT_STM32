@@ -19,6 +19,9 @@ void CGlobale::ModePiloteTerminal(void)
             tick = 0;
             SequenceurModePiloteTerminal();
         }
+#ifdef UTILISATION_YDLIDAR
+        m_lidar.check_and_compute_buffers();
+#endif
     }
 }
 
