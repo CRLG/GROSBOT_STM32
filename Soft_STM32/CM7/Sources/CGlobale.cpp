@@ -80,6 +80,8 @@ void CGlobale::Run(void)
     Application.m_lidar.init();
 #endif // UTILISATION_YDLIDAR
 
+    m_telemetres.init();
+
     switch(ModeFonctionnement) {
     case MODE_AUTONOME : 			ModeAutonome();			break;
     case MODE_PILOTE_LABOTBOX : 	ModePiloteLaBotBox();	break;

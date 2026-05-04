@@ -45,7 +45,7 @@ uint8_t VL53L0xMulti::get_i2c_address(uint8_t vl53_index)
 {
     if (vl53_index >= VL53_COUNT) return 0;
 
-    const uint8_t addr[VL53_COUNT] = { 0x46, 0x48, 0x50, 0x52};
+    const uint8_t addr[VL53_COUNT] = { 0x52, 0x50, 0x48, 0x46};
     return addr[vl53_index];
 }
 
