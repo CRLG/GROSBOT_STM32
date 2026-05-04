@@ -122,6 +122,9 @@ void CGlobale::SequenceurModePiloteTerminal(void)
         cpt200msec = 0;
 
         m_power_electrobot.periodicCall();
+#ifdef UTILISATION_YDLIDAR
+        m_lidar.periodicTask();  // diagnostic de présence
+#endif // UTILISATION_YDLIDAR
     }
     // ______________________________
     cpt500msec++;
