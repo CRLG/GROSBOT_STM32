@@ -165,6 +165,8 @@ Modelia/sm_blockly_debutant.h
 ../ext/CppRobLib/Lidar/lidar_data.h
 ../ext/CppRobLib/Lidar/lidar_data_filter_tracker.cpp
 ../ext/CppRobLib/Lidar/lidar_data_filter_tracker.h
+../ext/CppRobLib/Lidar/lidar_data_filter_example.cpp
+../ext/CppRobLib/Lidar/lidar_data_filter_example.h
 ../ext/CppRobLib/Lidar/ydlidar_tminiplus_base.cpp
 ../ext/CppRobLib/Lidar/ydlidar_tminiplus_base.h
 ../ext/CppRobLib/Servomoteurs/CServomoteursBase.cpp

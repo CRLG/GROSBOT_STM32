@@ -237,37 +237,22 @@ void IA::step()
 		float Y_detected=0.;
         float _teta=0.;
 
-        //Reconstitution d'un lidar 360 avec les capteurs US
-        double NeoLidar[2][LidarUtils::NBRE_MAX_OBSTACLES+4];
-        for(int i=0;i<LidarUtils::NBRE_MAX_OBSTACLES;i++)
-        {
-            NeoLidar[0][i]=m_inputs_interface.m_lidar_obstacles[i].distance;
-            NeoLidar[1][i]=m_inputs_interface.m_lidar_obstacles[i].angle-90;
-        }
-        NeoLidar[0][LidarUtils::NBRE_MAX_OBSTACLES]=m_inputs_interface.Telemetre_ARD*10;
-        NeoLidar[1][LidarUtils::NBRE_MAX_OBSTACLES]=-153;
-        /*NeoLidar[0][LidarUtils::NBRE_MAX_OBSTACLES+1]=m_inputs_interface.Telemetre_ARDCentre*10;
-        NeoLidar[1][LidarUtils::NBRE_MAX_OBSTACLES+1]=-171;
-        NeoLidar[0][LidarUtils::NBRE_MAX_OBSTACLES+2]=m_inputs_interface.Telemetre_ARGCentre*10;
-        NeoLidar[1][LidarUtils::NBRE_MAX_OBSTACLES+2]=171;*/
-        NeoLidar[0][LidarUtils::NBRE_MAX_OBSTACLES+1]=LidarUtils::NO_OBSTACLE;
-        NeoLidar[1][LidarUtils::NBRE_MAX_OBSTACLES+1]=-171;
-        NeoLidar[0][LidarUtils::NBRE_MAX_OBSTACLES+2]=LidarUtils::NO_OBSTACLE;
-        NeoLidar[1][LidarUtils::NBRE_MAX_OBSTACLES+2]=171;
-        NeoLidar[0][LidarUtils::NBRE_MAX_OBSTACLES+3]=m_inputs_interface.Telemetre_ARG*10;
-        NeoLidar[1][LidarUtils::NBRE_MAX_OBSTACLES+3]=153;
 
+        //Pour 2026: émulation des capteurs US avec le ydlidar
         //on parcourt l'ensemble des points du Lidar 360
-        for(int i=0;i<(LidarUtils::NBRE_MAX_OBSTACLES+4);i++)
-		{
+        for(int i=0;i<Application.m_lidar.m_filtered_data.m_measures_count; i++)
+        {
+            double distance_detectee = Application.m_lidar.m_filtered_data.m_dist_measures[i];
+            double angle_detectee = Application.m_lidar.m_filtered_data.m_start_angle + i*Application.m_lidar.m_filtered_data.m_angle_step_resolution;
+
             //Si le point est trop lointain on ne traite pas
-            if(NeoLidar[0][i]!=LidarUtils::NO_OBSTACLE)
+            if(distance_detectee!=LidarUtils::NO_OBSTACLE)
             {
                 //angle de l'obstacle par rapport à l'axe du robot (converti en radian)
-                float _Phi=CDetectionObstaclesBase::modulo_pi(M_PI*NeoLidar[1][i]/180);	// [degres signe / -180;+180]
+                float _Phi=CDetectionObstaclesBase::modulo_pi(M_PI*angle_detectee/180);	// [degres signe / -180;+180]
 
                 //distance de l'obstacle
-                int _D=(NeoLidar[0][i])/10;	// [mm] converti en [cm]
+                int _D=(distance_detectee/10);	// [mm] converti en [cm]
                 //angle du robot
                 _teta=m_inputs_interface.angle_robot ;
 
@@ -290,7 +275,7 @@ void IA::step()
                 //# D et Phi sur la trajectoire du robot en excluant les points détectés hors du terrain (plus besoin d'inhiber la détection)
                 if((!isOutOfField) && (_D>0) && (_D<50))
                 {
-                    if (Application.m_detection_obstacles.isObstacleLIDAR(_D, _Phi,35))
+                    if (Application.m_detection_obstacles.isObstacleLIDAR(_D, _Phi,35)) // TODO : 35  -> plutôt SEUIL_DETECTION_LIDAR ?
                     {
                         m_inputs_interface.obstacleDetecte_non_filtre=true;
                         m_datas_interface.nombre_obstacles_presents++;
@@ -309,11 +294,10 @@ void IA::step()
                     }
                 }
             }
-			isOutOfField=false;
-		}
-        m_datas_interface.angle_premier_obstacle_detecte = NeoLidar[1][0];
-        m_datas_interface.distance_premier_obstacle_detecte = m_inputs_interface.m_lidar_obstacles[0].distance;//NeoLidar[0][0];
-		//must have récupérer la position des balises fixes et vérifier le besoin ou non d'un recalage ;-)
+            isOutOfField=false;
+        }
+
+
     }//fin Traitement LIDAR pour évitement
 	//Traitements capteurs US pour évitement
 	else
