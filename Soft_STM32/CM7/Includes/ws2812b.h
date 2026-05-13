@@ -9,7 +9,7 @@ public :
     WS2812b();
 
 protected :
-    static const unsigned int NB_OF_LEDS = 50;     // 16 LED à contrôler
+    static const unsigned int NB_OF_LEDS = 60;     // 16 LED à contrôler
     static const unsigned int BITS_PER_LED = 24;   // 1 LED = 24 bits (1 octet UART utilisé pour coder 1 bit)
     static const unsigned int LED_DMA_BUFFER_SIZE = (NB_OF_LEDS*BITS_PER_LED);
 
