@@ -64,6 +64,7 @@ void WS2812b::compute_bandeau()
 
     // _________________________________________
     case BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA :
+        for (int i=0; i<NB_OF_LEDS; i++) setColor(i, 0);
         setColor(INDEX_LED_BANDEAU_OBSTACLE_AVG, Application.m_modelia.m_inputs_interface.obstacle_AVG==true ? RGBColor::RED : RGBColor::OFF_BLACK);
         setColor(INDEX_LED_BANDEAU_OBSTACLE_AVD, Application.m_modelia.m_inputs_interface.obstacle_AVD==true ? RGBColor::RED : RGBColor::OFF_BLACK);
         setColor(INDEX_LED_BANDEAU_OBSTACLE_ARG, Application.m_modelia.m_inputs_interface.obstacle_ARG==true ? RGBColor::RED : RGBColor::OFF_BLACK);
