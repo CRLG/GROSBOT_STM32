@@ -41,11 +41,11 @@ void SM_Autotest::step()
 
 	// ___________________________
 	case STATE_1 :
-		if (onEntry()) {
-			
-            //TODO: On monte l'ascenseur à la main en attendant que Simulia le gère
-            Application.m_ascenseur.up();
-
+        if (onEntry()) {
+            Application.m_servos.CommandePosition(SERVO_THERESE_1,SERVO_THERESE_RANGEE);
+            Application.m_servos.CommandePosition(SERVO_THERESE_2,SERVO_THERESE_RANGEE);
+            Application.m_servos.CommandePosition(SERVO_THERESE_3,SERVO_THERESE_RANGEE);
+            Application.m_servos.CommandePosition(SERVO_THERESE_4,SERVO_THERESE_RANGEE);
 		}
 
             gotoStateAfter(STATE_2,400);
@@ -54,7 +54,8 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(2,SERVO_PINCE_ARG_OUVERTE,255);/*TODO SERVO_PINCE_ARG values=SERVO_PINCE_ARG_OUVERTE*/
+            Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_D,SERVO_PINCE_NOISETTE_D_REPOS);
+            Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_G,SERVO_PINCE_NOISETTE_G_REPOS);
 		}
 
             gotoStateAfter(STATE_3,400);
@@ -63,16 +64,15 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_3 :
 		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(6,SERVO_PINCE_ARD_OUVERTE,255);/*TODO SERVO_PINCE_ARD values=SERVO_PINCE_ARD_OUVERTE*/
-		}
-
-            gotoStateAfter(STATE_4,400);
+            Application.m_servos.CommandePosition(SERVO_THERMOVE,SERVO_THERMOVE_REPOS);
+        }
+            gotoStateAfter(FIN_MISSION,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_4 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
+            Application.m_servos.CommandePosition(7,2000);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
 		}
 
             gotoStateAfter(STATE_5,400);
