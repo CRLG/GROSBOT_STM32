@@ -76,57 +76,39 @@ typedef enum {
 
 //! cet enumere contient les numeros d'attribution des servos
 typedef enum {
-    SERVO_THERESE_1     = 1,
-    SERVO_THERESE_2        = 2,
-    SERVO_THERESE_3     = 3,
-    SERVO_THERESE_4     = 4,
-    SERVO_PINCE_NOISETTE_D         = 5,
-    SERVO_PINCE_NOISETTE_G         = 6,
-    SERVO_THERMOVE             = 7
+    SERVO_NON_ATTRIBUE          = 1,
+    SERVO_BRAS_THERMO_GAUCHE    = 2,
+    SERVO_PINCE_GAUCHE          = 3,
+    SERVO_NON_ATTRIBUE_2     	= 4,
+    SERVO_BRAS_THERMO_DROIT     = 5,
+    SERVO_NON_ATTRIBUE_3        = 6,
+    SERVO_PINCE_DROIT           = 7
 } eATTRIBUTION_SERVOS;
 
 //!  cet énuméré contient les positions de références des servos
 typedef enum {
-
-    // SERVO THERESE
-    SERVO_THERESE_RANGEE              = 510,
-    SERVO_THERESE_DEPLOYEE              = 2500,
-
-    // SERVO PINCE NOISETTE
-    SERVO_PINCE_NOISETTE_D_REPOS           = 510,
-    SERVO_PINCE_NOISETTE_G_REPOS           = 2500,
-    SERVO_PINCE_NOISETTE_D_FERMEE          = 850,
-    SERVO_PINCE_NOISETTE_G_FERMEE          = 2100,
-    SERVO_PINCE_NOISETTE_D_OUVERTE         = 1500,
-    SERVO_PINCE_NOISETTE_G_OUVERTE         = 1500,
-    
-    // SERVO THERMOVE
-    SERVO_THERMOVE_REPOS              = 510,
-    SERVO_THERMOVE_ACTIF              = 1170,
-
+    // SERVO BRAS THERMOMETRE GAUCHE
+    SERVO_BRAS_THERMO_GAUCHE_RANGE     	= 735,
+    SERVO_BRAS_THERMO_GAUCHE_SORTI      = 1645,
+    // SERVO_PINCE_GAUCHE
+    SERVO_PINCE_GAUCHE_SORTI            = 900,
+    SERVO_PINCE_GAUCHE_SAISIR           = 900,
+    SERVO_PINCE_GAUCHE_RENTRE       	= 2020,
+    // SERVO BRAS THERMOMETRE DROIT
+    SERVO_BRAS_THERMO_DROIT_RANGE     	= 2440,
+    SERVO_BRAS_THERMO_DROIT_SORTI       = 1570,
+	 // SERVO_PINCE_DROIT
+    SERVO_PINCE_DROIT_SORTI             = 2130,
+    SERVO_PINCE_DROIT_SAISIR            = 2130,
+    SERVO_PINCE_DROIT_RENTRE            = 830,
 }eVALUES_SERVOS;
 
 //! cet enumere contient les numeros d'attribution des servos SD20
 typedef enum {
-    SERVO_GROSSE_TAPETTE    = 13,
-	SERVO_POTS=15,
-    SERVO_INCLINE_PLANTE    = 18,
-    SERVO_PINCE_PLANTE      = 19
+
 } eATTRIBUTION_SERVOS_SD20;
 
 typedef enum {
-    POSITION_GROSSE_TAPETTE_LEVE    = 140,
-    POSITION_GROSSE_TAPETTE_BAISSE  = 220,
-    POSITION_GROSSE_TAPETTE_RANGE   = 230,
-
-    POSITION_PINCE_PLANTE_OUVERT    = 200,
-    POSITION_PINCE_PLANTE_FERME     = 80,
-
-    POSITION_INCLINE_PLANTE_LEVE = 180,
-    POSITION_INCLINE_PLANTE_BAISSE = 20,
-
-POSITION_POTS_SORTIS=201,
-POSITION_POTS_RANGES=1
 
 }eVALUES_SERVOS_SD20;
 
@@ -240,12 +222,12 @@ typedef enum {
 
 // Position d'init du robot dans le repère absolue terrain
 #define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (171.5f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (165.0f)
 #define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
 
 #define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (171.5f)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (-PI/2.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (165.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (PI/2.0f)
 
 // Coordonnées dans le repère absolue terrain
 // à partir desquelles il faut interdire la détection d'obstacle
