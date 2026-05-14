@@ -34,6 +34,7 @@ protected :
     unsigned int m_mode_bandeau;
     unsigned int m_old_mode_bandeau;
     unsigned int m_duree_mode_bandeau;
+    unsigned int m_compteur_bandeau;
 public :
     void compute_bandeau();
 
