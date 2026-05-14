@@ -240,11 +240,11 @@ typedef enum {
 
 // Position d'init du robot dans le repère absolue terrain
 #define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (165.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (171.5f)
 #define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
 
 #define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (165.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (171.5f)
 #define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (-PI/2.0f)
 
 // Coordonnées dans le repère absolue terrain
