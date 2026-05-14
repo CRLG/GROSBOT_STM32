@@ -5,13 +5,12 @@
 #include "sm_autotest.h"
 
 #include "sm_debuginterface.h"
-#include "sm_retourzonearrivee.h"
+#include "sm_retourzonedepart.h"
 #include "sm_chasseneige.h"
-#include "sm_deposerbanderole.h"
-#include "sm_deposerpilebordure.h"
-#include "sm_deposerpilecentrale.h"
-#include "sm_deposerpilebasdepente.h"
-#include "sm_assembler2etages.h"
+#include "sm_centre.h"
+#include "sm_curseur.h"
+#include "sm_petitebordure.h"
+#include "sm_grandebordure.h"
 #include "sm_blockly_debutant.h"
 
 class IA : public IABase
@@ -22,12 +21,11 @@ public:
     // States machines
     SM_Autotest                         m_sm_autotest;
     SM_ChasseNeige                      m_sm_chasse_neige;
-    SM_DeposerBanderole                 m_sm_deposer_banderole;
-    SM_DeposerPileBordure               m_sm_deposer_pile_bordure;
-    SM_DeposerPileCentrale              m_sm_deposer_pile_centrale;
-    SM_DeposerPileBasDePente            m_sm_deposer_pile_bas_de_pente;
-    SM_RetourZoneArrivee                m_sm_retour_zone_arrivee;
-    SM_Assembler2Etages                 m_sm_assembler_2_etages;
+    SM_Curseur                          m_sm_curseur;
+    SM_Centre                           m_sm_centre;
+    SM_RetourZoneDepart                 m_sm_retour_zone_depart;
+    SM_GrandeBordure                    m_sm_grande_bordure;
+    SM_PetiteBordure                    m_sm_petite_bordure;
 
     // SM blockly
     SM_Tache1                           m_sm_tache1;

@@ -1,16 +1,16 @@
 /**
- * Built on 20260514_082800
+ * Built on 20260514_185954
  */
 
-#ifndef SM_DEPOSERPILECENTRALE_H
-#define SM_DEPOSERPILECENTRALE_H
+#ifndef SM_CENTRE_H
+#define SM_CENTRE_H
 
 #include "sm_statemachinebase.h"
 
-class SM_DeposerPileCentrale : public SM_StateMachineBase
+class SM_Centre : public SM_StateMachineBase
 {
 public:
-	SM_DeposerPileCentrale();
+	SM_Centre();
 	void step();
 	const char* getName();
 	const char* stateToName(unsigned short state);
@@ -28,4 +28,4 @@ public:
 	}tState;
 };
 
-#endif // SM_DEPOSERPILECENTRALE_H
+#endif // SM_CENTRE_H

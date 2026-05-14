@@ -1,22 +1,22 @@
 /**
-* Built on 20260514_082800
+* Built on 20260514_185954
 */
 
-#include "sm_deposerpilecentrale.h"
+#include "sm_centre.h"
 #include "CGlobale.h"
 
-SM_DeposerPileCentrale::SM_DeposerPileCentrale()
+SM_Centre::SM_Centre()
 {
 	m_main_mission_type = true;
 	m_max_score = 0;
 }
 
-const char* SM_DeposerPileCentrale::getName()
+const char* SM_Centre::getName()
 {
-	return "SM_DeposerPileCentrale";
+	return "SM_Centre";
 }
 
-const char* SM_DeposerPileCentrale::stateToName(unsigned short state)
+const char* SM_Centre::stateToName(unsigned short state)
 {
 	switch(state)
 	{
@@ -34,7 +34,7 @@ const char* SM_DeposerPileCentrale::stateToName(unsigned short state)
 }
 
 // _____________________________________
-void SM_DeposerPileCentrale::step()
+void SM_Centre::step()
 {
 	switch (m_state)
 	{

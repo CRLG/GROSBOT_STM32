@@ -123,13 +123,12 @@ Modelia/sm_outputsinterface.cpp \
 Modelia/sm_datasinterface.cpp \
 Modelia/sm_sequenceur.cpp \
 Modelia/sm_autotest.cpp \
-Modelia/sm_retourzonearrivee.cpp \
+Modelia/sm_retourzonedepart.cpp \
 Modelia/sm_chasseneige.cpp \
-Modelia/sm_deposerbanderole.cpp \
-Modelia/sm_deposerpilebordure.cpp \
-Modelia/sm_deposerpilecentrale.cpp \
-Modelia/sm_deposerpilebasdepente.cpp \
-Modelia/sm_assembler2etages.cpp \
+Modelia/sm_curseur.cpp \
+Modelia/sm_centre.cpp \
+Modelia/sm_petitebordure.cpp \
+Modelia/sm_grandebordure.cpp \
 Modelia/sm_blockly_debutant.cpp
 
 # C sources
