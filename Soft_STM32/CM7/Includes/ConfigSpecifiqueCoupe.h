@@ -13,8 +13,8 @@
 //#define UTILISATION_ASSERV_LOGGER
 // Le choix du type de télémètre (UTILISATION_TELEMETRES_US_SRF08 ou UTILISATION_TELEMETRES_VL53),
 //      c'est l'un ou l'autre par compilation conditionnelle (!! MAIS PAS LES 2 !!)
-//#define UTILISATION_TELEMETRES_US_SRF08
-#define UTILISATION_TELEMETRES_VL53
+#define UTILISATION_TELEMETRES_US_SRF08
+// #define UTILISATION_TELEMETRES_VL53
 
 // Permet de configurer l'utilisation du LIDAR :
 // Plusieurs possibilités pour compatibilité :
@@ -24,7 +24,7 @@
 #define NO_LIDAR        (0)
 #define LIDAR_EXTERNE   (1)
 #define LIDAR_INTERNE   (2)
-#define UTILISATION_LIDAR (LIDAR_INTERNE)
+#define UTILISATION_LIDAR (NO_LIDAR)
 
 #if UTILISATION_LIDAR == LIDAR_INTERNE
     #define UTILISATION_YDLIDAR     // active le YDLIDAR si c'est le LIDAR interne qui est choisi
