@@ -114,6 +114,8 @@ void CGlobale::SequenceurModePiloteTerminal(void)
     cpt100msec++;
     if (cpt100msec >= TEMPO_100msec) {
         cpt100msec = 0;
+
+        m_leds_rgb.compute_bandeau();
     }
 
     // ______________________________
