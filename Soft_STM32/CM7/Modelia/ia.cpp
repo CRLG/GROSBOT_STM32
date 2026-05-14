@@ -87,7 +87,7 @@ void IA::setStrategie(unsigned char strategie)
     case STRATEGIE_HOMOLO1:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(true);
+        Application.m_detection_obstacles.inhibeDetection(false);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
@@ -104,7 +104,7 @@ void IA::setStrategie(unsigned char strategie)
     case STRATEGIE_HOMOLO2:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(true);
+        Application.m_detection_obstacles.inhibeDetection(false);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
@@ -119,7 +119,7 @@ void IA::setStrategie(unsigned char strategie)
     case STRATEGIE_01:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(true);
+        Application.m_detection_obstacles.inhibeDetection(false);
         Application.m_asservissement.CommandeVitesseMouvement(20.,1.5); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.3);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
@@ -135,7 +135,7 @@ void IA::setStrategie(unsigned char strategie)
     case STRATEGIE_PAR_DEFAUT:
     default:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
-        Application.m_detection_obstacles.inhibeDetection(true);
+        Application.m_detection_obstacles.inhibeDetection(false);
         break;
     }
 
@@ -306,7 +306,7 @@ void IA::step()
 
         //    inhibition forcée de la détection d'obstacle
 		if (m_datas_interface.evit_inhibe_obstacle) {
-			Application.m_detection_obstacles.inhibeDetection(true);
+            Application.m_detection_obstacles.inhibeDetection(false);
 		}
 		//    Tient compte de la position du robot sur le terrain pour inhiber les obstacles
 		//      -> Trop proche des bordures -> inhibe la détection
