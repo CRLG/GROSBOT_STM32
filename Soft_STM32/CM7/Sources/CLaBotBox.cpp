@@ -872,7 +872,7 @@ void CLaBotBox::CheckReceptionTrame(void)
        case ASCENSEUR_MONTE :      Application.m_ascenseur.up();     break;
        case ASCENSEUR_STOP :       Application.m_ascenseur.stop();   break;
 
-       case PINCE_ARG_FERMEE :         Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_FERMEE); break;
+       /*case PINCE_ARG_FERMEE :         Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_FERMEE); break;
        case PINCE_ARG_OUVERTE :        Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_OUVERTE); break;
        case PINCE_ARG_INTERMEDIAIRE :  Application.m_servos.CommandePosition(SERVO_PINCE_ARG, SERVO_PINCE_ARG_INTERMEDIAIRE); break;
 
@@ -895,7 +895,7 @@ void CLaBotBox::CheckReceptionTrame(void)
        case CAN_MOVER_INT_ON :         Application.m_servos.CommandePosition(SERVO_CAN_MOVER_INT, SERVO_CAN_MOVER_INT_ON); break;
        case CAN_MOVER_INT_OFF :        Application.m_servos.CommandePosition(SERVO_CAN_MOVER_INT, SERVO_CAN_MOVER_INT_OFF); break;
        case CAN_MOVER_EXT_ON :         Application.m_servos.CommandePosition(SERVO_CAN_MOVER_EXT, SERVO_CAN_MOVER_EXT_ON); break;
-       case CAN_MOVER_EXT_OFF :        Application.m_servos.CommandePosition(SERVO_CAN_MOVER_EXT, SERVO_CAN_MOVER_EXT_OFF); break;
+       case CAN_MOVER_EXT_OFF :        Application.m_servos.CommandePosition(SERVO_CAN_MOVER_EXT, SERVO_CAN_MOVER_EXT_OFF); break;*/
        }
   }
 }

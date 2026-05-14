@@ -44,7 +44,7 @@ void SM_Autotest::step()
 		if (onEntry()) {
 			
             //TODO: On monte l'ascenseur à la main en attendant que Simulia le gère
-            Application.m_ascenseur.up();
+            //Application.m_ascenseur.up();
 
 		}
 
@@ -54,7 +54,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_2 :
 		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(2,SERVO_PINCE_ARG_OUVERTE,255);/*TODO SERVO_PINCE_ARG values=SERVO_PINCE_ARG_OUVERTE*/
+            Application.m_servos.CommandePositionVitesse(SERVO_PINCE_GAUCHE,SERVO_PINCE_GAUCHE_RENTRE,255);/*TODO SERVO_PINCE_ARG values=SERVO_PINCE_ARG_OUVERTE*/
 		}
 
             gotoStateAfter(STATE_3,400);
@@ -63,7 +63,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_3 :
 		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(6,SERVO_PINCE_ARD_OUVERTE,255);/*TODO SERVO_PINCE_ARD values=SERVO_PINCE_ARD_OUVERTE*/
+            Application.m_servos.CommandePositionVitesse(SERVO_PINCE_DROIT,SERVO_PINCE_DROIT_RENTRE,255);/*TODO SERVO_PINCE_ARD values=SERVO_PINCE_ARD_OUVERTE*/
 		}
 
             gotoStateAfter(STATE_4,400);
@@ -72,7 +72,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_4 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(7,2000,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
+            Application.m_servos.CommandePositionVitesse(SERVO_BRAS_THERMO_GAUCHE,SERVO_BRAS_THERMO_GAUCHE_RANGE,255);/*SERVO_VERIN values=VERRIN_POSITION_HAUT*/
 		}
 
             gotoStateAfter(STATE_5,400);
@@ -81,7 +81,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_5 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(1,2350,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS*/
+            Application.m_servos.CommandePositionVitesse(SERVO_BRAS_THERMO_DROIT,SERVO_BRAS_THERMO_DROIT_RANGE,255);/*SERVO_PINCE_PLANCHE values=SERVO_PINCE_PLANCHE_REPOS*/
 		}
 
             gotoStateAfter(STATE_6,400);
@@ -90,7 +90,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_6 :
 		if (onEntry()) {
-			Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
+            //Application.m_servos.CommandePositionVitesse(3,1500,255);/*SERVO_CAN_MOVER_INT values=SERVO_CAN_MOVER_INT_ON*/
 		}
 
             gotoStateAfter(STATE_7,400);
@@ -99,7 +99,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_7 :
 		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(4,SERVO_CAN_MOVER_EXT_ON,255);/*TODO SERVO_CAN_TODO MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
+            //Application.m_servos.CommandePositionVitesse(4,SERVO_CAN_MOVER_EXT_ON,255);/*TODO SERVO_CAN_TODO MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
 		}
 
             gotoStateAfter(STATE_8,400);
@@ -108,7 +108,7 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_8 :
 		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(5,SERVO_BANDEROLE_RANGEE,255);/*TODO SERVO_BANDEROLE values=SERVO_BANDEROLE_RANGEE*/
+            //Application.m_servos.CommandePositionVitesse(5,SERVO_BANDEROLE_RANGEE,255);/*TODO SERVO_BANDEROLE values=SERVO_BANDEROLE_RANGEE*/
 		}
 
             gotoStateAfter(STATE_9,400);
@@ -118,7 +118,7 @@ void SM_Autotest::step()
     // ___________________________
     case STATE_9 :
         if (onEntry()) {
-            Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)SORTIE_ALIMENTATION_LIDAR, true);
+            //Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)SORTIE_ALIMENTATION_LIDAR, true);
         }
 
             gotoStateAfter(FIN_MISSION,400);
