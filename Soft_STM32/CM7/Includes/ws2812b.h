@@ -21,5 +21,20 @@ protected :
     tWS2812BPattern *getPatternBuffer();
     void send_buffer_dma();
 
+    // _______________________________________
+    // Gestion du bandeau de LED
+    typedef enum {
+        BANDEAU_INIT = 0,
+        BANDEAU_BATTERIE_CRITIQUE,
+        BANDEAU_RETOUR_LIDAR,
+        BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA,
+        BANDEAU_AUTOTEST_SYSTEM
+    }tModeBandeau;
+    static const unsigned int PERIODE_APPEL_GESTION_BANDEAU = 100; // msec
+    unsigned int m_mode_bandeau;
+    unsigned int m_old_mode_bandeau;
+    unsigned int m_duree_mode_bandeau;
+public :
+    void compute_bandeau();
 };
 #endif	// _LEDS_WS2812B_H_
