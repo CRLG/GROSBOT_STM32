@@ -76,43 +76,33 @@ typedef enum {
 
 //! cet enumere contient les numeros d'attribution des servos
 typedef enum {
-    SERVO_PINCE_PLANCHE     = 1,
-    SERVO_PINCE_ARG         = 2,
-    SERVO_CAN_MOVER_INT     = 3,
-    SERVO_CAN_MOVER_EXT     = 4,
-    SERVO_BANDEROLE         = 5,
-    SERVO_PINCE_ARD         = 6,
-    SERVO_VERIN             = 7
+    SERVO_THERESE_1     = 1,
+    SERVO_THERESE_2        = 2,
+    SERVO_THERESE_3     = 3,
+    SERVO_THERESE_4     = 4,
+    SERVO_PINCE_NOISETTE_D         = 5,
+    SERVO_PINCE_NOISETTE_G         = 6,
+    SERVO_THERMOVE             = 7
 } eATTRIBUTION_SERVOS;
 
 //!  cet énuméré contient les positions de références des servos
 typedef enum {
-    // SERVO PINCE PLANCHE
-    SERVO_PINCE_PLANCHE_FERMEE          = 2450,    // TODO (à ajuster -> il faudra mettre un peu plus)
-    SERVO_PINCE_PLANCHE_REPOS           = 2350,
-    SERVO_PINCE_PLANCHE_OUVERTE         = 1500,
-    // VERRIN
-    VERRIN_POSITION_HAUT                = 2000,
-    VERRIN_POSITION_INTERMEDIAIRE       = 1590,
-    VERRIN_POSITION_BAS                 = 1150,
-    // SERVO CAN MOVER INT
-    SERVO_CAN_MOVER_INT_ON              = 1500,
-    SERVO_CAN_MOVER_INT_OFF             = 1150,
-    // SERVO CAN MOVER EXT
-    SERVO_CAN_MOVER_EXT_ON              = 1500,
-    SERVO_CAN_MOVER_EXT_OFF             = 1150,
-    // BANDEROLE
-    SERVO_BANDEROLE_DEPLOYEE            = 750,
-    SERVO_BANDEROLE_RANGEE              = 1800,  // à ajuster
-    SERVO_BANDEROLE_POSITION_HORIZONTAL = 2000,
-    // SERVO PINCE ARG
-    SERVO_PINCE_ARG_FERMEE              = 1500,
-    SERVO_PINCE_ARG_INTERMEDIAIRE       = 1300,
-    SERVO_PINCE_ARG_OUVERTE             = 1050,
-    // SERVO PINCE EARD
-    SERVO_PINCE_ARD_FERMEE              = 1500,
-    SERVO_PINCE_ARD_INTERMEDIAIRE       = 1300,
-    SERVO_PINCE_ARD_OUVERTE             = 1050,
+
+    // SERVO THERESE
+    SERVO_THERESE_RANGEE              = 510,
+    SERVO_THERESE_DEPLOYEE              = 2500,
+
+    // SERVO PINCE NOISETTE
+    SERVO_PINCE_NOISETTE_D_REPOS           = 510,
+    SERVO_PINCE_NOISETTE_G_REPOS           = 2500,
+    SERVO_PINCE_NOISETTE_D_FERMEE          = 850,
+    SERVO_PINCE_NOISETTE_G_FERMEE          = 2100,
+    SERVO_PINCE_NOISETTE_D_OUVERTE         = 1500,
+    SERVO_PINCE_NOISETTE_G_OUVERTE         = 1500,
+    
+    // SERVO THERMOVE
+    SERVO_THERMOVE_REPOS              = 510,
+    SERVO_THERMOVE_ACTIF              = 1170,
 
 }eVALUES_SERVOS;
 
@@ -249,12 +239,12 @@ typedef enum {
 #define CDE_MAX_TOUT_DOUX (10)
 
 // Position d'init du robot dans le repère absolue terrain
-#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (117.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (13.0f)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (PI/2.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (165.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
 
-#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (184.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (13.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (165.0f)
 #define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (-PI/2.0f)
 
 // Coordonnées dans le repère absolue terrain
