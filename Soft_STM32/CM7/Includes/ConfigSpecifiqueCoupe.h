@@ -76,6 +76,14 @@ typedef enum {
 
 //! cet enumere contient les numeros d'attribution des servos
 typedef enum {
+    SERVO_PINCE_PLANCHE     = 1,
+    SERVO_PINCE_ARG         = 2,
+    SERVO_CAN_MOVER_INT     = 3,
+    SERVO_CAN_MOVER_EXT     = 4,
+    SERVO_BANDEROLE         = 5,
+    SERVO_PINCE_ARD         = 6,
+    SERVO_VERIN             = 7,
+
     SERVO_THERESE_1     = 1,
     SERVO_THERESE_2        = 2,
     SERVO_THERESE_3     = 3,
@@ -87,6 +95,32 @@ typedef enum {
 
 //!  cet énuméré contient les positions de références des servos
 typedef enum {
+    // SERVO PINCE PLANCHE
+    SERVO_PINCE_PLANCHE_FERMEE          = 2450,    // TODO (à ajuster -> il faudra mettre un peu plus)
+    SERVO_PINCE_PLANCHE_REPOS           = 2350,
+    SERVO_PINCE_PLANCHE_OUVERTE         = 1500,
+    // VERRIN
+    VERRIN_POSITION_HAUT                = 2000,
+    VERRIN_POSITION_INTERMEDIAIRE       = 1590,
+    VERRIN_POSITION_BAS                 = 1150,
+    // SERVO CAN MOVER INT
+    SERVO_CAN_MOVER_INT_ON              = 1500,
+    SERVO_CAN_MOVER_INT_OFF             = 1150,
+    // SERVO CAN MOVER EXT
+    SERVO_CAN_MOVER_EXT_ON              = 1500,
+    SERVO_CAN_MOVER_EXT_OFF             = 1150,
+    // BANDEROLE
+    SERVO_BANDEROLE_DEPLOYEE            = 750,
+    SERVO_BANDEROLE_RANGEE              = 1800,  // à ajuster
+    SERVO_BANDEROLE_POSITION_HORIZONTAL = 2000,
+    // SERVO PINCE ARG
+    SERVO_PINCE_ARG_FERMEE              = 1500,
+    SERVO_PINCE_ARG_INTERMEDIAIRE       = 1300,
+    SERVO_PINCE_ARG_OUVERTE             = 1050,
+    // SERVO PINCE EARD
+    SERVO_PINCE_ARD_FERMEE              = 1500,
+    SERVO_PINCE_ARD_INTERMEDIAIRE       = 1300,
+    SERVO_PINCE_ARD_OUVERTE             = 1050,
 
     // SERVO THERESE
     SERVO_THERESE_RANGEE              = 510,
