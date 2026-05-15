@@ -1,5 +1,5 @@
 /**
- * Built on 20260515_191400
+ * Built on 20260516_012012
  */
 
 #ifndef SM_CENTRE_H
@@ -37,14 +37,6 @@ public:
 	ETAT_19,
 	ETAT_20,
 	ETAT_21,
-	ETAT_22,
-	ETAT_23,
-	ETAT_24,
-	ETAT_25,
-	ETAT_26,
-	ETAT_27,
-	ETAT_28,
-	ETAT_29,
 
 	FIN_MISSION
 	}tState;

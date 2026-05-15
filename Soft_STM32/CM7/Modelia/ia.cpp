@@ -94,6 +94,8 @@ void IA::setStrategie(unsigned char strategie)
         m_datas_interface.evit_nombre_max_tentatives=1;
 
         m_sm_centre.setPrioriteExecution(ordre++);
+        m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
         /*m_sm_curseur.setPrioriteExecution(ordre++);
         m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_petite_bordure.setPrioriteExecution(ordre++);
@@ -112,6 +114,8 @@ void IA::setStrategie(unsigned char strategie)
         m_datas_interface.evit_nombre_max_tentatives=1;
 
         m_sm_centre.setPrioriteExecution(ordre++);
+        m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
         /*m_sm_curseur.setPrioriteExecution(ordre++);
         m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_petite_bordure.setPrioriteExecution(ordre++);
@@ -129,6 +133,8 @@ void IA::setStrategie(unsigned char strategie)
         m_datas_interface.evit_nombre_max_tentatives=1;
 
         m_sm_centre.setPrioriteExecution(ordre++);
+        m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
         /*m_sm_curseur.setPrioriteExecution(ordre++);
         m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_petite_bordure.setPrioriteExecution(ordre++);
@@ -146,6 +152,8 @@ void IA::setStrategie(unsigned char strategie)
         m_datas_interface.evit_nombre_max_tentatives=1;
 
         m_sm_centre.setPrioriteExecution(ordre++);
+        m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
         /*m_sm_curseur.setPrioriteExecution(ordre++);
         m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_petite_bordure.setPrioriteExecution(ordre++);
