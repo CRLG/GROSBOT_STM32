@@ -15,12 +15,11 @@ IA::IA()
 {
     m_sm_liste[m_state_machine_count++] = &m_sm_autotest;
     m_sm_liste[m_state_machine_count++] = &m_sm_chasse_neige;
-    m_sm_liste[m_state_machine_count++] = &m_sm_retour_zone_arrivee;
-    m_sm_liste[m_state_machine_count++] = &m_sm_deposer_banderole;
-    m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_bordure;
-    m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_centrale;
-    m_sm_liste[m_state_machine_count++] = &m_sm_deposer_pile_bas_de_pente;
-    m_sm_liste[m_state_machine_count++] = &m_sm_assembler_2_etages;
+    m_sm_liste[m_state_machine_count++] = &m_sm_centre;
+    m_sm_liste[m_state_machine_count++] = &m_sm_curseur;
+    m_sm_liste[m_state_machine_count++] = &m_sm_retour_zone_depart;
+    m_sm_liste[m_state_machine_count++] = &m_sm_petite_bordure;
+    m_sm_liste[m_state_machine_count++] = &m_sm_grande_bordure;
 
     // Pour Blockly débutant:
     m_sm_liste[m_state_machine_count++] = &m_sm_tache1;
@@ -60,8 +59,8 @@ void IA::init()
 // ________________________________________________
 void IA::match_started()
 {
-    //Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)DECO_LED_CRLG, true);
-    m_outputs_interface.setPosition_XYTeta_sym(0, 0, -M_PI/2); // pour l'année 2025 Teta=PI/2
+    //Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)DECO_LED_CRLG, true);)
+    m_outputs_interface.setPosition_XYTeta_sym(0, 0, -M_PI/2); // pour l'année 2026 Teta=-PI/2
 }
 
 // ________________________________________________
@@ -87,65 +86,70 @@ void IA::setStrategie(unsigned char strategie)
     case STRATEGIE_HOMOLO1:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(false);
+        //Application.m_detection_obstacles.inhibeDetection(true);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
-        /*m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
-        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);*/
+        m_sm_centre.setPrioriteExecution(ordre++);
+        /*m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
+        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
 
         break;
     // ________________________
     case STRATEGIE_HOMOLO2:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(false);
+        //Application.m_detection_obstacles.inhibeDetection(true);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
-        /*m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
-        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);*/
+        m_sm_centre.setPrioriteExecution(ordre++);
+        /*m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
+        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
         break;
     // ________________________
     case STRATEGIE_01:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(false);
+        //Application.m_detection_obstacles.inhibeDetection(true);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
-        /*m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
-        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);*/
+        m_sm_centre.setPrioriteExecution(ordre++);
+        /*m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
+        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
+        break;
     case STRATEGIE_PAR_DEFAUT:
     default:
         m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
         m_datas_interface.evit_inhibe_obstacle=false;
-        Application.m_detection_obstacles.inhibeDetection(false);
+        //Application.m_detection_obstacles.inhibeDetection(true);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
         m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_deposer_pile_centrale.setPrioriteExecution(ordre++);
-        /*m_sm_deposer_pile_bordure.setPrioriteExecution(ordre++);
-        m_sm_deposer_pile_bas_de_pente.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_arrivee.setPrioriteExecution(ordre++);*/
+        m_sm_centre.setPrioriteExecution(ordre++);
+        /*m_sm_curseur.setPrioriteExecution(ordre++);
+        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
+        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
         break;
     }
 
@@ -158,11 +162,12 @@ void IA::setMaxScores()
 {
     // TODO : valeurs des scores max fixées au pif.
     // Mettre les vraies valeurs
-    m_sm_deposer_pile_centrale.setScoreMax(25);
-    m_sm_deposer_banderole.setScoreMax(0);
-    m_sm_deposer_pile_bordure.setScoreMax(4);
+    m_sm_centre.setScoreMax(25);
+    m_sm_curseur.setScoreMax(0);
+    m_sm_retour_zone_depart.setScoreMax(4);
     m_sm_chasse_neige.setScoreMax(0);
-    m_sm_retour_zone_arrivee.setScoreMax(10);
+    m_sm_grande_bordure.setScoreMax(10);
+    m_sm_petite_bordure.setScoreMax(10);
 }
 
 // ________________________________________________
