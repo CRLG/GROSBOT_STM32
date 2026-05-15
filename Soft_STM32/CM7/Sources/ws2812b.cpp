@@ -42,6 +42,7 @@ void WS2812b::compute_bandeau()
     }
     if (m_old_mode_bandeau != m_mode_bandeau) {
         m_duree_mode_bandeau = 0;
+        m_old_mode_bandeau = m_mode_bandeau;
         for (int i=0; i<NB_OF_LEDS; i++) setState(i, 0); // réinit de toutes les LED
     }
 
@@ -54,39 +55,50 @@ void WS2812b::compute_bandeau()
             setColor(m_duree_mode_bandeau+2, RGBColor::RED, 10);
         }
         else {
-            m_mode_bandeau = BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA;
-        }
-        break;
+             if (Application.ModeFonctionnement == MODE_AUTONOME) {
+                 m_mode_bandeau = BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA;
+             }
+             else {
+                 m_mode_bandeau = BANDEAU_INDICATION_MODE_NON_AUTONOME;  // indique que le mode n'est pas le mode autonome
+             }
+         }
+         break;
 
-    // _________________________________________
-    case BANDEAU_RETOUR_LIDAR :
-        break;
+     // _________________________________________
+     case BANDEAU_RETOUR_LIDAR :
+         break;
 
-    // _________________________________________
-    case BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA :
-        for (int i=0; i<NB_OF_LEDS; i++) setColor(i, 0);
-        setColor(INDEX_LED_BANDEAU_OBSTACLE_AVG, Application.m_modelia.m_inputs_interface.obstacle_AVG==true ? RGBColor::RED : RGBColor::OFF_BLACK);
-        setColor(INDEX_LED_BANDEAU_OBSTACLE_AVD, Application.m_modelia.m_inputs_interface.obstacle_AVD==true ? RGBColor::RED : RGBColor::OFF_BLACK);
-        setColor(INDEX_LED_BANDEAU_OBSTACLE_ARG, Application.m_modelia.m_inputs_interface.obstacle_ARG==true ? RGBColor::RED : RGBColor::OFF_BLACK);
-        setColor(INDEX_LED_BANDEAU_OBSTACLE_ARD, Application.m_modelia.m_inputs_interface.obstacle_ARD==true ? RGBColor::RED : RGBColor::OFF_BLACK);
-        break;
+     // _________________________________________
+     case BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA :
+         setColor(INDEX_LED_BANDEAU_OBSTACLE_AVG, Application.m_modelia.m_inputs_interface.obstacle_AVG==true ? RGBColor::RED : RGBColor::OFF_BLACK);
+         setColor(INDEX_LED_BANDEAU_OBSTACLE_AVD, Application.m_modelia.m_inputs_interface.obstacle_AVD==true ? RGBColor::RED : RGBColor::OFF_BLACK);
+         setColor(INDEX_LED_BANDEAU_OBSTACLE_ARG, Application.m_modelia.m_inputs_interface.obstacle_ARG==true ? RGBColor::RED : RGBColor::OFF_BLACK);
+         setColor(INDEX_LED_BANDEAU_OBSTACLE_ARD, Application.m_modelia.m_inputs_interface.obstacle_ARD==true ? RGBColor::RED : RGBColor::OFF_BLACK);
+         break;
 
-    // _________________________________________
-    case BANDEAU_AUTOTEST_SYSTEM :
-        break;
+     // _________________________________________
+     case BANDEAU_INDICATION_MODE_NON_AUTONOME :
+         if (m_duree_mode_bandeau <= (10000/PERIODE_APPEL_GESTION_BANDEAU)) {
+             for (int i=0; i<NB_OF_LEDS; i++) {
+                 configOnOffColor(i, RGBColor::YELLOW, RGBColor::OFF_BLACK, 10);
+                 setPattern(i, 2, 20);
+             }
+         }
+         else {
+             m_mode_bandeau = BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA;
+         }
+         break;
 
+     // _________________________________________
+     case BANDEAU_BATTERIE_CRITIQUE :
+     default :
+         for (int i=0; i<NB_OF_LEDS; i++) {
+             configOnOffColor(i, RGBColor::RED, RGBColor::OFF_BLACK);
+             setPattern(i, (100/PERIODE_APPEL_GESTION_BANDEAU), (10));
+         }
+         break;
 
-    // _________________________________________
-    case BANDEAU_BATTERIE_CRITIQUE :
-    default :
-        for (int i=0; i<NB_OF_LEDS; i++) {
-            configOnOffColor(i, RGBColor::RED, RGBColor::OFF_BLACK);
-            setPattern(i, (100/PERIODE_APPEL_GESTION_BANDEAU), 10);
-        }
-        break;
-
-    }
-    // calcul la durée dans le mode courant
-    m_duree_mode_bandeau++;
-    m_old_mode_bandeau = m_mode_bandeau;
-}
+     }
+     // calcul la durée dans le mode courant
+     m_duree_mode_bandeau++;
+ }

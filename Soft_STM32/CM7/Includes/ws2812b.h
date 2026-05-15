@@ -28,7 +28,7 @@ protected :
         BANDEAU_BATTERIE_CRITIQUE,
         BANDEAU_RETOUR_LIDAR,
         BANDEAU_RETOUR_DETECTION_OBASTACLE_MODELIA,
-        BANDEAU_AUTOTEST_SYSTEM
+        BANDEAU_INDICATION_MODE_NON_AUTONOME
     }tModeBandeau;
     static const unsigned int PERIODE_APPEL_GESTION_BANDEAU = 100; // msec
     unsigned int m_mode_bandeau;
