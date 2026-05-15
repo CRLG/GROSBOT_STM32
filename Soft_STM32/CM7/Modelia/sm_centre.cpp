@@ -1,5 +1,5 @@
 /**
-* Built on 20260515_161809
+* Built on 20260515_191400
 */
 
 #include "sm_centre.h"
@@ -80,11 +80,11 @@ void SM_Centre::step()
   case ETAT_2 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(0 , -20 , 0);
+    	  outputs()->CommandeMouvementXY_TETA_sym(0 , -40 , -1.56992);
 
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergenceRapide(ETAT_3, 1000);
+    	gotoStateIfConvergenceRapide(ETAT_3, 3000);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -132,7 +132,7 @@ void SM_Centre::step()
   case ETAT_6 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(53 , -91 , -3.14002);
+    	  outputs()->CommandeMouvementXY_TETA_sym(57 , -91 , -3.14002);
 
   	}
   	//Transitions vers les autres états
@@ -171,7 +171,7 @@ void SM_Centre::step()
   case ETAT_9 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(110 , -91 , 0);
+    	  outputs()->CommandeMouvementXY_TETA_sym(105 , -91 , 0);
 
   	}
   	//Transitions vers les autres états
@@ -184,7 +184,7 @@ void SM_Centre::step()
   case ETAT_10 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(110 , -122 , 3.14002);
+    	  outputs()->CommandeMouvementXY_TETA_sym(105 , -122 , 3.14002);
 
   	}
   	//Transitions vers les autres états
@@ -210,7 +210,7 @@ void SM_Centre::step()
   case ETAT_12 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(10 , -134 , 3.14002);
+    	  outputs()->CommandeMouvementXY_TETA_sym(-2 , -142 , 3.14002);
 
   	}
   	//Transitions vers les autres états
@@ -223,13 +223,11 @@ void SM_Centre::step()
   case ETAT_13 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-8 , -134 , 3.14002);
-
     	  Application.m_servos.CommandePositionVitesse(5,800,255);
     	  Application.m_servos.CommandePositionVitesse(6,2150,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_14, 7000);
+    	gotoStateIfConvergence(ETAT_14, 1500);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
