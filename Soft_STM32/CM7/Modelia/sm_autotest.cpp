@@ -1,4 +1,4 @@
-0/**
+/**
  * Generated 28_05_2025 at 17_02
  */
 
@@ -42,10 +42,10 @@ void SM_Autotest::step()
 	// ___________________________
 	case STATE_1 :
         if (onEntry()) {
-            Application.m_servos.CommandePosition(SERVO_THERESE_1,SERVO_THERESE_RANGEE);
-            Application.m_servos.CommandePosition(SERVO_THERESE_2,SERVO_THERESE_RANGEE);
-            Application.m_servos.CommandePosition(SERVO_THERESE_3,SERVO_THERESE_RANGEE);
-            Application.m_servos.CommandePosition(SERVO_THERESE_4,SERVO_THERESE_RANGEE);
+            Application.m_servos.CommandePosition(SERVO_THERESE_1,SERVO_THERESE_RANGEE_1);
+            Application.m_servos.CommandePosition(SERVO_THERESE_2,SERVO_THERESE_RANGEE_2);
+            Application.m_servos.CommandePosition(SERVO_THERESE_3,SERVO_THERESE_RANGEE_3);
+            Application.m_servos.CommandePosition(SERVO_THERESE_4,SERVO_THERESE_RANGEE_4);
 		}
 
             gotoStateAfter(STATE_2,400);
@@ -98,18 +98,18 @@ void SM_Autotest::step()
 		break;
 	// ___________________________
 	case STATE_7 :
-		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(4,SERVO_CAN_MOVER_EXT_ON,255);/*TODO SERVO_CAN_TODO MOVER_EXT values=SERVO_CAN_MOVER_EXT_ON*/
-		}
+        if (onEntry()) {
+            break;
+        }
 
             gotoStateAfter(STATE_8,400);
 		if (onExit()) {  }
 		break;
 	// ___________________________
 	case STATE_8 :
-		if (onEntry()) {
-            Application.m_servos.CommandePositionVitesse(5,SERVO_BANDEROLE_RANGEE,255);/*TODO SERVO_BANDEROLE values=SERVO_BANDEROLE_RANGEE*/
-		}
+        if (onEntry()) {
+            break;
+        }
 
             gotoStateAfter(STATE_9,400);
 		if (onExit()) {  }
