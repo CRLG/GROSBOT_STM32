@@ -1,5 +1,5 @@
 /**
-* Built on 20260515_191400
+* Built on 20260516_094558
 */
 
 #include "sm_centre.h"
@@ -49,6 +49,14 @@ const char* SM_Centre::stateToName(unsigned short state)
 		case ETAT_27 :	return "ETAT_27";
 		case ETAT_28 :	return "ETAT_28";
 		case ETAT_29 :	return "ETAT_29";
+		case ETAT_30 :	return "ETAT_30";
+		case ETAT_31 :	return "ETAT_31";
+		case ETAT_32 :	return "ETAT_32";
+		case ETAT_33 :	return "ETAT_33";
+		case ETAT_34 :	return "ETAT_34";
+		case ETAT_35 :	return "ETAT_35";
+		case ETAT_36 :	return "ETAT_36";
+		case ETAT_37 :	return "ETAT_37";
 
 		case FIN_MISSION :	return "FIN_MISSION";
 	}
@@ -158,7 +166,7 @@ void SM_Centre::step()
   case ETAT_8 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(165 , -91 , 0);
+    	  outputs()->CommandeMouvementXY_TETA_sym(155 , -91 , 0);
 
   	}
   	//Transitions vers les autres états
@@ -184,7 +192,7 @@ void SM_Centre::step()
   case ETAT_10 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(105 , -122 , 3.14002);
+    	  outputs()->CommandeMouvementXY_TETA_sym(70 , -91 , -1.57);
 
   	}
   	//Transitions vers les autres états
@@ -210,7 +218,7 @@ void SM_Centre::step()
   case ETAT_12 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-2 , -142 , 3.14002);
+    	  outputs()->CommandeMouvementXY_TETA_sym(68 , -137 , -1.57);
 
   	}
   	//Transitions vers les autres états
@@ -236,7 +244,7 @@ void SM_Centre::step()
   case ETAT_14 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(5 , -93 , 3.14002);
+    	  outputs()->CommandeMouvementXY_TETA_sym(92 , -104 , 0.98);
 
   	}
   	//Transitions vers les autres états
@@ -249,13 +257,11 @@ void SM_Centre::step()
   case ETAT_15 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-12 , -93 , 3.14002);
-
     	  Application.m_servos.CommandePositionVitesse(5,1501,255);
     	  Application.m_servos.CommandePositionVitesse(6,1500,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_16, 7000);
+    	gotoStateAfter(ETAT_16, 500);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -264,10 +270,8 @@ void SM_Centre::step()
   case ETAT_16 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(11 , -93 , 3.14002);
+    	  Application.m_asservissement.CommandeMouvementDistanceAngle(-40 , 0.98);
 
-    	  Application.m_servos.CommandePositionVitesse(5,511,255);
-    	  Application.m_servos.CommandePositionVitesse(6,2500,255);
   	}
   	//Transitions vers les autres états
     	gotoStateIfConvergence(ETAT_17, 7000);
@@ -279,13 +283,11 @@ void SM_Centre::step()
   case ETAT_17 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-17 , -149 , -0.01902);
-
-    	  Application.m_servos.CommandePositionVitesse(5,511,255);
+    	  Application.m_servos.CommandePositionVitesse(5,480,255);
     	  Application.m_servos.CommandePositionVitesse(6,2500,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_18, 7000);
+    	gotoStateIfConvergence(ETAT_18, 500);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -294,9 +296,8 @@ void SM_Centre::step()
   case ETAT_18 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-30 , -149 , -0.01902);
+    	  Application.m_asservissement.CommandeMouvementDistanceAngle(0 , 2.4);
 
-    	  Application.m_servos.CommandePositionVitesse(7,1170,255);
   	}
   	//Transitions vers les autres états
     	gotoStateIfConvergence(ETAT_19, 7000);
@@ -308,9 +309,8 @@ void SM_Centre::step()
   case ETAT_19 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(25 , -149 , -0.01902);
+    	  Application.m_asservissement.CommandeMouvementDistanceAngle(-18 , 2.4);
 
-    	  Application.m_servos.CommandePositionVitesse(7,510,255);
   	}
   	//Transitions vers les autres états
     	gotoStateIfConvergence(ETAT_20, 7000);
@@ -322,9 +322,7 @@ void SM_Centre::step()
   case ETAT_20 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    // Pourquoi ?
-    // Pour pousser les caisse noisettes dans la zone ?
-    	  outputs()->CommandeMouvementXY_TETA_sym(91 , -149 , -0.01902);
+    	  Application.m_asservissement.CommandeMouvementDistanceAngle(0 , 3.141516);
 
   	}
   	//Transitions vers les autres états
@@ -337,11 +335,10 @@ void SM_Centre::step()
   case ETAT_21 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(54 , -149 , -0.00157);
-
+    	  Application.m_servos.CommandePositionVitesse(7,1170,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_22, 7000);
+    	gotoStateIfConvergence(ETAT_22, 1000);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -350,7 +347,7 @@ void SM_Centre::step()
   case ETAT_22 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(12 , -53 , 3.14002);
+    	  Application.m_asservissement.CommandeMouvementDistanceAngle(55 , 3.141516);
 
   	}
   	//Transitions vers les autres états
@@ -363,13 +360,10 @@ void SM_Centre::step()
   case ETAT_23 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-8 , -53 , 3.14002);
-
-    	  Application.m_servos.CommandePositionVitesse(5,850,255);
-    	  Application.m_servos.CommandePositionVitesse(6,2100,255);
+    	  Application.m_servos.CommandePositionVitesse(7,512,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_24, 7000);
+    	gotoStateAfter(ETAT_24, 1500);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -378,7 +372,7 @@ void SM_Centre::step()
   case ETAT_24 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(84 , -53 , 1.56923);
+    	  Application.m_asservissement.CommandeMouvementDistanceAngle(0 , 1.57);
 
   	}
   	//Transitions vers les autres états
@@ -391,10 +385,8 @@ void SM_Centre::step()
   case ETAT_25 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(83 , -44 , 1.56923);
+    	  outputs()->CommandeMouvementXY_TETA_sym(28 , -133 , 3.14);
 
-    	  Application.m_servos.CommandePositionVitesse(5,1500,255);
-    	  Application.m_servos.CommandePositionVitesse(6,1500,255);
   	}
   	//Transitions vers les autres états
     	gotoStateIfConvergence(ETAT_26, 7000);
@@ -406,13 +398,11 @@ void SM_Centre::step()
   case ETAT_26 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(83 , -60 , 1.56923);
-
-    	  Application.m_servos.CommandePositionVitesse(5,511,255);
-    	  Application.m_servos.CommandePositionVitesse(6,2500,255);
+    	  Application.m_servos.CommandePositionVitesse(5,1501,255);
+    	  Application.m_servos.CommandePositionVitesse(6,1500,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_27, 7000);
+    	gotoStateIfConvergence(ETAT_27, 500);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -421,7 +411,7 @@ void SM_Centre::step()
   case ETAT_27 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(36 , -42 , 3.10512);
+    	  outputs()->CommandeMouvementXY_TETA_sym(-10 , -133 , 3.14);
 
   	}
   	//Transitions vers les autres états
@@ -434,11 +424,11 @@ void SM_Centre::step()
   case ETAT_28 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    	  outputs()->CommandeMouvementXY_TETA_sym(-8 , -41 , 1.56923);
-
+    	  Application.m_servos.CommandePositionVitesse(5,800,255);
+    	  Application.m_servos.CommandePositionVitesse(6,2150,255);
   	}
   	//Transitions vers les autres états
-    	gotoStateIfConvergence(ETAT_29, 7000);
+    	gotoStateIfConvergence(ETAT_29, 500);
   	if (onExit()) {
   	  //TODO : pouvoir intégrer des actions en sortie d état
   	}
@@ -447,9 +437,111 @@ void SM_Centre::step()
   case ETAT_29 :
   	if (onEntry()) {
   	  //Actions en entrée de l état
-    // A voir comment optimiser les déplacments amonts
-    // car en testant pas le temps d'arriver ici
-    	  outputs()->CommandeMouvementXY_TETA_sym(-8 , -9 , 1.56923);
+    	  outputs()->CommandeMouvementXY_TETA_sym(-10 , -92 , 3.14);
+
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_30, 7000);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_30 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  Application.m_servos.CommandePositionVitesse(5,1501,255);
+    	  Application.m_servos.CommandePositionVitesse(6,1500,255);
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_31, 500);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_31 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  outputs()->CommandeMouvementXY_TETA_sym(6 , -92 , 3.14);
+
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_32, 7000);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_32 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  Application.m_servos.CommandePositionVitesse(5,480,255);
+    	  Application.m_servos.CommandePositionVitesse(6,2500,255);
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_33, 500);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_33 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  outputs()->CommandeMouvementXY_TETA_sym(7 , -70 , 1.57);
+
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_34, 7000);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_34 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  outputs()->CommandeMouvementXY_TETA_sym(45 , -39 , 3.14);
+
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_35, 7000);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_35 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  outputs()->CommandeMouvementXY_TETA_sym(45 , -39 , 3.14);
+
+  	}
+  	//Transitions vers les autres états
+    	gotoStateAfter(ETAT_36, 23000);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_36 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  outputs()->CommandeMouvementXY_TETA_sym(13 , -39 , 3.14);
+
+  	}
+  	//Transitions vers les autres états
+    	gotoStateIfConvergence(ETAT_37, 7000);
+  	if (onExit()) {
+  	  //TODO : pouvoir intégrer des actions en sortie d état
+  	}
+  	break;
+
+  case ETAT_37 :
+  	if (onEntry()) {
+  	  //Actions en entrée de l état
+    	  outputs()->CommandeMouvementXY_TETA_sym(-6 , -26 , 2.35);
 
   	}
   	//Transitions vers les autres états

@@ -9,7 +9,7 @@
         "y": 1367,
         "fields": {
           "STRAT_NOM": "0",
-          "NOM_SM": "Centre"
+          "NOM_SM": "Curseur"
         },
         "inputs": {
           "DESCR": {
@@ -953,7 +953,7 @@
                                                                                       "type": "math_number",
                                                                                       "id": "q~p(m_q-#=6T(O$d-Um}",
                                                                                       "fields": {
-                                                                                        "NUM": 0.98
+                                                                                        "NUM": -0.98
                                                                                       }
                                                                                     }
                                                                                   }
@@ -1055,7 +1055,7 @@
                                                                                               "type": "math_number",
                                                                                               "id": "O-/Y[g/in6R0]S!}Cq~L",
                                                                                               "fields": {
-                                                                                                "NUM": 2.4
+                                                                                                "NUM": -2.4
                                                                                               }
                                                                                             }
                                                                                           }
@@ -1117,7 +1117,7 @@
                                                                                                   "type": "math_number",
                                                                                                   "id": "Xd|EzVZtM?p7-gy^m7lp",
                                                                                                   "fields": {
-                                                                                                    "NUM": 2.4
+                                                                                                    "NUM": -2.4
                                                                                                   }
                                                                                                 }
                                                                                               }
@@ -1170,7 +1170,7 @@
                                                                                                       "type": "math_number",
                                                                                                       "id": "!^%ua=*cR/ue^=2P]1)e",
                                                                                                       "fields": {
-                                                                                                        "NUM": 3.141516
+                                                                                                        "NUM": -3.141516
                                                                                                       }
                                                                                                     }
                                                                                                   }
@@ -1259,7 +1259,7 @@
                                                                                                               "type": "math_number",
                                                                                                               "id": "V9L^$?U#.bUXnE0+6@lC",
                                                                                                               "fields": {
-                                                                                                                "NUM": 3.141516
+                                                                                                                "NUM": -3.141516
                                                                                                               }
                                                                                                             }
                                                                                                           }
@@ -1357,7 +1357,7 @@
                                                                                                                       "type": "math_number",
                                                                                                                       "id": "2.(K-z$Z8n{k/_vYFNXk",
                                                                                                                       "fields": {
-                                                                                                                        "NUM": 1.57
+                                                                                                                        "NUM": -1.57
                                                                                                                       }
                                                                                                                     }
                                                                                                                   }

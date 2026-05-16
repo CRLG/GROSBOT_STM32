@@ -54,6 +54,7 @@ void IA::init()
     //avant le début du match
     m_datas_interface.m_tx_code_cmd=DMDE_DISTANCE_BALISE;
     m_sm_main.start();
+
 }
 
 // ________________________________________________
@@ -111,7 +112,7 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_centre.setPrioriteExecution(ordre++);
+        m_sm_curseur.setPrioriteExecution(ordre++);
         /*m_sm_curseur.setPrioriteExecution(ordre++);
         m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_petite_bordure.setPrioriteExecution(ordre++);
@@ -128,7 +129,7 @@ void IA::setStrategie(unsigned char strategie)
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_centre.setPrioriteExecution(ordre++);
+        m_sm_petite_bordure.setPrioriteExecution(ordre++);
         /*m_sm_curseur.setPrioriteExecution(ordre++);
         m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
         m_sm_petite_bordure.setPrioriteExecution(ordre++);
