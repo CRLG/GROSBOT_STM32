@@ -66,6 +66,7 @@ void CGlobale::Run(void)
 
     m_asservissement.Ind_perfo = 0.5;
 
+    m_asservissement.setPosition_XYTeta(0, 0, -M_PI/2); // pour l'année 2026 Teta=-PI/2
 
     m_electrobot.Init();
     // Carte PowerElectrobot
