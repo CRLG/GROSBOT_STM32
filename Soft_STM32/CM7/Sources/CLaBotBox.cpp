@@ -868,9 +868,38 @@ void CLaBotBox::CheckReceptionTrame(void)
        switch (m_ACTION_ROBOT.command) {
        case ACTIONNEURS_POSITION_INIT :
            break;
-       case ASCENSEUR_DESCEND :    Application.m_ascenseur.down();   break;
-       case ASCENSEUR_MONTE :      Application.m_ascenseur.up();     break;
-       case ASCENSEUR_STOP :       Application.m_ascenseur.stop();   break;
+       case PINCE_NOISETTE_REPOS :
+           Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_D,SERVO_PINCE_NOISETTE_D_REPOS);
+           Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_G,SERVO_PINCE_NOISETTE_G_REPOS);
+           break;
+       case PINCE_NOISETTE_OUVERTE :
+           Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_D,SERVO_PINCE_NOISETTE_D_OUVERTE);
+           Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_G,SERVO_PINCE_NOISETTE_G_OUVERTE);
+           break;
+       case PINCE_NOISETTE_FERMEE :
+           Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_D,SERVO_PINCE_NOISETTE_D_FERMEE);
+           Application.m_servos.CommandePosition(SERVO_PINCE_NOISETTE_G,SERVO_PINCE_NOISETTE_G_FERMEE);
+           break;
+
+       case THERESE_1_DEPLOYEE :            Application.m_servos.CommandePosition(SERVO_THERESE_1,SERVO_THERESE_DEPLOYEE_1);   break;
+       case THERESE_1_INTERMEDIAIRE :       Application.m_servos.CommandePosition(SERVO_THERESE_1,SERVO_THERESE_INTERMEDIAIRE_1);   break;
+       case THERESE_1_RANGEE :              Application.m_servos.CommandePosition(SERVO_THERESE_1,SERVO_THERESE_RANGEE_1);   break;
+
+       case THERESE_2_DEPLOYEE :            Application.m_servos.CommandePosition(SERVO_THERESE_2,SERVO_THERESE_DEPLOYEE_2);   break;
+       case THERESE_2_INTERMEDIAIRE :       Application.m_servos.CommandePosition(SERVO_THERESE_2,SERVO_THERESE_INTERMEDIAIRE_2);   break;
+       case THERESE_2_RANGEE :              Application.m_servos.CommandePosition(SERVO_THERESE_2,SERVO_THERESE_RANGEE_2);   break;
+
+       case THERESE_3_DEPLOYEE :            Application.m_servos.CommandePosition(SERVO_THERESE_3,SERVO_THERESE_DEPLOYEE_3);   break;
+       case THERESE_3_INTERMEDIAIRE :       Application.m_servos.CommandePosition(SERVO_THERESE_3,SERVO_THERESE_INTERMEDIAIRE_3);   break;
+       case THERESE_3_RANGEE :              Application.m_servos.CommandePosition(SERVO_THERESE_3,SERVO_THERESE_RANGEE_3);   break;
+
+       case THERESE_4_DEPLOYEE :            Application.m_servos.CommandePosition(SERVO_THERESE_4,SERVO_THERESE_DEPLOYEE_4);   break;
+       case THERESE_4_INTERMEDIAIRE :       Application.m_servos.CommandePosition(SERVO_THERESE_4,SERVO_THERESE_INTERMEDIAIRE_4);   break;
+       case THERESE_4_RANGEE :              Application.m_servos.CommandePosition(SERVO_THERESE_4,SERVO_THERESE_RANGEE_4);   break;
+
+
+       case THERMOVE_ACTIF :       Application.m_servos.CommandePosition(SERVO_THERMOVE,SERVO_THERMOVE_ACTIF);   break;
+       case THERMOVE_REPOS :       Application.m_servos.CommandePosition(SERVO_THERMOVE,SERVO_THERMOVE_REPOS);   break;
 
        }
   }
