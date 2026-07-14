@@ -35,3 +35,8 @@
 build*/
 
 *.creator.user
+
+# Documentation Markdown locale (CLAUDE.md, notes, rapports) - non versionnee.
+# NB : README.md deja suivi reste suivi (gitignore n'affecte pas les fichiers traques) ;
+# ajouter un .md a versionner necessite alors "git add -f".
+*.md
