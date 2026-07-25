@@ -86,9 +86,14 @@ Y_init_2_bot1=172.5
 Y_init_2_bot2=20
 background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
 geometry=@Rect(70 64 1850 1016)
-; 0=TEST, 1=VISU, 2=SIMU. La demonstration exige SIMU : c'est la logique robot du plugin
-; (librobotlogic_*.so) qui pilote le simulateur, donc ce que le hot-reload fait changer.
-mode_visu=2
+; 0=TEST, 1=VISU, 2=SIMU. TEST est le POINT DE DEPART de la demonstration, qui parcourt
+; ensuite les trois modes : TEST (construction de la strategie par double-clic, envoyee a
+; BlockBotLab), puis VISU (execution de la strategie en HIL depuis BlockBotLab), puis SIMU
+; (compilation de la logique robot et execution depuis Simulia, avec hot-reload).
+; En TEST, penser a cocher "setSequence" dans SimuBot : c'est cette case qui arme l'envoi
+; de la position vers BlockBotLab au double-clic (non memorisee en EEPROM, elle n'est
+; activable qu'en mode TEST).
+mode_visu=0
 niveau_trace=4294967295
 use_2_bots=false
 visible=true
