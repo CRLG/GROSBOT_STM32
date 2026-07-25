@@ -85,7 +85,10 @@ Y_init_1_bot2=20
 Y_init_2_bot1=172.5
 Y_init_2_bot2=20
 background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
-geometry=@Rect(70 64 1850 1016)
+; Colonne DROITE, pleine hauteur : SimuBot et BlockBotLab sont cote a cote, sans recouvrement,
+; car la demonstration fait de nombreux allers-retours entre l'edition de la strategie et
+; l'observation du robot. Reglage pour un ecran 1920x1080.
+geometry=@Rect(935 64 985 1016)
 ; 0=TEST, 1=VISU, 2=SIMU. TEST est le POINT DE DEPART de la demonstration, qui parcourt
 ; ensuite les trois modes : TEST (construction de la strategie par double-clic, envoyee a
 ; BlockBotLab), puis VISU (execution de la strategie en HIL depuis BlockBotLab), puis SIMU
@@ -114,7 +117,8 @@ blockbot_port=8080
 clean_cache_directory=~/.local/share/Simulia/QtWebEngine
 config_specifique_coupe_path=../Soft_STM32/CM7/Includes/ConfigSpecifiqueCoupe.h
 generated_pathfilename=../Soft_STM32/CM7/Modelia
-geometry=@Rect(70 64 1850 1016)
+; Colonne GAUCHE, pleine hauteur, face a SimuBot (cf. commentaire de sa geometrie).
+geometry=@Rect(0 64 930 1016)
 http_server_port=3001
 launch_and_program_command=make install -j4 -C ../Soft_STM32/CM7/
 niveau_trace=4294967295
@@ -129,6 +133,10 @@ auto_reload_simulia=true
 background_color=@Variant(\0\0\0\x43\x1\xff\xff\xf0\xf0\xf0\xf0\xf0\xf0\0\0)
 choix_strategie=1
 couleur_equipe=0
+; Fenetre de commande, utilisee ponctuellement (lancer la strategie, choisir une lib dans la
+; combobox "Logique robot") : elle flotte au-dessus du coin haut-droit de SimuBot, a remonter
+; au moment de s'en servir. Ne pas la retrecir : son IHM est en positionnement absolu
+; (550x546 a la conception), tout format inferieur rogne son contenu au lieu de le reagencer.
 geometry=@Rect(1291 65 623 560)
 niveau_trace=4294967295
 origine_donnees_detection_obstacle=2
