@@ -117,6 +117,7 @@ Sources/CAsservLogger.cpp \
 Sources/CAscenseur.cpp \
 Sources/ws2812b.cpp \
 Sources/vl53l0xMulti.cpp \
+Sources/mongoose_app.cpp \
 Modelia/ia.cpp \
 Modelia/sm_inputsinterface.cpp \
 Modelia/sm_outputsinterface.cpp \
@@ -163,7 +164,12 @@ $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c \
 $(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c \
-$(LIB_STM32)/Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c  
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c \
+$(LIB_STM32)/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c \
+$(LIB_STM32)/Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c \
+$(CPPLIB)/mongoose-ethernet/mongoose.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -224,7 +230,6 @@ C_DEFS =  \
 
 # AS includes
 AS_INCLUDES = 
-
 # C includes
 C_INCLUDES =  \
 -IIncludes \
@@ -244,6 +249,7 @@ C_INCLUDES =  \
 -I$(CPPLIB)/Lidar \
 -I$(CPPLIB)/LedWS2812Uart \
 -I$(CPPLIB)/VL53L0x \
+-I$(CPPLIB)/mongoose-ethernet \
 -I$(CPPLIBSTM32)/VL53L0x \
 -I$(CPPLIBSTM32)/Lidar \
 -I$(LIB_STM32)/CM7/Core/Inc \
