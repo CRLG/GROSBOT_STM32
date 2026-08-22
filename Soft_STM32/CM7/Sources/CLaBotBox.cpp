@@ -4,6 +4,7 @@
 #include "CLaBotBox.h"
 #include "RessourcesHardware.h"
 #include "CGlobale.h"
+#include "mongoose_app.h"
 
 //___________________________________________________________________________
  /*!
@@ -1187,7 +1188,12 @@ void CLaBotBox::SerialiseTrame(tStructTrameLaBotBox *trameBrute)
       buff[i++] = trameBrute->Data[j];
   }
   buff[i++] = getCheckSumTrame(trameBrute);
+#ifdef ECHANGES_LABOTBOX_PAR_RS232
   HAL_UART_Transmit(&huart3, buff, trame_len, 200);
+#endif
+#ifdef ECHANGES_LABOTBOX_PAR_ETHERNET
+  send_tcp_buffer(buff,  trame_len);
+#endif
 }
 
 

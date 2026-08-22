@@ -2,6 +2,7 @@
     \brief Classe qui contient toute l'application pour le mode de fonctionnement pilote via Anaconbot
 */
 #include "CGlobale.h"
+#include "mongoose_app.h"
 
 //___________________________________________________________________________
 /*!
@@ -21,6 +22,10 @@ void CGlobale::ModePiloteLaBotBox(void)
             tick = 0;
             SequenceurModePiloteLaBotBox();
         }
+#ifdef UTILISATION_ETHERNET
+        mongoose_poll();
+#endif
+
 #ifdef UTILISATION_YDLIDAR
         m_lidar.check_and_compute_buffers();
 #endif

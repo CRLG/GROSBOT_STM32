@@ -30,6 +30,13 @@
     #define UTILISATION_YDLIDAR     // active le YDLIDAR si c'est le LIDAR interne qui est choisi
 #endif
 
+// Interface de communication pour les échanges Labotbox
+#define ECHANGES_LABOTBOX_PAR_ETHERNET
+//#define ECHANGES_LABOTBOX_PAR_RS232
+
+#ifdef ECHANGES_LABOTBOX_PAR_ETHERNET
+#define UTILISATION_ETHERNET
+#endif
 
 // Couleur de l'équipe
 #define EQUIPE_BLEU     SM_DatasInterface::EQUIPE_COULEUR_2

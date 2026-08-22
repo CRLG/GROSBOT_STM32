@@ -9,6 +9,9 @@ int main_app(void);
 void irq_uart3();
 void irq_dma_uart6();
 
+void receive_tcp_buffer(unsigned char *buff, size_t size);
+
+
 #ifdef __cplusplus
 }
 #endif

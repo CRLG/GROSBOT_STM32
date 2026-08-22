@@ -2,6 +2,8 @@
     \brief Classe qui contient toute l'application
 */
 #include "CGlobale.h"
+#include "mongoose_app.h"
+#include "mongoose.h"
 
 //___________________________________________________________________________
 /*!
@@ -79,6 +81,11 @@ void CGlobale::Run(void)
 #ifdef UTILISATION_YDLIDAR
     Application.m_lidar.init();
 #endif // UTILISATION_YDLIDAR
+
+    // Active l'Ethernet
+#ifdef UTILISATION_ETHERNET
+    mongoose_init(MG_LL_DEBUG);//MG_LL_DEBUG
+#endif
 
     m_telemetres.init();
 
