@@ -31,8 +31,8 @@
 #endif
 
 // Interface de communication pour les échanges Labotbox
-#define ECHANGES_LABOTBOX_PAR_ETHERNET
-//#define ECHANGES_LABOTBOX_PAR_RS232
+//#define ECHANGES_LABOTBOX_PAR_ETHERNET
+#define ECHANGES_LABOTBOX_PAR_RS232
 
 #ifdef ECHANGES_LABOTBOX_PAR_ETHERNET
 #define UTILISATION_ETHERNET
