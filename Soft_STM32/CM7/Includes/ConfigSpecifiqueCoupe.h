@@ -46,6 +46,12 @@
 // Filtre de confirmation avant de lever le flag obstacleDetecte (pour rentrer en strategie d'evitement d'obstacle)
 // La valeur du define correspond a un nombre de passage dans la boucle dans laquelle est calculee l'info
 #define FILTRE_CONFIRMATION_OBSTACLE_DETECTE (3)
+// Filtre de confirmation avant de faire retomber le flag obstacleDetecte : l'obstacle doit etre absent
+// pendant ce nombre de passages consecutifs. Cote lidar, 10 passages a 50 Hz = 200 ms couvrent un scan
+// manque a 5 Hz et plus (une tache intermittente faisait sinon clignoter l'entree en evitement).
+// Cote capteurs US : 0, soit un comportement strictement identique a celui d'avant l'atelier.
+#define FILTRE_DISPARITION_OBSTACLE_LIDAR (10)
+#define FILTRE_DISPARITION_OBSTACLE_US (0)
 // Affectation des numéros de stratégie
 typedef enum {
     STRATEGIE_PAR_DEFAUT= 0,
@@ -230,6 +236,9 @@ typedef enum {
 //Seuil de détection des capteurs US et du Lidar
 #define SEUIL_DETECTION_US  30
 #define SEUIL_DETECTION_LIDAR 50
+// Demi-largeur du couloir de detection lidar [cm] : un point n'est retenu que si son ecart lateral a
+// l'axe du robot est inferieur a ce seuil (valeur auparavant ecrite en dur dans ia.cpp)
+#define SEUIL_DETECTION_LIDAR_TRANSVERSE 35
 
 
 //! Période d'appel du modèle

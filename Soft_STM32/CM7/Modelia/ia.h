@@ -48,6 +48,12 @@ public:
 
     void setStrategie(unsigned char strategie);
     void setMaxScores();
+
+private :
+    // Detection d'obstacle lidar (emulation des 4 capteurs US), un point a la fois
+    void traiterPointLidar(double distance_detectee, double angle_detectee, float sens_reference);
+    // Sens de deplacement de reference pour la detection lidar (+1 avant, -1 arriere)
+    float calculerSensReferenceDetection();
 };
 
 #endif // IA_H

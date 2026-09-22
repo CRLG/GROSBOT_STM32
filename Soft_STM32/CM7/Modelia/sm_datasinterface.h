@@ -27,9 +27,10 @@ public:
 
     // Detection d'obstacle
     unsigned char nombre_obstacles_presents;
-    signed short angle_premier_obstacle_detecte;
-    unsigned short distance_premier_obstacle_detecte;
+    signed short angle_premier_obstacle_detecte;    // [degres] signe, + a gauche
+    unsigned short distance_premier_obstacle_detecte; // [mm], LidarUtils::NO_OBSTACLE si aucun
     unsigned int cpt_filtrage_obstacle_detecte;
+    unsigned int cpt_filtrage_disparition_obstacle; // passages consecutifs sans obstacle
 
     // Stratégie d'évitement d'obstacles
     bool evitementEnCours;
@@ -43,6 +44,7 @@ public:
     bool evit_memo_force_obstacle;
     int evit_memo_choix_strategie;
     float evit_sens_avant_detection;
+    float evit_dernier_sens_franc;  // dernier sens de deplacement franc (+1/-1), pour la detection a l'arret
     unsigned char evit_nombre_tentatives;
     unsigned char evit_nombre_max_tentatives;
     unsigned short evit_detection_obstacle_bitfield;

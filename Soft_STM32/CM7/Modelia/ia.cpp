@@ -248,6 +248,10 @@ void IA::step()
     m_datas_interface.angle_premier_obstacle_detecte = 0;
     m_datas_interface.distance_premier_obstacle_detecte = LidarUtils::NO_OBSTACLE;
 
+    // Sens de référence (avant/arrière) de la détection lidar, calculé à chaque pas pour que le
+    // dernier sens de mouvement franc reste à jour même quand le lidar est absent
+    const float sens_reference_detection = calculerSensReferenceDetection();
+
 	//Traitements Lidar pour évitement
     if(m_inputs_interface.m_lidar_status==LidarUtils::LIDAR_OK)
 	{
@@ -255,72 +259,56 @@ void IA::step()
 
         //récupération de données utiles pour l'évitement
         m_inputs_interface.obstacleDetecte_non_filtre=false;
-        bool isOutOfField=false;
-		float X_detected=0.;
-		float Y_detected=0.;
-        float _teta=0.;
 
+        // Les drapeaux de quadrant et le champ de bits sont remis à zéro à chaque pas, puis CUMULÉS
+        // sur tous les points détectés (étape 0 de l'atelier évitement 2027). Auparavant ils
+        // n'étaient écrits qu'en cas de détection : le champ de bits restait collé à la première
+        // détection, si bien qu'EVITEMENT_INIT_CHOICE ne voyait jamais la voie se libérer ; et chaque
+        // point écrasait le quadrant du précédent au lieu de s'y ajouter.
+        m_inputs_interface.obstacle_AVG = false;
+        m_inputs_interface.obstacle_AVD = false;
+        m_inputs_interface.obstacle_ARG = false;
+        m_inputs_interface.obstacle_ARD = false;
 
-        //Pour 2026: émulation des capteurs US avec le ydlidar
-        //on parcourt l'ensemble des points du Lidar 360
-        for(int i=0;i<Application.m_lidar.m_filtered_data.m_measures_count; i++)
+        // Source des points : la plus riche disponible, choisie à l'exécution.
+        //  - lidar interne (YDLIDAR sur le CPU) : le balayage filtré complet ;
+        //  - lidar externe (RPI via LaBotBox) ou lidar simulé (Simulia) : pas de balayage, seulement
+        //    la liste des obstacles les plus proches, déjà filtrée en amont.
+        // Un choix à la compilation (UTILISATION_LIDAR) ne conviendrait pas : la logique robot
+        // compilée pour Simulia partage ConfigSpecifiqueCoupe.h avec le firmware, et son balayage
+        // est toujours vide. Auparavant seule la première source existait : l'évitement lidar ne se
+        // déclenchait jamais en lidar externe ni en simulation.
+        const CLidarData &balayage = Application.m_lidar.m_filtered_data;
+        if (balayage.m_measures_count > 0)
         {
-            double distance_detectee = Application.m_lidar.m_filtered_data.m_dist_measures[i];
-            double angle_detectee = Application.m_lidar.m_filtered_data.m_start_angle + i*Application.m_lidar.m_filtered_data.m_angle_step_resolution;
-
-            //Si le point est trop lointain on ne traite pas
-            if(distance_detectee!=LidarUtils::NO_OBSTACLE)
+            //Pour 2026: émulation des capteurs US avec le ydlidar
+            //on parcourt l'ensemble des points du Lidar 360
+            const int nombre_points = (balayage.m_measures_count < CLidarData::MAX_MEASURES_COUNT) ?
+                                       balayage.m_measures_count : CLidarData::MAX_MEASURES_COUNT;
+            for(int i=0;i<nombre_points; i++)
             {
-                //angle de l'obstacle par rapport à l'axe du robot (converti en radian)
-                float _Phi=CDetectionObstaclesBase::modulo_pi(M_PI*angle_detectee/180);	// [degres signe / -180;+180]
-
-                //distance de l'obstacle
-                int _D=(distance_detectee/10);	// [mm] converti en [cm]
-                //angle du robot
-                _teta=m_inputs_interface.angle_robot ;
-
-                //#	coordonnées en X,Y des points détectés
-                if (m_datas_interface.couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1)
-                {
-                    X_detected = m_inputs_interface.X_robot_terrain+ _D*cos(_teta+_Phi);
-                    Y_detected = m_inputs_interface.Y_robot_terrain+ _D*sin(_teta+_Phi);
-                }
-                else
-                {
-                    X_detected = m_inputs_interface.X_robot_terrain+ _D*cos(_teta+_Phi+M_PI);
-                    Y_detected = m_inputs_interface.Y_robot_terrain+ _D*sin(_teta+_Phi+M_PI);
-                }
-
-
-                //est-ce que le point détecté par le lidar est hors du terrain
-                isOutOfField=((X_detected<=10.) || (X_detected>=290.) || (Y_detected<=10.) || (Y_detected>=190.));
-
-                //# D et Phi sur la trajectoire du robot en excluant les points détectés hors du terrain (plus besoin d'inhiber la détection)
-                if((!isOutOfField) && (_D>0) && (_D<50))
-                {
-                    if (Application.m_detection_obstacles.isObstacleLIDAR(_D, _Phi,35)) // TODO : 35  -> plutôt SEUIL_DETECTION_LIDAR ?
-                    {
-                        m_inputs_interface.obstacleDetecte_non_filtre=true;
-                        m_datas_interface.nombre_obstacles_presents++;
-                        m_inputs_interface.obstacle_AVG= ((_Phi<=(M_PI/2)) && (_Phi>=0));
-                        m_inputs_interface.obstacle_AVD= ((_Phi>=(-M_PI/2)) && (_Phi<0));
-                        m_inputs_interface.obstacle_ARG= ((_Phi>(M_PI/2))&&(_Phi<=(M_PI)));
-                        m_inputs_interface.obstacle_ARD= ((_Phi<(-M_PI/2))&&(_Phi>(-M_PI)));
-
-                        //afin de réutiliser l'évitement existant
-                        // Permet de reconstituer une valeur entre 0 et 15 représentant toutes les situations de blocage
-                        m_datas_interface.evit_detection_obstacle_bitfield =
-                                (m_inputs_interface.obstacle_ARG << 3) |
-                                (m_inputs_interface.obstacle_ARD << 2) |
-                                (m_inputs_interface.obstacle_AVG << 1) |
-                                (m_inputs_interface.obstacle_AVD << 0);
-                    }
-                }
+                double distance_detectee = balayage.m_dist_measures[i];
+                double angle_detectee = balayage.m_start_angle + i*balayage.m_angle_step_resolution;
+                traiterPointLidar(distance_detectee, angle_detectee, sens_reference_detection);
             }
-            isOutOfField=false;
+        }
+        else
+        {
+            for (int i=0; i<LidarUtils::NBRE_MAX_OBSTACLES; i++)
+            {
+                traiterPointLidar(m_inputs_interface.m_lidar_obstacles[i].distance,
+                                  m_inputs_interface.m_lidar_obstacles[i].angle,
+                                  sens_reference_detection);
+            }
         }
 
-
+        //afin de réutiliser l'évitement existant
+        // Permet de reconstituer une valeur entre 0 et 15 représentant toutes les situations de blocage
+        m_datas_interface.evit_detection_obstacle_bitfield =
+                (m_inputs_interface.obstacle_ARG << 3) |
+                (m_inputs_interface.obstacle_ARD << 2) |
+                (m_inputs_interface.obstacle_AVG << 1) |
+                (m_inputs_interface.obstacle_AVD << 0);
     }//fin Traitement LIDAR pour évitement
 	//Traitements capteurs US pour évitement
 	else
@@ -415,12 +403,27 @@ void IA::step()
 
     // filtrage de l'info obstacleDetecte_non_filtre utilise pour passer en evitement d'obstacle
     //   -> filtre de confirmation de detection => filtrage a l'apparition de l'obstacle
-    //                                          => pas de filtrage de confirmation pour la disparition
+    //   -> filtre de confirmation de disparition => l'obstacle doit etre absent pendant
+    //      FILTRE_DISPARITION_OBSTACLE_LIDAR (ou _US) passages consecutifs avant de retomber.
+    //      Etape 0 de l'atelier evitement 2027 : a 50 Hz, un scan lidar manque couvre 6 passages, et
+    //      une tache intermittente faisait clignoter l'entree en evitement. Seuil nul cote capteurs
+    //      US, donc comportement strictement identique a l'existant sur cette chaine.
     if (m_inputs_interface.obstacleDetecte_non_filtre) {
         if (m_datas_interface.cpt_filtrage_obstacle_detecte < UINT32_MAX) m_datas_interface.cpt_filtrage_obstacle_detecte++;
+        m_datas_interface.cpt_filtrage_disparition_obstacle = 0;
     }
-    else m_datas_interface.cpt_filtrage_obstacle_detecte = 0;
-    m_inputs_interface.obstacleDetecte = (m_datas_interface.cpt_filtrage_obstacle_detecte >  FILTRE_CONFIRMATION_OBSTACLE_DETECTE);
+    else {
+        m_datas_interface.cpt_filtrage_obstacle_detecte = 0;
+        if (m_datas_interface.cpt_filtrage_disparition_obstacle < UINT32_MAX) m_datas_interface.cpt_filtrage_disparition_obstacle++;
+    }
+    const unsigned int filtre_disparition = (m_inputs_interface.m_lidar_status == LidarUtils::LIDAR_OK) ?
+                                            FILTRE_DISPARITION_OBSTACLE_LIDAR : FILTRE_DISPARITION_OBSTACLE_US;
+    if (m_datas_interface.cpt_filtrage_obstacle_detecte > FILTRE_CONFIRMATION_OBSTACLE_DETECTE) {
+        m_inputs_interface.obstacleDetecte = true;
+    }
+    else if (m_datas_interface.cpt_filtrage_disparition_obstacle > filtre_disparition) {
+        m_inputs_interface.obstacleDetecte = false;
+    }
 
 
     stepAllStateMachines();
@@ -428,3 +431,102 @@ void IA::step()
 
 
 
+
+// ________________________________________________
+/*!
+ * \brief Traite un point lidar pour la détection d'obstacle (émulation des 4 capteurs US)
+ * \param distance_detectee distance du point [mm], LidarUtils::NO_OBSTACLE si pas de mesure
+ * \param angle_detectee angle du point par rapport à l'axe du robot [degrés]
+ * \param sens_reference sens de déplacement de référence : >0 marche avant, <0 marche arrière
+ *
+ * Les drapeaux obstacle_AVG/AVD/ARG/ARD sont CUMULÉS (OU logique) d'un point à l'autre :
+ * l'appelant les remet à zéro avant le premier point et reconstitue le champ de bits après
+ * le dernier.
+ */
+void IA::traiterPointLidar(double distance_detectee, double angle_detectee, float sens_reference)
+{
+    //Si le point est trop lointain on ne traite pas
+    if(distance_detectee!=LidarUtils::NO_OBSTACLE)
+    {
+        //angle de l'obstacle par rapport à l'axe du robot (converti en radian)
+        float _Phi=CDetectionObstaclesBase::modulo_pi(M_PI*angle_detectee/180);	// [degres signe / -180;+180]
+
+        //distance de l'obstacle
+        int _D=(distance_detectee/10);	// [mm] converti en [cm]
+        //angle du robot
+        float _teta=m_inputs_interface.angle_robot ;
+        float X_detected=0.;
+        float Y_detected=0.;
+
+        //#	coordonnées en X,Y des points détectés
+        if (m_datas_interface.couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1)
+        {
+            X_detected = m_inputs_interface.X_robot_terrain+ _D*cos(_teta+_Phi);
+            Y_detected = m_inputs_interface.Y_robot_terrain+ _D*sin(_teta+_Phi);
+        }
+        else
+        {
+            X_detected = m_inputs_interface.X_robot_terrain+ _D*cos(_teta+_Phi+M_PI);
+            Y_detected = m_inputs_interface.Y_robot_terrain+ _D*sin(_teta+_Phi+M_PI);
+        }
+
+
+        //est-ce que le point détecté par le lidar est hors du terrain
+        bool isOutOfField=((X_detected<=10.) || (X_detected>=290.) || (Y_detected<=10.) || (Y_detected>=190.));
+
+        //# D et Phi sur la trajectoire du robot en excluant les points détectés hors du terrain (plus besoin d'inhiber la détection)
+        if((!isOutOfField) && (_D>0) && (_D<SEUIL_DETECTION_LIDAR))
+        {
+            // Couloir de demi-largeur SEUIL_DETECTION_LIDAR_TRANSVERSE, du seul côté où l'on se déplace
+            if (Application.m_detection_obstacles.isObstacleLIDARDansSens(_D, _Phi, SEUIL_DETECTION_LIDAR_TRANSVERSE, sens_reference))
+            {
+                m_inputs_interface.obstacleDetecte_non_filtre=true;
+                m_datas_interface.nombre_obstacles_presents++;
+                // Cumul : un point ne doit pas effacer le quadrant d'un point précédent
+                m_inputs_interface.obstacle_AVG |= ((_Phi<=(M_PI/2)) && (_Phi>=0));
+                m_inputs_interface.obstacle_AVD |= ((_Phi>=(-M_PI/2)) && (_Phi<0));
+                m_inputs_interface.obstacle_ARG |= ((_Phi>(M_PI/2))&&(_Phi<=(M_PI)));
+                m_inputs_interface.obstacle_ARD |= ((_Phi<(-M_PI/2))&&(_Phi>(-M_PI)));
+
+                // Obstacle détecté le plus proche, publié en télémétrie dans la trame
+                // ETAT_DETECTION_EVITEMENT_OBSTACLE (ces deux champs restaient jusqu'ici vides)
+                if (distance_detectee < m_datas_interface.distance_premier_obstacle_detecte) {
+                    m_datas_interface.distance_premier_obstacle_detecte = (unsigned short)distance_detectee;       // [mm]
+                    m_datas_interface.angle_premier_obstacle_detecte = (signed short)roundf(_Phi*180.0f/M_PI);   // [degrés]
+                }
+            }
+        }
+    }
+}
+
+// ________________________________________________
+/*!
+ * \brief Sens de déplacement de référence pour la détection lidar : +1 marche avant, -1 arrière
+ *
+ * getSensDeplacement() rend le signe de l'erreur de distance de l'asservissement : il vaut
+ * toujours +1 ou -1, jamais 0, et robot arrêté il ne traduit que le signe d'un résidu. Tant que
+ * la détection testait sens>0 pour l'avant comme pour l'arrière, cela passait inaperçu ; une fois
+ * l'arrière corrigé (sens<0), un robot arrêté face à l'adversaire pourrait ne plus le voir une
+ * fois sur deux, et sortir de l'évitement alors que la voie est toujours bouchée. D'où :
+ *  - pendant un évitement : le sens mémorisé à son entrée (evit_sens_avant_detection), celui
+ *    dans lequel on veut repartir -- le freinage, avec son éventuel dépassement de consigne, ne
+ *    doit pas le retourner ;
+ *  - hors évitement, en mouvement franc (erreur de distance au-delà du seuil de convergence) :
+ *    le sens courant, qui est alors mémorisé ;
+ *  - hors évitement, à l'arrêt : le dernier sens de mouvement franc.
+ */
+float IA::calculerSensReferenceDetection()
+{
+    const float sens_courant = Application.m_asservissement.getSensDeplacement();
+    const bool mouvement_franc = fabsf(Application.m_asservissement.erreur_distance)
+                                 > Application.m_asservissement.seuil_conv_distance;
+
+    if (m_datas_interface.evitementEnCours) {
+        return m_datas_interface.evit_sens_avant_detection;
+    }
+    if (mouvement_franc) {
+        m_datas_interface.evit_dernier_sens_franc = sens_courant;
+        return sens_courant;
+    }
+    return m_datas_interface.evit_dernier_sens_franc;
+}
