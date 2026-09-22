@@ -175,6 +175,8 @@ Modelia/sm_blockly_debutant.h
 ../ext/CppRobLib/VL53L0x/vl53l0x_base.cpp
 ../ext/CppRobLib/VL53L0x/vl53l0x_base.h
 
+../ext/CppRobLib/mongoose-ethernet/mongoose.c
+
 ../ext/CppRobLibSTM32/Lidar/ydlidar_tminiplus_stm32.cpp
 ../ext/CppRobLibSTM32/Lidar/ydlidar_tminiplus_stm32.h
 ../ext/CppRobLibSTM32/VL53L0x/vl53l0x.cpp

@@ -13,21 +13,34 @@ uint8_t uart_irq_rxbuff[1];
 void irq_uart3()
 {
     HAL_UART_Receive_IT(&huart3, uart_irq_rxbuff, 1);
-    if (Application.ModeFonctionnement == MODE_AUTONOME) {
+    if (Application.ModeFonctionnement == MODE_PILOTE_TERMINAL) {
+            Application.ReceiveRS232_ModePiloteTerminal(uart_irq_rxbuff[0]);
+    }
+#ifdef ECHANGES_LABOTBOX_PAR_RS232
+    else  if (Application.ModeFonctionnement == MODE_AUTONOME) {
         Application.m_LaBotBox.Reconstitution(uart_irq_rxbuff[0]);
     }
     else if (Application.ModeFonctionnement == MODE_PILOTE_LABOTBOX) {
         Application.m_LaBotBox.Reconstitution(uart_irq_rxbuff[0]);
     }
-    else if (Application.ModeFonctionnement == MODE_PILOTE_TERMINAL) {
-        Application.ReceiveRS232_ModePiloteTerminal(uart_irq_rxbuff[0]);
-    }
+#endif
 }
 
 // --------------------------------------------------
 void irq_dma_uart6()
 {
 	Application.m_lidar.irq_dma();
+}
+
+// --------------------------------------------------
+void receive_tcp_buffer(unsigned char *buff, size_t size)
+{
+#ifdef ECHANGES_LABOTBOX_PAR_ETHERNET
+	for (unsigned int i=0; i<size; i++) {
+		Application.m_LaBotBox.Reconstitution(buff[i]);
+	}
+#endif
+	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 }
 
 // =====================================================

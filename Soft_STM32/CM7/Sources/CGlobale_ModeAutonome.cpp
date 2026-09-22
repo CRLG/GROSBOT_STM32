@@ -3,6 +3,7 @@
 */
 #include "CGlobale.h"
 #include <stdio.h>
+#include "mongoose_app.h"
 //#include "ConfigSpecifiqueCoupe.h"
 
 
@@ -26,6 +27,10 @@ void CGlobale::ModeAutonome(void)
             tick = 0;
             SequenceurModeAutonome();
         }
+#ifdef UTILISATION_ETHERNET
+        mongoose_poll();
+#endif
+
 #ifdef UTILISATION_YDLIDAR
         m_lidar.check_and_compute_buffers();
 #endif
