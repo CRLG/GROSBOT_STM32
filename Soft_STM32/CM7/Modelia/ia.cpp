@@ -281,9 +281,11 @@ void IA::step()
         // balayage brut était parcouru : l'évitement lidar ne se déclenchait jamais en lidar externe
         // ni en simulation.
         // Les objets marqués douteux par le facteur de forme sont traités ICI COMME LES AUTRES : à
-        // ce stade la chaîne ne fait que de la proximité, et un objet « trop large pour sa distance »
-        // (deux robots côte à côte, un élément de jeu) est justement quelque chose de proche devant
-        // quoi il faut s'arrêter. C'est la couche tactique qui exploitera la distinction.
+        // ce stade la chaîne ne fait que de la proximité, et un objet qui ne ressemble à aucun mât
+        // balise est justement quelque chose devant quoi il faut s'arrêter. Le cas qui tranche est
+        // l'homologation : l'arbitre éprouve l'évitement en poussant un robot factice, et le lidar
+        // voit alors le mât ET une partie de son bras -- l'ensemble ne respecte aucun facteur de
+        // forme. C'est la couche tactique qui exploitera la distinction.
         const CLidarBlobs &objets = Application.m_lidar.blobs();
         if (objets.m_count > 0)
         {
