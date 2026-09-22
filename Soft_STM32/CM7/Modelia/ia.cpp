@@ -41,6 +41,8 @@ IA::IA()
 void IA::init()
 {
     m_inputs_interface.TE_Modele = PERIODE_APPEL_MODELIA;
+    m_date_ms = 0;
+    m_obstacle_tracker.init();
     m_datas_interface.init();
     m_inputs_interface.init();
     m_outputs_interface.init();
@@ -185,6 +187,10 @@ void IA::setMaxScores()
 // ou si le modèle ne peut pas utiliser directement Application.m_xxxxx.yyyy
 void IA::step()
 {
+    // Date interne du modele : le lidar tourne a ~8 Hz et le modele a 50 Hz, le suivi temporel a
+    // besoin de savoir quand chaque tour de balayage lui est parvenu.
+    m_date_ms += (unsigned long)(PERIODE_APPEL_MODELIA * 1000.f);
+
     m_inputs_interface.Tirette             = Application.m_capteurs.getTirette();
 
     if (UTILISATION_LIDAR == LIDAR_INTERNE) {
@@ -286,24 +292,67 @@ void IA::step()
         // l'homologation : l'arbitre éprouve l'évitement en poussant un robot factice, et le lidar
         // voit alors le mât ET une partie de son bras -- l'ensemble ne respecte aucun facteur de
         // forme. C'est la couche tactique qui exploitera la distinction.
-        const CLidarBlobs &objets = Application.m_lidar.blobs();
-        if (objets.m_count > 0)
+        CLidarBlobs observations;
+        if (Application.m_lidar.blobs().m_count > 0)
         {
-            //Pour 2026: émulation des capteurs US avec le ydlidar
-            for(int i=0;i<objets.m_count; i++)
-            {
-                traiterPointLidar(objets.m_blobs[i].distance_mm, objets.m_blobs[i].angle_deg,
-                                  sens_reference_detection);
-            }
+            observations = Application.m_lidar.blobs();
         }
         else
         {
+            // lidar externe : pas de filtre local, donc pas de largeur angulaire ni de verdict de
+            // forme. Les obstacles sont repris tels quels, sans doute attache.
             for (int i=0; i<LidarUtils::NBRE_MAX_OBSTACLES; i++)
             {
-                traiterPointLidar(m_inputs_interface.m_lidar_obstacles[i].distance,
-                                  m_inputs_interface.m_lidar_obstacles[i].angle,
-                                  sens_reference_detection);
+                if (m_inputs_interface.m_lidar_obstacles[i].distance == LidarUtils::NO_OBSTACLE) continue;
+                observations.append((float)m_inputs_interface.m_lidar_obstacles[i].angle,
+                                    (float)m_inputs_interface.m_lidar_obstacles[i].distance,
+                                    0.f, false);
             }
+        }
+
+        //Pour 2026: émulation des capteurs US avec le ydlidar
+        for(int i=0;i<observations.m_count; i++)
+        {
+            traiterPointLidar(observations.m_blobs[i].distance_mm, observations.m_blobs[i].angle_deg,
+                              sens_reference_detection);
+        }
+
+        // ---- Couche 2 : suivi temporel des objets, en repère terrain.
+        // Un tour de balayage nourrit le suivi ; entre deux tours, les pistes sont simplement
+        // avancées de leur vitesse. Sans ce découpage, le même balayage serait pris pour une
+        // nouvelle mesure à chaque pas de modèle et toutes les vitesses seraient nulles.
+        if (Application.m_lidar.is_new_scan())
+        {
+            Application.m_lidar.consume_scan();
+            m_datas_interface.evit_age_scan_ms = 0;
+            m_obstacle_tracker.nouveauScan(observations,
+                                           m_inputs_interface.X_robot_terrain,
+                                           m_inputs_interface.Y_robot_terrain,
+                                           capTerrainRobot(),
+                                           m_date_ms);
+        }
+        else
+        {
+            m_obstacle_tracker.extrapoler(m_date_ms);
+            const unsigned long age = (unsigned long)m_datas_interface.evit_age_scan_ms
+                                    + (unsigned long)(PERIODE_APPEL_MODELIA * 1000.f);
+            m_datas_interface.evit_age_scan_ms = (age > 60000UL) ? 60000 : (unsigned short)age;
+        }
+
+        // Indicateurs du suivi, pour le réglage et la télémétrie
+        m_datas_interface.evit_nb_pistes = (unsigned char)m_obstacle_tracker.count();
+        const tObstacleTrack *piste = m_obstacle_tracker.plusProche(m_inputs_interface.X_robot_terrain,
+                                                                   m_inputs_interface.Y_robot_terrain);
+        if (piste) {
+            m_datas_interface.evit_piste_proche_X_cm = piste->X_cm;
+            m_datas_interface.evit_piste_proche_Y_cm = piste->Y_cm;
+            m_datas_interface.evit_piste_proche_V_cms = sqrtf(piste->Vx_cms*piste->Vx_cms
+                                                            + piste->Vy_cms*piste->Vy_cms);
+            m_datas_interface.evit_piste_proche_statique = piste->statique;
+        }
+        else {
+            m_datas_interface.evit_piste_proche_V_cms = 0.f;
+            m_datas_interface.evit_piste_proche_statique = false;
         }
 
         //afin de réutiliser l'évitement existant
@@ -457,22 +506,12 @@ void IA::traiterPointLidar(double distance_detectee, double angle_detectee, floa
 
         //distance de l'obstacle
         int _D=(distance_detectee/10);	// [mm] converti en [cm]
-        //angle du robot
-        float _teta=m_inputs_interface.angle_robot ;
-        float X_detected=0.;
-        float Y_detected=0.;
+        //angle du robot dans le repère terrain (une seule convention, cf. capTerrainRobot())
+        float _teta=capTerrainRobot();
 
         //#	coordonnées en X,Y des points détectés
-        if (m_datas_interface.couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1)
-        {
-            X_detected = m_inputs_interface.X_robot_terrain+ _D*cos(_teta+_Phi);
-            Y_detected = m_inputs_interface.Y_robot_terrain+ _D*sin(_teta+_Phi);
-        }
-        else
-        {
-            X_detected = m_inputs_interface.X_robot_terrain+ _D*cos(_teta+_Phi+M_PI);
-            Y_detected = m_inputs_interface.Y_robot_terrain+ _D*sin(_teta+_Phi+M_PI);
-        }
+        float X_detected = m_inputs_interface.X_robot_terrain + _D*cos(_teta+_Phi);
+        float Y_detected = m_inputs_interface.Y_robot_terrain + _D*sin(_teta+_Phi);
 
 
         //est-ce que le point détecté par le lidar est hors du terrain
@@ -533,4 +572,24 @@ float IA::calculerSensReferenceDetection()
         return sens_courant;
     }
     return m_datas_interface.evit_dernier_sens_franc;
+}
+
+// ________________________________________________
+/*!
+ * \brief Cap du robot dans le repère TERRAIN [rad], pour projeter un point vu par le lidar
+ *
+ * Les coordonnées terrain se déduisent de celles de l'asservissement par une translation
+ * (couleur 1) ou par une symétrie centrale (couleur 2) : le cap du robot dans le repère terrain
+ * vaut donc angle_robot, ou angle_robot + PI.
+ *
+ * ATTENTION : angle_robot_terrain n'est PAS ce cap. C'est le cap RELATIF AU DÉPART
+ * (angle_robot - ANGLE_ROBOT_TERRAIN_INIT, soit 90 degrés d'écart cette année) ; s'en servir pour
+ * projeter un point ferait pivoter d'un quart de tour tout ce que voit le lidar.
+ */
+float IA::capTerrainRobot()
+{
+    if (m_datas_interface.couleur_equipe == SM_DatasInterface::EQUIPE_COULEUR_1) {
+        return m_inputs_interface.angle_robot;
+    }
+    return m_inputs_interface.angle_robot + (float)M_PI;
 }

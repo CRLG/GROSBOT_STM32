@@ -1,6 +1,7 @@
 #ifndef IA_H
 #define IA_H
 
+#include "CObstacleTracker.h"
 #include "iabase.h"
 #include "sm_autotest.h"
 
@@ -49,11 +50,19 @@ public:
     void setStrategie(unsigned char strategie);
     void setMaxScores();
 
+    //! Couche 2 de l'evitement : suivi temporel des objets vus par le lidar, en repere terrain
+    CObstacleTracker m_obstacle_tracker;
+
 private :
+    //! Date interne du modele [ms], incrementee d'un pas a chaque appel de step()
+    unsigned long m_date_ms;
+
     // Detection d'obstacle lidar (emulation des 4 capteurs US), un point a la fois
     void traiterPointLidar(double distance_detectee, double angle_detectee, float sens_reference);
     // Sens de deplacement de reference pour la detection lidar (+1 avant, -1 arriere)
     float calculerSensReferenceDetection();
+    // Cap du robot dans le repere TERRAIN [rad], pour projeter un point vu par le lidar
+    float capTerrainRobot();
 };
 
 #endif // IA_H

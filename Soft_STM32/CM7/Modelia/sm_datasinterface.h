@@ -32,6 +32,14 @@ public:
     unsigned int cpt_filtrage_obstacle_detecte;
     unsigned int cpt_filtrage_disparition_obstacle; // passages consecutifs sans obstacle
 
+    // Suivi temporel des objets (couche 2) : indicateurs publies pour le reglage et la telemetrie
+    unsigned char evit_nb_pistes;            // pistes vivantes
+    unsigned short evit_age_scan_ms;         // fraicheur du dernier tour de balayage [ms]
+    float evit_piste_proche_X_cm;            // piste la plus proche du robot, repere terrain
+    float evit_piste_proche_Y_cm;
+    float evit_piste_proche_V_cms;           // norme de sa vitesse
+    bool evit_piste_proche_statique;
+
     // Stratégie d'évitement d'obstacles
     bool evitementEnCours;
     bool evit_inhibe_obstacle;

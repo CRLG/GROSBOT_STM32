@@ -31,6 +31,12 @@ void SM_DatasInterface::init()
     evit_comportement_retour_evitement  = SM_Sequenceur::RETOUR_EVIT_REPRENDS_MISSION_INTERROMPUE;
     cpt_filtrage_obstacle_detecte       = 0;
     cpt_filtrage_disparition_obstacle   = 0;
+    evit_nb_pistes                      = 0;
+    evit_age_scan_ms                    = 0;
+    evit_piste_proche_X_cm              = 0;
+    evit_piste_proche_Y_cm              = 0;
+    evit_piste_proche_V_cms             = 0;
+    evit_piste_proche_statique          = false;
     evit_sens_avant_detection           = 1;
     evit_dernier_sens_franc             = 1;
 
