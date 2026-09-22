@@ -9,6 +9,7 @@
 #include "CGlobale.h"
 #include "ConfigSpecifiqueCoupe.h"
 #include "math.h"
+#include "lidar_blob.h"
 
 IA::IA()
     : IABase()
@@ -271,25 +272,26 @@ void IA::step()
         m_inputs_interface.obstacle_ARD = false;
 
         // Source des points : la plus riche disponible, choisie à l'exécution.
-        //  - lidar interne (YDLIDAR sur le CPU) : le balayage filtré complet ;
-        //  - lidar externe (RPI via LaBotBox) ou lidar simulé (Simulia) : pas de balayage, seulement
-        //    la liste des obstacles les plus proches, déjà filtrée en amont.
+        //  - lidar interne (YDLIDAR sur le CPU) ou lidar simulé (Simulia) : les objets découpés par
+        //    le filtre, avec leur largeur angulaire ;
+        //  - lidar externe (RPI via LaBotBox) : pas de filtre local, seulement la liste des
+        //    obstacles les plus proches, déjà filtrée en amont.
         // Un choix à la compilation (UTILISATION_LIDAR) ne conviendrait pas : la logique robot
-        // compilée pour Simulia partage ConfigSpecifiqueCoupe.h avec le firmware, et son balayage
-        // est toujours vide. Auparavant seule la première source existait : l'évitement lidar ne se
-        // déclenchait jamais en lidar externe ni en simulation.
-        const CLidarData &balayage = Application.m_lidar.m_filtered_data;
-        if (balayage.m_measures_count > 0)
+        // compilée pour Simulia partage ConfigSpecifiqueCoupe.h avec le firmware. Auparavant seul le
+        // balayage brut était parcouru : l'évitement lidar ne se déclenchait jamais en lidar externe
+        // ni en simulation.
+        // Les objets marqués douteux par le facteur de forme sont traités ICI COMME LES AUTRES : à
+        // ce stade la chaîne ne fait que de la proximité, et un objet « trop large pour sa distance »
+        // (deux robots côte à côte, un élément de jeu) est justement quelque chose de proche devant
+        // quoi il faut s'arrêter. C'est la couche tactique qui exploitera la distinction.
+        const CLidarBlobs &objets = Application.m_lidar.blobs();
+        if (objets.m_count > 0)
         {
             //Pour 2026: émulation des capteurs US avec le ydlidar
-            //on parcourt l'ensemble des points du Lidar 360
-            const int nombre_points = (balayage.m_measures_count < CLidarData::MAX_MEASURES_COUNT) ?
-                                       balayage.m_measures_count : CLidarData::MAX_MEASURES_COUNT;
-            for(int i=0;i<nombre_points; i++)
+            for(int i=0;i<objets.m_count; i++)
             {
-                double distance_detectee = balayage.m_dist_measures[i];
-                double angle_detectee = balayage.m_start_angle + i*balayage.m_angle_step_resolution;
-                traiterPointLidar(distance_detectee, angle_detectee, sens_reference_detection);
+                traiterPointLidar(objets.m_blobs[i].distance_mm, objets.m_blobs[i].angle_deg,
+                                  sens_reference_detection);
             }
         }
         else
