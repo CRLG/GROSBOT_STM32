@@ -24,7 +24,8 @@
 #define NO_LIDAR        (0)
 #define LIDAR_EXTERNE   (1)
 #define LIDAR_INTERNE   (2)
-#define UTILISATION_LIDAR (NO_LIDAR)
+// Atelier evitement 2027 : le lidar interne est la cible retenue (cf. document d'architecture)
+#define UTILISATION_LIDAR (LIDAR_INTERNE)
 
 #if UTILISATION_LIDAR == LIDAR_INTERNE
     #define UTILISATION_YDLIDAR     // active le YDLIDAR si c'est le LIDAR interne qui est choisi
