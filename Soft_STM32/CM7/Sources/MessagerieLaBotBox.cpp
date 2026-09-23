@@ -1109,6 +1109,48 @@ tStructTrameLaBotBox* CTrameLaBotBox_ETAT_DETECTION_EVITEMENT_OBSTACLE::Encode(t
    \param --
    \return --
    */
+CTrameLaBotBox_ETAT_EVITEMENT_AE::CTrameLaBotBox_ETAT_EVITEMENT_AE()
+{
+  m_ID = ID_ETAT_EVITEMENT_AE;
+  m_DLC = DLC_ETAT_EVITEMENT_AE;
+}
+//___________________________________________________________________________
+ /*!
+   \brief Encode les signaux de la trame ETAT_EVITEMENT_AE
+   \param trame pointeur sur une structure trame deja alloue
+   \return le pointeur sur la trame a envoyer (renvoie le pointeur recu)
+   */
+tStructTrameLaBotBox* CTrameLaBotBox_ETAT_EVITEMENT_AE::Encode(tStructTrameLaBotBox* trame)
+{
+    initTrame(trame);
+
+    CDataEncoderDecoder::encode_uint8(trame->Data,      0,      Menace);
+    CDataEncoderDecoder::encode_uint8(trame->Data,      1,      MarcheAE);
+    CDataEncoderDecoder::encode_uint8(trame->Data,      2,      NombrePistes);
+    CDataEncoderDecoder::encode_int8(trame->Data,       3,      CoteLibre);
+    CDataEncoderDecoder::encode_uint16(trame->Data,     4,      Distance_mm);
+    CDataEncoderDecoder::encode_int16(trame->Data,      6,      Angle_crad);
+    CDataEncoderDecoder::encode_int16(trame->Data,      8,      TTC_cs);
+    CDataEncoderDecoder::encode_int16(trame->Data,      10,     Dmin_mm);
+    CDataEncoderDecoder::encode_int16(trame->Data,      12,     PisteX_cm);
+    CDataEncoderDecoder::encode_int16(trame->Data,      14,     PisteY_cm);
+    CDataEncoderDecoder::encode_int16(trame->Data,      16,     PisteV_mms);
+    CDataEncoderDecoder::encode_int16(trame->Data,      18,     CapEsquive_crad);
+    CDataEncoderDecoder::encode_uint8(trame->Data,      20,     AgeScan_10ms);
+    CDataEncoderDecoder::encode_bit(trame->Data,        21, 0,  PisteStatique);
+    CDataEncoderDecoder::encode_bit(trame->Data,        21, 1,  ReculPossible);
+    CDataEncoderDecoder::encode_bit(trame->Data,        21, 2,  EsquivePossible);
+    CDataEncoderDecoder::encode_bit(trame->Data,        21, 3,  EvitementEnCours);
+
+    return(trame);
+}
+
+//___________________________________________________________________________
+ /*!
+   \brief Constructeur
+   \param --
+   \return --
+   */
 CTrameLaBotBox_ETAT_RACK::CTrameLaBotBox_ETAT_RACK()
 {
   m_ID = ID_ETAT_RACK;

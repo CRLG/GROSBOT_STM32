@@ -66,6 +66,7 @@
 #define ID_WRITE_EEPROM_REQ 0x10F
 #define ID_EEPROM_VALUE 0x110
 #define ID_ACTION_ROBOT 0x111
+#define ID_ETAT_EVITEMENT_AE 0x112
 #define DLC_COMMANDE_POWER_ELECTROBOT 4
 #define DLC_ETAT_POWER_ELECTROBOT 8
 #define DLC_ELECTROBOT_CONFIG_SERVOS 5
@@ -96,6 +97,7 @@
 #define DLC_ETAT_ECRAN 4
 #define DLC_ETAT_MATCH 6
 #define DLC_ETAT_DETECTION_EVITEMENT_OBSTACLE 20
+#define DLC_ETAT_EVITEMENT_AE 22
 #define DLC_CONFIG_PERIODE_TRAME 4
 #define DLC_CPU_CMDE 8
 #define DLC_CPU_ETAT 8
@@ -775,6 +777,35 @@ public :
     bool EvitementEnCours;
 
     CTrameLaBotBox_ETAT_DETECTION_EVITEMENT_OBSTACLE();
+    tStructTrameLaBotBox* Encode(tStructTrameLaBotBox* trame);
+};
+
+// -----------------------------
+//! Classe pour la telemetrie de la strategie d'evitement AE (atelier evitement 2027)
+//! Trame NOUVELLE et non extension de ETAT_DETECTION_EVITEMENT_OBSTACLE : cette derniere est une
+//! interface etablie, partagee avec les autres outils du club ; on n'y touche pas.
+class CTrameLaBotBox_ETAT_EVITEMENT_AE : public CTrameLaBotBox {
+public :
+    //! Les signaux de la messagerie
+    unsigned char Menace;            // 0 libre, 1 prudence, 2 ralenti, 3 arret
+    unsigned char MarcheAE;          // marche atteinte sur l'echelle de phases
+    unsigned char NombrePistes;      // pistes suivies par la couche 2
+    signed char   CoteLibre;         // +1 gauche, -1 droite, 0 aucun
+    unsigned short Distance_mm;      // distance de la piste retenue
+    signed short  Angle_crad;        // angle de la piste, centiemes de radian
+    signed short  TTC_cs;            // temps avant approche minimale, centiemes de seconde
+    signed short  Dmin_mm;           // distance d'approche minimale
+    signed short  PisteX_cm;         // piste la plus proche, repere terrain
+    signed short  PisteY_cm;
+    signed short  PisteV_mms;        // vitesse de la piste la plus proche
+    signed short  CapEsquive_crad;   // cap d'esquive calcule, repere asservissement
+    unsigned char AgeScan_10ms;      // age du dernier tour de balayage
+    bool PisteStatique;
+    bool ReculPossible;
+    bool EsquivePossible;
+    bool EvitementEnCours;
+
+    CTrameLaBotBox_ETAT_EVITEMENT_AE();
     tStructTrameLaBotBox* Encode(tStructTrameLaBotBox* trame);
 };
 

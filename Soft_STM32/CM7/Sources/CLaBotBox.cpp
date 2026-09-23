@@ -7,6 +7,20 @@
 #include "mongoose_app.h"
 
 //___________________________________________________________________________
+/*!
+  \brief Borne une grandeur avant sa mise a l'echelle entiere dans une trame
+  Une valeur sentinelle -- le temps avant contact vaut 1000 s quand rien ne se rapproche -- ne doit
+  pas reboucler en une valeur plausible a l'arrivee.
+ */
+static float borner(float valeur, float mini, float maxi)
+{
+    if (valeur < mini) return mini;
+    if (valeur > maxi) return maxi;
+    return valeur;
+}
+
+
+//___________________________________________________________________________
  /*!
    \brief Constructeur
 
@@ -72,6 +86,7 @@ void CLaBotBox::initListeTrames()
     m_liste_trames[m_nombre_trames++] = &m_ETAT_ECRAN;
     m_liste_trames[m_nombre_trames++] = &m_ETAT_MATCH;
     m_liste_trames[m_nombre_trames++] = &m_ETAT_DETECTION_EVITEMENT_OBSTACLE;
+    m_liste_trames[m_nombre_trames++] = &m_ETAT_EVITEMENT_AE;
     m_liste_trames[m_nombre_trames++] = &m_ETAT_RACK;
     m_liste_trames[m_nombre_trames++] = &m_COLOR_SENSOR;
     m_liste_trames[m_nombre_trames++] = &m_CONFIG_PERIODE_TRAME;
@@ -1053,6 +1068,37 @@ void CLaBotBox::SendTramesLaBotBox(void)
         m_ETAT_DETECTION_EVITEMENT_OBSTACLE.EvitementEnCours = Application.m_modelia.m_datas_interface.evit_strategie_evitement_en_cours;
 
         SerialiseTrame(m_ETAT_DETECTION_EVITEMENT_OBSTACLE.Encode(&trame));
+    }
+    // _____________________________________________
+    // Telemetrie de la strategie d'evitement AE (atelier evitement 2027). Elle rend observable, sur
+    // la table, ce que le robot CROIT voir et decider : sans elle les essais ne rendent qu'un
+    // comportement, et un comportement ne se regle pas -- on ne saurait pas si un arret vient d'une
+    // distance mal mesuree, d'une piste mal suivie ou d'un seuil mal place.
+    if (m_ETAT_EVITEMENT_AE.isTimeToSend())
+    {
+        const SM_DatasInterface &d = Application.m_modelia.m_datas_interface;
+        // Les grandeurs continues sont transmises en entiers a l'echelle indiquee par le nom du
+        // champ, et bornees : une valeur sentinelle (le temps avant contact vaut 1000 s quand rien
+        // ne se rapproche) ne doit pas reboucler sur une valeur plausible.
+        m_ETAT_EVITEMENT_AE.Menace = d.evit_menace;
+        m_ETAT_EVITEMENT_AE.MarcheAE = d.evit_ae_state;
+        m_ETAT_EVITEMENT_AE.NombrePistes = d.evit_nb_pistes;
+        m_ETAT_EVITEMENT_AE.CoteLibre = d.evit_cote_libre;
+        m_ETAT_EVITEMENT_AE.Distance_mm = (unsigned short)borner(d.evit_D_cm * 10.f, 0.f, 65535.f);
+        m_ETAT_EVITEMENT_AE.Angle_crad = (signed short)borner(d.evit_phi_rad * 100.f, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.TTC_cs = (signed short)borner(d.evit_ttc_s * 100.f, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.Dmin_mm = (signed short)borner(d.evit_dmin_cm * 10.f, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.PisteX_cm = (signed short)borner(d.evit_piste_proche_X_cm, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.PisteY_cm = (signed short)borner(d.evit_piste_proche_Y_cm, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.PisteV_mms = (signed short)borner(d.evit_piste_proche_V_cms * 10.f, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.CapEsquive_crad = (signed short)borner(d.evit_esquive_cap_rad * 100.f, -32000.f, 32000.f);
+        m_ETAT_EVITEMENT_AE.AgeScan_10ms = (unsigned char)borner((float)d.evit_age_scan_ms / 10.f, 0.f, 255.f);
+        m_ETAT_EVITEMENT_AE.PisteStatique = d.evit_piste_proche_statique;
+        m_ETAT_EVITEMENT_AE.ReculPossible = d.evit_recul_possible;
+        m_ETAT_EVITEMENT_AE.EsquivePossible = d.evit_esquive_possible;
+        m_ETAT_EVITEMENT_AE.EvitementEnCours = d.evitementEnCours;
+
+        SerialiseTrame(m_ETAT_EVITEMENT_AE.Encode(&trame));
     }
     // _____________________________________________
     if (m_ETAT_RACK.isTimeToSend())
