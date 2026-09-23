@@ -43,6 +43,7 @@ void IA::init()
     m_inputs_interface.TE_Modele = PERIODE_APPEL_MODELIA;
     m_date_ms = 0;
     m_obstacle_tracker.init();
+    m_evaluateur_tactique.init();
     m_datas_interface.init();
     m_inputs_interface.init();
     m_outputs_interface.init();
@@ -355,6 +356,24 @@ void IA::step()
             m_datas_interface.evit_piste_proche_statique = false;
         }
 
+        // ---- Couche 3 : évaluation tactique. Quelle piste gêne, et à quel point.
+        // Le couloir suit la TRAJECTOIRE et non l'axe géométrique du robot : en marche arrière,
+        // c'est le cap opposé qu'il faut surveiller.
+        const float cap_trajectoire = (sens_reference_detection >= 0.f) ? capTerrainRobot()
+                                                                       : capTerrainRobot() + (float)M_PI;
+        m_evaluateur_tactique.evaluer(m_obstacle_tracker,
+                                      m_inputs_interface.X_robot_terrain,
+                                      m_inputs_interface.Y_robot_terrain,
+                                      cap_trajectoire,
+                                      fabsf(Application.m_asservissement.vitesse_avance_robot_filt));
+        const tMenace &menace = m_evaluateur_tactique.menace();
+        m_datas_interface.evit_menace = menace.niveau;
+        m_datas_interface.evit_D_cm = menace.D_cm;
+        m_datas_interface.evit_phi_rad = menace.phi_rad;
+        m_datas_interface.evit_ttc_s = menace.ttc_s;
+        m_datas_interface.evit_dmin_cm = menace.dmin_cm;
+        m_datas_interface.evit_cote_libre = menace.cote_libre;
+
         //afin de réutiliser l'évitement existant
         // Permet de reconstituer une valeur entre 0 et 15 représentant toutes les situations de blocage
         m_datas_interface.evit_detection_obstacle_bitfield =
@@ -366,6 +385,16 @@ void IA::step()
 	//Traitements capteurs US pour évitement
 	else
 	{
+        // Le lidar est hors service : les pistes et le verdict tactique deviennent faux, on ne les
+        // garde pas. La chaîne US reprend la main, inchangée.
+        m_obstacle_tracker.init();
+        m_evaluateur_tactique.init();
+        m_datas_interface.evit_nb_pistes = 0;
+        m_datas_interface.evit_menace = MENACE_LIBRE;
+        m_datas_interface.evit_piste_proche_V_cms = 0.f;
+        m_datas_interface.evit_piste_proche_statique = false;
+        m_datas_interface.evit_cote_libre = 0;
+
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US);
 
         //    inhibition forcée de la détection d'obstacle

@@ -2,6 +2,7 @@
 #define IA_H
 
 #include "CObstacleTracker.h"
+#include "CTacticalEvaluator.h"
 #include "iabase.h"
 #include "sm_autotest.h"
 
@@ -52,6 +53,8 @@ public:
 
     //! Couche 2 de l'evitement : suivi temporel des objets vus par le lidar, en repere terrain
     CObstacleTracker m_obstacle_tracker;
+    //! Couche 3 de l'evitement : quelle piste gene, et a quel point
+    CTacticalEvaluator m_evaluateur_tactique;
 
 private :
     //! Date interne du modele [ms], incrementee d'un pas a chaque appel de step()

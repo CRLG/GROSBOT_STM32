@@ -40,6 +40,14 @@ public:
     float evit_piste_proche_V_cms;           // norme de sa vitesse
     bool evit_piste_proche_statique;
 
+    // Evaluation tactique (couche 3) : verdict et piste qui l'a motive
+    unsigned char evit_menace;               // eNiveauMenace : LIBRE, PRUDENCE, RALENTI, ARRET
+    float evit_D_cm;                         // distance de la piste retenue
+    float evit_phi_rad;                      // angle relatif au cap de trajectoire (+ a gauche)
+    float evit_ttc_s;                        // temps avant approche minimale (negatif : s'eloigne)
+    float evit_dmin_cm;                      // distance d'approche minimale
+    signed char evit_cote_libre;             // +1 gauche, -1 droite, 0 aucun
+
     // Stratégie d'évitement d'obstacles
     bool evitementEnCours;
     bool evit_inhibe_obstacle;

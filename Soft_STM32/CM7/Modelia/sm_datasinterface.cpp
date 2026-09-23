@@ -37,6 +37,12 @@ void SM_DatasInterface::init()
     evit_piste_proche_Y_cm              = 0;
     evit_piste_proche_V_cms             = 0;
     evit_piste_proche_statique          = false;
+    evit_menace                         = 0;
+    evit_D_cm                           = 0;
+    evit_phi_rad                        = 0;
+    evit_ttc_s                          = 0;
+    evit_dmin_cm                        = 0;
+    evit_cote_libre                     = 0;
     evit_sens_avant_detection           = 1;
     evit_dernier_sens_franc             = 1;
 

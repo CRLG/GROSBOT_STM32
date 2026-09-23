@@ -69,6 +69,7 @@ $(CPPLIB)/common-rob/CLeds.cpp \
 $(CPPLIB)/common-rob/CLedBase.cpp \
 $(CPPLIB)/common-rob/CTelemetresBase.cpp \
 $(CPPLIB)/common-rob/CDetectionObstaclesBase.cpp \
+$(CPPLIB)/common-rob/CTacticalEvaluator.cpp \
 $(CPPLIB)/common-rob/CCapteursBase.cpp \
 $(CPPLIB)/common-rob/CKmarBase.cpp \
 $(CPPLIB)/common-rob/CAscenseurBase.cpp \
