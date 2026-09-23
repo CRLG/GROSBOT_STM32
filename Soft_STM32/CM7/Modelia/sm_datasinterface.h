@@ -1,3 +1,9 @@
+// Cette interface de donnees porte les variables de la strategie d'evitement AE (atelier evitement
+// 2027). Le define ci-dessous autorise sm_evitement.cpp, partage par tous les robots du club via
+// CppRobLib, a compiler la branche AE : un robot dont l'interface ne porte pas ces variables ne le
+// definit pas, et la branche n'est pas compilee chez lui.
+#define SM_DATASINTERFACE_EVITEMENT_AE
+
 #ifndef SM_DATASINTERFACE_H
 #define SM_DATASINTERFACE_H
 
@@ -11,7 +17,8 @@ public:
 
     typedef enum {
         STRATEGIE_EVITEMENT_ATTENDRE = 0,
-        STRATEGIE_EVITEMENT_CONTOURNER
+        STRATEGIE_EVITEMENT_CONTOURNER,
+        STRATEGIE_EVITEMENT_AE          //!< echelle de phases reentrante (atelier evitement 2027)
     }tChoixStrategieEvitement;
 
     SM_DatasInterface();
@@ -40,6 +47,19 @@ public:
     float evit_piste_proche_V_cms;           // norme de sa vitesse
     bool evit_piste_proche_statique;
 
+    //! Marches de l'echelle d'evitement AE, memorisees d'une entree dans l'evitement a la suivante.
+    //! LIBRE, PRUDENCE et RALENTI sont poses par IA (plafond de vitesse, sans manoeuvre) ; les
+    //! suivantes sont tenues par la machine a etats.
+    typedef enum {
+        ETAT_AE_LIBRE = 0,
+        ETAT_AE_PRUDENCE,
+        ETAT_AE_RALENTI,
+        ETAT_AE_ARRET,
+        ETAT_AE_GENTLEMAN,
+        ETAT_AE_ESQUIVE,
+        ETAT_AE_BLOCAGE
+    }tEtatAE;
+
     // Evaluation tactique (couche 3) : verdict et piste qui l'a motive
     unsigned char evit_menace;               // eNiveauMenace : LIBRE, PRUDENCE, RALENTI, ARRET
     float evit_D_cm;                         // distance de la piste retenue
@@ -47,6 +67,18 @@ public:
     float evit_ttc_s;                        // temps avant approche minimale (negatif : s'eloigne)
     float evit_dmin_cm;                      // distance d'approche minimale
     signed char evit_cote_libre;             // +1 gauche, -1 droite, 0 aucun
+
+    // Strategie d'evitement AE (couche 4) : echelle de phases reentrante
+    unsigned char evit_ae_state;             // tEtatAE : marche atteinte sur l'echelle
+    float evit_ae_memo_X;                    // pose memorisee a l'arret (repere asservissement)
+    float evit_ae_memo_Y;
+    float evit_ae_memo_Theta;
+    unsigned long evit_ae_tempo_arret_ms;    // duree de l'arret, avec son alea de desynchronisation
+    unsigned long evit_ae_chrono_blocage_ms; // duree passee en blocage
+    unsigned long evit_ae_graine;            // generateur pseudo-aleatoire de l'alea temporel
+    bool evit_recul_possible;                // un recul de 10 cm reste dans le terrain
+    bool evit_esquive_possible;              // une esquive de 10 cm reste dans le terrain
+    float evit_esquive_cap_rad;              // cap d'esquive (repere asservissement)
 
     // Stratégie d'évitement d'obstacles
     bool evitementEnCours;

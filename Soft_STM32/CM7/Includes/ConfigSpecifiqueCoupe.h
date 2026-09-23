@@ -256,6 +256,28 @@ typedef enum {
 #define CDE_MIN_TOUT_DOUX (-10)
 #define CDE_MAX_TOUT_DOUX (10)
 
+// Strategie d'evitement AE (atelier evitement 2027)
+// Plafonds de commande appliques tant que la menace dure, sans manoeuvre. A CALIBRER SUR TABLE.
+#define CDE_MAX_PRUDENCE (60)
+#define CDE_MAX_RALENTI  (30)
+// Duree de l'arret avant de tenter la marche suivante de l'echelle, et alea de desynchronisation :
+// deux robots qui appliquent la meme logique se debloquent d'autant plus vite qu'ils ne le font pas
+// en meme temps. L'alea porte sur le TEMPS et jamais sur la geometrie, pour rester reproductible.
+#define TIMEOUT_AE_ARRET_MS (2000)
+#define ALEA_AE_ARRET_MS    (400)
+// Manoeuvres de degagement
+#define DISTANCE_AE_GENTLEMAN_CM (10)
+#define DISTANCE_AE_ESQUIVE_CM   (10)
+#define MARGE_AE_ESQUIVE_RAD     (0.17f)   // 10 degres de marge au-dela du couloir
+// Ecart maximum d'une esquive. A courte distance l'angle du couloir sature a 90 degres : sortir du
+// couloir demanderait alors un quart de tour, ce qui n'est plus une esquive mais une manoeuvre a
+// part entiere. On borne, et si cela ne suffit pas l'echelle poursuit jusqu'au blocage.
+#define ECART_AE_ESQUIVE_MAX_RAD (1.05f)   // 60 degres
+#define TIMEOUT_AE_MANOEUVRE_MS  (3000)    // garde-fou si une manoeuvre ne converge pas
+// Blocage : au bout de ce temps on redescend l'echelle et on retente des deplacements
+#define TIMEOUT_AE_BLOCAGE_MS (3000)
+#define TEMPO_AE_BLOCAGE_PAS_MS (1000)
+
 // Position d'init du robot dans le repère absolue terrain
 #define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
 #define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (171.5f)

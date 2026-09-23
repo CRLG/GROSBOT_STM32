@@ -66,6 +66,10 @@ private :
     float calculerSensReferenceDetection();
     // Cap du robot dans le repere TERRAIN [rad], pour projeter un point vu par le lidar
     float capTerrainRobot();
+    void  gererStrategieAE(float sens_reference_detection);
+    bool  m_plafond_vitesse_applique;   //!< un plafond de vitesse AE est actuellement impose
+    int   m_memo_cde_min_nominal;       //!< commandes d'avant plafonnement, pour les restituer
+    int   m_memo_cde_max_nominal;
 };
 
 #endif // IA_H

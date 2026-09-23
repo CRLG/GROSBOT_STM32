@@ -44,6 +44,9 @@ void IA::init()
     m_date_ms = 0;
     m_obstacle_tracker.init();
     m_evaluateur_tactique.init();
+    m_plafond_vitesse_applique = false;
+    m_memo_cde_min_nominal = Application.m_asservissement.cde_min;
+    m_memo_cde_max_nominal = Application.m_asservissement.cde_max;
     m_datas_interface.init();
     m_inputs_interface.init();
     m_outputs_interface.init();
@@ -93,7 +96,10 @@ void IA::setStrategie(unsigned char strategie)
         //Application.m_detection_obstacles.inhibeDetection(true);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
-        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
+        // Atelier evitement 2027 : les strategies d'homologation portent la nouvelle strategie AE,
+        // les autres gardent ATTENDRE. C'est volontaire : sur table, changer de numero de strategie
+        // suffit a comparer l'ancien et le nouveau comportement sur le meme parcours.
+        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_AE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
@@ -113,7 +119,10 @@ void IA::setStrategie(unsigned char strategie)
         //Application.m_detection_obstacles.inhibeDetection(true);
         Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
         Application.m_asservissement.setIndiceSportivite(0.5);
-        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
+        // Atelier evitement 2027 : les strategies d'homologation portent la nouvelle strategie AE,
+        // les autres gardent ATTENDRE. C'est volontaire : sur table, changer de numero de strategie
+        // suffit a comparer l'ancien et le nouveau comportement sur le meme parcours.
+        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_AE;
         Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
         m_datas_interface.evit_nombre_max_tentatives=1;
 
@@ -473,6 +482,11 @@ void IA::step()
 				(m_inputs_interface.obstacle_AVD << 0);
 	}//fin Traitements capteurs US pour évitement
 
+    // ---- Couche 4 : strategie d'evitement AE (echelle de phases reentrante).
+    // Placee APRES les deux chaines de detection : c'est elle qui decide, le cas echeant, de
+    // substituer le verdict tactique au declenchement historique par capteurs.
+    gererStrategieAE(sens_reference_detection);
+
     // Mise en forme de données pour le modèle
     m_inputs_interface.FrontM_Convergence = m_inputs_interface.Convergence && !m_inputs_interface.Convergence_old;
     m_inputs_interface.Convergence_old = m_inputs_interface.Convergence;
@@ -621,4 +635,132 @@ float IA::capTerrainRobot()
         return m_inputs_interface.angle_robot;
     }
     return m_inputs_interface.angle_robot + (float)M_PI;
+}
+
+// ________________________________________________
+/*!
+ * \brief Couche 4 — pilotage de la stratégie d'évitement AE (échelle de phases réentrante)
+ *
+ * Trois responsabilités, toutes prises ici plutôt que dans SM_Evitement, qui est partagée par tous
+ * les robots du club et ne doit rien connaître du lidar :
+ *
+ *  1. TENIR L'ÉCHELLE. `evit_ae_state` mémorise la marche atteinte d'une entrée dans l'évitement à
+ *     la suivante — c'est ce qui rend la stratégie réentrante : chaque entrée ne joue qu'une phase
+ *     et rend la main à la mission. IA ne pose que les marches basses (LIBRE / PRUDENCE / RALENTI),
+ *     qui ne sont pas des manœuvres ; les marches hautes appartiennent à la machine à états, et IA
+ *     ne les écrase jamais. Seule la disparition de la menace remet l'échelle à plat.
+ *
+ *  2. PLAFONNER LA VITESSE EN CONTINU. Les niveaux PRUDENCE et RALENTI ne déclenchent aucune
+ *     manœuvre : ils lèvent le pied pendant que la mission continue. Le plafond ne peut donc PAS
+ *     être posé par la machine à états — d'une part elle n'est pas active à ces niveaux, d'autre
+ *     part `restoreContext()` le perdrait à chaque sortie d'évitement. Les commandes nominales sont
+ *     mémorisées ici, et restituées d'ici.
+ *
+ *  3. PRÉMÂCHER LA GÉOMÉTRIE. `evit_recul_possible`, `evit_esquive_possible` et
+ *     `evit_esquive_cap_rad` transforment la situation en décisions déjà prises, que la machine à
+ *     états n'a plus qu'à exécuter. Les rayons robot et les bornes du terrain restent la propriété
+ *     de l'évaluateur tactique (une seule source).
+ */
+void IA::gererStrategieAE(float sens_reference_detection)
+{
+    const bool ae_active = (m_datas_interface.evit_choix_strategie == SM_DatasInterface::STRATEGIE_EVITEMENT_AE)
+                           && (m_inputs_interface.m_lidar_status == LidarUtils::LIDAR_OK);
+
+    // Stratégie non sélectionnée ou lidar hors service : on rend le robot à son comportement
+    // historique, plafond de vitesse restitué et échelle remise à plat.
+    if (!ae_active) {
+        if (m_plafond_vitesse_applique && !m_datas_interface.evitementEnCours) {
+            Application.m_asservissement.setCdeMinCdeMax(m_memo_cde_min_nominal, m_memo_cde_max_nominal);
+            m_plafond_vitesse_applique = false;
+        }
+        m_datas_interface.evit_ae_state = SM_DatasInterface::ETAT_AE_LIBRE;
+        m_datas_interface.evit_ae_chrono_blocage_ms = 0;
+        m_datas_interface.evit_recul_possible = true;
+        m_datas_interface.evit_esquive_possible = false;
+        return;
+    }
+
+    const unsigned char menace = m_datas_interface.evit_menace;
+
+    // ---- 1. Échelle des phases
+    if (menace == MENACE_LIBRE) {
+        // La voie est libre : tout est oublié, y compris le temps passé en blocage. Le prochain
+        // adversaire repartira du bas de l'échelle.
+        m_datas_interface.evit_ae_state = SM_DatasInterface::ETAT_AE_LIBRE;
+        m_datas_interface.evit_ae_chrono_blocage_ms = 0;
+    }
+    else if (m_datas_interface.evit_ae_state < SM_DatasInterface::ETAT_AE_ARRET) {
+        // Marches basses seulement : dès que la machine à états a commencé à manœuvrer, la marche
+        // atteinte lui appartient et une menace qui retombe à PRUDENCE ne la fait pas redescendre
+        // (sinon un adversaire qui recule d'un pas effacerait tout l'historique de la négociation).
+        m_datas_interface.evit_ae_state = (menace == MENACE_RALENTI) ? SM_DatasInterface::ETAT_AE_RALENTI
+                                                                     : SM_DatasInterface::ETAT_AE_PRUDENCE;
+    }
+
+    // ---- 2. Déclenchement de l'évitement sur le verdict tactique
+    // Remplace la détection historique (capteurs US ou leur émulation lidar) : c'est l'évaluation
+    // tactique, seuils et hystérésis compris, qui décide qu'il faut manœuvrer. Le filtre de
+    // confirmation/disparition en aval reste traversé, il est sans effet sur un signal déjà filtré.
+    m_inputs_interface.obstacleDetecte_non_filtre = (menace >= MENACE_ARRET);
+
+    // ---- 3. Plafond de vitesse
+    // Rien pendant un évitement : la machine à états y impose son propre « tout doux », plus lent
+    // encore, et le lui reprendre accélérerait ses manœuvres.
+    if ((menace >= MENACE_PRUDENCE) && !m_datas_interface.evitementEnCours) {
+        if (!m_plafond_vitesse_applique) {
+            m_memo_cde_min_nominal = Application.m_asservissement.cde_min;
+            m_memo_cde_max_nominal = Application.m_asservissement.cde_max;
+            m_plafond_vitesse_applique = true;
+        }
+        const int cde = (menace == MENACE_PRUDENCE) ? CDE_MAX_PRUDENCE : CDE_MAX_RALENTI;
+        Application.m_asservissement.setCdeMinCdeMax(-cde, cde);
+    }
+    else if (m_plafond_vitesse_applique && !m_datas_interface.evitementEnCours) {
+        // Restitue les commandes NOMINALES mémorisées ici, et non celles que l'asservissement porte
+        // à cet instant : en sortie d'évitement, `restoreContext()` vient de restituer les valeurs
+        // qu'il avait sauvegardées, qui peuvent être nos propres valeurs plafonnées.
+        Application.m_asservissement.setCdeMinCdeMax(m_memo_cde_min_nominal, m_memo_cde_max_nominal);
+        m_plafond_vitesse_applique = false;
+    }
+
+    // ---- 4. Géométrie des manœuvres de dégagement
+    const float cap_terrain = capTerrainRobot();
+    const float sens = (sens_reference_detection >= 0.f) ? 1.f : -1.f;
+    const float x_robot = m_inputs_interface.X_robot_terrain;
+    const float y_robot = m_inputs_interface.Y_robot_terrain;
+
+    // Le « gentleman move » recule dans le sens opposé à celui où l'on allait. Il n'est possible que
+    // si le robot ne s'adosse pas déjà à une bordure : c'est le cas de l'adversaire qui nous pousse
+    // vers le bord, où s'obstiner à reculer ne ferait que patiner.
+    const float x_recul = x_robot - sens * (float)DISTANCE_AE_GENTLEMAN_CM * cosf(cap_terrain);
+    const float y_recul = y_robot - sens * (float)DISTANCE_AE_GENTLEMAN_CM * sinf(cap_terrain);
+    m_datas_interface.evit_recul_possible = m_evaluateur_tactique.poseManoeuvrable(x_recul, y_recul);
+
+    // L'esquive se décale du côté libre, juste assez pour sortir du couloir de l'adversaire : on
+    // tourne de ce qui manque pour dépasser l'angle critique, plus une marge. Inutile de viser plus
+    // large, la manœuvre suivante réévaluera de toute façon.
+    m_datas_interface.evit_esquive_possible = false;
+    if (m_datas_interface.evit_cote_libre != 0) {
+        const float angle_critique = m_evaluateur_tactique.angleCritiqueRad(m_datas_interface.evit_D_cm);
+        float ecart = angle_critique - fabsf(m_datas_interface.evit_phi_rad) + MARGE_AE_ESQUIVE_RAD;
+        if (ecart < MARGE_AE_ESQUIVE_RAD) ecart = MARGE_AE_ESQUIVE_RAD;
+        if (ecart > ECART_AE_ESQUIVE_MAX_RAD) ecart = ECART_AE_ESQUIVE_MAX_RAD;
+        // Une rotation est la même dans les deux repères (ils ne diffèrent que d'une translation ou
+        // d'une symétrie centrale) : le décalage calculé en terrain s'applique tel quel au cap
+        // d'asservissement, qui est celui qu'attend la commande de mouvement.
+        const float rotation = (float)m_datas_interface.evit_cote_libre * ecart;
+        const float cap_esquive_terrain = cap_terrain + rotation;
+        const float x_esquive = x_robot + sens * (float)DISTANCE_AE_ESQUIVE_CM * cosf(cap_esquive_terrain);
+        const float y_esquive = y_robot + sens * (float)DISTANCE_AE_ESQUIVE_CM * sinf(cap_esquive_terrain);
+        m_datas_interface.evit_esquive_possible = m_evaluateur_tactique.poseManoeuvrable(x_esquive, y_esquive);
+        m_datas_interface.evit_esquive_cap_rad = m_inputs_interface.angle_robot + rotation;
+    }
+
+    // Durée de l'arrêt : une part fixe et un aléa. Deux robots identiques qui appliquent la même
+    // logique se débloquent d'autant plus vite qu'ils ne repartent pas en même temps. L'aléa porte
+    // sur le TEMPS et jamais sur la géométrie : un mouvement tiré au sort serait le défaut même de
+    // l'ancienne stratégie. Générateur congruentiel local, donc rejouable d'un essai à l'autre.
+    m_datas_interface.evit_ae_graine = (m_datas_interface.evit_ae_graine * 1103515245UL) + 12345UL;
+    const unsigned long tirage = (m_datas_interface.evit_ae_graine >> 16) % (2UL * ALEA_AE_ARRET_MS);
+    m_datas_interface.evit_ae_tempo_arret_ms = TIMEOUT_AE_ARRET_MS - ALEA_AE_ARRET_MS + tirage;
 }

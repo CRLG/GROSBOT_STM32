@@ -43,6 +43,16 @@ void SM_DatasInterface::init()
     evit_ttc_s                          = 0;
     evit_dmin_cm                        = 0;
     evit_cote_libre                     = 0;
+    evit_ae_state                       = ETAT_AE_LIBRE;
+    evit_ae_memo_X                      = 0;
+    evit_ae_memo_Y                      = 0;
+    evit_ae_memo_Theta                  = 0;
+    evit_ae_tempo_arret_ms              = TIMEOUT_AE_ARRET_MS;
+    evit_ae_chrono_blocage_ms           = 0;
+    evit_ae_graine                      = 12345;
+    evit_recul_possible                 = true;
+    evit_esquive_possible               = false;
+    evit_esquive_cap_rad                = 0;
     evit_sens_avant_detection           = 1;
     evit_dernier_sens_franc             = 1;
 
