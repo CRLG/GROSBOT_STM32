@@ -11,10 +11,29 @@
 //#define UTILISATION_CHARIOT
 //#define UTILISATION_XBEE
 //#define UTILISATION_ASSERV_LOGGER
+
+// Atelier evitement 2027 -- ROBOT CIBLE : les essais sur table utilisent les deux robots du club, identiques
+// (ecran, Raspberry, STM32, lidar) SAUF les points regroupes sous ce choix : telemetres, odometrie
+// (CAsservissement.cpp), position de depart et servos. Strategie et couleur se choisissent a l'ecran.
+// Choix a la compilation, sans editer ce fichier : "make ROBOT=CRLGIRLS" (repertoire build_CRLGIRLS),
+// ou Soft_STM32/CM7/compiler_firmwares_essais.sh qui produit les deux firmwares. Defaut : CRLG.
+#define ROBOT_CRLG      (1)     // GROSBOT : telemetres US SRF08
+#define ROBOT_CRLGIRLS  (2)     // CRLGirls : telemetres VL53 (reglages repris de la branche CRLGG)
+#ifndef ROBOT_CIBLE
+#define ROBOT_CIBLE (ROBOT_CRLG)
+#endif
+#if (ROBOT_CIBLE != ROBOT_CRLG) && (ROBOT_CIBLE != ROBOT_CRLGIRLS)
+#error "ROBOT_CIBLE inconnu : make ROBOT=CRLG ou make ROBOT=CRLGIRLS"
+#endif
+
 // Le choix du type de télémètre (UTILISATION_TELEMETRES_US_SRF08 ou UTILISATION_TELEMETRES_VL53),
 //      c'est l'un ou l'autre par compilation conditionnelle (!! MAIS PAS LES 2 !!)
+#if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
+#define UTILISATION_TELEMETRES_VL53
+#else
 #define UTILISATION_TELEMETRES_US_SRF08
 // #define UTILISATION_TELEMETRES_VL53
+#endif
 
 // Permet de configurer l'utilisation du LIDAR :
 // Plusieurs possibilités pour compatibilité :
@@ -140,6 +159,23 @@ typedef enum {
     SERVO_THERMOVE_ACTIF                   = 1170,
 
 }eVALUES_SERVOS;
+
+// Servos de CRLGirls (repris de la branche CRLGG). Ses servos ne sont PAS ceux de CRLG : sur ce robot,
+// le firmware les verrouille en position rangee au demarrage (butees min = max, cf. CGlobale.cpp), ce qui
+// neutralise toute commande prevue pour CRLG (autotest, sm_centre des strategies HOMOLO, boutons de l'ecran).
+typedef enum {
+    SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE   = 2,
+    SERVO_CRLGIRLS_PINCE_GAUCHE         = 3,
+    SERVO_CRLGIRLS_BRAS_THERMO_DROIT    = 5,
+    SERVO_CRLGIRLS_PINCE_DROIT          = 7
+} eATTRIBUTION_SERVOS_CRLGIRLS;
+
+typedef enum {
+    SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE_RANGE = 735,
+    SERVO_CRLGIRLS_PINCE_GAUCHE_RENTRE      = 2020,
+    SERVO_CRLGIRLS_BRAS_THERMO_DROIT_RANGE  = 2440,
+    SERVO_CRLGIRLS_PINCE_DROIT_RENTRE       = 830
+} eVALUES_SERVOS_CRLGIRLS;
 
 //! cet enumere contient les numeros d'attribution des servos SD20
 typedef enum {
@@ -291,6 +327,16 @@ typedef enum {
 #define TEMPO_AE_BLOCAGE_PAS_MS (1000)
 
 // Position d'init du robot dans le repère absolue terrain
+#if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
+// CRLGirls (branche CRLGG) : depart plus bas, et cap oppose en couleur 2
+#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (165.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
+
+#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (165.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (PI/2.0f)
+#else
 #define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
 #define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (171.5f)
 #define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
@@ -298,6 +344,7 @@ typedef enum {
 #define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
 #define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (171.5f)
 #define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (-PI/2.0f)
+#endif
 
 // Coordonnées dans le repère absolue terrain
 // à partir desquelles il faut interdire la détection d'obstacle

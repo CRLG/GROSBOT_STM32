@@ -74,6 +74,18 @@ void CGlobale::Run(void)
     m_power_electrobot.init(POWER_ELECTROBOT_I2C_ADDR);
     m_ascenseur.set_speeds(-35, 8); // TODO : mettre les valeurs en EEPROM
 
+#if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
+    // Atelier evitement 2027 : ce firmware porte les commandes de servos de CRLG (autotest lance a chaque
+    // mise sous tension, sm_centre des strategies HOMOLO, boutons actionneurs de l'ecran), qui envoient
+    // les servos de CRLGirls hors de leur course (ex. bras thermo droit, 1570..2440, commande a 800).
+    // Butee min = butee max = position rangee : toute commande est saturee sur cette position, le robot
+    // garde ses bras et pinces rentres. Les servos 1, 4 et 6 ne sont pas attribues sur CRLGirls.
+    m_servos.setButeesMinMaxPosition(SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE, SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE_RANGE, SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE_RANGE);
+    m_servos.setButeesMinMaxPosition(SERVO_CRLGIRLS_PINCE_GAUCHE, SERVO_CRLGIRLS_PINCE_GAUCHE_RENTRE, SERVO_CRLGIRLS_PINCE_GAUCHE_RENTRE);
+    m_servos.setButeesMinMaxPosition(SERVO_CRLGIRLS_BRAS_THERMO_DROIT, SERVO_CRLGIRLS_BRAS_THERMO_DROIT_RANGE, SERVO_CRLGIRLS_BRAS_THERMO_DROIT_RANGE);
+    m_servos.setButeesMinMaxPosition(SERVO_CRLGIRLS_PINCE_DROIT, SERVO_CRLGIRLS_PINCE_DROIT_RENTRE, SERVO_CRLGIRLS_PINCE_DROIT_RENTRE);
+#endif
+
  #ifdef UTILSATION_SERVOS_AX
     m_servos_ax.Init();
  #endif // UTILSATION_SERVOS_AX

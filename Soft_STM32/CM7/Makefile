@@ -30,6 +30,12 @@ OPT = -Og
 #######################################
 # Build path
 BUILD_DIR = build
+# Atelier evitement 2027 : choix du robot a la compilation ("make ROBOT=CRLGIRLS", cf. ROBOT_CIBLE dans
+# ConfigSpecifiqueCoupe.h). Un repertoire de construction PAR robot : make ne recompile pas un objet
+# quand seule une option -D change, et un meme repertoire melangerait les deux robots dans un binaire.
+ifdef ROBOT
+BUILD_DIR = build_$(ROBOT)
+endif
 
 ######################################
 # ext libs path
@@ -228,6 +234,9 @@ C_DEFS =  \
 -DCORE_CM7 \
 -DUSE_HAL_DRIVER \
 -DSTM32H755xx
+ifdef ROBOT
+C_DEFS += -DROBOT_CIBLE=ROBOT_$(ROBOT)
+endif
 
 
 # AS includes

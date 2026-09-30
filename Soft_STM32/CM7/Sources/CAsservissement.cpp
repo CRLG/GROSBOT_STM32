@@ -6,9 +6,17 @@
 #include "CGlobale.h"
 
 // Constantes spécifiques au robot
+// Odometrie propre a chaque robot (cf. ROBOT_CIBLE dans ConfigSpecifiqueCoupe.h)
+#if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
+// CRLGirls : valeurs de la branche CRLGG
+const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_G = 0.003947998f;  // (27/04/2025)
+const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_D = 0.003947998f;  // (27/04/2025)
+const float CAsservissementBase::VOIE_ROBOT = 32;                           // (27/04/2025)
+#else
 const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_G = 0.003189567f;  // (27/04/2025)
 const float CAsservissementBase::DISTANCE_PAR_PAS_CODEUR_D = 0.003200126f;  // (27/04/2025)
 const float CAsservissementBase::VOIE_ROBOT = 30.7;                         // (27/04/2025)
+#endif
 
 // Cartos spécifique au robo
 const float CAsservissementBase::ini_conv_erreur_dist_vitesse_cur_x[NBRE_POINTS_CARTO_ERREUR] = {-40, -20, -10, -4, -2, -1, 0, 1, 2, 4, 10, 20, 40};							// [cm]
