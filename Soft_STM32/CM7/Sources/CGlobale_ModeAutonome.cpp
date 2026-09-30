@@ -144,7 +144,16 @@ void CGlobale::SequenceurModeAutonome(void)
             if (old_match_en_cours == 0) {  // Ca permet de détecter un front montant du début de match
                 m_LaBotBox.setAllTransmitPeriod(CTrameLaBotBox::NO_PERIODIC);  // Inhibe toutes les émissions de trames
                 m_LaBotBox.m_ETAT_MATCH.setTransmitPeriod(190);                // sauf la trame spécifique match (190 pour ne pas etre sur le meme tick sequenceur que celle a 200msec)
+#ifdef TELEMETRIE_ESSAIS_EVITEMENT_EN_MATCH
+                // Essais evitement 2027 (cf. ConfigSpecifiqueCoupe.h, cout en temps de match) : pose a 100 ms pour
+                // l'associer aux tours lidar (125 ms) enregistres par l'ecran, et verdict de l'evitement.
+                // 210 ms : periode decalee de celles des autres trames, pour ne pas cumuler leurs emissions
+                // bloquantes sur le meme tick a chaque periode
+                m_LaBotBox.m_POSITION_ABSOLUE_XY_TETA.setTransmitPeriod(100);
+                m_LaBotBox.m_ETAT_EVITEMENT_AE.setTransmitPeriod(210);
+#else
                 m_LaBotBox.m_POSITION_ABSOLUE_XY_TETA.setTransmitPeriod(500);
+#endif
                 //m_LaBotBox.m_CPU_CMDE_TRAME.setTransmitPeriod(200); //recoit des infos génériques de la rasp comme des traitements video
                 //m_LaBotBox.m_CPU_ETAT_TRAME.setTransmitPeriod(200); //envoit des demandes génériques à la rasp comme des demande de traitement video
             }

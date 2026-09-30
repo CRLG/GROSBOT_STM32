@@ -31,6 +31,18 @@
     #define UTILISATION_YDLIDAR     // active le YDLIDAR si c'est le LIDAR interne qui est choisi
 #endif
 
+// Atelier evitement 2027 -- telemetrie d'ESSAI pendant le match, vers l'ecran (LaBotBox embarque)
+// Au depart du match, le sequenceur coupe toutes les trames vers l'ecran sauf ETAT_MATCH (190 ms) et
+// POSITION_ABSOLUE_XY_TETA (500 ms). Pour les essais sur table, l'ecran enregistre chaque tour lidar
+// avec la pose du robot et le verdict de l'evitement : cette option porte la pose a 100 ms et
+// maintient ETAT_EVITEMENT_AE (210 ms) pendant le match.
+// !! COUT : l'emission vers l'ecran est BLOQUANTE (HAL_UART_Transmit, ~87 us/octet a 115200 bauds) et
+// le sequenceur perd les ticks de 1 ms qu'elle recouvre. Or TempsMatch compte les pas du modele et non
+// le temps reel : estimation ~2 % de ticks perdus, soit une fin de match retardee de ~1 a 2 s
+// (DUREE_MATCH = 100 s, sans marge). Le decalage se mesure sur les enregistrements de l'ecran
+// (TempsMatch contre son horloge). A COMMENTER pour la competition et l'homologation.
+#define TELEMETRIE_ESSAIS_EVITEMENT_EN_MATCH
+
 // Interface de communication pour les échanges Labotbox
 //#define ECHANGES_LABOTBOX_PAR_ETHERNET
 #define ECHANGES_LABOTBOX_PAR_RS232
