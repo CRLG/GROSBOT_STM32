@@ -85,24 +85,32 @@
 #define FILTRE_DISPARITION_OBSTACLE_LIDAR (10)
 #define FILTRE_DISPARITION_OBSTACLE_US (0)
 // Affectation des numéros de stratégie
+// Atelier evitement 2027 : les strategies de la coupe 2026 sont remplacees par les ESSAIS SUR TABLE de
+// l'atelier (plan de validation, doc_evitement/). Une strategie = un essai ; les deux robots choisissent
+// la MEME strategie et des couleurs opposees : la couleur attribue le role (cf. Modelia/essais_atelier.cpp).
+// Le numero est le rang dans la liste de l'ecran : l'ordre et les noms doivent rester ALIGNES avec
+// CEcran::strategyNumToString() (Simulia/PluginModules/Ecran/CEcran.cpp), qui sert aussi a nommer les
+// enregistrements du lidar. La strategie 0 (defaut a la mise sous tension) ne bouge pas.
 typedef enum {
-    STRATEGIE_PAR_DEFAUT= 0,
-    STRATEGIE_HOMOLO1,
-    STRATEGIE_HOMOLO2,
-    STRATEGIE_01,
-    STRATEGIE_02,
-    STRATEGIE_03,
-    STRATEGIE_04,
-    STRATEGIE_05,
-    STRATEGIE_06,
-    // _____________________
-    STRATEGIE_TEST_01 = 30,
-    STRATEGIE_TEST_02,
-    STRATEGIE_TEST_03,
-    STRATEGIE_TEST_04,
-    STRATEGIE_TEST_05,
-    STRATEGIE_TEST_06,
-    STRATEGIE_TEST_07
+    STRATEGIE_IMMOBILE = 0,
+    STRATEGIE_E1_SEUL,
+    STRATEGIE_E1_DECOR,
+    STRATEGIE_E1_DISTANCE,
+    STRATEGIE_E1_OMBRE,
+    STRATEGIE_E2_ROTATION,
+    STRATEGIE_E2_APPROCHE,
+    STRATEGIE_E2_TRAVERSE,
+    STRATEGIE_E3_APPROCHE,
+    STRATEGIE_E3_A_VIDE,
+    STRATEGIE_E4_FACE_AE,
+    STRATEGIE_E4_FACE_ASYM,
+    STRATEGIE_E4_CROISEMENT,
+    STRATEGIE_E4_POURSUITE,
+    STRATEGIE_E4_COIN,
+    STRATEGIE_E5_HOMOLO,
+    STRATEGIE_E6_PARCOURS_AE,
+    STRATEGIE_E6_PARCOURS_ATTENDRE,
+    NOMBRE_STRATEGIES_ATELIER
 }eATTRIBUTION_STRATEGIES;
 
 // Affectation des sorties moteurs
@@ -327,23 +335,28 @@ typedef enum {
 #define TEMPO_AE_BLOCAGE_PAS_MS (1000)
 
 // Position d'init du robot dans le repère absolue terrain
+// Atelier evitement 2027 : depart representatif de 2027, ARRIERE COLLE CONTRE LA PETITE BORDURE, au
+// milieu de celle-ci (Y = 100), axe du robot parallele aux grandes bordures, face au centre du terrain.
+// X = distance du centre du robot a l'arriere, propre a chaque robot (valeurs deduites des departs 2026,
+// ou l'arriere etait colle a la grande bordure : 28.5 cm pour CRLG, 35 cm pour CRLGirls).
+// Le cap de depart est impose a l'asservissement par IA::match_started() (0 = face au centre).
+#define LONGUEUR_TERRAIN_CM                   (300.0f)
 #if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
-// CRLGirls (branche CRLGG) : depart plus bas, et cap oppose en couleur 2
-#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (165.0f)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (35.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (100.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (0.0f)
 
-#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (165.0f)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (PI/2.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (LONGUEUR_TERRAIN_CM - 35.0f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (100.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (0.0f)
 #else
-#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (42.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (171.5f)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (-PI/2.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_1        (28.5f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_1        (100.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_1    (0.0f)
 
-#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (258.0f)
-#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (171.5f)
-#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (-PI/2.0f)
+#define X_ROBOT_TERRAIN_INIT_COULEUR_2        (LONGUEUR_TERRAIN_CM - 28.5f)
+#define Y_ROBOT_TERRAIN_INIT_COULEUR_2        (100.0f)
+#define ANGLE_ROBOT_TERRAIN_INIT_COULEUR_2    (0.0f)
 #endif
 
 // Coordonnées dans le repère absolue terrain

@@ -76,8 +76,9 @@ void CGlobale::Run(void)
 
 #if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
     // Atelier evitement 2027 : ce firmware porte les commandes de servos de CRLG (autotest lance a chaque
-    // mise sous tension, sm_centre des strategies HOMOLO, boutons actionneurs de l'ecran), qui envoient
-    // les servos de CRLGirls hors de leur course (ex. bras thermo droit, 1570..2440, commande a 800).
+    // mise sous tension, boutons actionneurs de l'ecran), qui enverraient les servos de CRLGirls hors de
+    // leur course (ex. bras thermo droit, 1570..2440). Pour les essais de l'atelier, les actionneurs sont
+    // de plus debranches sur les deux robots : ce verrou reste une seconde barriere.
     // Butee min = butee max = position rangee : toute commande est saturee sur cette position, le robot
     // garde ses bras et pinces rentres. Les servos 1, 4 et 6 ne sont pas attribues sur CRLGirls.
     m_servos.setButeesMinMaxPosition(SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE, SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE_RANGE, SERVO_CRLGIRLS_BRAS_THERMO_GAUCHE_RANGE);

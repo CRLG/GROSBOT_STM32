@@ -15,12 +15,7 @@ IA::IA()
     : IABase()
 {
     m_sm_liste[m_state_machine_count++] = &m_sm_autotest;
-    m_sm_liste[m_state_machine_count++] = &m_sm_chasse_neige;
-    m_sm_liste[m_state_machine_count++] = &m_sm_centre;
-    m_sm_liste[m_state_machine_count++] = &m_sm_curseur;
-    m_sm_liste[m_state_machine_count++] = &m_sm_retour_zone_depart;
-    m_sm_liste[m_state_machine_count++] = &m_sm_petite_bordure;
-    m_sm_liste[m_state_machine_count++] = &m_sm_grande_bordure;
+    m_sm_liste[m_state_machine_count++] = &m_sm_essai_atelier;
 
     // Pour Blockly débutant:
     m_sm_liste[m_state_machine_count++] = &m_sm_tache1;
@@ -67,7 +62,9 @@ void IA::init()
 void IA::match_started()
 {
     //Application.m_power_electrobot.setOutput((dsPicPowerElectrobotBase::tSwitchOutput)DECO_LED_CRLG, true);)
-    m_outputs_interface.setPosition_XYTeta_sym(0, 0, -M_PI/2); // pour l'année 2026 Teta=-PI/2
+    // Atelier evitement 2027 : depart face au centre du terrain (arriere contre la petite bordure),
+    // soit Teta = 0 dans le repere de l'asservissement (en 2026 : Teta=-PI/2, face au bas du terrain)
+    m_outputs_interface.setPosition_XYTeta_sym(0, 0, 0);
 }
 
 // ________________________________________________
@@ -83,97 +80,23 @@ void IA::match_finished()
 //      Lui fixe une priorité d'exécution (0 étant la priorité la plus haute)
 void IA::setStrategie(unsigned char strategie)
 {
-    int ordre = 0;
     resetAllSMPriority();
     disableAllSM(); // Désactive toutes les SM par défaut (elles seront activées une par une avec la priorité associée en fonction de la stratégie)
 
-    //strategie = STRATEGIE_PAR_DEFAUT;
-    switch (strategie) {
-    // ________________________
-    case STRATEGIE_HOMOLO1:
-        m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
-        m_datas_interface.evit_inhibe_obstacle=false;
-        //Application.m_detection_obstacles.inhibeDetection(true);
-        Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
-        Application.m_asservissement.setIndiceSportivite(0.5);
-        // Atelier evitement 2027 : les strategies d'homologation portent la nouvelle strategie AE,
-        // les autres gardent ATTENDRE. C'est volontaire : sur table, changer de numero de strategie
-        // suffit a comparer l'ancien et le nouveau comportement sur le meme parcours.
-        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_AE;
-        Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
-        m_datas_interface.evit_nombre_max_tentatives=1;
+    // Atelier evitement 2027 : chaque strategie est un essai sur table (cf. essais_atelier.cpp). Les
+    // reglages communs sont poses ici ; le script de l'essai choisit ensuite, a la tirette et selon la
+    // couleur, l'evitement de son role (AE, historique, ou inhibe pour un robot qui sert de cible).
+    if (strategie >= NOMBRE_ESSAIS_ATELIER) strategie = STRATEGIE_IMMOBILE;  // numero inconnu : on ne bouge pas
+    m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
+    m_datas_interface.evit_inhibe_obstacle=false;
+    Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
+    Application.m_asservissement.setIndiceSportivite(0.5);
+    m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
+    Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
+    m_datas_interface.evit_nombre_max_tentatives=1;
 
-        m_sm_centre.setPrioriteExecution(ordre++);
-        m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        /*m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
-
-        break;
-    // ________________________
-    case STRATEGIE_HOMOLO2:
-        m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
-        m_datas_interface.evit_inhibe_obstacle=false;
-        //Application.m_detection_obstacles.inhibeDetection(true);
-        Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
-        Application.m_asservissement.setIndiceSportivite(0.5);
-        // Atelier evitement 2027 : les strategies d'homologation portent la nouvelle strategie AE,
-        // les autres gardent ATTENDRE. C'est volontaire : sur table, changer de numero de strategie
-        // suffit a comparer l'ancien et le nouveau comportement sur le meme parcours.
-        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_AE;
-        Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
-        m_datas_interface.evit_nombre_max_tentatives=1;
-
-        m_sm_centre.setPrioriteExecution(ordre++);
-        m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        /*m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
-        break;
-    // ________________________
-    case STRATEGIE_01:
-        m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
-        m_datas_interface.evit_inhibe_obstacle=false;
-        //Application.m_detection_obstacles.inhibeDetection(true);
-        Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
-        Application.m_asservissement.setIndiceSportivite(0.5);
-        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
-        Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
-        m_datas_interface.evit_nombre_max_tentatives=1;
-
-        m_sm_centre.setPrioriteExecution(ordre++);
-        m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        /*m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
-        break;
-    case STRATEGIE_PAR_DEFAUT:
-    default:
-        m_datas_interface.choix_algo_next_mission = ALGO_PERTINENT_MISSION_CHOIX_PRIORITE;
-        m_datas_interface.evit_inhibe_obstacle=false;
-        //Application.m_detection_obstacles.inhibeDetection(true);
-        Application.m_asservissement.CommandeVitesseMouvement(40.,2); //normalement 80 cm.s-1 et 3 rad.s-1
-        Application.m_asservissement.setIndiceSportivite(0.5);
-        m_datas_interface.evit_choix_strategie= SM_DatasInterface::STRATEGIE_EVITEMENT_ATTENDRE;
-        Application.m_detection_obstacles.setSeuilDetectionObstacle(SEUIL_DETECTION_US); //par défaut seuil de détection avec les capteurs US en backup
-        m_datas_interface.evit_nombre_max_tentatives=1;
-
-        m_sm_centre.setPrioriteExecution(ordre++);
-        m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        /*m_sm_curseur.setPrioriteExecution(ordre++);
-        m_sm_retour_zone_depart.setPrioriteExecution(ordre++);
-        m_sm_petite_bordure.setPrioriteExecution(ordre++);
-        m_sm_grande_bordure.setPrioriteExecution(ordre++);*/
-        break;
-    }
-
+    m_sm_essai_atelier.setEssai(&ESSAIS_ATELIER[strategie]);
+    m_sm_essai_atelier.setPrioriteExecution(0);
 
     m_datas_interface.ChoixStrategieMatch = strategie;
 }
@@ -181,14 +104,8 @@ void IA::setStrategie(unsigned char strategie)
 // ________________________________________________
 void IA::setMaxScores()
 {
-    // TODO : valeurs des scores max fixées au pif.
-    // Mettre les vraies valeurs
-    m_sm_centre.setScoreMax(25);
-    m_sm_curseur.setScoreMax(0);
-    m_sm_retour_zone_depart.setScoreMax(4);
-    m_sm_chasse_neige.setScoreMax(0);
-    m_sm_grande_bordure.setScoreMax(10);
-    m_sm_petite_bordure.setScoreMax(10);
+    // Atelier evitement 2027 : le score maximal de la mission d'essai est fixe par setEssai()
+    // (un point par sommet atteint dans les essais de parcours)
 }
 
 // ________________________________________________
@@ -482,10 +399,24 @@ void IA::step()
 				(m_inputs_interface.obstacle_AVD << 0);
 	}//fin Traitements capteurs US pour évitement
 
+    // Atelier evitement 2027 : avant la tirette, le mode d'evitement du role (essai et couleur choisis
+    // a l'ecran) est deja en place -- cf. SM_EssaiAtelier::preparerEvitement()
+    if (m_datas_interface.TempsMatch < 0.f) {
+        m_sm_essai_atelier.preparerEvitement();
+    }
+
     // ---- Couche 4 : strategie d'evitement AE (echelle de phases reentrante).
     // Placee APRES les deux chaines de detection : c'est elle qui decide, le cas echeant, de
     // substituer le verdict tactique au declenchement historique par capteurs.
     gererStrategieAE(sens_reference_detection);
+
+    // Atelier evitement 2027 : un robot qui sert de cible ou de mobile de reference pendant un essai
+    // (evit_inhibe_obstacle, pose par le script de l'essai) ne doit jamais entrer en evitement. La
+    // perception, le suivi, l'evaluation tactique et la telemetrie continuent : c'est ce qu'il
+    // enregistre. Le plafond de vitesse AE est neutralise de meme dans gererStrategieAE().
+    if (m_datas_interface.evit_inhibe_obstacle) {
+        m_inputs_interface.obstacleDetecte_non_filtre = false;
+    }
 
     // Mise en forme de données pour le modèle
     m_inputs_interface.FrontM_Convergence = m_inputs_interface.Convergence && !m_inputs_interface.Convergence_old;
@@ -518,6 +449,12 @@ void IA::step()
         m_inputs_interface.obstacleDetecte = true;
     }
     else if (m_datas_interface.cpt_filtrage_disparition_obstacle > filtre_disparition) {
+        m_inputs_interface.obstacleDetecte = false;
+    }
+    // Atelier evitement 2027 : robot inhibe -> la valeur FILTREE retombe elle aussi, sans attendre le
+    // filtre de disparition ; sinon un obstacle vu juste avant la tirette lancerait l'evitement au
+    // premier passage du match.
+    if (m_datas_interface.evit_inhibe_obstacle) {
         m_inputs_interface.obstacleDetecte = false;
     }
 
@@ -626,7 +563,7 @@ float IA::calculerSensReferenceDetection()
  * vaut donc angle_robot, ou angle_robot + PI.
  *
  * ATTENTION : angle_robot_terrain n'est PAS ce cap. C'est le cap RELATIF AU DÉPART
- * (angle_robot - ANGLE_ROBOT_TERRAIN_INIT, soit 90 degrés d'écart cette année) ; s'en servir pour
+ * (angle_robot - ANGLE_ROBOT_TERRAIN_INIT : un demi-tour d'écart en couleur 2) ; s'en servir pour
  * projeter un point ferait pivoter d'un quart de tour tout ce que voit le lidar.
  */
 float IA::capTerrainRobot()
@@ -664,7 +601,8 @@ float IA::capTerrainRobot()
 void IA::gererStrategieAE(float sens_reference_detection)
 {
     const bool ae_active = (m_datas_interface.evit_choix_strategie == SM_DatasInterface::STRATEGIE_EVITEMENT_AE)
-                           && (m_inputs_interface.m_lidar_status == LidarUtils::LIDAR_OK);
+                           && (m_inputs_interface.m_lidar_status == LidarUtils::LIDAR_OK)
+                           && !m_datas_interface.evit_inhibe_obstacle;
 
     // Stratégie non sélectionnée ou lidar hors service : on rend le robot à son comportement
     // historique, plafond de vitesse restitué et échelle remise à plat.

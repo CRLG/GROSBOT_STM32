@@ -3,6 +3,7 @@
 #include "CGlobale.h"
 
 WS2812b::WS2812b()
+    : m_compteur_bandeau(0)
 {
 }
 
@@ -50,9 +51,25 @@ void WS2812b::compute_bandeau()
     // _________________________________________
     case BANDEAU_INIT :
         if (m_duree_mode_bandeau <= (6000/PERIODE_APPEL_GESTION_BANDEAU)) {
+#if (ROBOT_CIBLE == ROBOT_CRLGIRLS)
+            // Animation de demarrage de CRLGirls (reprise de la branche CRLGG) : balayage violet puis
+            // retour blanc. Pendant les essais de l'atelier, c'est elle qui permet de reconnaitre le
+            // robot, et donc de verifier qu'il porte le bon firmware.
+            if (m_duree_mode_bandeau <= (3000/PERIODE_APPEL_GESTION_BANDEAU)) {
+                setColor(m_duree_mode_bandeau*2, RGBColor::PURPLE, 10);
+                setColor(m_duree_mode_bandeau*2+1, RGBColor::PURPLE, 10);
+                m_compteur_bandeau = 25;
+            }
+            else {
+                setColor(m_compteur_bandeau*2, RGBColor::WHITE, 10);
+                setColor(m_compteur_bandeau*2+1, RGBColor::WHITE, 10);
+                if (m_compteur_bandeau > 0) m_compteur_bandeau -= 1;
+            }
+#else
             setColor(m_duree_mode_bandeau, RGBColor::BLUE, 10);
             setColor(m_duree_mode_bandeau+1, RGBColor::GREEN, 10);
             setColor(m_duree_mode_bandeau+2, RGBColor::RED, 10);
+#endif
         }
         else {
              if (Application.ModeFonctionnement == MODE_AUTONOME) {

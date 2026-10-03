@@ -7,12 +7,7 @@
 #include "sm_autotest.h"
 
 #include "sm_debuginterface.h"
-#include "sm_retourzonedepart.h"
-#include "sm_chasseneige.h"
-#include "sm_centre.h"
-#include "sm_curseur.h"
-#include "sm_petitebordure.h"
-#include "sm_grandebordure.h"
+#include "sm_essai_atelier.h"
 #include "sm_blockly_debutant.h"
 
 class IA : public IABase
@@ -22,12 +17,9 @@ public:
 
     // States machines
     SM_Autotest                         m_sm_autotest;
-    SM_ChasseNeige                      m_sm_chasse_neige;
-    SM_Curseur                          m_sm_curseur;
-    SM_Centre                           m_sm_centre;
-    SM_RetourZoneDepart                 m_sm_retour_zone_depart;
-    SM_GrandeBordure                    m_sm_grande_bordure;
-    SM_PetiteBordure                    m_sm_petite_bordure;
+    // Atelier evitement 2027 : les missions de la coupe 2026 sont remplacees par la mission generique
+    // des essais sur table, dont le script est choisi par la strategie (cf. essais_atelier.cpp)
+    SM_EssaiAtelier                     m_sm_essai_atelier;
 
     // SM blockly
     SM_Tache1                           m_sm_tache1;
